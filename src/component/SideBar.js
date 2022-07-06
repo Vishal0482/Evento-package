@@ -1,8 +1,10 @@
 import React from "react";
 import logoImage from "../assest/svg/logo.svg";
 import userImage from "../assest/images/user-2.png";
+import DashboardEvent from "./events/DashboardEvent";
 
-function SideBar() {
+function SideBar({children}) {
+  
   return (
     <div class="main flex min-h-screen">
       {/* <!-- Left Panel --> */}
@@ -145,7 +147,9 @@ function SideBar() {
 
         {/* <!-- Content In --> */}
         <div class="rightInContent">
-          <div class="wrapper"></div>
+          <div class="wrapper">
+            {children}
+          </div>
         </div>
       </div>
     </div>
