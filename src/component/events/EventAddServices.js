@@ -1,7 +1,10 @@
-import React from 'react'
+import React, {useState} from 'react'
 import cuttingBoard from "../../assest/images/cutting-board.png"
 
 function EventAddServices() {
+
+	const [isAddServicesPopUpOpen, setIsAddServicesPopUpOpen] = useState(false)
+
   return (
 	//  <!-- Content In -->
 	 <div class="rightInContent">

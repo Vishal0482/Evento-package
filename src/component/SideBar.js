@@ -1,7 +1,7 @@
 import React from "react";
 import logoImage from "../assest/svg/logo.svg";
 import userImage from "../assest/images/user-2.png";
-import DashboardEvent from "./events/DashboardEvent";
+import Modal from "./modal/Modal.js"
 
 function SideBar({children}) {
   
@@ -144,7 +144,11 @@ function SideBar({children}) {
             </div>
           </div>
         </div>
-
+        <Modal isOpen={false}>
+          <form>
+            Enter Name : <input></input>
+          </form>
+        </Modal>
         {/* <!-- Content In --> */}
         <div class="rightInContent">
           <div class="wrapper">

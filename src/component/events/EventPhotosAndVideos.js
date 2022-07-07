@@ -1,9 +1,16 @@
-import React from 'react'
+import React, {useState} from 'react'
 import ringAd from "../../assest/images/ring-ad.png"
+import Modal from "../modal/Modal";
 import uploadOne from "../../assest/images/upload-1.png"
+import EventPopUpUploadPhoto from './popups/EventPopUpUploadPhoto'
+import EventPopUpUploadVideo from "./popups/EventPopUpUploadVideo"
 
 
 function EventPhotosAndVideos() {
+
+const [isUploadPhotoPopUpOpen, setIsUploadPhotoPopUpOpen] = useState(false)
+const [isUploadVideoPopUpOpen, setIsUploadVideoPopUpOpen] = useState(false)
+
   return (
 	//  <!-- Content In -->
 	 <div class="rightInContent">
@@ -83,8 +90,8 @@ function EventPhotosAndVideos() {
 		 <div class="space-y-5">
 		   <div class="upload-holder">
 			   <h3 class="flex items-end">Photo <span class="input-titel ml-2">5 Images (up to 5MB/Image)</span></h3>
-			   <label for="upload" class="upload">
-				 <input type="file" name="images" id="upload" class="appearance-none hidden"/>
+			   <label onClick={()=>setIsUploadPhotoPopUpOpen(true)} for="upload" class="upload">
+				 <input  name="images" id="upload" class="appearance-none hidden"/>
 				 <span class="input-titel mt-1"><i class="icon-image mr-2"></i>Upload Images</span>
 			   </label>
 		   </div>
@@ -107,8 +114,8 @@ function EventPhotosAndVideos() {
 		   </div>
 		   <div class="upload-holder">
 			   <h3 class="flex items-end">videos <span class="input-titel ml-2">2 videos (up to 512MB/video)</span></h3>
-			   <label for="upload2" class="upload">
-				 <input type="file" name="images" id="upload2" class="appearance-none hidden"/>
+			   <label onClick={()=>setIsUploadVideoPopUpOpen(true)} for="upload2" class="upload">
+				 <input  name="images" id="upload2" class="appearance-none hidden"/>
 				 <div class="mt-1 flex items-baseline justify-center"><i class="icon-video-play text-base mr-2"></i> <span class="input-titel pt-1">Upload videos</span></div>
 			   </label>
 		   </div>
@@ -144,6 +151,15 @@ function EventPhotosAndVideos() {
 		 <button type="button" class="flex items-center active"><h3>Next</h3><i class="icon-next-arrow ml-3"></i></button>
 	   </div>
 	 </div>
+	 <div>
+	 <Modal isOpen={isUploadPhotoPopUpOpen}>
+		<EventPopUpUploadPhoto handleClose={setIsUploadPhotoPopUpOpen}/>
+	 </Modal>
+	 <Modal isOpen={isUploadVideoPopUpOpen}>
+		<EventPopUpUploadVideo handleClose={setIsUploadVideoPopUpOpen}/>
+	</Modal>
+	 </div>
+
    </div>
   )
 }

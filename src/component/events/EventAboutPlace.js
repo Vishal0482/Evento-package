@@ -1,7 +1,11 @@
-import React from 'react'
+import React, {useState} from 'react'
 import ringAd from "../../assest/images/ring-ad.png"
 
 function EventAboutPlace() {
+
+	
+	const [isAddPlaceWithDisplayNamePopUpOpen, setIsAddPlaceWithDisplayNamePopUpOpen] = useState(false);
+  
   return (
 	//  <!-- Content In -->
 	 <div class="rightInContent">
@@ -128,6 +132,7 @@ function EventAboutPlace() {
 		 <button type="button" class="flex items-center active"><h3>Next</h3><i class="icon-next-arrow ml-3"></i></button>
 	   </div>
 	 </div>
+
    </div>
   )
 }

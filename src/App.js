@@ -38,7 +38,7 @@ function App() {
             <Route exact path="/dashboard/event/termsandconditions" element={<EventTermsAndConditions />} />
             <Route exact path="/dashboard/event/discounts" element={<EventDiscounts />} />
             <Route exact path="/dashboard/event/calender" element={<EventCalender />} />
-
+            
           </Routes>
         </SideBar>
       </BrowserRouter>

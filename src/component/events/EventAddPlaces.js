@@ -1,8 +1,14 @@
-import React from 'react'
+import React, {useState} from 'react'
 import ringAd from "../../assest/images/ring-ad.png"
+import Modal from "../modal/Modal";
+import EventPopUpAddPlaceWithDisplayName from "./popups/EventPopUpAddPlaceWithDisplayName";
 
 
 function EventAddPlaces() {
+
+
+	const [isAddPlaceWithDisplayNamePopUpOpen, setIsAddPlaceWithDisplayNamePopUpOpen] = useState(false);
+
   return (
 	//  <!-- Content In -->
 	 <div class="rightInContent">
@@ -11,7 +17,7 @@ function EventAddPlaces() {
 		 {/* <!-- title-holder  --> */}
 		 <div class="flex justify-between items-center">
 			 <a href="#" class="flex items-center"><i class="icon-back-arrow mr-4 text-2xl"></i><h1>Create New</h1></a>
-			 <a href="#" class="btn-primary small"><i class="icon-plus mr-3"></i>Add place</a>
+			 <button href="#" onClick={()=>setIsAddPlaceWithDisplayNamePopUpOpen(true)} class="btn-primary small"><i class="icon-plus mr-3"></i>Add place</button>
 		 </div>
 		 {/* <!-- step-progress-bar  --> */}
 		 <div class="w-full overflow-hidden">
@@ -131,7 +137,12 @@ function EventAddPlaces() {
 		 <button type="button" class="flex items-center active"><h3>Next</h3><i class="icon-next-arrow ml-3"></i></button>
 	   </div>
 	 </div>
+	 <Modal isOpen={isAddPlaceWithDisplayNamePopUpOpen}>
+		<EventPopUpAddPlaceWithDisplayName handleClose={setIsAddPlaceWithDisplayNamePopUpOpen}/>
+	 </Modal>
+	 
    </div>
+
   )
 }
 

@@ -1,8 +1,17 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 import sweetLoveCatering from "../../assest/images/sweet-love-catering.png";
 import ringAd from "../../assest/images/ring-ad.png"
+
+import Modal from '../modal/Modal';
+import EventPopUpCreateNew from './popups/EventPopUpCreateNew';
+
+
 function DashboardEvent() {
+
+
+	const [isCreateNewPopUpOpen, setIsCreateNewPopUpOpen] = useState(false);
+
   return ( 
 	<div class="rightInContent">
 	  <div class="wrapper">
@@ -17,7 +26,7 @@ function DashboardEvent() {
 			  <option value="">All Category</option>
 			</select>
 			<button class="bg-white px-5 py-3 text-japaneseIndigo font-bold rounded-md tracking-wider">MultipleLive</button>
-			<a href="#" class="btn-primary"><i class="icon-plus mr-3"></i>Create New</a>
+			<button href="#" onClick={()=>setIsCreateNewPopUpOpen(true)} class="btn-primary"><i class="icon-plus mr-3"></i>Create New</button>
 		  </div>
 		</div>
 		<div class="space-y-5 pt-10">
@@ -125,6 +134,9 @@ function DashboardEvent() {
 			  </div>
 			</div>
 		  </div>
+		  	 <Modal isOpen={isCreateNewPopUpOpen} >
+		<EventPopUpCreateNew handleClose={setIsCreateNewPopUpOpen}/>
+	 </Modal>
 		</div>
 		{/* <!-- advisement --> */}
 		<div class="w-full mt-5">
