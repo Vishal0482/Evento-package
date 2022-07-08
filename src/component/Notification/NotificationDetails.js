@@ -1,10 +1,17 @@
 import React, { useState } from "react";
+import BottomNavigation from "../BottomNavigation";
+import Modal from "../modal/Modal";
+import NotificationDetailsPreviewPopup from "./popups/NotificationDetailsPreviewPopup";
 
 function NotificationDetails() {
   const [title, setTitle] = useState("");
   const [link, setLink] = useState("");
   const [image, setImage] = useState("");
   const [description, setDescription] = useState("");
+  const [
+    isNotificationDetailPreviewPopupOpen,
+    setIsNotificationDetailPreviewPopupOpen,
+  ] = useState(false);
 
   return (
     <div className="wrapper min-h-full">
@@ -24,13 +31,21 @@ function NotificationDetails() {
                 {" "}
                 Notification Title
               </span>
-              <input type="text" className="input" onChange={(e) => setTitle(e.target.value)} />
+              <input
+                type="text"
+                className="input"
+                onChange={(e) => setTitle(e.target.value)}
+              />
             </div>
             <div className="w-full md:w-1/2 px-2 inputHolder">
               <span className="input-titel text-lg text-japaneseIndigo font-bold">
                 Link
               </span>
-              <input type="text" className="input" onChange={(e) => setLink(e.target.value)} />
+              <input
+                type="text"
+                className="input"
+                onChange={(e) => setLink(e.target.value)}
+              />
             </div>
           </div>
           <div className="upload-holder">
@@ -101,17 +116,21 @@ function NotificationDetails() {
             </div>
           </div>
           <div className="text-right">
-            <button className="btn-primary">preview</button>
-          </div>
-          <div className="prw-next-btn">
-            <button type="button" className="flex items-center">
-              <i className="icon-back-arrow mr-3"></i>
-              <h3>Back</h3>
+            <button
+              className="btn-primary"
+              onClick={() => setIsNotificationDetailPreviewPopupOpen(true)}
+            >
+              preview
             </button>
-            <button className="btn-primary">Done</button>
           </div>
+          <BottomNavigation />
         </div>
       </div>
+      <Modal isOpen={isNotificationDetailPreviewPopupOpen}>
+        <NotificationDetailsPreviewPopup
+          handleClose={setIsNotificationDetailPreviewPopupOpen}
+        />
+      </Modal>
     </div>
   );
 }

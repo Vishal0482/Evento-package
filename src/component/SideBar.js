@@ -1,98 +1,100 @@
 import React from "react";
 import logoImage from "../assest/svg/logo.svg";
 import userImage from "../assest/images/user-2.png";
+import Modal from "./modal/Modal.js"
 
-function SideBar({ children }) {
+function SideBar({children}) {
+  
   return (
-    <div class="main flex min-h-screen">
+    <div className="main flex min-h-screen">
       {/* <!-- Left Panel --> */}
-      <div class="leftPanel max-w-[230px] w-full bg-white shadow-md relative z-30">
-        <div class="logo text-center px-4 pt-5 pb-8">
-          <a href="#" class="block">
+      <div className="leftPanel max-w-[230px] w-full bg-white shadow-md relative z-30">
+        <div className="logo text-center px-4 pt-5 pb-8">
+          <a href="#" className="block">
             <img
-              src={logoImage}
+              src={ logoImage } 
               alt="Evento Package Logo"
-              class="max-w-full w-auto mx-auto"
+              className="max-w-full w-auto mx-auto"
             />
           </a>
         </div>
-        <div class="nav">
-          <a href="#" class="active" title="Dashboard">
+        <div className="nav">
+          <a href="#" className="active" title="Dashboard">
             <span>
-              <i class="w-6 block text-center text-lg icon-deshbord"></i>
+              <i className="w-6 block text-center text-lg icon-deshbord"></i>
             </span>
             <span>Dashboard</span>
           </a>
-          <a href="#" class="" title="Subscription">
+          <a href="#" className="" title="Subscription">
             <span>
-              <i class="w-6 block text-center text-lg icon-subsciption"></i>
+              <i className="w-6 block text-center text-lg icon-subsciption"></i>
             </span>
             <span>Subscription</span>
           </a>
-          <a href="#" class="" title="Refer & Earn">
+          <a href="#" className="" title="Refer & Earn">
             <span>
-              <i class="w-6 block text-center text-lg icon-refer"></i>
+              <i className="w-6 block text-center text-lg icon-refer"></i>
             </span>
             <span>Refer & Earn</span>
           </a>
-          <a href="#" class="" title="Redeem">
+          <a href="#" className="" title="Redeem">
             <span>
-              <i class="w-6 block text-center text-lg icon-redem"></i>
+              <i className="w-6 block text-center text-lg icon-redem"></i>
             </span>
             <span>Redeem</span>
           </a>
-          <a href="#" class="" title="Help & FAQ">
+          <a href="#" className="" title="Help & FAQ">
             <span>
-              <i class="w-6 block text-center text-lg icon-help"></i>
+              <i className="w-6 block text-center text-lg icon-help"></i>
             </span>
             <span>Help & FAQ</span>
           </a>
-          <a href="#" class="" title="Gallery">
+          <a href="#" className="" title="Gallery">
             <span>
-              <i class="w-6 block text-center text-lg icon-gallery"></i>
+              <i className="w-6 block text-center text-lg icon-gallery"></i>
             </span>
             <span>Gallery</span>
           </a>
-          <a href="#" class="" title="Festum Evento">
+          <a href="#" className="" title="Festum Evento">
             <span>
-              <i class="w-6 block text-center text-lg icon-f-evanto"></i>
+              <i className="w-6 block text-center text-lg icon-f-evanto"></i>
             </span>
             <span>Festum Evento</span>
           </a>
-          <a href="#" class="" title="Booking">
+          <a href="#" className="" title="Booking">
             <span>
-              <i class="w-6 block text-center text-lg icon-booking"></i>
+              <i className="w-6 block text-center text-lg icon-booking"></i>
             </span>
             <span>Booking</span>
           </a>
-          <a href="#" class="" title="Invoice">
+          <a href="#" className="" title="Invoice">
             <span>
-              <i class="w-6 block text-center text-lg icon-invoice"></i>
+              <i className="w-6 block text-center text-lg icon-invoice"></i>
             </span>
             <span>Invoice</span>
           </a>
-          <a href="#" class="" title="Membership">
+          <a href="#" className="" title="Membership">
             <span>
-              <i class="w-6 block text-center text-lg icon-membership"></i>
+              <i className="w-6 block text-center text-lg icon-membership"></i>
             </span>
             <span>Membership</span>
           </a>
         </div>
       </div>
       {/* <!-- Content --> */}
-      <div class="w-full">
+      <div className="w-full">
         {/* <!-- Top Header --> */}
-        <div class="w-full bg-white py-3.5 px-6 xl:px-12 flex flex-wrap items-center shadow-sm">
+        <div className="w-full bg-white py-3.5 px-6 xl:px-12 flex flex-wrap items-center shadow-sm">
           {/* <!-- Search Box --> */}
-          <form class="w-72 relative bg-brightGray rounded-md flex items-center">
+          <form className="w-72 relative bg-brightGray rounded-md flex items-center">
             <input
               type="text"
               name=""
               id=""
               placeholder="Search"
-              class="w-full h-10 bg-transparent text-sm font-bold pl-3.5 focus:outline-none"
+              className="w-full h-10 bg-transparent text-sm font-bold pl-3.5 focus:outline-none"
             />
-            <button type="submit" class="p-3.5">
+            <button type="submit" className="p-3.5">
               <svg
                 width="12"
                 height="12"
@@ -109,42 +111,46 @@ function SideBar({ children }) {
           </form>
 
           {/* <!-- Right Bar --> */}
-          <div class="ml-auto">
-            <div class="flex items-center space-x-6">
+          <div className="ml-auto">
+            <div className="flex items-center space-x-6">
               <a
                 href="#"
-                class="block hover:text-spiroDiscoBall anim"
+                className="block hover:text-spiroDiscoBall anim"
                 title="Language"
               >
-                <span class="icon-language text-2xl block"></span>
+                <span className="icon-language text-2xl block"></span>
               </a>
               <a
                 href="#"
-                class="block hover:text-spiroDiscoBall anim"
+                className="block hover:text-spiroDiscoBall anim"
                 title="Massage"
               >
-                <span class="icon-massage text-2xl block"></span>
+                <span className="icon-massage text-2xl block"></span>
               </a>
               <a
                 href="#"
-                class="block hover:text-spiroDiscoBall anim"
+                className="block hover:text-spiroDiscoBall anim"
                 title="Megaphone"
               >
-                <span class="icon-megaphone text-2xl block"></span>
+                <span className="icon-megaphone text-2xl block"></span>
               </a>
-              <a href="#" class="block">
+              <a href="#" className="block">
                 <img
-                  src={userImage}
+                  src={ userImage }
                   alt="user name"
-                  class="w-12 h-12 object-cover rounded-2xl"
+                  className="w-12 h-12 object-cover rounded-2xl"
                 />
               </a>
             </div>
           </div>
         </div>
-
+        <Modal isOpen={false}>
+          <form>
+            Enter Name : <input></input>
+          </form>
+        </Modal>
         {/* <!-- Content In --> */}
-        <div class="rightInContent">
+        <div className="rightInContent">
           <div className="wrapper">
             {children}
           </div>

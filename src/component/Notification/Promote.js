@@ -1,0 +1,68 @@
+import React from 'react'
+import Advisement from '../Advisement';
+import BottomNavigation from '../BottomNavigation';
+import AllUserSelectPlan from './AllUserSelectPlan';
+import SelectBusiness from './SelectBusiness';
+
+function Promote() {
+  return (
+        <div className="wrapper min-h-full flex flex-col">
+      <div className="space-y-8 h-full">
+        {/* <!-- title-holder  --> */}
+        <div className="flex justify-between items-center">
+          <a href="#" className="flex items-center">
+            <i className="icon-back-arrow mr-4 text-2xl"></i>
+            <h1>Promote</h1>
+          </a>
+        </div>
+        {/* <!-- step-progress-bar  --> */}
+        <div className="w-full overflow-hidden">
+          <ul className="flex justify-between step-progress-holder">
+            <li>
+              <div>
+                <span>01</span>
+              </div>
+              <h3>Select Business</h3>
+            </li>
+            <li>
+              <div>
+                <span>02</span>
+              </div>
+              <h3>Select Business</h3>
+            </li>
+            <li>
+              <div>
+                <span>03</span>
+              </div>
+              <h3>publish date & time</h3>
+            </li>
+            <li>
+              <div>
+                <span>04</span>
+              </div>
+              <h3>Notification Mode</h3>
+            </li>
+            <li>
+              <div>
+                <span>05</span>
+              </div>
+              <h3> Payment</h3>
+            </li>
+          </ul>
+        </div>
+
+        {/* <SelectBusiness /> */}
+        <AllUserSelectPlan />
+    
+      </div>
+      <div className="mt-auto">
+        {/* <!-- advisement --> */}
+        <Advisement />
+      </div>
+      
+      <BottomNavigation />
+    </div>
+  )
+}
+
+export default Promote;

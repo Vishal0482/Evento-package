@@ -6,6 +6,7 @@ import notificationSvg2 from "../../assest/svg/notification-2.svg";
 
 import NotificationLIstItem from "./NotificationLIstItem";
 import Advisement from "../Advisement";
+import BottomNavigation from "../BottomNavigation";
 
 function Notification() {
   const navigate = useNavigate();
@@ -52,24 +53,15 @@ function Notification() {
               </div>
             </div>
           </div>
-          <NotificationLIstItem imageUrl={notificationSvg2} altText={"random text"} />
-          <NotificationLIstItem imageUrl={notificationSvg2} altText={"random text"} />
+          <NotificationLIstItem imageUrl={notificationSvg2} />
+          <NotificationLIstItem imageUrl={notificationSvg2} />
 
           {/* <!-- advisement --> */}
           <Advisement />
           
-          <NotificationLIstItem imageUrl={notificationSvg2} altText={"random text"} />
+          <NotificationLIstItem imageUrl={notificationSvg2} />
           {/* <!-- next preview button  --> */}
-          <div className="prw-next-btn">
-            <button type="button" className="flex items-center">
-              <i className="icon-back-arrow mr-3"></i>
-              <h3>Back</h3>
-            </button>
-            <button type="button" className="flex items-center active">
-              <h3>Next</h3>
-              <i className="icon-next-arrow ml-3"></i>
-            </button>
-          </div>
+          <BottomNavigation />
         </div>
       </div>
     </div>
