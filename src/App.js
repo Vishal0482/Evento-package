@@ -1,19 +1,26 @@
-import './App.css';
-import "./assest/css/style.css";
 import "./assest/css/fonts.css";
+import "./assest/css/style.css";
 import "./assest/css/moon-icon.css";
+import './App.css';
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 
 import SideBar from './component/SideBar';
+import Notification from './component/Notification/Notification';
+import NotificationHistory from "./component/Notification/NotificationHistory";
+import NotificationDetails from "./component/Notification/NotificationDetails";
+
 
 function App() {
   return (
     <div className="app">
         <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<SideBar />} />
-            <Route path="/dashboard" element={<SideBar />} />
+          <SideBar> 
+          <Routes className="main flex min-h-screen w-full">
+            <Route exact path="/dashboard/notification" element={<Notification />} />
+            <Route exact path="/dashboard/notification/history" element={<NotificationHistory />} />
+            <Route exact path="/dashboard/notification/details" element={<NotificationDetails />} />
           </Routes>
+          </SideBar>
         </BrowserRouter>
     </div>
   );

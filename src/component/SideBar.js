@@ -2,7 +2,7 @@ import React from "react";
 import logoImage from "../assest/svg/logo.svg";
 import userImage from "../assest/images/user-2.png";
 
-function SideBar() {
+function SideBar({ children }) {
   return (
     <div class="main flex min-h-screen">
       {/* <!-- Left Panel --> */}
@@ -10,7 +10,7 @@ function SideBar() {
         <div class="logo text-center px-4 pt-5 pb-8">
           <a href="#" class="block">
             <img
-              src={ logoImage } 
+              src={logoImage}
               alt="Evento Package Logo"
               class="max-w-full w-auto mx-auto"
             />
@@ -134,7 +134,7 @@ function SideBar() {
               </a>
               <a href="#" class="block">
                 <img
-                  src={ userImage }
+                  src={userImage}
                   alt="user name"
                   class="w-12 h-12 object-cover rounded-2xl"
                 />
@@ -145,7 +145,9 @@ function SideBar() {
 
         {/* <!-- Content In --> */}
         <div class="rightInContent">
-          <div class="wrapper"></div>
+          <div className="wrapper">
+            {children}
+          </div>
         </div>
       </div>
     </div>
