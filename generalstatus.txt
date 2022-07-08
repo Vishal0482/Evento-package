@@ -1,3 +1,3 @@
 Queries
 	3.2 dashboard event multiple live popup not found
-	
+	2.9_2 advance and discount confirmation popup not found in file

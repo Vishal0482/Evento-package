@@ -1,5 +1,7 @@
 import React, {useState} from 'react'
 import cuttingBoard from "../../assest/images/cutting-board.png"
+import Modal from "../modal/Modal"
+import EventPopUpAddService from './popups/EventPopUpAddService'
 
 function EventAddServices() {
 
@@ -15,7 +17,7 @@ function EventAddServices() {
 			 <i class="icon-back-arrow mr-4 text-2xl"></i>
 			 <h1>Sweet Love Catering</h1>
 		   </a>
-		   <a href="#" class="btn-primary flex items-center"><i class="icon-plus mr-3"></i><span>Add Service</span></a>
+		   <button onClick={()=>setIsAddServicesPopUpOpen(true)} class="btn-primary flex items-center"><i class="icon-plus mr-3"></i><span>Add Service</span></button>
 		 </div>
 		  {/* <!-- step-progress-bar  --> */}
 		 <div class="w-full overflow-hidden">
@@ -287,6 +289,9 @@ function EventAddServices() {
 		 <button type="button" class="flex items-center active"><h3>Next</h3><i class="icon-next-arrow ml-3"></i></button>
 	   </div>
 	 </div>
+	 <Modal isOpen={isAddServicesPopUpOpen}>
+		<EventPopUpAddService handleClose={setIsAddServicesPopUpOpen}/>
+	 </Modal>
    </div>
   )
 }

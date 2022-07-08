@@ -1,6 +1,11 @@
-import React from 'react'
+import React ,{useState}from 'react'
+import Modal from "../modal/Modal"
+import EventPopUpTermsAndCondition from "./popups/EventPopUpTermsAndConditions"
 
 function EventTermsAndConditions() {
+
+  const [isTermsAndConditionPopUpOpen, setIsTermsAndConditionPopUpOpen] = useState(false)
+
   return (
 		// <!-- Content In -->
         <div class="rightInContent">
@@ -207,7 +212,7 @@ function EventTermsAndConditions() {
                         <input type="checkbox"/>
                         <i class="icon-right"></i>                  
                     </label>
-                    <span class="input-titel text-base ml-4">Accept Your Terms and Conditions</span>
+                    <span class="input-titel text-base ml-4">Accept Your <button onClick={()=>setIsTermsAndConditionPopUpOpen(true)}>Terms and Conditions</button></span>
                 </div>
                 <button class="btn-primary w-full">SAVE</button>
               </div>
@@ -217,6 +222,9 @@ function EventTermsAndConditions() {
               <button type="button" class="flex items-center active"><h3>Next</h3><i class="icon-next-arrow ml-3"></i></button>
             </div>
           </div>
+          <Modal isOpen={isTermsAndConditionPopUpOpen}>
+            <EventPopUpTermsAndCondition handleClose={setIsTermsAndConditionPopUpOpen} /> 
+          </Modal>
         </div>
   )
 }

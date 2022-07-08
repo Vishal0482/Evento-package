@@ -1,10 +1,21 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 import ringAd from "../../assest/images/ring-ad.png"
 import celebration from "../../assest/svg/celebration.svg"
+import Modal from "../modal/Modal"
+import EventPopUpDiscountOnTotalBill  from "./popups/EventPopUpDiscountOnTotalBill"
+import EventPopUpDiscountOnEquipmentOrItem from "./popups/EventPopUpDiscountOnEquipmentOrItem"
+import EventPopUpAdvanceAndDiscountConfirmation from "./popups/EventPopUpAdvanceAndDiscountConfirmation"
+
+
 
 function EventDiscounts() {
-  return (
+
+	const [isDiscountOnTotalBillPopUpOpen, setIsDiscountOnTotalBillPopUpOpen] = useState(false)
+	const [isDiscountOnEquipmentOrItemPopUpOpen, setIsDiscountOnEquipmentOrItemPopUpOpen] = useState(false)
+	const [isAdvanceAndDiscountConfirmationPopUpOpen, setIsAdvanceAndDiscountConfirmationPopUpOpen] = useState(false)
+
+	return (
 	//    <!-- Content In -->
 	   <div class="rightInContent">
 	   <div class="wrapper min-h-full">
@@ -83,7 +94,7 @@ function EventDiscounts() {
 		   </div>
 		   {/* <!-- main-content  --> */}
 		   <div class="space-y-5">
-			 <div class="bg-gradient-to-r from-[#13e1b094] to-[#13E1B0] p-5 pr-8 rounded-lg">
+			 <div onClick={()=>setIsDiscountOnTotalBillPopUpOpen(true)} class="bg-gradient-to-r from-[#13e1b094] to-[#13E1B0] p-5 pr-8 rounded-lg">
 			   <div class="flex justify-between items-center">
 				 <div>
 				   <h1 class="text-white">Discount On Total Bill</h1>
@@ -95,7 +106,7 @@ function EventDiscounts() {
 				 </div>
 			   </div>
 			 </div>
-			 <div class="bg-gradient-to-r from-[#20c0e878] to-[#20C0E8] p-5 pr-8 rounded-lg">
+			 <div onClick={()=>setIsDiscountOnEquipmentOrItemPopUpOpen(true)} class="bg-gradient-to-r from-[#20c0e878] to-[#20C0E8] p-5 pr-8 rounded-lg">
 			   <div class="flex justify-between items-center">
 				 <div>
 				   <h1 class="text-white">Discount On Equipment Or Item</h1>
@@ -107,7 +118,7 @@ function EventDiscounts() {
 				 </div>
 			   </div>
 			 </div>
-			 <div class="bg-gradient-to-r from-[#faba1585] to-[#FABA15] p-5 pr-8 rounded-lg">
+			 <div onClick={()=>setIsAdvanceAndDiscountConfirmationPopUpOpen(true)} class="bg-gradient-to-r from-[#faba1585] to-[#FABA15] p-5 pr-8 rounded-lg">
 			   <div class="flex justify-between items-center">
 				 <div>
 				   <h1 class="text-white">Advance and Discount Confirmation</h1>
@@ -131,6 +142,17 @@ function EventDiscounts() {
 		   </div>
 		 </div>
 	   </div>
+
+	   <Modal isOpen={isDiscountOnTotalBillPopUpOpen}>
+		<EventPopUpDiscountOnTotalBill handleClose={setIsDiscountOnTotalBillPopUpOpen}/>
+	 </Modal>
+	 <Modal isOpen={isDiscountOnEquipmentOrItemPopUpOpen}>
+		<EventPopUpDiscountOnEquipmentOrItem handleClose={setIsDiscountOnEquipmentOrItemPopUpOpen}/>
+	 </Modal>
+	 <Modal isOpen={isAdvanceAndDiscountConfirmationPopUpOpen}>
+		<EventPopUpAdvanceAndDiscountConfirmation handleClose={setIsAdvanceAndDiscountConfirmationPopUpOpen}/>
+	 </Modal>
+
 	 </div>
   )
 }
