@@ -18,7 +18,7 @@ function AllUserSelectPlan() {
                     <div className="absolute -left-3 -bottom-3">
                       <img src={celebrationSvg} alt="celebration" />
                     </div>
-                    <label for="user-999" className="relative">
+                    <label htmlFor="user-999" className="relative">
                       <div className="flex items-center">
                         <div className="radio">
                           <input className="radio" type="radio" name="radio-card" id="user-999" />
@@ -52,7 +52,7 @@ function AllUserSelectPlan() {
                     <div className="absolute -left-3 -bottom-3">
                       <img src={celebrationSvg} alt="celebration" />
                     </div>
-                    <label for="user-9999" className="relative">
+                    <label htmlFor="user-9999" className="relative">
                       <div className="flex items-center">
                         <div className="radio">
                           <input className="radio" type="radio" name="radio-card" id="user-9999" checked />
@@ -86,7 +86,7 @@ function AllUserSelectPlan() {
                     <div className="absolute -left-3 -bottom-3">
                       <img src={celebrationSvg} alt="celebration" />
                     </div>
-                    <label for="user-99999" className="relative">
+                    <label htmlFor="user-99999" className="relative">
                       <div className="flex items-center">
                         <div className="radio">
                           <input className="radio" type="radio" name="radio-card" id="user-99999"/>

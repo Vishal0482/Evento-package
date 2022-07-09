@@ -1,10 +1,8 @@
 import React from 'react'
 import Advisement from '../Advisement';
 import BottomNavigation from '../BottomNavigation';
-import AllUserSelectPlan from './AllUserSelectPlan';
-import SelectBusiness from './SelectBusiness';
 
-function Promote() {
+function Promote({children}) {
   return (
         <div className="wrapper min-h-full flex flex-col">
       <div className="space-y-8 h-full">
@@ -51,9 +49,8 @@ function Promote() {
           </ul>
         </div>
 
-        {/* <SelectBusiness /> */}
-        <AllUserSelectPlan />
-    
+        {children}
+        
       </div>
       <div className="mt-auto">
         {/* <!-- advisement --> */}
