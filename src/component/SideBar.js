@@ -1,8 +1,10 @@
 import React from "react";
 import logoImage from "../assest/svg/logo.svg";
 import userImage from "../assest/images/user-2.png";
+import Modal from "./modal/Modal.js"
 
-function SideBar() {
+function SideBar({children}) {
+  
   return (
     <div class="main flex min-h-screen">
       {/* <!-- Left Panel --> */}
@@ -142,10 +144,16 @@ function SideBar() {
             </div>
           </div>
         </div>
-
+        <Modal isOpen={false}>
+          <form>
+            Enter Name : <input></input>
+          </form>
+        </Modal>
         {/* <!-- Content In --> */}
         <div class="rightInContent">
-          <div class="wrapper"></div>
+          <div class="wrapper">
+            {children}
+          </div>
         </div>
       </div>
     </div>
