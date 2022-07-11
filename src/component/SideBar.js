@@ -151,9 +151,7 @@ function SideBar({children}) {
         </Modal>
         {/* <!-- Content In --> */}
         <div className="rightInContent">
-          <div className="wrapper">
             {children}
-          </div>
         </div>
       </div>
     </div>

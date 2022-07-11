@@ -1,7 +1,7 @@
 import React from "react";
 import ringAdImage from "../assest/images/ring-ad.png";
 
-function Advisement() {
+function Advertisement() {
   return (
     <div className="w-full mt-5">
       <img src={ringAdImage} alt="ring-ad" className="w-full object-cover" />
@@ -9,4 +9,4 @@ function Advisement() {
   );
 }
 
-export default Advisement;
+export default Advertisement;
