@@ -5,7 +5,7 @@ import './App.css';
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 
 import SideBar from './component/SideBar';
-import DashboardEventView from "./component/event/DashboardEventView";
+import DashboardEventView from "./component/event-view/DashboardEventView";
 
 function App() {
   return (

@@ -37,7 +37,6 @@ function DashboardEventView() {
             {tab===1 && <DashboardEventViewOverview />}
             {tab===2 && <DashboardEventAttendee />}
             {tab===3 && <DashboardEventReview />}
-
           </div>
     </>
   )
