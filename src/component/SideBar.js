@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import logoImage from "../assest/svg/logo.svg";
 import userImage from "../assest/images/user-2.png";
 import Modal from "./modal/Modal.js"
+import LanguagePopup from "./other/modal/LanguagePopup"
 
 function SideBar({children}) {
   
+  const [languagePopup, setLanguagePopup] = useState(false);
   return (
     <div className="main flex min-h-screen">
       {/* <!-- Left Panel --> */}
@@ -117,6 +119,7 @@ function SideBar({children}) {
                 href="#"
                 className="block hover:text-spiroDiscoBall anim"
                 title="Language"
+                onClick={() => setLanguagePopup(true) }
               >
                 <span className="icon-language text-2xl block"></span>
               </a>
@@ -144,10 +147,8 @@ function SideBar({children}) {
             </div>
           </div>
         </div>
-        <Modal isOpen={false}>
-          <form>
-            Enter Name : <input></input>
-          </form>
+        <Modal isOpen={languagePopup}>
+          <LanguagePopup handleClose={setLanguagePopup} />
         </Modal>
         {/* <!-- Content In --> */}
         <div className="rightInContent">
