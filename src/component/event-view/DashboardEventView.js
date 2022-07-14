@@ -29,9 +29,9 @@ function DashboardEventView() {
             </div>
             {/* <!-- tab-holder  --> */}
             <div className="teb-holder">
-                <button type="button" data-tab="overview" className={tab===1 && "active"} onClick={()=> setTab(1)}>Overview</button>
-                <button type="button" data-tab="attendee" className={tab===2 && "active"} onClick={()=> setTab(2)}>Attendee</button>
-                <button type="button" data-tab="reviews" className={tab===3 && "active"} onClick={()=> setTab(3)}>Reviews</button>
+                <button type="button" data-tab="overview" className={tab===1 ? "active" : undefined} onClick={()=> setTab(1)}>Overview</button>
+                <button type="button" data-tab="attendee" className={tab===2 ? "active" : undefined} onClick={()=> setTab(2)}>Attendee</button>
+                <button type="button" data-tab="reviews" className={tab===3 ? "active" : undefined} onClick={()=> setTab(3)}>Reviews</button>
             </div>   
             {/* <!-- tab-contents-holder --> */}
             {tab===1 && <DashboardEventViewOverview />}

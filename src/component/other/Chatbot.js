@@ -7,46 +7,46 @@ function Chatbot() {
     const [input, setInput] = useState("");
     console.log(input);
     return (
-        <div class="flex min-h-full wrapper">
+        <div className="flex min-h-full wrapper">
 
-            <div class="flex flex-wrap space-y-7 w-full">
+            <div className="flex flex-wrap space-y-7 w-full">
                 {/* <!-- advisement --> */}
                 <Advertisement />
                 {/* <!-- title-holder  --> */}
-                <div class="space-y-6 w-full">
-                    <h1 class="w-full">Chatbot</h1>
-                    <div class="flex relative w-full h-[calc(100vh-200px)]">
-                        <div class="w-full lg:w-8/12">
-                            <div class="shadow-lg rounded-md overflow-hidden h-full">
+                <div className="space-y-6 w-full">
+                    <h1 className="w-full">Chatbot</h1>
+                    <div className="flex relative w-full h-[calc(100vh-200px)]">
+                        <div className="w-full lg:w-8/12">
+                            <div className="shadow-lg rounded-md overflow-hidden h-full">
                                 {/* <!-- chat-titel  --> */}
-                                <div class="p-5 py-3.5 bg-white flex items-center">
+                                <div className="p-5 py-3.5 bg-white flex items-center">
                                     <div>
-                                        <div class="w-12 h-12 rounded-full overflow-hidden">
+                                        <div className="w-12 h-12 rounded-full overflow-hidden">
                                             <img src={upload2Image} alt="upload-2" />
                                         </div>
                                     </div>
-                                    <div class="w-full pl-3.5">
-                                        <h3 class="text-sm">Mark Jecno</h3>
-                                        <span class="input-titel pb-0">markjecno@gmail.com</span>
+                                    <div className="w-full pl-3.5">
+                                        <h3 className="text-sm">Mark Jecno</h3>
+                                        <span className="input-titel pb-0">markjecno@gmail.com</span>
                                     </div>
                                 </div>
                                 {/* <!-- chat-text  -->   */}
-                                <div class="chat-holder">
-                                    <div class="text-massage right-massage">
+                                <div className="chat-holder">
+                                    <div className="text-massage right-massage">
                                         <p>I need your help <span>2:55PM</span></p>
-                                        <span class="arrow"></span>
+                                        <span className="arrow"></span>
                                     </div>
-                                    <div class="text-massage left-massage">
+                                    <div className="text-massage left-massage">
                                         <p>Can you tell me exactly what you’re looking for? <span>3:35PM</span></p>
-                                        <span class="arrow"></span>
+                                        <span className="arrow"></span>
                                     </div>
-                                    <div class="line-main">
+                                    <div className="line-main">
                                         <hr />
                                         <span>Today</span>
                                     </div>
                                 </div>
                                 {/* <!-- chat-input --> */}
-                                <div class="p-5 bg-white flex items-center space-x-3">
+                                <div className="p-5 bg-white flex items-center space-x-3">
                                     <a href="#">
                                         <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M16 32C24.8366 32 32 24.8366 32 16C32 7.16344 24.8366 0 16 0C7.16344 0 0 7.16344 0 16C0 24.8366 7.16344 32 16 32Z" fill="#FFD93B"></path>
@@ -57,17 +57,17 @@ function Chatbot() {
                                             <path d="M21.1698 16.6835C22.524 16.6835 23.6218 15.3788 23.6218 13.7695C23.6218 12.1601 22.524 10.8555 21.1698 10.8555C19.8156 10.8555 18.7178 12.1601 18.7178 13.7695C18.7178 15.3788 19.8156 16.6835 21.1698 16.6835Z" fill="#3E4347"></path>
                                         </svg>
                                     </a>
-                                    <label class="block w-full">
-                                        <input type="text" placeholder="Type here..." class="w-full outline-none" onChange={(e) => setInput(e.target.value)} />
+                                    <label className="block w-full">
+                                        <input type="text" placeholder="Type here..." className="w-full outline-none" onChange={(e) => setInput(e.target.value)} />
                                     </label>
-                                    <a href="#" type="submit"><i class="icon-send text-2xl"></i></a>
+                                    <a href="#" type="submit"><i className="icon-send text-2xl"></i></a>
                                 </div>
                             </div>
                         </div>
-                        <div class="w-full lg:w-4/12 pl-5">
-                            <div class="bg-white py-5 2xl:py-7 rounded-md h-full">
-                                <h3 class="pb-2.5 px-5 2xl:px-7">User List</h3>
-                                <div class="user-container px-5 2xl:px-7">
+                        <div className="w-full lg:w-4/12 pl-5">
+                            <div className="bg-white py-5 2xl:py-7 rounded-md h-full">
+                                <h3 className="pb-2.5 px-5 2xl:px-7">User List</h3>
+                                <div className="user-container px-5 2xl:px-7">
                                     <ChatboatUserListItem />
                                     <ChatboatUserListItem />
                                     <ChatboatUserListItem />

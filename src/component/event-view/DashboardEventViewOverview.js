@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Advertisement from "../Advertisement";
 import DashboardEventViewOverviewPhoto from './DashboardEventViewOverviewPhoto';
 import DashboardEventViewOverviewVideo from './DashboardEventViewOverviewVideo';
+import Modal from '../modal/Modal';
+import ImageAndVideoPreview from './modal/ImageAndVideoPreview';
 
 import celebrationSvg from "../../assest/svg/celebration.svg";
 
@@ -20,6 +22,7 @@ import dish5Video from "../../assest/images/dish-video-5.png";
 
 
 function DashboardEventViewOverview() {
+    const [preview, setPreview] = useState(false);
     return (
         <div className="pt-7 lg:pt-10">
             {/* <!--overview-tab-contents --> */}
@@ -40,7 +43,7 @@ function DashboardEventViewOverview() {
                             </div>
                             {/* <!-- photo-holder --> */}
                             <div className="w-full">
-                                <div className="flex flex-wrap -mx-2">
+                                <div className="flex flex-wrap -mx-2" onClick={() => setPreview(true)} >
                                     <DashboardEventViewOverviewPhoto imageUrl={bigDishImage} />
                                     <DashboardEventViewOverviewPhoto imageUrl={cuttingBoardImage} />
                                     <DashboardEventViewOverviewPhoto imageUrl={dish1Image} />
@@ -334,6 +337,9 @@ function DashboardEventViewOverview() {
                     </div>
                 </div>
             </div>
+            <Modal isOpen={preview}>
+                <ImageAndVideoPreview handleClose={setPreview} />
+            </Modal>
         </div>
     )
 }
