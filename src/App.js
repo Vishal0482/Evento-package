@@ -25,6 +25,8 @@ import EventCompanyDetails from "./component/events/EventCompanyDetails";
 import EventTermsAndConditions from "./component/events/EventTermsAndConditions";
 import EventDiscounts from "./component/events/EventDiscounts";
 import EventCalender from "./component/events/EventCalender";
+import PSBSelectSkill from "./component/personal_skills_business/PSBSelectSkill";
+import PSBPersonalDetails from "./component/personal_skills_business/PSBPersonalDetails";
 
 function App() {
   return (
@@ -56,6 +58,9 @@ function App() {
             <Route exact path="/dashboard/event/termsandconditions" element={<EventTermsAndConditions />} />
             <Route exact path="/dashboard/event/discounts" element={<EventDiscounts />} />
             <Route exact path="/dashboard/event/calender" element={<EventCalender />} />
+
+            <Route exact path="/dashboard/personalskillbusiness/selectskill" element={<PSBSelectSkill />}/>
+            <Route exact path="/dashboard/personalskillbusiness/personaldetails" element={<PSBPersonalDetails/>}/>
           </Routes>
           </SideBar>
         </BrowserRouter>
