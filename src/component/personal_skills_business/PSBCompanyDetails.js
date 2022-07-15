@@ -1,9 +1,7 @@
 import React from "react";
-import Advisement from "../Advisement";
 
-function PSBPersonalDetails() {
+function PSBCompanyDetails() {
   return (
-    //    <!-- Content In -->
     <div class="rightInContent">
       <div class="wrapper min-h-full">
         <div class="space-y-8 h-full">
@@ -74,111 +72,46 @@ function PSBPersonalDetails() {
             </ul>
           </div>
           {/* <!-- main-content  --> */}
-          <div class="space-y-5 -mx-2">
-            <div class="w-full flex items-end flex-wrap">
+          <div class="-mx-2">
+            <div class="w-full flex items-end flex-wrap space-y-5">
               <div class="w-full md:w-1/2 px-2 inputHolder">
-                <span class="input-titel">Professional Skill</span>
+                <span class="input-titel">Company Name</span>
                 <input type="text" class="input" />
               </div>
               <div class="w-full md:w-1/2 px-2 inputHolder">
-                <span class="input-titel">
-                  Full Name (Mr / Mrs / Ms) <span>*</span>
-                </span>
-                <input type="text" class="input" required />
-              </div>
-            </div>
-            <div class="w-full flex items-end flex-wrap">
-              <div class="w-full md:w-1/3 px-2 inputHolder">
-                <div class="input-label-holder">
-                  <label class="input-titel">
-                    Mobile Number <span>*</span>
-                  </label>
-                  <div class="input-checkd">
-                    <input type="checkbox" class="mr-2" />
-                    Hidden
-                  </div>
-                </div>
-                <input type="text" class="input" required />
-              </div>
-              <div class="w-full md:w-1/3 px-2 inputHolder">
-                <div class="input-label-holder">
-                  <label class="input-titel">
-                    Alternative Mobile Number <b class="text-10">(Optional)</b>
-                  </label>
-                  <div class="input-checkd">
-                    <input type="checkbox" class="mr-2" />
-                    Hidden
-                  </div>
-                </div>
-                <input type="text" class="input" required />
-              </div>
-              <div class="w-full md:w-1/3 px-2 inputHolder">
-                <div class="input-label-holder">
-                  <label class="input-titel">
-                    Email Address <span>*</span>
-                  </label>
-                  <div class="input-checkd">
-                    <input type="checkbox" class="mr-2" />
-                    Hidden
-                  </div>
-                </div>
-                <input type="text" class="input" required />
-              </div>
-            </div>
-            <div class="w-1/2 px-2">
-              <span class="input-titel">
-                Price <b class="text-10">(If free value 0)</b>
-              </span>
-              <label
-                for=""
-                class="flex items-center w-full bg-white p-2 px-3.5 rounded-md"
-              >
-                <div class="w-full px-3.5">
+                <span class="input-titel">Company GST (Optional)</span>
+                <label for="upload" class="upload upload-popup">
                   <input
-                    type="text"
-                    class="w-full outline-none text-spiroDiscoBall font-bold text-base"
-                    value=""
+                    type="file"
+                    name="images"
+                    id="upload"
+                    class="appearance-none hidden"
                   />
-                </div>
-                <div class="selectPrice flex items-center space-x-3">
-                  <label class="block cursor-pointer">
-                    <input
-                      type="radio"
-                      name="price"
-                      value="perDay"
-                      class="hidden"
-                    />
-                    <span class="text-sm text-quicksilver py-2 px-3 bg-white shadow-lg whitespace-nowrap font-bold rounded block">
-                      Per / Event
-                    </span>
-                  </label>
-                  <label class="block cursor-pointer">
-                    <input
-                      type="radio"
-                      name="price"
-                      value="perHour"
-                      class="hidden"
-                      checked
-                    />
-                    <span class="text-sm text-quicksilver py-2 px-3 bg-white shadow-lg whitespace-nowrap font-bold rounded block">
-                      Per / hr
-                    </span>
-                  </label>
-                  <label class="block cursor-pointer">
-                    <input
-                      type="radio"
-                      name="price"
-                      value="perEvent"
-                      class="hidden"
-                    />
-                    <span class="text-sm text-quicksilver py-2 px-3 bg-white shadow-lg whitespace-nowrap font-bold rounded block">
-                      Per / Day
-                    </span>
-                  </label>
-                </div>
-              </label>
+                  <span class="input-titel mt-1">
+                    <i class="icon-pdf mr-2"></i>Upload PDF
+                  </span>
+                </label>
+              </div>
+              <div class="w-full md:w-1/2 px-2 inputHolder">
+                <span class="input-titel">Company Contact No</span>
+                <input type="text" class="input" />
+              </div>
+              <div class="w-full md:w-1/2 px-2 inputHolder">
+                <span class="input-titel">Company Email</span>
+                <input type="text" class="input" />
+              </div>
+              <div class="w-full px-2">
+                <span class="input-titel">Company About</span>
+                <textarea
+                  name=""
+                  id=""
+                  cols="30"
+                  rows="5"
+                  class="outline-none flex items-center w-full bg-white p-2 px-3.5 rounded-md"
+                ></textarea>
+              </div>
             </div>
-            <div class="space-y-5">
+            <div class="space-y-5 mt-7">
               <h3 class="px-2">Address</h3>
               <div class="w-full flex flex-wrap">
                 <div class="w-full md:w-1/3 px-2 inputHolder">
@@ -215,9 +148,45 @@ function PSBPersonalDetails() {
                 </div>
               </div>
             </div>
+            <div class="upload-holder px-2 pt-5">
+              <span class="input-titel">
+                Company Photos Max 5 images (up to 5MB/image)
+              </span>
+              <label for="upload" class="upload">
+                <input
+                  type="file"
+                  name="images"
+                  id="upload"
+                  class="appearance-none hidden"
+                />
+                <span class="input-titel mt-1">
+                  <i class="icon-image mr-2"></i>Upload Images
+                </span>
+              </label>
+            </div>
+            <div class="upload-holder px-2 pt-5">
+              <span class="input-titel">
+                Company Video Max 2 videos (up to 2GB/video)
+              </span>
+              <label for="upload2" class="upload">
+                <input
+                  type="file"
+                  name="images"
+                  id="upload2"
+                  class="appearance-none hidden"
+                />
+                <div class="mt-1 flex items-baseline justify-center">
+                  <i class="icon-video-play text-base mr-2"></i>{" "}
+                  <span class="input-titel pt-1">Upload videos</span>
+                </div>
+              </label>
+            </div>
           </div>
-          {/* <!-- advisement --> */}
-          <Advisement />
+          {/* <!-- add more button  --> */}
+          <p class="text-sm text-quicksilver font-bold">
+            Disclaimer - These images and videos will first be verified by the
+            admin and then given the authority.
+          </p>
         </div>
         <div class="prw-next-btn">
           <button type="button" class="flex items-center">
@@ -234,4 +203,4 @@ function PSBPersonalDetails() {
   );
 }
 
-export default PSBPersonalDetails;
+export default PSBCompanyDetails;

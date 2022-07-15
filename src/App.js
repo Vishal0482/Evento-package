@@ -27,6 +27,13 @@ import EventDiscounts from "./component/events/EventDiscounts";
 import EventCalender from "./component/events/EventCalender";
 import PSBSelectSkill from "./component/personal_skills_business/PSBSelectSkill";
 import PSBPersonalDetails from "./component/personal_skills_business/PSBPersonalDetails";
+import PSBPhotosAndVideos from "./component/personal_skills_business/PSBPhotosAndVideos";
+import PSBAddEquipment from "./component/personal_skills_business/PSBAddServices";
+import PSBOtherCost from "./component/personal_skills_business/PSBOtherCost";
+import PSBCompanyDetails from "./component/personal_skills_business/PSBCompanyDetails";
+import PSBTermsAndConditions from "./component/personal_skills_business/PSBTermsAndConditions";
+import PSBDiscounts from "./component/personal_skills_business/PSBDiscounts";
+import PSBCalender from "./component/personal_skills_business/PSBCalender";
 
 function App() {
   return (
@@ -61,6 +68,13 @@ function App() {
 
             <Route exact path="/dashboard/personalskillbusiness/selectskill" element={<PSBSelectSkill />}/>
             <Route exact path="/dashboard/personalskillbusiness/personaldetails" element={<PSBPersonalDetails/>}/>
+            <Route exact path="/dashboard/personalskillbusiness/photosandvideos" element={<PSBPhotosAndVideos/>}/>
+            <Route exact path="/dashboard/personalskillbusiness/addequipment" element={<PSBAddEquipment/>} />
+            <Route exact path="/dashboard/personalskillbusiness/othercost" element={<PSBOtherCost/>} />
+            <Route exact path="/dashboard/personalskillbusiness/companydetails" element={<PSBCompanyDetails/>} />
+            <Route exact path="/dashboard/personalskillbusiness/termsandconditions" element={<PSBTermsAndConditions/>} />
+            <Route exact path="/dashboard/personalskillbusiness/discounts" element={<PSBDiscounts/>} />
+            <Route exact path="/dashboard/personalskillbusiness/calender" element={<PSBCalender/>} />
           </Routes>
           </SideBar>
         </BrowserRouter>
