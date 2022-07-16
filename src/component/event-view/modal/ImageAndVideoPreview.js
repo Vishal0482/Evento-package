@@ -1,80 +1,71 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Thumbs } from "swiper";
+import ImageAndVideoPreviewMainSlide from './ImageAndVideoPreviewMainSlide';
+import dish1Image from "../../../assest/images/dish-1.png";
+import "swiper/css";
+import "swiper/css/free-mode";
+import "swiper/css/navigation";
+import "swiper/css/thumbs";
 
 function ImageAndVideoPreview({ handleClose }) {
+  const [thumbsSwiper, setThumbsSwiper] = useState(null);
   return (
-    <div class="fixed inset-0 w-full h-full bg-[rgba(0,0,0,0.6)] flex z-50">
-      <button type="button" onClick={() => handleClose(false)} class="absolute right-10 top-10 z-50 rounded-full text-white text-lg"><i class="icon-close"></i></button>
-      <div class="relative w-full py-10">
-        <div class="swiper-container gallery-top relative">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <div class="swiper-slide-container w-full flex flex-wrap">
-                <div class="w-full lg:w-1/2 rounded-md overflow-hidden">
-                  <img src="assest/images/big-dish.png" alt="big-dish" class="w-full" />
-                </div>
-                <div class="w-full lg:w-1/2 pl-10 space-y-3">
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Id dolorem deleniti vero laboriosam tempora, at rerum quibusdam cupiditate voluptatibus in impedit error soluta magnam hic? Ducimus excepturi ipsum vero fugiat?</p>
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Id dolorem deleniti vero laboriosam tempora, at rerum quibusdam cupiditate voluptatibus in impedit error soluta magnam hic? Ducimus excepturi ipsum vero fugiat?</p>
-                </div>
-              </div>
-            </div>
-            <div class="swiper-slide">
-              <div class="swiper-slide-container w-full flex flex-wrap">
-                <div class="w-full lg:w-1/2 rounded-md overflow-hidden">
-                  <img src="assest/images/big-dish.png" alt="big-dish" class="w-full" />
-                </div>
-                <div class="w-full lg:w-1/2 pl-10 space-y-3">
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Id dolorem deleniti vero laboriosam tempora, at rerum quibusdam cupiditate voluptatibus in impedit error soluta magnam hic? Ducimus excepturi ipsum vero fugiat?</p>
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Id dolorem deleniti vero laboriosam tempora, at rerum quibusdam cupiditate voluptatibus in impedit error soluta magnam hic? Ducimus excepturi ipsum vero fugiat?</p>
-                </div>
-              </div>
-            </div>
-            <div class="swiper-slide">
-              <div class="swiper-slide-container w-full flex flex-wrap">
-                <div class="w-full lg:w-1/2 rounded-md overflow-hidden">
-                  <img src="assest/images/big-dish.png" alt="big-dish" class="w-full" />
-                </div>
-                <div class="w-full lg:w-1/2 pl-10 space-y-3">
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Id dolorem deleniti vero laboriosam tempora, at rerum quibusdam cupiditate voluptatibus in impedit error soluta magnam hic? Ducimus excepturi ipsum vero fugiat?</p>
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Id dolorem deleniti vero laboriosam tempora, at rerum quibusdam cupiditate voluptatibus in impedit error soluta magnam hic? Ducimus excepturi ipsum vero fugiat?</p>
-                </div>
-              </div>
-            </div>
-            <div class="swiper-slide">
-              <div class="swiper-slide-container w-full flex flex-wrap">
-                <div class="w-full lg:w-1/2 rounded-md overflow-hidden">
-                  <img src="assest/images/big-dish.png" alt="big-dish" class="w-full" />
-                </div>
-                <div class="w-full lg:w-1/2 pl-10 space-y-3">
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Id dolorem deleniti vero laboriosam tempora, at rerum quibusdam cupiditate voluptatibus in impedit error soluta magnam hic? Ducimus excepturi ipsum vero fugiat?</p>
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Id dolorem deleniti vero laboriosam tempora, at rerum quibusdam cupiditate voluptatibus in impedit error soluta magnam hic? Ducimus excepturi ipsum vero fugiat?</p>
-                </div>
-              </div>
-            </div>
-            <div class="swiper-slide">
-              <div class="swiper-slide-container w-full flex flex-wrap">
-                <div class="w-full lg:w-1/2 rounded-md overflow-hidden">
-                  <img src="assest/images/big-dish.png" alt="big-dish" class="w-full" />
-                </div>
-                <div class="w-full lg:w-1/2 pl-10 space-y-3">
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Id dolorem deleniti vero laboriosam tempora, at rerum quibusdam cupiditate voluptatibus in impedit error soluta magnam hic? Ducimus excepturi ipsum vero fugiat?</p>
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Id dolorem deleniti vero laboriosam tempora, at rerum quibusdam cupiditate voluptatibus in impedit error soluta magnam hic? Ducimus excepturi ipsum vero fugiat?</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          {/* <!-- Add Arrows --> */}
-          <div class="swiper-button-next"></div>
-          <div class="swiper-button-prev"></div>
+    <div className="fixed inset-0 w-full h-full bg-[rgba(0,0,0,0.6)] flex z-50">
+      <button type="button" onClick={() => handleClose(false)} className="absolute right-10 top-10 z-50 rounded-full text-white text-lg"><i className="icon-close"></i></button>
+      <div className="relative w-full py-10">
+        <div className="swiper-container gallery-top relative">
+          <Swiper
+            style={{
+              "--swiper-navigation-color": "#fff",
+              "--swiper-pagination-color": "#fff",
+            }}
+            centeredSlides={true}
+            spaceBetween={10}
+            navigation={true}
+            modules={[Navigation, Thumbs]}
+            thumbs={{ swiper: thumbsSwiper }}
+          >
+            <SwiperSlide>
+              <ImageAndVideoPreviewMainSlide />
+            </SwiperSlide>
+            <SwiperSlide>
+              <ImageAndVideoPreviewMainSlide />
+            </SwiperSlide>
+            <SwiperSlide>
+              <ImageAndVideoPreviewMainSlide />
+            </SwiperSlide>
+            <SwiperSlide>
+              <ImageAndVideoPreviewMainSlide />
+            </SwiperSlide>
+          </Swiper>
+
         </div>
-        <div class="swiper-container gallery-thumbs bg-black">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide"><div class="rounded-md overflow-hidden"><img src="assest/images/dish-1.png" alt="/dish-1" /></div></div>
-            <div class="swiper-slide"><div class="rounded-md overflow-hidden"><img src="assest/images/dish-1.png" alt="/dish-1" /></div></div>
-            <div class="swiper-slide"><div class="rounded-md overflow-hidden"><img src="assest/images/dish-1.png" alt="/dish-1" /></div></div>
-            <div class="swiper-slide"><div class="rounded-md overflow-hidden"><img src="assest/images/dish-1.png" alt="/dish-1" /></div></div>
-            <div class="swiper-slide"><div class="rounded-md overflow-hidden"><img src="assest/images/dish-1.png" alt="/dish-1" /></div></div>
-          </div>
+        <div className="swiper-container gallery-thumbs bg-black">
+          <Swiper
+            centeredSlides={true}
+            slidesPerView={'auto'}
+            touchRatio={0.2}
+            slideToClickedSlide={true}
+            loopedSlides={4}
+            spaceBetween={10}
+            watchSlidesProgress={true}
+            modules={[Navigation, Thumbs]}
+          // onSwiper={setThumbsSwiper}
+          >
+            <SwiperSlide>
+              <div className="rounded-md overflow-hidden"><img src={dish1Image} alt="/dish-1" /> </div>
+            </SwiperSlide>
+            <SwiperSlide>
+              <div className="rounded-md overflow-hidden"><img src={dish1Image} alt="/dish-1" /> </div>
+            </SwiperSlide>
+            <SwiperSlide>
+              <div className="rounded-md overflow-hidden"><img src={dish1Image} alt="/dish-1" /> </div>
+            </SwiperSlide>
+            <SwiperSlide>
+              <div className="rounded-md overflow-hidden"><img src={dish1Image} alt="/dish-1" /> </div>
+            </SwiperSlide>
+          </Swiper>
         </div>
       </div>
     </div>
