@@ -4,19 +4,19 @@ import Advisement from "../Advisement";
 function PSBPersonalDetails() {
   return (
     //    <!-- Content In -->
-    <div class="rightInContent">
-      <div class="wrapper min-h-full">
-        <div class="space-y-8 h-full">
+    <div className="rightInContent">
+      <div className="wrapper min-h-full">
+        <div className="space-y-8 h-full">
           {/* <!-- title-holder  --> */}
-          <div class="flex justify-between items-center">
-            <a href="#" class="flex items-center">
-              <i class="icon-back-arrow mr-4 text-2xl"></i>
+          <div className="flex justify-between items-center">
+            <a href="#" className="flex items-center">
+              <i className="icon-back-arrow mr-4 text-2xl"></i>
               <h1>Personal Skill Business</h1>
             </a>
           </div>
           {/* <!-- step-progress-bar  --> */}
-          <div class="w-full overflow-hidden">
-            <ul class="flex justify-between step-progress-holder">
+          <div className="w-full overflow-hidden">
+            <ul className="flex justify-between step-progress-holder">
               <li>
                 <div>
                   <span>01</span>
@@ -74,144 +74,144 @@ function PSBPersonalDetails() {
             </ul>
           </div>
           {/* <!-- main-content  --> */}
-          <div class="space-y-5 -mx-2">
-            <div class="w-full flex items-end flex-wrap">
-              <div class="w-full md:w-1/2 px-2 inputHolder">
-                <span class="input-titel">Professional Skill</span>
-                <input type="text" class="input" />
+          <div className="space-y-5 -mx-2">
+            <div className="w-full flex items-end flex-wrap">
+              <div className="w-full md:w-1/2 px-2 inputHolder">
+                <span className="input-titel">Professional Skill</span>
+                <input type="text" className="input" />
               </div>
-              <div class="w-full md:w-1/2 px-2 inputHolder">
-                <span class="input-titel">
+              <div className="w-full md:w-1/2 px-2 inputHolder">
+                <span className="input-titel">
                   Full Name (Mr / Mrs / Ms) <span>*</span>
                 </span>
-                <input type="text" class="input" required />
+                <input type="text" className="input" required />
               </div>
             </div>
-            <div class="w-full flex items-end flex-wrap">
-              <div class="w-full md:w-1/3 px-2 inputHolder">
-                <div class="input-label-holder">
-                  <label class="input-titel">
+            <div className="w-full flex items-end flex-wrap">
+              <div className="w-full md:w-1/3 px-2 inputHolder">
+                <div className="input-label-holder">
+                  <label className="input-titel">
                     Mobile Number <span>*</span>
                   </label>
-                  <div class="input-checkd">
-                    <input type="checkbox" class="mr-2" />
+                  <div className="input-checkd">
+                    <input type="checkbox" className="mr-2" />
                     Hidden
                   </div>
                 </div>
-                <input type="text" class="input" required />
+                <input type="text" className="input" required />
               </div>
-              <div class="w-full md:w-1/3 px-2 inputHolder">
-                <div class="input-label-holder">
-                  <label class="input-titel">
-                    Alternative Mobile Number <b class="text-10">(Optional)</b>
+              <div className="w-full md:w-1/3 px-2 inputHolder">
+                <div className="input-label-holder">
+                  <label className="input-titel">
+                    Alternative Mobile Number <b className="text-10">(Optional)</b>
                   </label>
-                  <div class="input-checkd">
-                    <input type="checkbox" class="mr-2" />
+                  <div className="input-checkd">
+                    <input type="checkbox" className="mr-2" />
                     Hidden
                   </div>
                 </div>
-                <input type="text" class="input" required />
+                <input type="text" className="input" required />
               </div>
-              <div class="w-full md:w-1/3 px-2 inputHolder">
-                <div class="input-label-holder">
-                  <label class="input-titel">
+              <div className="w-full md:w-1/3 px-2 inputHolder">
+                <div className="input-label-holder">
+                  <label className="input-titel">
                     Email Address <span>*</span>
                   </label>
-                  <div class="input-checkd">
-                    <input type="checkbox" class="mr-2" />
+                  <div className="input-checkd">
+                    <input type="checkbox" className="mr-2" />
                     Hidden
                   </div>
                 </div>
-                <input type="text" class="input" required />
+                <input type="text" className="input" required />
               </div>
             </div>
-            <div class="w-1/2 px-2">
-              <span class="input-titel">
-                Price <b class="text-10">(If free value 0)</b>
+            <div className="w-1/2 px-2">
+              <span className="input-titel">
+                Price <b className="text-10">(If free value 0)</b>
               </span>
               <label
                 for=""
-                class="flex items-center w-full bg-white p-2 px-3.5 rounded-md"
+                className="flex items-center w-full bg-white p-2 px-3.5 rounded-md"
               >
-                <div class="w-full px-3.5">
+                <div className="w-full px-3.5">
                   <input
                     type="text"
-                    class="w-full outline-none text-spiroDiscoBall font-bold text-base"
+                    className="w-full outline-none text-spiroDiscoBall font-bold text-base"
                     value=""
                   />
                 </div>
-                <div class="selectPrice flex items-center space-x-3">
-                  <label class="block cursor-pointer">
+                <div className="selectPrice flex items-center space-x-3">
+                  <label className="block cursor-pointer">
                     <input
                       type="radio"
                       name="price"
                       value="perDay"
-                      class="hidden"
+                      className="hidden"
                     />
-                    <span class="text-sm text-quicksilver py-2 px-3 bg-white shadow-lg whitespace-nowrap font-bold rounded block">
+                    <span className="text-sm text-quicksilver py-2 px-3 bg-white shadow-lg whitespace-nowrap font-bold rounded block">
                       Per / Event
                     </span>
                   </label>
-                  <label class="block cursor-pointer">
+                  <label className="block cursor-pointer">
                     <input
                       type="radio"
                       name="price"
                       value="perHour"
-                      class="hidden"
+                      className="hidden"
                       checked
                     />
-                    <span class="text-sm text-quicksilver py-2 px-3 bg-white shadow-lg whitespace-nowrap font-bold rounded block">
+                    <span className="text-sm text-quicksilver py-2 px-3 bg-white shadow-lg whitespace-nowrap font-bold rounded block">
                       Per / hr
                     </span>
                   </label>
-                  <label class="block cursor-pointer">
+                  <label className="block cursor-pointer">
                     <input
                       type="radio"
                       name="price"
                       value="perEvent"
-                      class="hidden"
+                      className="hidden"
                     />
-                    <span class="text-sm text-quicksilver py-2 px-3 bg-white shadow-lg whitespace-nowrap font-bold rounded block">
+                    <span className="text-sm text-quicksilver py-2 px-3 bg-white shadow-lg whitespace-nowrap font-bold rounded block">
                       Per / Day
                     </span>
                   </label>
                 </div>
               </label>
             </div>
-            <div class="space-y-5">
-              <h3 class="px-2">Address</h3>
-              <div class="w-full flex flex-wrap">
-                <div class="w-full md:w-1/3 px-2 inputHolder">
-                  <span class="input-titel">Flat No.</span>
-                  <input type="text" class="input" required />
+            <div className="space-y-5">
+              <h3 className="px-2">Address</h3>
+              <div className="w-full flex flex-wrap">
+                <div className="w-full md:w-1/3 px-2 inputHolder">
+                  <span className="input-titel">Flat No.</span>
+                  <input type="text" className="input" required />
                 </div>
-                <div class="w-full md:w-1/3 px-2 inputHolder">
-                  <span class="input-titel">Street Name.</span>
-                  <input type="text" class="input" />
+                <div className="w-full md:w-1/3 px-2 inputHolder">
+                  <span className="input-titel">Street Name.</span>
+                  <input type="text" className="input" />
                 </div>
-                <div class="w-full md:w-1/3 px-2 inputHolder">
-                  <span class="input-titel">Area Name.</span>
-                  <input type="text" class="input" required />
+                <div className="w-full md:w-1/3 px-2 inputHolder">
+                  <span className="input-titel">Area Name.</span>
+                  <input type="text" className="input" required />
                 </div>
               </div>
-              <div class="w-full flex flex-wrap">
-                <div class="w-full md:w-1/3 px-2 inputHolder">
-                  <label class="input-titel">
+              <div className="w-full flex flex-wrap">
+                <div className="w-full md:w-1/3 px-2 inputHolder">
+                  <label className="input-titel">
                     City<span>*</span>
                   </label>
-                  <input type="text" class="input" required />
+                  <input type="text" className="input" required />
                 </div>
-                <div class="w-full md:w-1/3 px-2 inputHolder">
-                  <label class="input-titel">
+                <div className="w-full md:w-1/3 px-2 inputHolder">
+                  <label className="input-titel">
                     State<span>*</span>
                   </label>
-                  <input type="text" class="input" required />
+                  <input type="text" className="input" required />
                 </div>
-                <div class="w-full md:w-1/3 px-2 inputHolder">
-                  <label class="input-titel">
+                <div className="w-full md:w-1/3 px-2 inputHolder">
+                  <label className="input-titel">
                     Pincode<span>*</span>
                   </label>
-                  <input type="text" class="input" required />
+                  <input type="text" className="input" required />
                 </div>
               </div>
             </div>
@@ -219,14 +219,14 @@ function PSBPersonalDetails() {
           {/* <!-- advisement --> */}
           <Advisement />
         </div>
-        <div class="prw-next-btn">
-          <button type="button" class="flex items-center">
-            <i class="icon-back-arrow mr-3"></i>
+        <div className="prw-next-btn">
+          <button type="button" className="flex items-center">
+            <i className="icon-back-arrow mr-3"></i>
             <h3>Back</h3>
           </button>
-          <button type="button" class="flex items-center active">
+          <button type="button" className="flex items-center active">
             <h3>Next</h3>
-            <i class="icon-next-arrow ml-3"></i>
+            <i className="icon-next-arrow ml-3"></i>
           </button>
         </div>
       </div>

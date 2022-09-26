@@ -8,18 +8,18 @@ function EventAboutPlace() {
   
   return (
 	//  <!-- Content In -->
-	 <div class="rightInContent">
-	 <div class="wrapper min-h-full flex flex-col">
-	   <div class="space-y-8 h-full">
+	 <div className="rightInContent">
+	 <div className="wrapper min-h-full flex flex-col">
+	   <div className="space-y-8 h-full">
 		 {/* <!-- title-holder  -->/ */}
-		 <div class="flex justify-between items-center">
-		   <a href="#" class="flex items-center"><i class="icon-back-arrow mr-4 text-2xl"></i>
+		 <div className="flex justify-between items-center">
+		   <a href="#" className="flex items-center"><i className="icon-back-arrow mr-4 text-2xl"></i>
 			 <h1>Sweet Love Catering</h1>
 		   </a>
 		 </div>
 		 {/* <!-- step-progress-bar  --> */}
-		 <div class="w-full overflow-hidden">
-		   <ul class="flex justify-between step-progress-holder">
+		 <div className="w-full overflow-hidden">
+		   <ul className="flex justify-between step-progress-holder">
 			 <li>
 			   <div>
 				 <span>01</span>
@@ -83,53 +83,53 @@ function EventAboutPlace() {
 		   </ul>
 		 </div>
 		 {/* <!-- main-content  --> */}
-		 <div class="space-y-3">
-		   <div class="w-full">
-			 <span class="input-titel">Price</span>
-			 <label for="" class="flex items-center w-full bg-white p-2 px-3.5 rounded-md">
-			   <div class="w-full px-3.5">
-				 <input type="text" class="w-full outline-none text-spiroDiscoBall font-bold text-base"
+		 <div className="space-y-3">
+		   <div className="w-full">
+			 <span className="input-titel">Price</span>
+			 <label for="" className="flex items-center w-full bg-white p-2 px-3.5 rounded-md">
+			   <div className="w-full px-3.5">
+				 <input type="text" className="w-full outline-none text-spiroDiscoBall font-bold text-base"
 				   value="100 INR" />
 			   </div>
-			   <div class="selectPrice flex items-center space-x-3">
-				 <label class="block cursor-pointer">
-				   <input type="radio" name="price" value="perDay" class="hidden" />
+			   <div className="selectPrice flex items-center space-x-3">
+				 <label className="block cursor-pointer">
+				   <input type="radio" name="price" value="perDay" className="hidden" />
 				   <span
-					 class="text-sm text-quicksilver py-2 px-3 bg-white shadow-lg whitespace-nowrap font-bold rounded block">
+					 className="text-sm text-quicksilver py-2 px-3 bg-white shadow-lg whitespace-nowrap font-bold rounded block">
 					 Per / Day
 				   </span>
 				 </label>
-				 <label class="block cursor-pointer">
-				   <input type="radio" name="price" value="perHour" class="hidden" checked />
+				 <label className="block cursor-pointer">
+				   <input type="radio" name="price" value="perHour" className="hidden" checked />
 				   <span
-					 class="text-sm text-quicksilver py-2 px-3 bg-white shadow-lg whitespace-nowrap font-bold rounded block">
+					 className="text-sm text-quicksilver py-2 px-3 bg-white shadow-lg whitespace-nowrap font-bold rounded block">
 					 Per / Hour
 				   </span>
 				 </label>
-				 <label class="block cursor-pointer">
-				   <input type="radio" name="price" value="perEvent" class="hidden" />
+				 <label className="block cursor-pointer">
+				   <input type="radio" name="price" value="perEvent" className="hidden" />
 				   <span
-					 class="text-sm text-quicksilver py-2 px-3 bg-white shadow-lg whitespace-nowrap font-bold rounded block">
+					 className="text-sm text-quicksilver py-2 px-3 bg-white shadow-lg whitespace-nowrap font-bold rounded block">
 					 Per / Event
 				   </span>
 				 </label>
 			   </div>
 			 </label>
 		   </div>
-		   <div class="w-full">
-			 <span class="input-titel">About place</span>
+		   <div className="w-full">
+			 <span className="input-titel">About place</span>
 			 <textarea name="" id="" cols="30" rows="5"
-			   class="outline-none flex items-center w-full bg-white p-2 px-3.5 rounded-md"></textarea>
+			   className="outline-none flex items-center w-full bg-white p-2 px-3.5 rounded-md"></textarea>
 		   </div>
 		 </div>
 		 {/* <!-- advisement --> */}
-		 <div class="w-full mt-5">
-		   <img src={ringAd} alt="ring-ad" class="w-full object-cover" />
+		 <div className="w-full mt-5">
+		   <img src={ringAd} alt="ring-ad" className="w-full object-cover" />
 		 </div>
 	   </div>
-	   <div class="prw-next-btn mt-auto">
-		 <button type="button" class="flex items-center"><i class="icon-back-arrow mr-3"></i><h3>Back</h3></button>
-		 <button type="button" class="flex items-center active"><h3>Next</h3><i class="icon-next-arrow ml-3"></i></button>
+	   <div className="prw-next-btn mt-auto">
+		 <button type="button" className="flex items-center"><i className="icon-back-arrow mr-3"></i><h3>Back</h3></button>
+		 <button type="button" className="flex items-center active"><h3>Next</h3><i className="icon-next-arrow ml-3"></i></button>
 	   </div>
 	 </div>
 

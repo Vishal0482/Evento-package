@@ -3,19 +3,19 @@ import Advisement from "../Advisement";
 
 function PSBOtherCost() {
   return (
-    <div class="rightInContent">
-      <div class="wrapper min-h-full flex flex-col">
-        <div class="space-y-8 h-full">
+    <div className="rightInContent">
+      <div className="wrapper min-h-full flex flex-col">
+        <div className="space-y-8 h-full">
           {/* <!-- title-holder  --> */}
-          <div class="flex justify-between items-center">
-            <a href="#" class="flex items-center">
-              <i class="icon-back-arrow mr-4 text-2xl"></i>
+          <div className="flex justify-between items-center">
+            <a href="#" className="flex items-center">
+              <i className="icon-back-arrow mr-4 text-2xl"></i>
               <h1>Personal Skill Business</h1>
             </a>
           </div>
           {/* <!-- step-progress-bar  --> */}
-          <div class="w-full overflow-hidden">
-            <ul class="flex justify-between step-progress-holder">
+          <div className="w-full overflow-hidden">
+            <ul className="flex justify-between step-progress-holder">
               <li>
                 <div>
                   <span>01</span>
@@ -73,84 +73,84 @@ function PSBOtherCost() {
             </ul>
           </div>
           {/* <!-- main-content  --> */}
-          <div class="space-y-5 pt-5">
-            <div class="flex justify-between items-center space-x-5">
-              <div class="w-full md:w-1/2 lg:w-1/3">
+          <div className="space-y-5 pt-5">
+            <div className="flex justify-between items-center space-x-5">
+              <div className="w-full md:w-1/2 lg:w-1/3">
                 <h3>Travel Cost</h3>
-                <div class="bg-white shadow rounded-md mt-5">
-                  <div class="flex items-center bg-brightGray px-8 py-3">
+                <div className="bg-white shadow rounded-md mt-5">
+                  <div className="flex items-center bg-brightGray px-8 py-3">
                     <input
                       type="checkbox"
                       id="on"
-                      class="switch mx-3 order-2"
+                      className="switch mx-3 order-2"
                     />
-                    <span class="off text-base font-bold anim order-1 text-caribbeanGreen">
+                    <span className="off text-base font-bold anim order-1 text-caribbeanGreen">
                       Include
                     </span>
-                    <span class="on text-base font-bold anim order-3">
+                    <span className="on text-base font-bold anim order-3">
                       Exclude
                     </span>
                   </div>
-                  <div class="w-full px-8 py-5">
+                  <div className="w-full px-8 py-5">
                     <textarea
                       name=""
                       id=""
                       rows="4"
-                      class="outline-none flex items-center w-full bg-white rounded-md resize-none"
+                      className="outline-none flex items-center w-full bg-white rounded-md resize-none"
                       placeholder="Enter Details..."
                     ></textarea>
                   </div>
                 </div>
               </div>
-              <div class="w-full md:w-1/2 lg:w-1/3">
+              <div className="w-full md:w-1/2 lg:w-1/3">
                 <h3>Accommodation</h3>
-                <div class="bg-white shadow rounded-md mt-5">
-                  <div class="flex items-center bg-brightGray px-8 py-3">
+                <div className="bg-white shadow rounded-md mt-5">
+                  <div className="flex items-center bg-brightGray px-8 py-3">
                     <input
                       type="checkbox"
                       id="on"
-                      class="switch mx-3 order-2"
+                      className="switch mx-3 order-2"
                     />
-                    <span class="off text-base font-bold anim order-1 text-caribbeanGreen">
+                    <span className="off text-base font-bold anim order-1 text-caribbeanGreen">
                       Include
                     </span>
-                    <span class="on text-base font-bold anim order-3">
+                    <span className="on text-base font-bold anim order-3">
                       Exclude
                     </span>
                   </div>
-                  <div class="w-full px-8 py-5">
+                  <div className="w-full px-8 py-5">
                     <textarea
                       name=""
                       id=""
                       rows="4"
-                      class="outline-none flex items-center w-full bg-white rounded-md resize-none"
+                      className="outline-none flex items-center w-full bg-white rounded-md resize-none"
                       placeholder="Enter Details..."
                     ></textarea>
                   </div>
                 </div>
               </div>
-              <div class="w-full md:w-1/2 lg:w-1/3">
+              <div className="w-full md:w-1/2 lg:w-1/3">
                 <h3>Food</h3>
-                <div class="bg-white shadow rounded-md mt-5">
-                  <div class="flex items-center bg-brightGray px-8 py-3">
+                <div className="bg-white shadow rounded-md mt-5">
+                  <div className="flex items-center bg-brightGray px-8 py-3">
                     <input
                       type="checkbox"
                       id="on"
-                      class="switch mx-3 order-2"
+                      className="switch mx-3 order-2"
                     />
-                    <span class="off text-base font-bold anim order-1 text-caribbeanGreen">
+                    <span className="off text-base font-bold anim order-1 text-caribbeanGreen">
                       Include
                     </span>
-                    <span class="on text-base font-bold anim order-3">
+                    <span className="on text-base font-bold anim order-3">
                       Exclude
                     </span>
                   </div>
-                  <div class="w-full px-8 py-5">
+                  <div className="w-full px-8 py-5">
                     <textarea
                       name=""
                       id=""
                       rows="4"
-                      class="outline-none flex items-center w-full bg-white rounded-md resize-none"
+                      className="outline-none flex items-center w-full bg-white rounded-md resize-none"
                       placeholder="Enter Details..."
                     ></textarea>
                   </div>
@@ -161,14 +161,14 @@ function PSBOtherCost() {
           {/* <!-- advisement --> */}
           <Advisement />
         </div>
-        <div class="prw-next-btn mt-auto">
-          <button type="button" class="flex items-center">
-            <i class="icon-back-arrow mr-3"></i>
+        <div className="prw-next-btn mt-auto">
+          <button type="button" className="flex items-center">
+            <i className="icon-back-arrow mr-3"></i>
             <h3>Back</h3>
           </button>
-          <button type="button" class="flex items-center active">
+          <button type="button" className="flex items-center active">
             <h3>Next</h3>
-            <i class="icon-next-arrow ml-3"></i>
+            <i className="icon-next-arrow ml-3"></i>
           </button>
         </div>
       </div>

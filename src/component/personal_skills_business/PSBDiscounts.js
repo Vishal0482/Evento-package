@@ -17,19 +17,19 @@ function PSBDiscounts() {
 
 	return (
 	//    <!-- Content In -->
-	   <div class="rightInContent">
-	   <div class="wrapper min-h-full">
-		 <div class="space-y-8 h-full">
+	   <div className="rightInContent">
+	   <div className="wrapper min-h-full">
+		 <div className="space-y-8 h-full">
 		   {/* <!-- title-holder  --> */}
-		   <div class="flex justify-between items-center">
-			 <a href="#" class="flex items-center">
-			   <i class="icon-back-arrow mr-4 text-2xl"></i>
+		   <div className="flex justify-between items-center">
+			 <a href="#" className="flex items-center">
+			   <i className="icon-back-arrow mr-4 text-2xl"></i>
 			   <h1>Personal Skill Business</h1>
 			 </a>
 		   </div>
 		   {/* <!-- step-progress-bar  --> */}
-		   <div class="w-full overflow-hidden">
-			 <ul class="flex justify-between step-progress-holder">
+		   <div className="w-full overflow-hidden">
+			 <ul className="flex justify-between step-progress-holder">
 			   <li>
 				 <div>
 				   <span>01</span>
@@ -93,37 +93,37 @@ function PSBDiscounts() {
 			 </ul>
 		   </div>
 		   {/* <!-- main-content  --> */}
-		   <div class="space-y-5">
-			 <div onClick={()=>setIsDiscountOnTotalBillPopUpOpen(true)} class="bg-gradient-to-r from-[#13e1b094] to-[#13E1B0] p-5 pr-8 rounded-lg">
-			   <div class="flex justify-between items-center">
+		   <div className="space-y-5">
+			 <div onClick={()=>setIsDiscountOnTotalBillPopUpOpen(true)} className="bg-gradient-to-r from-[#13e1b094] to-[#13E1B0] p-5 pr-8 rounded-lg">
+			   <div className="flex justify-between items-center">
 				 <div>
-				   <h1 class="text-white">Discount On Total Bill</h1>
-				   <div class="text-[40px] text-black font-bold">10%</div>
-				   <span class="text-xs text-white font-normal">4 Event can be posted or one with max 30 day</span>
+				   <h1 className="text-white">Discount On Total Bill</h1>
+				   <div className="text-[40px] text-black font-bold">10%</div>
+				   <span className="text-xs text-white font-normal">4 Event can be posted or one with max 30 day</span>
 				 </div>
 				 <div>
 				   <img src={celebration} alt=""/>
 				 </div>
 			   </div>
 			 </div>
-			 <div onClick={()=>setIsDiscountOnEquipmentOrItemPopUpOpen(true)} class="bg-gradient-to-r from-[#20c0e878] to-[#20C0E8] p-5 pr-8 rounded-lg">
-			   <div class="flex justify-between items-center">
+			 <div onClick={()=>setIsDiscountOnEquipmentOrItemPopUpOpen(true)} className="bg-gradient-to-r from-[#20c0e878] to-[#20C0E8] p-5 pr-8 rounded-lg">
+			   <div className="flex justify-between items-center">
 				 <div>
-				   <h1 class="text-white">Discount On Equipment Or Item</h1>
-				   <div class="text-[40px] text-black font-bold">10%</div>
-				   <span class="text-xs text-white font-normal">4 Event can be posted or one with max 30 day</span>
+				   <h1 className="text-white">Discount On Equipment Or Item</h1>
+				   <div className="text-[40px] text-black font-bold">10%</div>
+				   <span className="text-xs text-white font-normal">4 Event can be posted or one with max 30 day</span>
 				 </div>
 				 <div>
 				   <img src={celebration} alt=""/>
 				 </div>
 			   </div>
 			 </div>
-			 <div onClick={()=>setIsAdvanceAndDiscountConfirmationPopUpOpen(true)} class="bg-gradient-to-r from-[#faba1585] to-[#FABA15] p-5 pr-8 rounded-lg">
-			   <div class="flex justify-between items-center">
+			 <div onClick={()=>setIsAdvanceAndDiscountConfirmationPopUpOpen(true)} className="bg-gradient-to-r from-[#faba1585] to-[#FABA15] p-5 pr-8 rounded-lg">
+			   <div className="flex justify-between items-center">
 				 <div>
-				   <h1 class="text-white">Advance and Discount Confirmation</h1>
-				   <div class="text-[40px] text-black font-bold">10%</div>
-				   <span class="text-xs text-white font-normal">4 Event can be posted or one with max 30 day</span>
+				   <h1 className="text-white">Advance and Discount Confirmation</h1>
+				   <div className="text-[40px] text-black font-bold">10%</div>
+				   <span className="text-xs text-white font-normal">4 Event can be posted or one with max 30 day</span>
 				 </div>
 				 <div>
 				   <img src={celebration} alt=""/>
@@ -132,13 +132,13 @@ function PSBDiscounts() {
 			 </div>
 		   </div>
 		   {/* <!-- advisement --> */}
-		   <div class="w-full mt-5">
-			 <img src={ringAd} alt="ring-ad" class="w-full object-cover" />
+		   <div className="w-full mt-5">
+			 <img src={ringAd} alt="ring-ad" className="w-full object-cover" />
 		   </div>
 		   {/* <!-- next preview button --> */}
-		   <div class="prw-next-btn">               
-			 <button type="button" class="flex items-center"><i class="icon-back-arrow mr-3"></i><h3>Back</h3></button>
-			 <button type="button" class="flex items-center active"><h3>Next</h3><i class="icon-next-arrow ml-3"></i></button>
+		   <div className="prw-next-btn">               
+			 <button type="button" className="flex items-center"><i className="icon-back-arrow mr-3"></i><h3>Back</h3></button>
+			 <button type="button" className="flex items-center active"><h3>Next</h3><i className="icon-next-arrow ml-3"></i></button>
 		   </div>
 		 </div>
 	   </div>

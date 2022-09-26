@@ -2,19 +2,19 @@ import React from "react";
 
 function PSBCompanyDetails() {
   return (
-    <div class="rightInContent">
-      <div class="wrapper min-h-full">
-        <div class="space-y-8 h-full">
+    <div className="rightInContent">
+      <div className="wrapper min-h-full">
+        <div className="space-y-8 h-full">
           {/* <!-- title-holder  --> */}
-          <div class="flex justify-between items-center">
-            <a href="#" class="flex items-center">
-              <i class="icon-back-arrow mr-4 text-2xl"></i>
+          <div className="flex justify-between items-center">
+            <a href="#" className="flex items-center">
+              <i className="icon-back-arrow mr-4 text-2xl"></i>
               <h1>Personal Skill Business</h1>
             </a>
           </div>
           {/* <!-- step-progress-bar  --> */}
-          <div class="w-full overflow-hidden">
-            <ul class="flex justify-between step-progress-holder">
+          <div className="w-full overflow-hidden">
+            <ul className="flex justify-between step-progress-holder">
               <li>
                 <div>
                   <span>01</span>
@@ -72,130 +72,130 @@ function PSBCompanyDetails() {
             </ul>
           </div>
           {/* <!-- main-content  --> */}
-          <div class="-mx-2">
-            <div class="w-full flex items-end flex-wrap space-y-5">
-              <div class="w-full md:w-1/2 px-2 inputHolder">
-                <span class="input-titel">Company Name</span>
-                <input type="text" class="input" />
+          <div className="-mx-2">
+            <div className="w-full flex items-end flex-wrap space-y-5">
+              <div className="w-full md:w-1/2 px-2 inputHolder">
+                <span className="input-titel">Company Name</span>
+                <input type="text" className="input" />
               </div>
-              <div class="w-full md:w-1/2 px-2 inputHolder">
-                <span class="input-titel">Company GST (Optional)</span>
-                <label for="upload" class="upload upload-popup">
+              <div className="w-full md:w-1/2 px-2 inputHolder">
+                <span className="input-titel">Company GST (Optional)</span>
+                <label for="upload" className="upload upload-popup">
                   <input
                     type="file"
                     name="images"
                     id="upload"
-                    class="appearance-none hidden"
+                    className="appearance-none hidden"
                   />
-                  <span class="input-titel mt-1">
-                    <i class="icon-pdf mr-2"></i>Upload PDF
+                  <span className="input-titel mt-1">
+                    <i className="icon-pdf mr-2"></i>Upload PDF
                   </span>
                 </label>
               </div>
-              <div class="w-full md:w-1/2 px-2 inputHolder">
-                <span class="input-titel">Company Contact No</span>
-                <input type="text" class="input" />
+              <div className="w-full md:w-1/2 px-2 inputHolder">
+                <span className="input-titel">Company Contact No</span>
+                <input type="text" className="input" />
               </div>
-              <div class="w-full md:w-1/2 px-2 inputHolder">
-                <span class="input-titel">Company Email</span>
-                <input type="text" class="input" />
+              <div className="w-full md:w-1/2 px-2 inputHolder">
+                <span className="input-titel">Company Email</span>
+                <input type="text" className="input" />
               </div>
-              <div class="w-full px-2">
-                <span class="input-titel">Company About</span>
+              <div className="w-full px-2">
+                <span className="input-titel">Company About</span>
                 <textarea
                   name=""
                   id=""
                   cols="30"
                   rows="5"
-                  class="outline-none flex items-center w-full bg-white p-2 px-3.5 rounded-md"
+                  className="outline-none flex items-center w-full bg-white p-2 px-3.5 rounded-md"
                 ></textarea>
               </div>
             </div>
-            <div class="space-y-5 mt-7">
-              <h3 class="px-2">Address</h3>
-              <div class="w-full flex flex-wrap">
-                <div class="w-full md:w-1/3 px-2 inputHolder">
-                  <span class="input-titel">Flat No.</span>
-                  <input type="text" class="input" required />
+            <div className="space-y-5 mt-7">
+              <h3 className="px-2">Address</h3>
+              <div className="w-full flex flex-wrap">
+                <div className="w-full md:w-1/3 px-2 inputHolder">
+                  <span className="input-titel">Flat No.</span>
+                  <input type="text" className="input" required />
                 </div>
-                <div class="w-full md:w-1/3 px-2 inputHolder">
-                  <span class="input-titel">Street Name.</span>
-                  <input type="text" class="input" />
+                <div className="w-full md:w-1/3 px-2 inputHolder">
+                  <span className="input-titel">Street Name.</span>
+                  <input type="text" className="input" />
                 </div>
-                <div class="w-full md:w-1/3 px-2 inputHolder">
-                  <span class="input-titel">Area Name.</span>
-                  <input type="text" class="input" required />
+                <div className="w-full md:w-1/3 px-2 inputHolder">
+                  <span className="input-titel">Area Name.</span>
+                  <input type="text" className="input" required />
                 </div>
               </div>
-              <div class="w-full flex flex-wrap">
-                <div class="w-full md:w-1/3 px-2 inputHolder">
-                  <label class="input-titel">
+              <div className="w-full flex flex-wrap">
+                <div className="w-full md:w-1/3 px-2 inputHolder">
+                  <label className="input-titel">
                     City<span>*</span>
                   </label>
-                  <input type="text" class="input" required />
+                  <input type="text" className="input" required />
                 </div>
-                <div class="w-full md:w-1/3 px-2 inputHolder">
-                  <label class="input-titel">
+                <div className="w-full md:w-1/3 px-2 inputHolder">
+                  <label className="input-titel">
                     State<span>*</span>
                   </label>
-                  <input type="text" class="input" required />
+                  <input type="text" className="input" required />
                 </div>
-                <div class="w-full md:w-1/3 px-2 inputHolder">
-                  <label class="input-titel">
+                <div className="w-full md:w-1/3 px-2 inputHolder">
+                  <label className="input-titel">
                     Pincode<span>*</span>
                   </label>
-                  <input type="text" class="input" required />
+                  <input type="text" className="input" required />
                 </div>
               </div>
             </div>
-            <div class="upload-holder px-2 pt-5">
-              <span class="input-titel">
+            <div className="upload-holder px-2 pt-5">
+              <span className="input-titel">
                 Company Photos Max 5 images (up to 5MB/image)
               </span>
-              <label for="upload" class="upload">
+              <label for="upload" className="upload">
                 <input
                   type="file"
                   name="images"
                   id="upload"
-                  class="appearance-none hidden"
+                  className="appearance-none hidden"
                 />
-                <span class="input-titel mt-1">
-                  <i class="icon-image mr-2"></i>Upload Images
+                <span className="input-titel mt-1">
+                  <i className="icon-image mr-2"></i>Upload Images
                 </span>
               </label>
             </div>
-            <div class="upload-holder px-2 pt-5">
-              <span class="input-titel">
+            <div className="upload-holder px-2 pt-5">
+              <span className="input-titel">
                 Company Video Max 2 videos (up to 2GB/video)
               </span>
-              <label for="upload2" class="upload">
+              <label for="upload2" className="upload">
                 <input
                   type="file"
                   name="images"
                   id="upload2"
-                  class="appearance-none hidden"
+                  className="appearance-none hidden"
                 />
-                <div class="mt-1 flex items-baseline justify-center">
-                  <i class="icon-video-play text-base mr-2"></i>{" "}
-                  <span class="input-titel pt-1">Upload videos</span>
+                <div className="mt-1 flex items-baseline justify-center">
+                  <i className="icon-video-play text-base mr-2"></i>{" "}
+                  <span className="input-titel pt-1">Upload videos</span>
                 </div>
               </label>
             </div>
           </div>
           {/* <!-- add more button  --> */}
-          <p class="text-sm text-quicksilver font-bold">
+          <p className="text-sm text-quicksilver font-bold">
             Disclaimer - These images and videos will first be verified by the
             admin and then given the authority.
           </p>
         </div>
-        <div class="prw-next-btn">
-          <button type="button" class="flex items-center">
-            <i class="icon-back-arrow mr-3"></i>
+        <div className="prw-next-btn">
+          <button type="button" className="flex items-center">
+            <i className="icon-back-arrow mr-3"></i>
             <h3>Back</h3>
           </button>
-          <button type="button" class="flex items-center active">
+          <button type="button" className="flex items-center active">
             <h3>Next</h3>
-            <i class="icon-next-arrow ml-3"></i>
+            <i className="icon-next-arrow ml-3"></i>
           </button>
         </div>
       </div>
