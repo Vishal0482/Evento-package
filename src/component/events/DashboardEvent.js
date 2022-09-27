@@ -51,7 +51,7 @@ function DashboardEvent() {
 					<div className="">
 					  <div className="flex items-center">
 						<input type="checkbox" className="switch mr-3" />
-						<label for="">
+						<label htmlFor="">
 						  <h3>Live</h3>
 						</label>
 					  </div>
@@ -103,7 +103,7 @@ function DashboardEvent() {
 					<div className="">
 					  <div className="flex items-center">
 						<input type="checkbox" className="switch mr-3" />
-						<label for="">
+						<label htmlFor="">
 						  <h3>Live</h3>
 						</label>
 					  </div>

@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import Modal from "../../modal/Modal";
-import  EventPopUpAddPlace from "./EventPopUpAddPlace";
+import EventPopUpAddPlace from "./EventPopUpAddPlace";
 
 function EventPopUpAddPlaceWithDisplayName({ handleClose }) {
   const [isAddPlacePopUpOpen, setIsAddPlacePopUpOpen] = useState(false);
+ 
 
   return (
     // <!-- Add Place  -->
@@ -14,8 +15,8 @@ function EventPopUpAddPlaceWithDisplayName({ handleClose }) {
             <div className="flex justify-between items-center">
               <h1 className="h1">Add Place</h1>
               <div className="flex items-center space-x-6">
-                <button onClick={()=>setIsAddPlacePopUpOpen(true)} className="text-base font-bold text-spiroDiscoBall">
-                  <i className="icon-plus font-bold text-xs"></i>{" "}
+                <button onClick={() => setIsAddPlacePopUpOpen(true)} className="text-base font-bold text-spiroDiscoBall">
+                  <i className="icon-plus font-bold text-xs"></i>{""}
                   <span>Add Place</span>
                 </button>
                 <button onClick={() => handleClose(false)} className="text-xl">
@@ -27,10 +28,10 @@ function EventPopUpAddPlaceWithDisplayName({ handleClose }) {
               <div className="w-full inputHolder">
                 <label className="input-titel">Select Place</label>
                 <select className="w-full arrow option">
-                  <option>Sweet Love</option>
-                  <option>Love</option>
-                  <option>Sweet</option>
-                </select>
+								<option>Sweet Love Catering</option>
+								<option>Sweet Love 2</option>
+								<option>Sweet Love 3</option>
+								</select>
               </div>
               <div className="w-full inputHolder">
                 <label className="input-titel">
@@ -41,7 +42,7 @@ function EventPopUpAddPlaceWithDisplayName({ handleClose }) {
             </form>
             <a href="#" className="btn-primary w-full uppercase">
               Submit
-            </a>
+            </a> 
           </div>
         </div>
       </div>

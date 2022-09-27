@@ -1,17 +1,18 @@
-import React, { useState } from 'react'
-import { useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
 import Modal from "../../modal/Modal.js"
 import EventPopUpCategory from './EventPopUpCategory.js'
-import axios from "axios"
+import axios from "axios";
 
 function EventPopUpCreateNew({ handleClose }) {
 
 	const [isCategoryPopUpOpen, setIsCategoryPopUpOpen] = useState(false);
-	// const [catering, setCatering] = useState([""]);
+	const [category, setCategory] = useState([]);
 
-	// useEffect(function () {
-	// 	axios.get("https://jsonplaceholder.typicode.com/users").then((res) => (res.data))
-	// })
+	useEffect(() => {
+		axios.get("https://jsonplaceholder.typicode.com/users")
+			.then((res) => setCategory(res.data))
+	}, [])
+
 
 	return (
 		//    <!-- Create New  -->
@@ -29,25 +30,22 @@ function EventPopUpCreateNew({ handleClose }) {
 								<button onClick={() => handleClose(false)} href="#" className="text-xl"><i className="icon-close"></i></button>
 							</div>
 						</div>
-						<form className="space-y-5 py-7">
+						<form className="space-y-5 pt-7">
 							<div className="w-full inputHolder">
 								<label className="input-titel">Select Category</label>
 								<select className="w-full arrow option">
-									{/* Dropdown list */}
-									{/* {catering.map((user) => (
-										<option key={user.id} value={user.id}>{user.name}</option>
-
-									))} */}
-									<option>Love Catering</option>
-									<option>Sweet Catering</option>
+									{category && category.map((user) =>
+										<option key={user.id} value={user.name}>{user.name}</option>
+									)
+									}
 								</select>
 							</div>
 							<div className="w-full inputHolder">
 								<label className="input-titel">Give Display Name of Your Category</label>
-								<input className="input" type="text" />
+								<input className="input" type="text"/>
 							</div>
-						</form>
 						<a href="#" className="btn-primary w-full uppercase">Submit</a>
+						</form>
 					</div>
 				</div>
 			</div>
