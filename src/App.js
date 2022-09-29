@@ -34,13 +34,20 @@ import PSBCompanyDetails from "./component/personal_skills_business/PSBCompanyDe
 import PSBTermsAndConditions from "./component/personal_skills_business/PSBTermsAndConditions";
 import PSBDiscounts from "./component/personal_skills_business/PSBDiscounts";
 import PSBCalender from "./component/personal_skills_business/PSBCalender";
+import Login from "./component/Login";
+import Register from "./component/Register";
+import Otp from "./component/Otp";
 
 function App() {
   return (
     <div className="app">
         <BrowserRouter>
           <SideBar> 
-          <Routes className="main flex min-h-screen w-full">
+          <Routes className="main min-h-screen w-full">
+            {/* Login  */}
+            <Route exact path="/dashboard/login" element={<Login />} />
+            <Route exact path="/dashboard/otp" element={<Otp />} />
+            <Route exact path="/dashboard/register" element={<Register />} />
             <Route exact path="/dashboard/notification" element={<Notification />} />
             <Route exact path="/dashboard/notification/history" element={<NotificationHistory />} />
             <Route exact path="/dashboard/notification/details" element={<NotificationDetails />} />
