@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 import ringAd from "../../assest/images/ring-ad.png"
 
@@ -11,7 +12,7 @@ function EventCapacity() {
             <div className="space-y-8 h-full">
               {/* <!-- title-holder  --> */}
               <div className="flex justify-between items-center">
-                <a href="#" className="flex items-center"><i className="icon-back-arrow mr-4 text-2xl"></i><h1>Sweet Love Catering</h1></a>
+                <Link to="/" className="flex items-center"><i className="icon-back-arrow mr-4 text-2xl"></i><h1>Sweet Love Catering</h1></Link>
               </div>
               {/* <!-- step-progress-bar  --> */}
               <div className="w-full overflow-hidden">
@@ -112,7 +113,7 @@ function EventCapacity() {
                     <span className="input-titel">About place</span>
                     <div className="w-full flex flex-wrap bg-white p-2 rounded-md">
                       <textarea name="" id="" cols="30" rows="5" className="outline-none w-full"></textarea>
-                      <a href="#" className="title-btn ml-auto uppercase">Location from Google map</a>
+                      <Link to="/" className="title-btn ml-auto uppercase">Location from Google map</Link>
                     </div>                    
                 </div>
               </div>

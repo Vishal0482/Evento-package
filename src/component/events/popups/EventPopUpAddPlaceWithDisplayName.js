@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import Modal from "../../modal/Modal";
 import EventPopUpAddPlace from "./EventPopUpAddPlace";
 
@@ -40,9 +41,9 @@ function EventPopUpAddPlaceWithDisplayName({ handleClose }) {
                 <input className="input" type="text" />
               </div>
             </form>
-            <a href="#" className="btn-primary w-full uppercase">
+            <Link to="/" className="btn-primary w-full uppercase">
               Submit
-            </a> 
+            </Link> 
           </div>
         </div>
       </div>

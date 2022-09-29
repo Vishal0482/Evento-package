@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 
 function PersonalSkillBusinessPromote() {
   return (
@@ -53,7 +54,7 @@ function PersonalSkillBusinessPromote() {
               <span className="text-sm text-quicksilver">Coupon Code : 5489off</span>
             </div>
             <div>
-              <a href="#"><i className="icon-delete text-2xl"></i></a>
+              <Link to="/"><i className="icon-delete text-2xl"></i></Link>
             </div>
           </div>
           {/* <!-- pay now button  --> */}

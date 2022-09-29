@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import BottomNavigation from "../BottomNavigation";
 import Modal from "../modal/Modal";
 import NotificationDetailsPreviewPopup from "./popups/NotificationDetailsPreviewPopup";
@@ -18,10 +19,10 @@ function NotificationDetails() {
       <div className="space-y-8 h-full">
         {/* <!-- title-holder  --> */}
         <div className="flex justify-between items-center">
-          <a href="#" className="flex items-center">
+          <Link to="/" className="flex items-center">
             <i className="icon-back-arrow mr-4 text-2xl"></i>
             <h1>Create New Notification</h1>
-          </a>
+          </Link>
         </div>
         {/* <!-- main-content  --> */}
         <div className="space-y-5">

@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import { Link } from 'react-router-dom'
 import cuttingBoard from "../../assest/images/cutting-board.png"
 import Modal from "../modal/Modal"
 import EventPopUpAddService from './popups/EventPopUpAddService'
@@ -13,10 +14,10 @@ function EventAddServices() {
 	 <div className="wrapper min-h-full">
 	   <div className="space-y-8">
 		 <div className="flex justify-between items-center">
-		   <a href="#" className="flex items-center">
+		   <Link to="/" className="flex items-center">
 			 <i className="icon-back-arrow mr-4 text-2xl"></i>
 			 <h1>Sweet Love Catering</h1>
-		   </a>
+		   </Link>
 		   <button onClick={()=>setIsAddServicesPopUpOpen(true)} className="btn-primary flex items-center"><i className="icon-plus mr-3"></i><span>Add Service</span></button>
 		 </div>
 		  {/* <!-- step-progress-bar  --> */}

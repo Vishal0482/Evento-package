@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import notificationSvg1 from "../../assest/svg/notification-1.svg";
 import notificationSvg2 from "../../assest/svg/notification-2.svg";
@@ -15,9 +15,9 @@ function Notification() {
       <div className="space-y-8 h-full">
         {/* <!-- title-holder  --> */}
         <div className="flex justify-between items-center">
-          <a href="#" className="flex items-center">
+          <Link to="/" className="flex items-center">
             <h1>Notification</h1>
-          </a>
+          </Link>
           <div className="flex items-center  space-x-5">
             <button className="btn-primary" onClick={() => navigate("/dashboard/notification/history")}>
               <i className="icon-time mr-3"></i>

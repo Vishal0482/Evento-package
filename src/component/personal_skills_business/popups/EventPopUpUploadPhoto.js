@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 function EventPopUpUploadPhoto({handleClose}) {
   return (
@@ -26,7 +27,7 @@ function EventPopUpUploadPhoto({handleClose}) {
 			   <textarea name="" id="" cols="30" rows="5" className="outline-none flex items-center w-full bg-white p-2 px-3.5 rounded-md"></textarea>
 			 </div>
 		   </form>
-		   <a href="#" className="btn-primary w-full uppercase">Submit</a>
+		   <Link to="/" className="btn-primary w-full uppercase">Submit</Link>
 		 </div>
 	   </div>
 	 </div>

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function NotificationLIstItem({ imageUrl }) {
   return (
@@ -10,9 +11,9 @@ function NotificationLIstItem({ imageUrl }) {
         <div className="w-10/12">
           <div className="flex justify-between">
             <h2>Lorem Ipsum is simply dummy text of the</h2>
-            <a href="#">
+            <Link to="/">
               <i className="icon-more font-bold text-base"></i>
-            </a>
+            </Link>
           </div>
           <p className="text-gray-400 text-base pt-3 font-medium">
             Simply dummy text of the printing and typesetting industry. Lorem

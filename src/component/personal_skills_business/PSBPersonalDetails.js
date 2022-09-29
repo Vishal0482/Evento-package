@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Advisement from "../Advisement";
 
 function PSBPersonalDetails() {
@@ -9,10 +10,10 @@ function PSBPersonalDetails() {
         <div className="space-y-8 h-full">
           {/* <!-- title-holder  --> */}
           <div className="flex justify-between items-center">
-            <a href="#" className="flex items-center">
+            <Link to="/" className="flex items-center">
               <i className="icon-back-arrow mr-4 text-2xl"></i>
               <h1>Personal Skill Business</h1>
-            </a>
+            </Link>
           </div>
           {/* <!-- step-progress-bar  --> */}
           <div className="w-full overflow-hidden">

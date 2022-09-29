@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import { Link } from 'react-router-dom';
 
 import cuttingBoard from "../../assest/images/cutting-board.png"
 import Modal from '../modal/Modal';
@@ -18,7 +19,7 @@ function PSBAddEquipment() {
 	  <div className="space-y-8 h-full">
 		{/* <!-- title-holder  --> */}
 		<div className="flex justify-between items-center">
-		  <a href="#" className="flex items-center"><i className="icon-back-arrow mr-4 text-2xl"></i><h1>Personal Skill Business</h1></a>
+		  <Link to="/" className="flex items-center"><i className="icon-back-arrow mr-4 text-2xl"></i><h1>Personal Skill Business</h1></Link>
 		  <button onClick={()=>setIsAddEquipmentPopUpOpen(true)} className="btn-primary small"><i className="icon-plus mr-3"></i>Add Equipment</button>
 		</div>
 		{/* <!-- step-progress-bar  --> */}

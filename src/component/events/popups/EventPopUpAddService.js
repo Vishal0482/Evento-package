@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 function EventPopUpAddService({handleClose}) {
   return (
@@ -10,7 +11,7 @@ function EventPopUpAddService({handleClose}) {
             <div className="flex justify-between items-center">
               <h1 className="h1">Add Service</h1>
               <div className="flex items-center space-x-6">
-                <a href="#" className="text-base font-bold text-spiroDiscoBall"><i className="icon-plus font-bold text-xs"></i> <span>Add Service</span></a>
+                <Link to="/" className="text-base font-bold text-spiroDiscoBall"><i className="icon-plus font-bold text-xs"></i> <span>Add Service</span></Link>
                 <button onClick={()=>handleClose(false)} href="#" className="text-xl"><i className="icon-close"></i></button>
               </div>
             </div>
@@ -59,7 +60,7 @@ function EventPopUpAddService({handleClose}) {
                 <textarea name="" id="" cols="30" rows="5" className="outline-none flex items-center w-full bg-white p-2 px-3.5 rounded-md"></textarea>
               </div>
             </form>
-            <a href="#" className="btn-primary w-full uppercase">Submit</a>
+            <Link to="/" className="btn-primary w-full uppercase">Submit</Link>
           </div>
         </div>
       </div>

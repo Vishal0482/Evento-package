@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import notificationSvg2 from "../../../assest/svg/notification-2.svg";
 import NotificationLIstItem from "../NotificationLIstItem";
 
@@ -11,9 +12,9 @@ function NotificationDetailsPreviewPopup({ handleClose }) {
             <div className="flex justify-between items-center">
               <h1 className="h1">Notification</h1>
               <div className="flex items-center space-x-6" onClick={() => handleClose(false)}>
-                <a href="#" className="text-xl">
+                <Link to="/" className="text-xl">
                   <i className="icon-close"></i>
-                </a>
+                </Link>
               </div>
             </div>
             <NotificationLIstItem imageUrl={notificationSvg2} />

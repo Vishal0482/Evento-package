@@ -4,6 +4,7 @@ import ringAdImage from "../../assest/images/ring-ad.png";
 import Advisement from "../Advisement";
 import NotificationLIstItem from "./NotificationLIstItem";
 import BottomNavigation from "../BottomNavigation";
+import { Link } from "react-router-dom";
 
 function NotificationHistory() {
   return (
@@ -11,9 +12,9 @@ function NotificationHistory() {
       <div className="space-y-8 h-full">
         {/* <!-- title-holder  --> */}
         <div className="flex justify-between items-center">
-          <a href="#" className="flex items-center">
+          <Link to="/" className="flex items-center">
             <h1>Notification</h1>
-          </a>
+          </Link>
           <div className="flex items-center  space-x-5">
             <button className="btn-primary">
               <i className="icon-time mr-3"></i>

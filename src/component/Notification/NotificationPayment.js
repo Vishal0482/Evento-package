@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function NotificationPayment() {
   return (
@@ -23,9 +24,9 @@ function NotificationPayment() {
           <div className="w-full md:w-1/2 px-2 inputHolder relative">
             <span className="input-titel">CVV</span>
             <input type="text" className="input" />
-            <a href="#" className="absolute top-1/2 mt-1 right-5">
+            <Link to="/" className="absolute top-1/2 mt-1 right-5">
               <i className="icon-pass-hide mr-5"></i>
-            </a>
+            </Link>
           </div>
         </div>
       </div>

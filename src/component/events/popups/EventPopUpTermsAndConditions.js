@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 function EventPopUpTermsAndConditions({handleClose}) {
   return (
@@ -18,7 +19,7 @@ function EventPopUpTermsAndConditions({handleClose}) {
 			   </ul>
 			   <div className="flex items-center space-x-5">
 				 <button onClick={()=>handleClose(false)} className="btn-primary btn-cancel w-full">CANCEL</button>
-				 <a href="#" className="btn-primary w-full">APPLY</a>
+				 <Link to="/" className="btn-primary w-full">APPLY</Link>
 			   </div>
 			 </div>
 		   </div>

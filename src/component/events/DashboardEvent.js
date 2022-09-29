@@ -5,6 +5,7 @@ import ringAd from "../../assest/images/ring-ad.png"
 
 import Modal from '../modal/Modal';
 import EventPopUpCreateNew from './popups/EventPopUpCreateNew';
+import { Link } from 'react-router-dom';
 
 
 function DashboardEvent() {
@@ -68,14 +69,14 @@ function DashboardEvent() {
 					  <span className="text-quicksilver text-xs font-bold pl-2"> 19,981 ratings</span>
 					</div>
 					<div className="flex space-x-2">
-					  <a href="#" className="bg-brightGray px-2 py-1 text-center rounded"><i
-						className="icon-fill-megaphone text-base text-black"></i></a>
-					  <a href="#" className="bg-brightGray px-2 py-1 text-center rounded"><i
-						className="icon-calendar1 text-base text-black"></i></a>
-					  <a href="#" className="bg-brightGray px-2 py-1 text-center rounded"><i
-						className="icon-percentage text-base text-black"></i></a>
-					  <a href="#" className="bg-brightGray px-2 py-1 text-center rounded"><i
-						className="icon-share text-base text-black"></i></a>
+					  <Link to="/" className="bg-brightGray px-2 py-1 text-center rounded"><i
+						className="icon-fill-megaphone text-base text-black"></i></Link>
+					  <Link to="/" className="bg-brightGray px-2 py-1 text-center rounded"><i
+						className="icon-calendar1 text-base text-black"></i></Link>
+					  <Link to="/" className="bg-brightGray px-2 py-1 text-center rounded"><i
+						className="icon-percentage text-base text-black"></i></Link>
+					  <Link to="/" className="bg-brightGray px-2 py-1 text-center rounded"><i
+						className="icon-share text-base text-black"></i></Link>
 					</div>
 				  </div>
 				</div>
@@ -120,14 +121,14 @@ function DashboardEvent() {
 					  <span className="text-quicksilver text-xs font-bold pl-2"> 19,981 ratings</span>
 					</div>
 					<div className="flex space-x-2">
-					  <a href="#" className="bg-brightGray px-2 py-1 text-center rounded"><i
-						className="icon-fill-megaphone text-base text-black"></i></a>
-					  <a href="#" className="bg-brightGray px-2 py-1 text-center rounded"><i
-						className="icon-calendar1 text-base text-black"></i></a>
-					  <a href="#" className="bg-brightGray px-2 py-1 text-center rounded"><i
-						className="icon-percentage text-base text-black"></i></a>
-					  <a href="#" className="bg-brightGray px-2 py-1 text-center rounded"><i
-						className="icon-share text-base text-black"></i></a>
+					  <Link to="/" className="bg-brightGray px-2 py-1 text-center rounded"><i
+						className="icon-fill-megaphone text-base text-black"></i></Link>
+					  <Link to="/" className="bg-brightGray px-2 py-1 text-center rounded"><i
+						className="icon-calendar1 text-base text-black"></i></Link>
+					  <Link to="/" className="bg-brightGray px-2 py-1 text-center rounded"><i
+						className="icon-percentage text-base text-black"></i></Link>
+					  <Link to="/" className="bg-brightGray px-2 py-1 text-center rounded"><i
+						className="icon-share text-base text-black"></i></Link>
 					</div>
 				  </div>
 				</div>

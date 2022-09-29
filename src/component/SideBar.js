@@ -2,6 +2,7 @@ import React from "react";
 import logoImage from "../assest/svg/logo.svg";
 import userImage from "../assest/images/user-2.png";
 import Modal from "./modal/Modal.js"
+import { Link } from "react-router-dom";
 
 function SideBar({children}) {
   
@@ -10,75 +11,75 @@ function SideBar({children}) {
       {/* <!-- Left Panel --> */}
       <div className="leftPanel max-w-[230px] w-full bg-white shadow-md relative z-30">
         <div className="logo text-center px-4 pt-5 pb-8">
-          <a href="#" className="block">
+          <Link to="/" className="block">
             <img
               src={ logoImage } 
               alt="Evento Package Logo"
               className="max-w-full w-auto mx-auto"
             />
-          </a>
+          </Link>
         </div>
         <div className="nav">
-          <a href="#" className="active" title="Dashboard">
+          <Link to="/" className="active" title="Dashboard">
             <span>
               <i className="w-6 block text-center text-lg icon-deshbord"></i>
             </span>
             <span>Dashboard</span>
-          </a>
-          <a href="#" className="" title="Subscription">
+          </Link>
+          <Link to="/" className="" title="Subscription">
             <span>
               <i className="w-6 block text-center text-lg icon-subsciption"></i>
             </span>
             <span>Subscription</span>
-          </a>
-          <a href="#" className="" title="Refer & Earn">
+          </Link>
+          <Link to="/" className="" title="Refer & Earn">
             <span>
               <i className="w-6 block text-center text-lg icon-refer"></i>
             </span>
             <span>Refer & Earn</span>
-          </a>
-          <a href="#" className="" title="Redeem">
+          </Link>
+          <Link to="/" className="" title="Redeem">
             <span>
               <i className="w-6 block text-center text-lg icon-redem"></i>
             </span>
             <span>Redeem</span>
-          </a>
-          <a href="#" className="" title="Help & FAQ">
+          </Link>
+          <Link to="/" className="" title="Help & FAQ">
             <span>
               <i className="w-6 block text-center text-lg icon-help"></i>
             </span>
             <span>Help & FAQ</span>
-          </a>
-          <a href="#" className="" title="Gallery">
+          </Link>
+          <Link to="/" className="" title="Gallery">
             <span>
               <i className="w-6 block text-center text-lg icon-gallery"></i>
             </span>
             <span>Gallery</span>
-          </a>
-          <a href="#" className="" title="Festum Evento">
+          </Link>
+          <Link to="/" className="" title="Festum Evento">
             <span>
               <i className="w-6 block text-center text-lg icon-f-evanto"></i>
             </span>
             <span>Festum Evento</span>
-          </a>
-          <a href="#" className="" title="Booking">
+          </Link>
+          <Link to="/" className="" title="Booking">
             <span>
               <i className="w-6 block text-center text-lg icon-booking"></i>
             </span>
             <span>Booking</span>
-          </a>
-          <a href="#" className="" title="Invoice">
+          </Link>
+          <Link to="/" className="" title="Invoice">
             <span>
               <i className="w-6 block text-center text-lg icon-invoice"></i>
             </span>
             <span>Invoice</span>
-          </a>
-          <a href="#" className="" title="Membership">
+          </Link>
+          <Link to="/" className="" title="Membership">
             <span>
               <i className="w-6 block text-center text-lg icon-membership"></i>
             </span>
             <span>Membership</span>
-          </a>
+          </Link>
         </div>
       </div>
       {/* <!-- Content --> */}
@@ -134,13 +135,13 @@ function SideBar({children}) {
               >
                 <span className="icon-megaphone text-2xl block"></span>
               </a>
-              <a href="#" className="block">
+              <Link to="/" className="block">
                 <img
                   src={ userImage }
                   alt="user name"
                   className="w-12 h-12 object-cover rounded-2xl"
                 />
-              </a>
+              </Link>
             </div>
           </div>
         </div>

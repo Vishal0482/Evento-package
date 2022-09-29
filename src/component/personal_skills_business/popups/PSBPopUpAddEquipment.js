@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function PSBPopUpAddEquipment({ handleClose }) {
   return (
@@ -114,9 +115,9 @@ function PSBPopUpAddEquipment({ handleClose }) {
                 ></textarea>
               </div>
             </form>
-            <a href="#" className="btn-primary w-full uppercase">
+            <Link to="/" className="btn-primary w-full uppercase">
               Submit
-            </a>
+            </Link>
           </div>
         </div>
       </div>

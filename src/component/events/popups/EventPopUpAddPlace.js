@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 function EventPopUpAddPlace({handleClose}) {
   return (
@@ -19,7 +20,7 @@ function EventPopUpAddPlace({handleClose}) {
                 <input className="input" type="text"/>
               </div>
             </form>
-            <a href="#" className="btn-primary w-full uppercase">Submit</a>
+            <Link to="/" className="btn-primary w-full uppercase">Submit</Link>
           </div>
         </div>
       </div>

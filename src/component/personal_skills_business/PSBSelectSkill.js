@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Advisement from "../Advisement";
 import Modal from "../../component/modal/Modal";
 import PSBPopUpAddSkill from "./popups/PSBPopUpAddSkill";
+import { Link } from "react-router-dom";
 
 function PSBSelectSkill() {
   const [isAddSkillPopUpOpen, setIsAddSkillPopUpOpen] = useState(false);
@@ -12,10 +13,10 @@ function PSBSelectSkill() {
         <div className="space-y-8 h-full">
           {/* <!-- title-holder  --> */}
           <div className="flex justify-between items-center">
-            <a href="#" className="flex items-center">
+            <Link to="/" className="flex items-center">
               <i className="icon-back-arrow mr-4 text-2xl"></i>
               <h1>Personal Skill Business</h1>
-            </a>
+            </Link>
             <button onClick={()=>setIsAddSkillPopUpOpen(true)} className="btn-primary">
               <i className="icon-plus mr-3"></i>Add New
             </button>
