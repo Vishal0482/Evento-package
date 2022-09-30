@@ -1,7 +1,7 @@
 import React from "react";
 import notificationSvg2 from "../../assest/svg/notification-2.svg";
 import ringAdImage from "../../assest/images/ring-ad.png";
-import Advisement from "../Advisement";
+import Advertisement from "../Advertisement";
 import NotificationLIstItem from "./NotificationLIstItem";
 import BottomNavigation from "../BottomNavigation";
 import { Link } from "react-router-dom";
@@ -30,7 +30,7 @@ function NotificationHistory() {
         <NotificationLIstItem imageUrl={notificationSvg2} />
         
         {/* <!-- advisement --> */}
-        <Advisement />
+        <Advertisement />
 
         <NotificationLIstItem imageUrl={notificationSvg2} />
 

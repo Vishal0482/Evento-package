@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Advisement from "../Advisement";
+import Advertisement from "../Advertisement";
 import Modal from "../../component/modal/Modal";
 import PSBPopUpAddSkill from "./popups/PSBPopUpAddSkill";
 import { Link } from "react-router-dom";
@@ -92,7 +92,7 @@ function PSBSelectSkill() {
             </div>
           </div>
           {/* <!-- advisement --> */}
-          <Advisement />
+          <Advertisement />
         </div>
         <div className="prw-next-btn mt-auto">
           <button type="button" className="flex items-center">

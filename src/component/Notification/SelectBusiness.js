@@ -5,8 +5,6 @@ import cardImage3 from "../../assest/svg/group-skils-business.svg";
 import cardImage4 from "../../assest/svg/all-user.svg";
 import cardImage5 from "../../assest/svg/existing-user.svg";
 import SelectBusinessCard from "./SelectBusinessCard";
-import Advisement from "../Advisement";
-import BottomNavigation from "../BottomNavigation";
 
 function SelectBusiness() {
   return (

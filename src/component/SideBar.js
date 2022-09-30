@@ -2,11 +2,8 @@ import React, { useState } from "react";
 import logoImage from "../assest/svg/logo.svg";
 import userImage from "../assest/images/user-2.png";
 import Modal from "./modal/Modal.js"
-<<<<<<< HEAD
 import { Link } from "react-router-dom";
-=======
 import LanguagePopup from "./other/modal/LanguagePopup"
->>>>>>> event
 
 function SideBar({children}) {
   

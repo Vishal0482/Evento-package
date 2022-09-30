@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Advisement from "../Advisement";
+import Advertisement from "../Advertisement";
 
 function PSBPersonalDetails() {
   return (
@@ -218,7 +218,7 @@ function PSBPersonalDetails() {
             </div>
           </div>
           {/* <!-- advisement --> */}
-          <Advisement />
+          <Advertisement />
         </div>
         <div className="prw-next-btn">
           <button type="button" className="flex items-center">

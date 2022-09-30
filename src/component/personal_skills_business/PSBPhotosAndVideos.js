@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import Modal from "../modal/Modal";
-import Advisement from "../Advisement";
+import Advertisement from "../Advertisement";
 import uploadOne from "../../assest/images/upload-1.png"
 import PSBPopUpUploadPhoto from './popups/EventPopUpUploadPhoto'
 import PSBPopUpUploadVideo from "./popups/EventPopUpUploadVideo"
@@ -165,7 +165,7 @@ function PSBPhotosAndVideos() {
             </div>
           </div>
           {/* <!-- advisement --> */}
-          <Advisement/>
+          <Advertisement/>
         </div>
         <div className="prw-next-btn">
           <button type="button" className="flex items-center">
