@@ -5,6 +5,7 @@ import './App.css';
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 
 import SideBar from './component/SideBar';
+<<<<<<< HEAD
 import Notification from './component/Notification/Notification';
 import NotificationHistory from "./component/Notification/NotificationHistory";
 import NotificationDetails from "./component/Notification/NotificationDetails";
@@ -37,12 +38,25 @@ import PSBCalender from "./component/personal_skills_business/PSBCalender";
 import Login from "./component/Login";
 import Register from "./component/Register";
 import Otp from "./component/Otp";
+=======
+import DashboardEventView from "./component/event-view/DashboardEventView";
+import ReferToEarn from "./component/other/ReferToEarn";
+import RedeemCoin from "./component/other/RedeemCoin";
+import FAQ from "./component/other/FAQ";
+import Chatbot from "./component/other/Chatbot";
+import Gallery from "./component/other/Gallery";
+import Invoice from "./component/other/Invoice";
+import InvoiceHistory from "./component/other/InvoiceHistory";
+import Profile from "./component/other/Profile";
+import Booking from "./component/other/Booking";
+>>>>>>> event
 
 function App() {
   return (
     <div className="app">
         <BrowserRouter>
           <SideBar> 
+<<<<<<< HEAD
           <Routes className="main min-h-screen w-full">
             {/* Login  */}
             <Route exact path="/dashboard/login" element={<Login />} />
@@ -82,6 +96,19 @@ function App() {
             <Route exact path="/dashboard/personalskillbusiness/termsandconditions" element={<PSBTermsAndConditions/>} />
             <Route exact path="/dashboard/personalskillbusiness/discounts" element={<PSBDiscounts/>} />
             <Route exact path="/dashboard/personalskillbusiness/calender" element={<PSBCalender/>} />
+=======
+          <Routes className="main flex min-h-screen w-full">
+            <Route exact path="/dashboard/event-view" element={<DashboardEventView />} />    
+            <Route exact path="/dashboard/refer-to-earn" element={<ReferToEarn />} />    
+            <Route exact path="/dashboard/redeem-coin" element={<RedeemCoin />} />    
+            <Route exact path="/dashboard/faqs" element={<FAQ />} />    
+            <Route exact path="/dashboard/chatbot" element={<Chatbot />} />    
+            <Route exact path="/dashboard/gallery" element={<Gallery />} />    
+            <Route exact path="/dashboard/invoice" element={<Invoice />} />    
+            <Route exact path="/dashboard/invoice-history" element={<InvoiceHistory />} />    
+            <Route exact path="/dashboard/profile" element={<Profile />} />    
+            <Route exact path="/dashboard/booking" element={<Booking />} />    
+>>>>>>> event
           </Routes>
           </SideBar>
         </BrowserRouter>
