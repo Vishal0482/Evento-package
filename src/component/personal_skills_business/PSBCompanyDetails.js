@@ -81,7 +81,7 @@ function PSBCompanyDetails() {
               </div>
               <div className="w-full md:w-1/2 px-2 inputHolder">
                 <span className="input-titel">Company GST (Optional)</span>
-                <label for="upload" className="upload upload-popup">
+                <label htmlfor="upload" className="upload upload-popup">
                   <input
                     type="file"
                     name="images"
@@ -153,7 +153,7 @@ function PSBCompanyDetails() {
               <span className="input-titel">
                 Company Photos Max 5 images (up to 5MB/image)
               </span>
-              <label for="upload" className="upload">
+              <label htmlfor="upload" className="upload">
                 <input
                   type="file"
                   name="images"
@@ -169,7 +169,7 @@ function PSBCompanyDetails() {
               <span className="input-titel">
                 Company Video Max 2 videos (up to 2GB/video)
               </span>
-              <label for="upload2" className="upload">
+              <label htmlfor="upload2" className="upload">
                 <input
                   type="file"
                   name="images"

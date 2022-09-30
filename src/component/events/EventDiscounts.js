@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import ringAd from "../../assest/images/ring-ad.png"
 import celebration from "../../assest/svg/celebration.svg"
@@ -6,14 +6,35 @@ import Modal from "../modal/Modal"
 import EventPopUpDiscountOnTotalBill  from "./popups/EventPopUpDiscountOnTotalBill"
 import EventPopUpDiscountOnEquipmentOrItem from "./popups/EventPopUpDiscountOnEquipmentOrItem"
 import EventPopUpAdvanceAndDiscountConfirmation from "./popups/EventPopUpAdvanceAndDiscountConfirmation"
+import axios from 'axios'
+import { baseUrl } from '../../config'
 
 
 
 function EventDiscounts() {
 
-	const [isDiscountOnTotalBillPopUpOpen, setIsDiscountOnTotalBillPopUpOpen] = useState(false)
-	const [isDiscountOnEquipmentOrItemPopUpOpen, setIsDiscountOnEquipmentOrItemPopUpOpen] = useState(false)
-	const [isAdvanceAndDiscountConfirmationPopUpOpen, setIsAdvanceAndDiscountConfirmationPopUpOpen] = useState(false)
+	const [isDiscountOnTotalBillPopUpOpen, setIsDiscountOnTotalBillPopUpOpen] = useState(false);
+	const [isDiscountOnEquipmentOrItemPopUpOpen, setIsDiscountOnEquipmentOrItemPopUpOpen] = useState(false);
+	const [isAdvanceAndDiscountConfirmationPopUpOpen, setIsAdvanceAndDiscountConfirmationPopUpOpen] = useState(false);
+	const [allDiscount, setAllDiscount] = useState({});
+	const token = '7234eb833b21d7dae48848fb8d4a0cc3b1ea6c9f';
+
+	const getDiscount = async() => {
+		const header = {
+			'Authorization': `Token ${token}`
+		}
+		try {	
+			const response = await axios.get(`${baseUrl}/api/discount`,{headers: header});
+			console.log(response);
+			setAllDiscount(response.data);
+		} catch (error) {
+			console.log(error);
+		}
+	}
+
+	useEffect(() => {
+		getDiscount();
+	}, [])
 
 	return (
 	//    <!-- Content In -->
@@ -143,7 +164,7 @@ function EventDiscounts() {
 		 </div>
 	   </div>
 
-	   <Modal isOpen={isDiscountOnTotalBillPopUpOpen}>
+	 <Modal isOpen={isDiscountOnTotalBillPopUpOpen}>
 		<EventPopUpDiscountOnTotalBill handleClose={setIsDiscountOnTotalBillPopUpOpen}/>
 	 </Modal>
 	 <Modal isOpen={isDiscountOnEquipmentOrItemPopUpOpen}>

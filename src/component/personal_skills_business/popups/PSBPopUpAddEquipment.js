@@ -25,7 +25,7 @@ function PSBPopUpAddEquipment({ handleClose }) {
                 <h6 className="text-sm font-bold text-quicksilver">
                   Photo <span className="text-10">2 images (up to 3MB/Image)</span>
                 </h6>
-                <label for="upload" className="upload upload-popup border-0">
+                <label htmlfor="upload" className="upload upload-popup border-0">
                   <input
                     type="file"
                     name="images"
@@ -40,9 +40,9 @@ function PSBPopUpAddEquipment({ handleClose }) {
               <div className="upload-holder boredr">
                 <h6 className="text-sm font-bold text-quicksilver">
                   Video{" "}
-                  <span className="text-10">1 Video (up to 180MB for 3 Min)</span>
+                  <span className="text-10">1 Video (up to 180MB htmlfor 3 Min)</span>
                 </h6>
-                <label for="upload" className="upload upload-popup border-0">
+                <label htmlfor="upload" className="upload upload-popup border-0">
                   <input
                     type="file"
                     name="images"
@@ -57,7 +57,7 @@ function PSBPopUpAddEquipment({ handleClose }) {
               <div className="w-full">
                 <span className="input-titel">Price</span>
                 <label
-                  for=""
+                  htmlfor=""
                   className="flex items-center w-full bg-white p-2 px-3.5 rounded-md"
                 >
                   <div className="w-full px-3.5">

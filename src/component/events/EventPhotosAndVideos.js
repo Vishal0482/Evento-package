@@ -91,7 +91,7 @@ const [isUploadVideoPopUpOpen, setIsUploadVideoPopUpOpen] = useState(false)
 		 <div className="space-y-5">
 		   <div className="upload-holder">
 			   <h3 className="flex items-end">Photo <span className="input-titel ml-2">5 Images (up to 5MB/Image)</span></h3>
-			   <label onClick={()=>setIsUploadPhotoPopUpOpen(true)} for="upload" className="upload">
+			   <label onClick={()=>setIsUploadPhotoPopUpOpen(true)} htmlfor="upload" className="upload">
 				 <input  name="images" id="upload" className="appearance-none hidden"/>
 				 <span className="input-titel mt-1"><i className="icon-image mr-2"></i>Upload Images</span>
 			   </label>
@@ -115,7 +115,7 @@ const [isUploadVideoPopUpOpen, setIsUploadVideoPopUpOpen] = useState(false)
 		   </div>
 		   <div className="upload-holder">
 			   <h3 className="flex items-end">videos <span className="input-titel ml-2">2 videos (up to 512MB/video)</span></h3>
-			   <label onClick={()=>setIsUploadVideoPopUpOpen(true)} for="upload2" className="upload">
+			   <label onClick={()=>setIsUploadVideoPopUpOpen(true)} htmlfor="upload2" className="upload">
 				 <input  name="images" id="upload2" className="appearance-none hidden"/>
 				 <div className="mt-1 flex items-baseline justify-center"><i className="icon-video-play text-base mr-2"></i> <span className="input-titel pt-1">Upload videos</span></div>
 			   </label>

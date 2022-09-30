@@ -16,7 +16,7 @@ function EventPopUpUploadVideo({handleClose}) {
             <form className="py-7 space-y-5">
               <div className="upload-holder">
                 <h6 className="text-sm font-bold text-quicksilver">Select Video <span className="text-10">2 video (up to 512MB/Video)</span></h6>
-                <label for="upload" className="upload upload-popup">
+                <label htmlfor="upload" className="upload upload-popup">
                   <input type="file" name="images" id="upload" className="appearance-none hidden"/>
                   <span className="input-titel mt-1"><i className="icon-video-play mr-2"></i>Upload Video</span>
                 </label>

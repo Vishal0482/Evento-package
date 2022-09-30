@@ -9,10 +9,7 @@ function NotificationDetails() {
   const [link, setLink] = useState("");
   const [image, setImage] = useState("");
   const [description, setDescription] = useState("");
-  const [
-    isNotificationDetailPreviewPopupOpen,
-    setIsNotificationDetailPreviewPopupOpen,
-  ] = useState(false);
+  const [isNotificationDetailPreviewPopupOpen, setIsNotificationDetailPreviewPopupOpen] = useState(false);
 
   return (
     <div className="wrapper min-h-full">
