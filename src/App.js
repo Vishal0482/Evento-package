@@ -48,6 +48,8 @@ import Invoice from "./component/other/Invoice";
 import InvoiceHistory from "./component/other/InvoiceHistory";
 import Profile from "./component/other/Profile";
 import Booking from "./component/other/Booking";
+import SelectWhoYouAre from "./component/events/SelectWhoYouAre";
+import BuySpacePlan from "./component/events/BuySpacePlan";
 
 
 function App() {
@@ -73,7 +75,8 @@ function App() {
             <Route exact path="/dashboard/notification/promote/payment" element={<Promote> <NotificationPayment />  </Promote> } />
 
             {/* 0.2.1 select who you are? */}
-            <Route exact path="/dashboard/event" element={<DashboardEvent />} />
+            <Route exact path="/dashboard/select-who-you-are" element={<SelectWhoYouAre/>} />
+            <Route exact path="/dashboard/event/:id" element={<DashboardEvent />} />
             <Route exact path="/dashboard/event/addplaces" element={<EventAddPlaces />} />
             <Route exact path="/dashboard/event/aboutplace" element={<EventAboutPlace />} />
             <Route exact path="/dashboard/event/personaldetails" element={<EventPersonalDetails />} />
@@ -84,6 +87,7 @@ function App() {
             <Route exact path="/dashboard/event/termsandconditions" element={<EventTermsAndConditions />} />
             <Route exact path="/dashboard/event/discounts" element={<EventDiscounts />} />
             <Route exact path="/dashboard/event/calender" element={<EventCalender />} />
+            <Route exact path="/dashboard/event/buy-space-plan" element={<BuySpacePlan />} />
 
             {/* 0.3.1 personal skill business */}
             <Route exact path="/dashboard/personalskillbusiness/selectskill" element={<PSBSelectSkill />}/>

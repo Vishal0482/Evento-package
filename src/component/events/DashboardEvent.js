@@ -6,13 +6,15 @@ import EventPopUpCreateNew from './popups/EventPopUpCreateNew';
 import axios from 'axios';
 import { baseUrl } from '../../config';
 import DashboardEventCategoryItem from './DashboardEventCategoryItem';
+import { useLocation, useParams } from 'react-router-dom';
 
 
 function DashboardEvent() {
+	const params = useParams();
 	const [isCreateNewPopUpOpen, setIsCreateNewPopUpOpen] = useState(false);
 	const [allCategories,setAllCatagories] =useState({});
 	const token = '7234eb833b21d7dae48848fb8d4a0cc3b1ea6c9f';
-
+	console.log("params",params.id);
 	const getAllCatagories = async() =>{
 		const header = {
 			'Authorization': `Token ${token}`
