@@ -1,14 +1,18 @@
 import React, {useState} from 'react'
 import ringAd from "../../assest/images/ring-ad.png"
 import Modal from "../modal/Modal";
+import EventAddPlacesEventList from './EventAddPlacesEventList';
 import EventPopUpAddPlaceWithDisplayName from "./popups/EventPopUpAddPlaceWithDisplayName";
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 
 function EventAddPlaces() {
 
-
 	const [isAddPlaceWithDisplayNamePopUpOpen, setIsAddPlaceWithDisplayNamePopUpOpen] = useState(false);
-
+	const navigate = useNavigate();
+	const newEvent = useSelector((state) => state.createEvent);
+	console.log(newEvent);
   return (
 	//  <!-- Content In -->
 	 <div className="rightInContent">
@@ -86,46 +90,7 @@ function EventAddPlaces() {
 		 </div>
 		 {/* <!-- main-content  --> */}
 		 <div className=" space-y-3">
-		   <div className="w-full flex items-center">
-			 <div>
-				 <label className="checkbox w-16">
-					 <input type="checkbox" checked/>
-					 <i className="icon-right"></i>                  
-				 </label>
-			 </div>
-			 <div className="w-full px-7 py-5 bg-white rounded">
-				 <div className="flex items-start justify-between">
-					 <div>
-					   <h2>Sweet Love Catering</h2>
-					   <span className="text-sm text-spiroDiscoBall font-medium tracking-wider">Caterers</span>
-					 </div>
-					 <div className="flex">
-						 <a href="#" className="flex items-center text-xs text-quicksilver font-semibold tracking-wider pr-4 border-r border-quicksilver"><i className="icon-fill-delete mr-1"></i>Delete</a>
-						 <a href="#" className="flex items-center text-xs text-quicksilver font-semibold tracking-wider pl-4"><i className="icon-edit mr-1"></i>Edit</a>
-					 </div>
-				 </div>
-			 </div>
-		   </div> 
-		   <div className="w-full flex items-center">
-			 <div>
-				 <label className="checkbox w-16">
-					 <input type="checkbox"/>
-					 <i className="icon-right"></i>                  
-				 </label>
-			 </div>
-			 <div className="w-full px-7 py-5 bg-white rounded">
-				 <div className="flex items-start justify-between">
-					 <div>
-					   <h2>Sweet Love Catering</h2>
-					   <span className="text-sm text-spiroDiscoBall font-medium tracking-wider">Caterers</span>
-					 </div>
-					 <div className="flex">
-						 <a href="#" className="flex items-center text-xs text-quicksilver font-semibold tracking-wider pr-4 border-r border-quicksilver"><i className="icon-fill-delete mr-1"></i>Delete</a>
-						 <a href="#" className="flex items-center text-xs text-quicksilver font-semibold tracking-wider pl-4"><i className="icon-edit mr-1"></i>Edit</a>
-					 </div>
-				 </div>
-			 </div>
-		   </div>  
+		   <EventAddPlacesEventList displayName={newEvent.displayName} categoryName={newEvent.categoryName} />
 		 </div>
 		 {/* <!-- advisement --> */}
 		 <div className="w-full mt-5">
@@ -133,7 +98,7 @@ function EventAddPlaces() {
 		 </div>
 	   </div>
 	   <div className="prw-next-btn mt-auto">
-		 <button type="button" className="flex items-center"><i className="icon-back-arrow mr-3"></i><h3>Back</h3></button>
+		 <button type="button" className="flex items-center" onClick={() => navigate(-1)}><i className="icon-back-arrow mr-3"></i><h3>Back</h3></button>
 		 <button type="button" className="flex items-center active"><h3>Next</h3><i className="icon-next-arrow ml-3"></i></button>
 	   </div>
 	 </div>

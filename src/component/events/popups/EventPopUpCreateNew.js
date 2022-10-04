@@ -4,6 +4,8 @@ import EventPopUpCategory from './EventPopUpCategory.js'
 import axios from "axios";
 import { baseUrl } from '../../../config.js';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { addEvent } from '../../../redux/createEvent.js';
 
 function EventPopUpCreateNew({ handleClose }) {
 
@@ -11,6 +13,7 @@ function EventPopUpCreateNew({ handleClose }) {
 	const [category, setCategory] = useState([]);
 	const [newCategoryName, setNewCategoryName] = useState("");
 	const [newCategoryDisplayName, setNewCategoryDisplayName] = useState("");
+	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
 	const token = '7234eb833b21d7dae48848fb8d4a0cc3b1ea6c9f';
@@ -22,6 +25,7 @@ function EventPopUpCreateNew({ handleClose }) {
 			const response = await axios.get(`${baseUrl}/api/event_category_list`,{headers: header});
 			console.log("Categorys >> ",response);
 			setCategory(response.data.data);
+			setNewCategoryName(response.data.data[0].category_name);
 		} catch (error) {
 			console.log(error);
 		}
@@ -30,6 +34,12 @@ function EventPopUpCreateNew({ handleClose }) {
 	useEffect(()=>{
 		getCategory();
 	},[]);
+
+	console.log(newCategoryName);
+	const clickHandler = () => {
+		dispatch(addEvent({categoryName: newCategoryName,displayName: newCategoryDisplayName}));
+		navigate("/dashboard/event/addplaces");
+	}
 
 
 	return (
@@ -51,18 +61,17 @@ function EventPopUpCreateNew({ handleClose }) {
 						<form className="space-y-5 pt-7">
 							<div className="w-full inputHolder">
 								<label className="input-titel">Select Category</label>
-								<select className="w-full arrow option" onChange={(e) => setNewCategoryName(e.target.value)}>
+								<select className="w-full arrow option" onChange={(e) => setNewCategoryName(e.target.value)} >
 									{category && category.map((element) =>
 										<option key={element.categoryId} value={element.category_name}>{element.category_name}</option>
-									)
-									}
+									)}
 								</select>
 							</div>
 							<div className="w-full inputHolder">
 								<label className="input-titel">Give Display Name of Your Category</label>
 								<input className="input" type="text" onChange={(e) => setNewCategoryDisplayName(e.target.value)}/>
 							</div>
-						<a href="#" className="btn-primary w-full uppercase" onClick={() => navigate("/dashboard/event/addplaces")}>Submit</a>
+						<a href="#" className="btn-primary w-full uppercase" onClick={() => clickHandler()}>Submit</a>
 						</form>
 					</div>
 				</div>
