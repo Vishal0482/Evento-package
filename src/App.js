@@ -51,7 +51,6 @@ import Booking from "./component/other/Booking";
 import SelectWhoYouAre from "./component/events/SelectWhoYouAre";
 import BuySpacePlan from "./component/events/BuySpacePlan";
 
-
 function App() {
   return (
     <div className="app">
@@ -81,13 +80,13 @@ function App() {
             <Route exact path="/dashboard/event/aboutplace" element={<EventAboutPlace />} />
             <Route exact path="/dashboard/event/personaldetails" element={<EventPersonalDetails />} />
             <Route exact path="/dashboard/event/photosandvideos" element={<EventPhotosAndVideos />} />
+            <Route exact path="/dashboard/event/buy-space-plan" element={<BuySpacePlan />} />
             <Route exact path="/dashboard/event/addservices" element={<EventAddServices />} />
             <Route exact path="/dashboard/event/capacity" element={<EventCapacity />} />
             <Route exact path="/dashboard/event/companydetails" element={<EventCompanyDetails />} />
             <Route exact path="/dashboard/event/termsandconditions" element={<EventTermsAndConditions />} />
             <Route exact path="/dashboard/event/discounts" element={<EventDiscounts />} />
             <Route exact path="/dashboard/event/calender" element={<EventCalender />} />
-            <Route exact path="/dashboard/event/buy-space-plan" element={<BuySpacePlan />} />
 
             {/* 0.3.1 personal skill business */}
             <Route exact path="/dashboard/personalskillbusiness/selectskill" element={<PSBSelectSkill />}/>

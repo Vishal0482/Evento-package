@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { baseUrl } from '../../../config';
 
 function EventPopUpAddService({handleClose}) {
-  // validation pending for required field.
+  // validation pending htmlFor required field.
 
   const [name, setName] = useState(null);
   const [price, setPrice] = useState(null);
@@ -56,7 +56,7 @@ function EventPopUpAddService({handleClose}) {
               </div>
               <div className="w-full">
                 <span className="input-titel">Price</span>
-                <label htmlfor="" className="flex items-center w-full bg-white p-2 px-3.5 rounded-md">
+                <label htmlFor="" className="flex items-center w-full bg-white p-2 px-3.5 rounded-md">
                   <div className="w-full px-3.5">
                     <input type="text" className="w-full outline-none text-spiroDiscoBall font-bold text-base" onChange={(e) => setPrice(e.target.value) } />
                   </div>
@@ -84,7 +84,7 @@ function EventPopUpAddService({handleClose}) {
               </div>
               <div className="upload-holder">
                 <h6 className="text-sm font-bold text-quicksilver">Select Photo <span className="text-10">2 images (up to 3MB/Image)</span></h6>
-                <label htmlfor="upload" className="upload upload-popup">
+                <label htmlFor="upload" className="upload upload-popup">
                   <input type="file" name="images" id="upload" className="appearance-none hidden" onChange={(e) => setImage(e.target.files[0])} />
                   <span className="input-titel mt-1"><i className="icon-image mr-2"></i>Choose Images</span>
                 </label>

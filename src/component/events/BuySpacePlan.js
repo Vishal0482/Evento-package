@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import Advertisement from '../Advertisement';
 
 function BuySpacePlan() {
     const navigate = useNavigate();
@@ -7,7 +8,7 @@ function BuySpacePlan() {
     <div className="rightInContent">
           <div className="wrapper">
             <div className="flex justify-between items-center">
-              <a href="#" className="flex items-center"><i className="icon-back-arrow mr-4 text-2xl" onClick={() => {navigate(-1)}}></i><h1>Buy Space Plan</h1></a>
+              <a href="#" className="flex items-center" onClick={() => navigate(-1)}><i className="icon-back-arrow mr-4 text-2xl"></i><h1>Buy Space Plan</h1></a>
             </div>
             <div className="flex flex-wrap items-center -m-3 mt-7">
               <div className="w-full xl:w-1/2 p-3">
@@ -63,7 +64,9 @@ function BuySpacePlan() {
                 </div>
               </div>
             </div>
+          <Advertisement />
           </div>
+
         </div>
   )
 }

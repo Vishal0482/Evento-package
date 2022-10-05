@@ -1,17 +1,17 @@
-import React, {useState} from 'react'
-import ringAd from "../../assest/images/ring-ad.png"
+import React, {useState} from 'react';
 import Modal from "../modal/Modal";
 import EventAddPlacesEventList from './EventAddPlacesEventList';
 import EventPopUpAddPlaceWithDisplayName from "./popups/EventPopUpAddPlaceWithDisplayName";
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import Advertisement from '../Advertisement';
 
 
 function EventAddPlaces() {
 
 	const [isAddPlaceWithDisplayNamePopUpOpen, setIsAddPlaceWithDisplayNamePopUpOpen] = useState(false);
 	const navigate = useNavigate();
-	const newEvent = useSelector((state) => state.createEvent);
+	const newEvent = useSelector((state) => state.createEvent.category);
 	console.log(newEvent);
   return (
 	//  <!-- Content In -->
@@ -90,16 +90,14 @@ function EventAddPlaces() {
 		 </div>
 		 {/* <!-- main-content  --> */}
 		 <div className=" space-y-3">
-		   <EventAddPlacesEventList displayName={newEvent.displayName} categoryName={newEvent.categoryName} />
+		   <EventAddPlacesEventList displayName={newEvent?.displayName} categoryName={newEvent?.categoryName} />
 		 </div>
 		 {/* <!-- advisement --> */}
-		 <div className="w-full mt-5">
-			 <img src={ringAd} alt="ring-ad" className="w-full object-cover"/>
-		 </div>
+		 <Advertisement />
 	   </div>
 	   <div className="prw-next-btn mt-auto">
 		 <button type="button" className="flex items-center" onClick={() => navigate(-1)}><i className="icon-back-arrow mr-3"></i><h3>Back</h3></button>
-		 <button type="button" className="flex items-center active"><h3>Next</h3><i className="icon-next-arrow ml-3"></i></button>
+		 <button type="button" className="flex items-center active" onClick={() => navigate("/dashboard/event/aboutplace")}><h3>Next</h3><i className="icon-next-arrow ml-3"></i></button>
 	   </div>
 	 </div>
 	 <Modal isOpen={isAddPlaceWithDisplayNamePopUpOpen}>
