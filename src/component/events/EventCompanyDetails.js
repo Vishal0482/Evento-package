@@ -85,7 +85,7 @@ function EventCompanyDetails() {
 			  </d>
 			  <div className="w-full md:w-1/2 px-2 inputHolder">
 				  <span className="input-titel">Company GST (Optional)</span>
-				  <label for="upload" className="upload upload-popup">
+				  <label htmlfor="upload" className="upload upload-popup">
 					<input type="file" name="images" id="upload" className="appearance-none hidden"/>
 					<span className="input-titel mt-1"><i className="icon-pdf mr-2"></i>Upload PDF</span>
 				  </label>
@@ -134,14 +134,14 @@ function EventCompanyDetails() {
 			</div>
 			<div className="upload-holder px-2">
 			  <span className="input-titel ml-2">Company Photos Max 5 images (up to 5MB/image)</span>
-			  <label for="upload" className="upload">
+			  <label htmlfor="upload" className="upload">
 				<input type="file" name="images" id="upload" className="appearance-none hidden" />
 				<span className="input-titel mt-1"><i className="icon-image mr-2"></i>Upload Images</span>
 			  </label>
 			</div>
 			<div className="upload-holder px-2">
 				<span className="input-titel ml-2">Company Video Max 2 videos (up to 2GB/video)</span>
-				<label for="upload2" className="upload">
+				<label htmlfor="upload2" className="upload">
 				  <input type="file" name="images" id="upload2" className="appearance-none hidden" />
 				  <div className="mt-1 flex items-baseline justify-center"><i className="icon-video-play text-base mr-2"></i> <span className="input-titel pt-1">Upload videos</span></div>
 				</label>

@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import Modal from "../modal/Modal";
-import Advisement from "../Advisement";
+import Advertisement from "../Advertisement";
 import uploadOne from "../../assest/images/upload-1.png"
 import PSBPopUpUploadPhoto from './popups/EventPopUpUploadPhoto'
 import PSBPopUpUploadVideo from "./popups/EventPopUpUploadVideo"
@@ -90,7 +90,7 @@ function PSBPhotosAndVideos() {
                 Photo{" "}
                 <span className="input-titel ml-2">5 Images (up to 5MB/Image)</span>
               </h3>
-              <label onClick={()=>setIsUploadVideoPopUpOpen(true)} for="upload" className="upload">
+              <label onClick={()=>setIsUploadVideoPopUpOpen(true)} htmlfor="upload" className="upload">
                 <input
                   name="images"
                   id="upload"
@@ -125,7 +125,7 @@ function PSBPhotosAndVideos() {
                   2 videos (up to 512MB/video)
                 </span>
               </h3>
-              <label onClick={()=>setIsUploadPhotoPopUpOpen(true)} for="upload2" className="upload">
+              <label onClick={()=>setIsUploadPhotoPopUpOpen(true)} htmlfor="upload2" className="upload">
                 <input
                   name="images"
                   id="upload2"
@@ -165,7 +165,7 @@ function PSBPhotosAndVideos() {
             </div>
           </div>
           {/* <!-- advisement --> */}
-          <Advisement/>
+          <Advertisement/>
         </div>
         <div className="prw-next-btn">
           <button type="button" className="flex items-center">

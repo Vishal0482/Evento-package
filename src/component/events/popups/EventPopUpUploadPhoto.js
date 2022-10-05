@@ -17,7 +17,7 @@ function EventPopUpUploadPhoto({handleClose}) {
 		   <form className="py-7 space-y-5">
 			 <div className="upload-holder">
 			   <h6 className="text-sm font-bold text-quicksilver">Select Photo <span className="text-10">5 Images (up to 5MB/Image)</span></h6>
-			   <label for="upload" className="upload upload-popup">
+			   <label htmlfor="upload" className="upload upload-popup">
 				 <input type="file" name="images" id="upload" className="appearance-none hidden"/>
 				 <span className="input-titel mt-1"><i className="icon-image mr-2"></i>Choose Images</span>
 			   </label>

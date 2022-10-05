@@ -5,7 +5,7 @@ import notificationSvg1 from "../../assest/svg/notification-1.svg";
 import notificationSvg2 from "../../assest/svg/notification-2.svg";
 
 import NotificationLIstItem from "./NotificationLIstItem";
-import Advisement from "../Advisement";
+import Advertisement from "../Advertisement";
 import BottomNavigation from "../BottomNavigation";
 
 function Notification() {
@@ -57,7 +57,7 @@ function Notification() {
           <NotificationLIstItem imageUrl={notificationSvg2} />
 
           {/* <!-- advisement --> */}
-          <Advisement />
+          <Advertisement />
           
           <NotificationLIstItem imageUrl={notificationSvg2} />
           {/* <!-- next preview button  --> */}

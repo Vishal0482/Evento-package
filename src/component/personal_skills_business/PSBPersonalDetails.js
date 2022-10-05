@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Advisement from "../Advisement";
+import Advertisement from "../Advertisement";
 
 function PSBPersonalDetails() {
   return (
@@ -131,7 +131,7 @@ function PSBPersonalDetails() {
                 Price <b className="text-10">(If free value 0)</b>
               </span>
               <label
-                for=""
+                htmlfor=""
                 className="flex items-center w-full bg-white p-2 px-3.5 rounded-md"
               >
                 <div className="w-full px-3.5">
@@ -218,7 +218,7 @@ function PSBPersonalDetails() {
             </div>
           </div>
           {/* <!-- advisement --> */}
-          <Advisement />
+          <Advertisement />
         </div>
         <div className="prw-next-btn">
           <button type="button" className="flex items-center">

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import Advisement from '../Advisement';
+import Advertisement from '../Advertisement';
 import BottomNavigation from '../BottomNavigation';
 
 function Promote({children}) {
@@ -55,7 +55,7 @@ function Promote({children}) {
       </div>
       <div className="mt-auto">
         {/* <!-- advisement --> */}
-        <Advisement />
+        <Advertisement />
       </div>
       
       <BottomNavigation />

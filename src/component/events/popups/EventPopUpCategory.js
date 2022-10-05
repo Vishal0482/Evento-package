@@ -1,7 +1,25 @@
-import React from 'react'
+import axios from 'axios';
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { baseUrl } from '../../../config';
 
 function EventPopUpCategory({handleClose}) {
+
+	const [catagoryInputName, setcatagoryInputName] = useState();
+	// console.log(catagoryInputName);
+	const token = '11b5058418a6bfbabd545950232b42a54fe7c14e';
+	const header = {
+		'Authorization': `Token ${token}`
+	}
+	const addCategory = async() => {
+		try {
+			const response = await axios.post(`${baseUrl}/api/event_category`,{"category_name": catagoryInputName},{headers: header});
+			console.log(response);
+			handleClose(false)
+		} catch (error) {
+			console.log(error);
+		}
+	}
   return (
 	//  <!-- Add Category  -->
 	 <div className="popup table fixed w-full inset-0 z-40 bg-black bg-opacity-75 h-screen">
@@ -17,10 +35,11 @@ function EventPopUpCategory({handleClose}) {
 		   <form className="py-7">
 			 <div className="w-full inputHolder">
 			   <label className="input-titel">Category Name</label>
-			   <input className="input" type="text"/>
+			   <input className="input" type="text" onChange={(e) => setcatagoryInputName(e.target.value)}/>
 			 </div>
 		   </form>
-		   <Link to="/" className="btn-primary w-full uppercase">Submit</Link>
+		   <div className="btn-primary w-full uppercase" onClick={addCategory}>Submit</div>
+		   {/* <Link to="/" className="btn-primary w-full uppercase" onClick={addCategory}>Submit</Link> */}
 		 </div>
 	   </div>
 	 </div>

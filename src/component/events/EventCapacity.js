@@ -83,19 +83,19 @@ function EventCapacity() {
               <div className="space-y-5">
                 <div className="flex items-end -mx-3.5">
                   <div className="w-full lg:w-1/3 px-3.5">
-                      <label for="selact" className="p-5 py-4 bg-white rounded-md flex space-x-3 cursor-pointer">
+                      <label htmlfor="selact" className="p-5 py-4 bg-white rounded-md flex space-x-3 cursor-pointer">
                         <input type="radio" name="select" id="selact" className="w-6 h-6 rounded-full bg-brightGray appearance-none cursor-pointer"/>
                         <h3 className="text-base">Romantic Stay</h3>
                       </label>
                   </div>
                   <div className="w-full lg:w-1/3 px-3.5">
-                      <label for="selact1" className="p-5 py-4 bg-white rounded-md flex space-x-3 cursor-pointer">
+                      <label htmlfor="selact1" className="p-5 py-4 bg-white rounded-md flex space-x-3 cursor-pointer">
                         <input type="radio" name="select" id="selact1" className="w-6 h-6 rounded-full bg-brightGray appearance-none cursor-pointer"/>
                         <h3 className="text-base">Romantic Lunch / Dinner</h3>
                       </label>
                   </div>
                   <div className="w-full lg:w-1/3 px-3.5">
-                    <label for="selact2" className="p-5 py-4 bg-white rounded-md flex space-x-3 cursor-pointer">
+                    <label htmlfor="selact2" className="p-5 py-4 bg-white rounded-md flex space-x-3 cursor-pointer">
                       <input type="radio" name="select" id="selact2" className="w-6 h-6 rounded-full bg-brightGray appearance-none cursor-pointer"/>
                       <h3 className="text-base">Romantic Candlelight Dinner</h3>
                     </label>
