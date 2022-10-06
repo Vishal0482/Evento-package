@@ -1,11 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  category: {
-    id: "",
-    categoryName: "",
-    displayName: "",
-  },
+  category: null,
   aboutPlace: null,
   personalDetail : null,
   capacity: null,
@@ -18,9 +14,7 @@ export const createEvent  = createSlice({
     initialState,
     reducers: {
       addCategory: (state, action) => {
-            state.category.id = action.payload.id
-            state.category.categoryName = action.payload.categoryName
-            state.category.displayName = action.payload.displayName
+            state.category = action.payload.category
         },
         addAboutPlace: (state, action) => {
           state.aboutPlace = action.payload.aboutPlace
@@ -28,15 +22,18 @@ export const createEvent  = createSlice({
         addPersonalDetails: (state, action) => {
           state.personalDetail = action.payload.personalDetail
         },
+        addCapacity: (state, action) => {
+          state.capacity = action.payload.capacity
+        },
         addCompanyDetail: (state, action) => {
           state.companyDetail = action.payload.companyDetail
         },
         addTermsAndCondition: (state, action) => {
-          state.termsAndCondition = action.payload.companyDetail
+          state.termsAndCondition = action.payload.termsAndCondition
         }
     },
   })
   
-  export const { addCategory, addAboutPlace, addPersonalDetails, addCompanyDetail, addTermsAndCondition } = createEvent.actions
+  export const { addCategory, addAboutPlace, addPersonalDetails, addCapacity, addCompanyDetail, addTermsAndCondition } = createEvent.actions
   
   export default createEvent.reducer

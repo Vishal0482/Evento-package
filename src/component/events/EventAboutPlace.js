@@ -1,16 +1,24 @@
 import React, {useState} from 'react'
 import { Link, useNavigate } from 'react-router-dom';
-import ringAd from "../../assest/images/ring-ad.png"
+import Advertisement from "../Advertisement";
+import { useDispatch } from 'react-redux';
+import { addAboutPlace } from '../../redux/createEvent';
 
 function EventAboutPlace() {
 
 	const navigate = useNavigate();
-	const [isAddPlaceWithDisplayNamePopUpOpen, setIsAddPlaceWithDisplayNamePopUpOpen] = useState(false);
+	const dispatch = useDispatch();
 	const [price, setPrice] = useState("");
-	const [priceType, setPriceType] = useState("");
+	const [priceType, setPriceType] = useState("per_hour");
 	const [about, setAbout] = useState("");
 
-	console.log(price, priceType, about)
+	console.log(price, priceType, about);
+
+	const clickNextHandler = () => {
+		const aboutPlace = {price: price, priceType: priceType, about: about};
+		dispatch(addAboutPlace({aboutPlace: aboutPlace}));
+		navigate("/dashboard/event/personaldetails");
+	}
   
   return (
 	//  <!-- Content In -->
@@ -129,13 +137,11 @@ function EventAboutPlace() {
 		   </div>
 		 </div>
 		 {/* <!-- advisement --> */}
-		 <div className="w-full mt-5">
-		   <img src={ringAd} alt="ring-ad" className="w-full object-cover" />
-		 </div>
+		<Advertisement />
 	   </div>
 	   <div className="prw-next-btn mt-auto">
 		 <button type="button" className="flex items-center" onClick={() => navigate(-1)}><i className="icon-back-arrow mr-3"></i><h3>Back</h3></button>
-		 <button type="button" className="flex items-center active" onClick={() => navigate("/dashboard/event/personaldetails")}><h3>Next</h3><i className="icon-next-arrow ml-3"></i></button>
+		 <button type="button" className="flex items-center active" onClick={clickNextHandler}><h3>Next</h3><i className="icon-next-arrow ml-3"></i></button>
 	   </div>
 	 </div>
 

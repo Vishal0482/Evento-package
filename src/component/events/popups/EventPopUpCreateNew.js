@@ -27,6 +27,7 @@ function EventPopUpCreateNew({ handleClose }) {
 			console.log("Categorys >> ",response);
 			setCategory(response.data.data);
 			setNewCategoryName(response.data.data[0].category_name);
+			setNewCategoryId(response.data.data[0].categoryId);
 		} catch (error) {
 			console.log(error);
 		}
@@ -38,7 +39,8 @@ function EventPopUpCreateNew({ handleClose }) {
 
 	console.log(newCategoryId, newCategoryName, newCategoryDisplayName);
 	const clickHandler = () => {
-		dispatch(addCategory({id: newCategoryId, categoryName: newCategoryName, displayName: newCategoryDisplayName}));
+		const category = {id: newCategoryId, categoryName: newCategoryName, displayName: newCategoryDisplayName}
+		dispatch(addCategory({category: category}));
 		navigate("/dashboard/event/addplaces");
 	}
 
@@ -62,15 +64,18 @@ function EventPopUpCreateNew({ handleClose }) {
 						<form className="space-y-5 pt-7">
 							<div className="w-full inputHolder">
 								<label className="input-titel">Select Category</label>
-								<select className="w-full arrow option" onChange={(e) => console.log(e.target.getAttribute('dataId'))} >
+								<select className="w-full arrow option" onChange={(e) => {
+									setNewCategoryName(e.target.value);
+									setNewCategoryId(e.target[e.target.selectedIndex].getAttribute('data-id'));
+								}} >
 									{category && category.map((element) =>
-										<option key={element.categoryId} value={element.category_name} dataId={element.categoryId} >{element.category_name}</option>
+										<option key={element.categoryId} value={element.category_name} data-id={element.categoryId} >{element.category_name}</option>
 									)}
 								</select>
 							</div>
 							<div className="w-full inputHolder">
 								<label className="input-titel">Give Display Name of Your Category</label>
-								<input className="input" type="text" onChange={(e) => setNewCategoryDisplayName(e.target.value)}/>
+								<input className="input" type="text" value={newCategoryDisplayName} onChange={(e) => setNewCategoryDisplayName(e.target.value)}/>
 							</div>
 						<a href="#" className="btn-primary w-full uppercase" onClick={() => clickHandler()}>Submit</a>	
 						</form>
