@@ -1,17 +1,27 @@
 import axios from 'axios';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { baseUrl } from '../../../config';
 
-function EventPopUpAddService({handleClose}) {
+function EventPopUpAddService({handleClose, data}) {
   // validation pending htmlFor required field.
 
-  const [name, setName] = useState(null);
-  const [price, setPrice] = useState(null);
-  const [priceType, setPriceType] = useState(null);
-  const [description, setDescription] = useState(null);
-  const [image, setImage] = useState(null);
-  const token = '11b5058418a6bfbabd545950232b42a54fe7c14e';
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState("");
+  const [priceType, setPriceType] = useState("");
+  const [description, setDescription] = useState("");
+  const [image, setImage] = useState("");
+
+  useEffect(()=> {
+    if(data) {
+      setName(data.service_name);
+      setPrice(data.service_price);
+      setDescription(data.service_desc);
+      setPriceType(data.service_price_type);
+    }
+  },[handleClose]);
+
+  const token = '14e2a7b580fd9ced0489754afb2af833c0050c0f';
   const addServices = async() => {
     const header = {
 			'Authorization': `Token ${token}`
@@ -27,7 +37,7 @@ function EventPopUpAddService({handleClose}) {
     console.log(requestObj);
 
 		try {
-        const response = await axios.post(`${baseUrl}/api/add_service_event`,{requestObj}, {headers: header});
+        const response = await axios.post(`${baseUrl}/api/add_service_event`,requestObj, {headers: header});
         console.log(response);
         handleClose(false);
 		} catch (error) {
@@ -58,23 +68,23 @@ function EventPopUpAddService({handleClose}) {
                 <span className="input-titel">Price</span>
                 <label htmlFor="" className="flex items-center w-full bg-white p-2 px-3.5 rounded-md">
                   <div className="w-full px-3.5">
-                    <input type="text" className="w-full outline-none text-spiroDiscoBall font-bold text-base" onChange={(e) => setPrice(e.target.value) } />
+                    <input type="text" className="w-full outline-none text-spiroDiscoBall font-bold text-base" value={price} onChange={(e) => setPrice(e.target.value) } />
                   </div>
                   <div className="selectPrice flex items-center space-x-3">
                     <label className="block cursor-pointer">
-                      <input type="radio" name="price" value="perDay" className="hidden" onChange={(e)=> setPriceType("per_day")} />
+                      <input type="radio" name="price" value="perDay" className="hidden" checked={priceType == "per_day" && true} onChange={(e)=> setPriceType("per_day")} />
                       <span className="text-sm text-quicksilver py-2 px-3 bg-white shadow-lg whitespace-nowrap font-bold rounded block">
                         Per / Day
                       </span>
                     </label>
                     <label className="block cursor-pointer">
-                      <input type="radio" name="price" value="perHour" className="hidden" checked="" onChange={(e)=> setPriceType("per_Hour")} />
+                      <input type="radio" name="price" value="perHour" className="hidden" checked={priceType == "per_person" && true} onChange={(e)=> setPriceType("per_person")} />
                       <span className="text-sm text-quicksilver py-2 px-3 bg-white shadow-lg whitespace-nowrap font-bold rounded block">
                         Per / Person
                       </span>
                     </label>
                     <label className="block cursor-pointer">
-                      <input type="radio" name="price" value="perEvent" className="hidden" onChange={(e)=> setPriceType("per_Event")} />
+                      <input type="radio" name="price" value="perEvent" className="hidden" checked={priceType == "per_event" && true} onChange={(e)=> setPriceType("per_event")} />
                       <span className="text-sm text-quicksilver py-2 px-3 bg-white shadow-lg whitespace-nowrap font-bold rounded block">
                         Per / Event
                       </span>
@@ -91,7 +101,7 @@ function EventPopUpAddService({handleClose}) {
               </div>
               <div className="w-full">
                 <span className="input-titel">Description</span>
-                <textarea name="" id="" cols="30" rows="5" className="outline-none flex items-center w-full bg-white p-2 px-3.5 rounded-md" onChange={(e) => setDescription(e.target.value) }></textarea>
+                <textarea name="" id="" cols="30" rows="5" className="outline-none flex items-center w-full bg-white p-2 px-3.5 rounded-md" value={description} onChange={(e) => setDescription(e.target.value) }></textarea>
               </div>
             </form>
             <div className="btn-primary w-full uppercase" onClick={addServices}>Submit</div>

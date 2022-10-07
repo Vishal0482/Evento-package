@@ -1,8 +1,11 @@
 import React, {useState} from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import Advertisement from "../Advertisement";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addAboutPlace } from '../../redux/createEvent';
+import axios from 'axios';
+import { baseUrl } from '../../config';
+import StepProgressBar from './StepProgressBar';
 
 function EventAboutPlace() {
 
@@ -11,13 +14,24 @@ function EventAboutPlace() {
 	const [price, setPrice] = useState("");
 	const [priceType, setPriceType] = useState("per_hour");
 	const [about, setAbout] = useState("");
+	const eventId = useSelector(state => state.createEvent.category.id);
 
-	console.log(price, priceType, about);
+	// console.log(price, priceType, about, eventId);
 
-	const clickNextHandler = () => {
+	const token = '7234eb833b21d7dae48848fb8d4a0cc3b1ea6c9f';
+	const header = {
+		'Authorization': `Token ${token}`
+	}
+
+	const clickNextHandler = async() => {
 		const aboutPlace = {price: price, priceType: priceType, about: about};
 		dispatch(addAboutPlace({aboutPlace: aboutPlace}));
-		navigate("/dashboard/event/personaldetails");
+		console.log({ ...aboutPlace,event: eventId });
+		const response = await axios.post(`${baseUrl}/api/add_place_event`, { place_price: price, price_type: priceType, details: about ,event: eventId }, {headers: header});
+		console.log("About place >> ",response);
+
+		if(response.data.isSuccess == true)
+			navigate("/dashboard/event/personaldetails");
 	}
   
   return (
@@ -32,70 +46,7 @@ function EventAboutPlace() {
 		   </Link>
 		 </div>
 		 {/* <!-- step-progress-bar  --> */}
-		 <div className="w-full overflow-hidden">
-		   <ul className="flex justify-between step-progress-holder">
-			 <li>
-			   <div>
-				 <span>01</span>
-			   </div>
-			   <h3>Add Place</h3>
-			 </li>
-			 <li>
-			   <div>
-				 <span>02</span>
-			   </div>
-			   <h3>about place</h3>
-			 </li>
-			 <li>
-			   <div>
-				 <span>03</span>
-			   </div>
-			   <h3>personal details</h3>
-			 </li>
-			 <li>
-			   <div>
-				 <span>04</span>
-			   </div>
-			   <h3>Photos & videos</h3>
-			 </li>
-			 <li>
-			   <div>
-				 <span>05</span>
-			   </div>
-			   <h3>add service</h3>
-			 </li>
-			 <li>
-			   <div>
-				 <span>06</span>
-			   </div>
-			   <h3>capacity</h3>
-			 </li>
-			 <li>
-			   <div>
-				 <span>07</span>
-			   </div>
-			   <h3>company details</h3>
-			 </li>
-			 <li>
-			   <div>
-				 <span>08</span>
-			   </div>
-			   <h3>Terms & Conditions</h3>
-			 </li>
-			 <li>
-			   <div>
-				 <span>09</span>
-			   </div>
-			   <h3>Discount</h3>
-			 </li>
-			 <li>
-			   <div>
-				 <span>10</span>
-			   </div>
-			   <h3>Calendar</h3>
-			 </li>
-		   </ul>
-		 </div>
+		 <StepProgressBar />
 		 {/* <!-- main-content  --> */}
 		 <div className="space-y-3">
 		   <div className="w-full">
