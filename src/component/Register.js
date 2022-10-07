@@ -13,7 +13,7 @@ function Register() {
         email: "",
         password: "",
         password2: "",
-        phone_no: "",
+        phone_no: "7585888585",
     })
 
     const [errMsgObj, setErrMsgObj] = useState({});
@@ -99,7 +99,7 @@ function Register() {
                 }
             } catch (error) {
                 console.log(error);
-                alert("Some error occured. Please try again")
+                alert("Some error occurred Please try again")
             }
         }
     }
