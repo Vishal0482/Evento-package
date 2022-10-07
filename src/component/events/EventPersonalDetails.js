@@ -23,6 +23,7 @@ function EventPersonalDetails() {
 		pincode: "",
 	}
 	const [values, setValues] = useState(initialState);
+	const [error, setError] = useState(false);
 	const handleInputChange = (e) => {
 		const { name, value } = e.target;
 		setValues({
