@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useState, useEffect } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 
 
@@ -13,7 +13,7 @@ function Register() {
         email: "",
         password: "",
         password2: "",
-        phone_no: "7585888585",
+        phone_no: "7897897897",
     })
 
     const [errMsgObj, setErrMsgObj] = useState({});
@@ -24,7 +24,7 @@ function Register() {
         if (location.state?.phone) {
             handelChange('phone_no', location.state?.phone)
         }
-    }, [])
+    }, )
 
     const handelChange = (name, value) => {
         setRegisterFrom({ ...registerFrom, [name]: value })
@@ -75,7 +75,6 @@ function Register() {
             tmpErrObj = { ...tmpErrObj, phone_no: undefined };
         }
         setErrMsgObj(tmpErrObj)
-        // http://64.227.167.195:8000/api
         if (tmpErrObj) { }
         if (!tmpErrObj.password2 && !tmpErrObj.email && !tmpErrObj.name && !tmpErrObj.password && !tmpErrObj.phone_no) {
             try {
@@ -84,7 +83,7 @@ function Register() {
                 if (response && response.data && response.data.isSuccess) {
                     console.log("Hello");
                     console.log('registerFrom', registerFrom);
-                    window.location.href = "/dashboard/event/";
+                    navigate("/dashboard/event")
                 } else {
                     if (response && response.data && response.data.data) {
                         if (response.data.data.email && response.data.data.email[0]) {
@@ -157,8 +156,8 @@ function Register() {
                                     <label htmlFor="">Phone Number</label>
                                     <div className="verify-holder">
                                         <input disabled={(location.state?.phone) ? true : false} type="tel" value={registerFrom.phone_no} onChange={(e) => { handelChange('phone_no', e.target.value) }} />
-                                        {!(location.state?.phone) ? <a style={{ cursor: "pointer" }} onClick={verifyHandler}>Verify</a> :
-                                            <a style={{ color: "green", fontSize: 20 }} > <span  >&#10003;</span></a>}
+                                        {!(location.state?.phone) ? <Link to="/" style={{ cursor: "pointer" }} onClick={verifyHandler}>Verify</Link> :
+                                            <Link to="/" style={{ color: "green", fontSize: 20 }} > <span  >&#10003;</span></Link>}
                                         {!(location.state?.phone) && registerFrom.phone_no.length !== 10 && <span style={{ color: "red" }}>Please verify your number before continue</span>}
                                         {errMsgObj.phone_no && <span style={{ color: "red" }}>{errMsgObj.phone_no}</span>}
                                     </div>
