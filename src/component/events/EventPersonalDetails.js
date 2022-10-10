@@ -23,7 +23,7 @@ function EventPersonalDetails() {
 		pincode: "",
 	}
 	const [values, setValues] = useState(initialState);
-	const [errorSuccess, setErrorSuccess] = useState(false);
+	const [errMsgObj, setErrMsgObj] = useState({});
 
 	const handleInputChange = (e) => {
 		const { name, value } = e.target;
@@ -32,21 +32,48 @@ function EventPersonalDetails() {
 			[name]: value,
 		});
 	};
-	console.log(values);
 
-	const clickNextHandler = () => {
-		try {
-			if(errorSuccess === true){
+	const clickNextHandler = (e) => {
+		e.preventDefault()
+		let tmpErrObj = errMsgObj;
+
+		// FullName Condition check
+		if (!values.fullName || values.fullName === "") {
+			tmpErrObj = { ...tmpErrObj, fullName: "Name is Required" }
+		}
+		// Mobile Number Condition check
+		if (!values.mobileNo || values.mobileNo === "") {
+			tmpErrObj = { ...tmpErrObj, mobileNo: "Mobile No is not valid" }
+		}
+
+		// email Condition check
+		if (!values.email || values.email === "") {
+			tmpErrObj = { ...tmpErrObj, email: "Email Address is Required" }
+		}
+		// city Condition check
+		if (!values.city || values.city === "") {
+			tmpErrObj = { ...tmpErrObj, city: "City Name is Required" }
+		}
+		// state Condition check
+		if (!values.state || values.state === "") {
+			tmpErrObj = { ...tmpErrObj, state: "State Name is Required" }
+		}
+		// pincode Condition check
+		if (!values.pincode || values.pincode === "") {
+			tmpErrObj = { ...tmpErrObj, pincode: "Pincode is Required" }
+		}
+
+		setErrMsgObj(tmpErrObj)
+		if (tmpErrObj) { }
+
+		if (!tmpErrObj?.fullName && !tmpErrObj?.mobileNo && !tmpErrObj?.email && !tmpErrObj?.state && !tmpErrObj?.pincode) {
+			try {
 				dispatch(addPersonalDetails({ personalDetail: values }));
 				navigate("/dashboard/event/photosandvideos");
-			}else{
-				if(values.fullName !== "" || values.fullName === undefined){
-					setErrorSuccess("Name is Required")
-				}
+			} catch (error) {
+				console.log(error);
+				alert("Some error occured. Please try again")
 			}
-
-		} catch (error) {
-			console.log(error);
 		}
 	}
 	return (
@@ -71,7 +98,7 @@ function EventPersonalDetails() {
 							<div className="w-full md:w-1/2 px-2 inputHolder">
 								<span className="input-titel">Full Name (Mr / Mrs / Ms) <span>*</span></span>
 								<input type="text" className="input" name="fullName" value={values?.fullName} onChange={handleInputChange} required />
-								{errorSuccess && <span>{errorSuccess}</span>}
+								{errMsgObj.fullName && <span style={{ color: "red", fontSize: "10px" }}>{errMsgObj.fullName}</span>}
 							</div>
 						</div>
 						<div className="w-full flex items-end flex-wrap">
@@ -80,18 +107,20 @@ function EventPersonalDetails() {
 									<label className="input-titel">Mobile Number <span>*</span></label>
 									<div className="input-checkd"><input type="checkbox" className="mr-2" />Hidden</div>
 								</div>
-								<input type="text" className="input" name="mobileNo" value={values?.mobileNo} onChange={handleInputChange} required />
+								<input type="tel" className="input" name="mobileNo" value={values?.mobileNo} onChange={handleInputChange} required maxLength={10} minLength={10}/>
+								{errMsgObj.mobileNo && <span style={{ color: "red", fontSize: "10px" }}>{errMsgObj.mobileNo}</span>}
 							</div>
 							<div className="w-full md:w-1/3 px-2 inputHolder">
 								<label className="input-titel">Alternative Mobile Number <span></span></label>
-								<input type="text" className="input" name="alterMobileNo" value={values?.alterMobileNo} onChange={handleInputChange} />
+								<input type="tel" className="input" name="alterMobileNo" value={values?.alterMobileNo} onChange={handleInputChange} maxLength={10} minLength={10}/>
 							</div>
 							<div className="w-full md:w-1/3 px-2 inputHolder">
 								<div className="input-label-holder">
 									<label className="input-titel">Email Address <span>*</span></label>
 									<div className="input-checkd"><input type="checkbox" className="mr-2" />Hidden</div>
 								</div>
-								<input type="text" className="input" name="email" value={values?.email} onChange={handleInputChange} required />
+								<input type="email" className="input" name="email" value={values?.email} onChange={handleInputChange} required />
+								{errMsgObj.email && <span style={{ color: "red", fontSize: "10px" }}>{errMsgObj.email}</span>}
 							</div>
 						</div>
 						<div className="space-y-5">
@@ -114,14 +143,17 @@ function EventPersonalDetails() {
 								<div className="w-full md:w-1/3 px-2 inputHolder">
 									<label className="input-titel">City <span>*</span></label>
 									<input type="text" className="input" name="city" value={values?.city} onChange={handleInputChange} required />
+									{errMsgObj.city && <span style={{ color: "red", fontSize: "10px" }}>{errMsgObj.city}</span>}
 								</div>
 								<div className="w-full md:w-1/3 px-2 inputHolder">
 									<label className="input-titel">State <span>*</span></label>
 									<input type="text" className="input" name="state" value={values?.state} onChange={handleInputChange} required />
+									{errMsgObj.state && <span style={{ color: "red", fontSize: "10px" }}>{errMsgObj.state}</span>}
 								</div>
 								<div className="w-full md:w-1/3 px-2 inputHolder">
 									<label className="input-titel">Pincode <span>*</span></label>
-									<input type="text" className="input" name="pincode" value={values?.pincode} onChange={handleInputChange} required />
+									<input type="num" className="input" name="pincode" value={values?.pincode} onChange={handleInputChange} required maxLength={6} />
+									{errMsgObj.pincode && <span style={{ color: "red", fontSize: "10px" }}>{errMsgObj.pincode}</span>}
 								</div>
 							</div>
 						</div>
