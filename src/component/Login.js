@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom'
 import { addLogin } from '../redux/createLogin'
+import {baseUrl} from '.././config'
 
 
 
@@ -25,11 +26,11 @@ const Login = () => {
 		try {
 			if (login.email !== "") {
 				if (login.password !== "") {
-					const response = await axios.post("http://64.227.167.195:8000/api/login", { username: login.email, password: login.password });
+					const response = await axios.post(`${baseUrl}/api/login`, { username: login.email, password: login.password });
 					console.log(response.data);
 					if (response.data.isSuccess === true) {
 						alert("login Success")
-						dispatch(addLogin({ email: login.email, token: response.data.data.token }))
+						dispatch(addLogin({ email: login.email, token: response.data.data.token,userId:response.data.data.userId }))
 						navigator("/dashboard/event/id")
 					} else {
 						setError("Email And Password Not Valid")

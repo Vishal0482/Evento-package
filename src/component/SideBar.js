@@ -4,16 +4,18 @@ import userImage from "../assest/images/user-2.png";
 import Modal from "./modal/Modal.js"
 import { Link, useNavigate } from "react-router-dom";
 import LanguagePopup from "./other/modal/LanguagePopup"
+import { logout } from "../redux/createLogin";
+import { useDispatch } from "react-redux";
 
 function SideBar({ children }) {
 
   const [languagePopup, setLanguagePopup] = useState(false);
-
+  const dispatch = useDispatch();
   const navigator = useNavigate();
 
   const handleLogout = (e) => {
     e.preventDefault();
-    localStorage.removeItem('token');
+    dispatch(logout())
     navigator('/dashboard/login');
   }
 
