@@ -1,6 +1,6 @@
 import React from "react";
 import celebrationSvg from "../../assest/svg/celebration.svg";
-import UserPlanCard from "./UserPlanCard";
+// import UserPlanCard from "./UserPlanCard";
 
 function AllUserSelectPlan() {
   return (
