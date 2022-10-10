@@ -2,12 +2,23 @@ import React, { useState } from "react";
 import logoImage from "../assest/svg/logo.svg";
 import userImage from "../assest/images/user-2.png";
 import Modal from "./modal/Modal.js"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LanguagePopup from "./other/modal/LanguagePopup"
+import { logout } from "../redux/createLogin";
+import { useDispatch } from "react-redux";
 
-function SideBar({children}) {
-  
+function SideBar({ children }) {
+
   const [languagePopup, setLanguagePopup] = useState(false);
+  const dispatch = useDispatch();
+  const navigator = useNavigate();
+
+  const handleLogout = (e) => {
+    e.preventDefault();
+    dispatch(logout())
+    navigator('/dashboard/login');
+  }
+
   return (
     <div className="main flex min-h-screen">
       {/* <!-- Left Panel --> */}
@@ -15,7 +26,7 @@ function SideBar({children}) {
         <div className="logo text-center px-4 pt-5 pb-8">
           <Link to="/" className="block">
             <img
-              src={ logoImage } 
+              src={logoImage}
               alt="Evento Package Logo"
               className="max-w-full w-auto mx-auto"
             />
@@ -120,7 +131,7 @@ function SideBar({children}) {
                 href="#"
                 className="block hover:text-spiroDiscoBall anim"
                 title="Language"
-                onClick={() => setLanguagePopup(true) }
+                onClick={() => setLanguagePopup(true)}
               >
                 <span className="icon-language text-2xl block"></span>
               </a>
@@ -138,9 +149,9 @@ function SideBar({children}) {
               >
                 <span className="icon-megaphone text-2xl block"></span>
               </a>
-              <Link to="/" className="block">
+              <Link to="/" onClick={handleLogout} className="block">
                 <img
-                  src={ userImage }
+                  src={userImage}
                   alt="user name"
                   className="w-12 h-12 object-cover rounded-2xl"
                 />
@@ -153,7 +164,7 @@ function SideBar({children}) {
         </Modal>
         {/* <!-- Content In --> */}
         <div className="rightInContent">
-            {children}
+          {children}
         </div>
       </div>
     </div>
