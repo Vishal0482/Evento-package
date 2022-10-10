@@ -5,13 +5,17 @@ import EventPopUpUploadPhoto from './popups/EventPopUpUploadPhoto';
 import EventPopUpUploadVideo from "./popups/EventPopUpUploadVideo";
 import { Link, useNavigate } from 'react-router-dom';
 import Advertisement from '../Advertisement';
+import StepProgressBar from './StepProgressBar';
 
 
 function EventPhotosAndVideos() {
 
-const [isUploadPhotoPopUpOpen, setIsUploadPhotoPopUpOpen] = useState(false)
-const [isUploadVideoPopUpOpen, setIsUploadVideoPopUpOpen] = useState(false)
+const [isUploadPhotoPopUpOpen, setIsUploadPhotoPopUpOpen] = useState(false);
+const [isUploadVideoPopUpOpen, setIsUploadVideoPopUpOpen] = useState(false);
+const [imageList, setImageList] = useState([]);
 const navigate = useNavigate();
+
+console.log(imageList);
   return (
 	//  <!-- Content In -->
 	 <div className="rightInContent">
@@ -23,70 +27,7 @@ const navigate = useNavigate();
 		   <Link to="/" className="flex items-center"><i className="icon-back-arrow mr-4 text-2xl"></i><h1>Sweet Love Catering</h1></Link>
 		 </div>
 		 {/* <!-- step-progress-bar  --> */}
-		 <div className="w-full overflow-hidden">
-			 <ul className="flex justify-between step-progress-holder">
-			   <li>
-				 <div>
-				   <span>01</span>
-				 </div>
-				 <h3>Add Place</h3>                        
-			   </li>                      
-			   <li>
-				 <div>
-				   <span>02</span>
-				 </div>
-				 <h3>about place</h3>                        
-			   </li>
-			   <li>
-				 <div>
-				   <span>03</span>
-				 </div>
-				 <h3>personal details</h3>                        
-			   </li>
-			   <li>
-				 <div>
-				   <span>04</span>
-				 </div>
-				 <h3>Photos & videos</h3>                        
-			   </li>
-			   <li>
-				 <div>
-				   <span>05</span>
-				 </div>
-				 <h3>add service</h3>                        
-			   </li>
-			   <li>
-				 <div>
-				   <span>06</span>
-				 </div>
-				 <h3>capacity</h3>                        
-			   </li>
-			   <li>
-				 <div>
-				   <span>07</span>
-				 </div>
-				 <h3>company details</h3>                        
-			   </li>
-			   <li>
-				 <div>
-				   <span>08</span>
-				 </div>
-				 <h3>Terms & Conditions</h3>                        
-			   </li>
-			   <li>
-				 <div>
-				   <span>09</span>
-				 </div>
-				 <h3>Discount</h3>                        
-			   </li>
-			   <li>
-				 <div>
-				   <span>10</span>
-				 </div>
-				 <h3>Calendar</h3>                        
-			   </li>
-			 </ul>
-		 </div>
+		 <StepProgressBar />
 		 {/* <!-- main-content  --> */}
 		 <div className="space-y-5">
 		   <div className="upload-holder">
@@ -98,20 +39,16 @@ const navigate = useNavigate();
 		   </div>
 		   <div className="media-upload-holder">
 			   <span className="input-titel">Uploaded Photo</span>
-			   <div className="flex space-x-2.5">
-				   <div className="upload-box">
-					   <div className="rounded relative overflow-hidden">
-						 <img src={uploadOne} alt="upload-1"/>
-						 <button>Remove</button>
-					   </div>
-				   </div>
-				   <div className="upload-box">
-					   <div className="rounded relative overflow-hidden">
-						 <img src={uploadOne} alt="upload-1"/>
-						 <button>Remove</button>
-					   </div>
-				   </div>
-			   </div>
+				<div className="flex space-x-2.5">
+					{imageList?.map((img, index) => (
+						<div className="upload-box" key={index}>
+							<div className="rounded relative overflow-hidden">
+							<img src={img.url} alt={"upload-"+index}/>
+							<button onClick={()=> setImageList(current => current.filter())}>Remove</button>
+						</div>
+					</div>
+					))}
+				</div>
 		   </div>
 		   <div className="upload-holder">
 			   <h3 className="flex items-end">videos <span className="input-titel ml-2">2 videos (up to 512MB/video)</span></h3>
@@ -152,7 +89,7 @@ const navigate = useNavigate();
 	 </div>
 	 <div>
 	 <Modal isOpen={isUploadPhotoPopUpOpen}>
-		<EventPopUpUploadPhoto handleClose={setIsUploadPhotoPopUpOpen}/>
+		<EventPopUpUploadPhoto handleClose={setIsUploadPhotoPopUpOpen} setImageList={setImageList}/>
 	 </Modal>
 	 <Modal isOpen={isUploadVideoPopUpOpen}>
 		<EventPopUpUploadVideo handleClose={setIsUploadVideoPopUpOpen}/>

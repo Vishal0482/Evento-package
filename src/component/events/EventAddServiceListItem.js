@@ -5,7 +5,7 @@ import { baseUrl } from '../../config';
 import Modal from '../modal/Modal';
 import EventPopUpAddService from './popups/EventPopUpAddService';
 
-function EventAddServiceListItem({data}) {
+function EventAddServiceListItem({data, edit}) {
 	
 	const [isAddServicesPopUpOpen, setIsAddServicesPopUpOpen] = useState(false);
 	const token = '7234eb833b21d7dae48848fb8d4a0cc3b1ea6c9f';
@@ -13,8 +13,13 @@ function EventAddServiceListItem({data}) {
 		'Authorization': `Token ${token}`
 	}
 	const deleteHandler = async() =>{
-		const response = await axios.delete(`${baseUrl}/api/add_service_event/${data.Id}`, {headers: header});
-		console.log("services Deleted >> ",response);
+		try {
+			const response = await axios.delete(`${baseUrl}/api/add_service_event/${data.Id}`, {headers: header});
+			console.log("services Deleted >> ",response);
+		} catch (error) {
+			console.log(error);
+			console.log("Delete API Not working");
+		}
 	}
 
   return (
@@ -51,7 +56,7 @@ function EventAddServiceListItem({data}) {
 			   </div>
 			 </div>
 			 <Modal isOpen={isAddServicesPopUpOpen}>
-				<EventPopUpAddService handleClose={setIsAddServicesPopUpOpen} data={data}/>
+				<EventPopUpAddService handleClose={setIsAddServicesPopUpOpen} data={data} edit={edit}/>
 	 		</Modal>
 		   </div>
   )

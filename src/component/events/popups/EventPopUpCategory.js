@@ -1,13 +1,12 @@
 import axios from 'axios';
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react';
 import { baseUrl } from '../../../config';
 
 function EventPopUpCategory({handleClose}) {
 
 	const [catagoryInputName, setcatagoryInputName] = useState();
 	// console.log(catagoryInputName);
-	const token = '11b5058418a6bfbabd545950232b42a54fe7c14e';
+	const token = '14e2a7b580fd9ced0489754afb2af833c0050c0f';
 	const header = {
 		'Authorization': `Token ${token}`
 	}
@@ -20,6 +19,7 @@ function EventPopUpCategory({handleClose}) {
 			console.log(error);
 		}
 	}
+
   return (
 	//  <!-- Add Category  -->
 	 <div className="popup table fixed w-full inset-0 z-40 bg-black bg-opacity-75 h-screen">

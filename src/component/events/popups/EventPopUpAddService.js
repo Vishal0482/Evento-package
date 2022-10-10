@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { baseUrl } from '../../../config';
 
-function EventPopUpAddService({handleClose, data}) {
+function EventPopUpAddService({handleClose, data, edit}) {
   // validation pending htmlFor required field.
 
   const [name, setName] = useState("");
@@ -36,13 +36,22 @@ function EventPopUpAddService({handleClose, data}) {
     }
     console.log(requestObj);
 
-		try {
-        const response = await axios.post(`${baseUrl}/api/add_service_event`,requestObj, {headers: header});
+    try {
+      if (edit) {
+        // Upadte service
+        console.log(data.Id)
+        const response = await axios.put(`${baseUrl}/api/add_service_event/${data.Id}`, requestObj, { headers: header });
         console.log(response);
         handleClose(false);
-		} catch (error) {
-			console.log(error);
-		}
+      } else {
+        // Create new Service
+        const response = await axios.post(`${baseUrl}/api/add_service_event`, requestObj, { headers: header });
+        console.log(response);
+        handleClose(false);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (

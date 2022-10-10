@@ -42,7 +42,7 @@ function EventAddServices() {
 		  {/* <!-- step-progress-bar  --> */}
 		 <StepProgressBar />
 		 <div className="pt-5 space-y-3">
-		   { serviceList?.map(element => <EventAddServicesListItem data = {element} key={element.Id} /> )}
+		   { serviceList?.map(element => <EventAddServicesListItem data = {element} key={element.Id} edit={true} /> )}
 		   
 		 </div>
 		 {/* <!-- add more button  --> */}
@@ -57,7 +57,7 @@ function EventAddServices() {
 	   </div>
 	 </div>
 	 <Modal isOpen={isAddServicesPopUpOpen}>
-		<EventPopUpAddService handleClose={setIsAddServicesPopUpOpen}/>
+		<EventPopUpAddService handleClose={setIsAddServicesPopUpOpen} edit={false}/>
 	 </Modal>
    </div>
   )
