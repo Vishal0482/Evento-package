@@ -40,27 +40,45 @@ function EventPersonalDetails() {
 		// FullName Condition check
 		if (!values.fullName || values.fullName === "") {
 			tmpErrObj = { ...tmpErrObj, fullName: "Name is Required" }
-		}
-		// Mobile Number Condition check
-		if (!values.mobileNo || values.mobileNo === "") {
-			tmpErrObj = { ...tmpErrObj, mobileNo: "Mobile No is not valid" }
+		} else {
+			tmpErrObj = { ...tmpErrObj, fullName: undefined };
 		}
 
+		// Mobile Number Condition check
+		if (!values.mobileNo || values.mobileNo === "") {
+			tmpErrObj = { ...tmpErrObj, mobileNo: "Mobile is Required" }
+		}
+		else {
+			if (values.mobileNo.length > 10) {
+				tmpErrObj = { ...tmpErrObj, mobileNo: "Mobile No is not valid" }
+			}
+
+			tmpErrObj = { ...tmpErrObj, fullName: undefined };
+
+		}
 		// email Condition check
 		if (!values.email || values.email === "") {
 			tmpErrObj = { ...tmpErrObj, email: "Email Address is Required" }
+		} else {
+			tmpErrObj = { ...tmpErrObj, email: undefined };
 		}
 		// city Condition check
 		if (!values.city || values.city === "") {
 			tmpErrObj = { ...tmpErrObj, city: "City Name is Required" }
+		} else {
+			tmpErrObj = { ...tmpErrObj, city: undefined };
 		}
 		// state Condition check
 		if (!values.state || values.state === "") {
 			tmpErrObj = { ...tmpErrObj, state: "State Name is Required" }
+		} else {
+			tmpErrObj = { ...tmpErrObj, state: undefined };
 		}
 		// pincode Condition check
 		if (!values.pincode || values.pincode === "") {
 			tmpErrObj = { ...tmpErrObj, pincode: "Pincode is Required" }
+		} else {
+			tmpErrObj = { ...tmpErrObj, pincode: undefined };
 		}
 
 		setErrMsgObj(tmpErrObj)
@@ -107,12 +125,12 @@ function EventPersonalDetails() {
 									<label className="input-titel">Mobile Number <span>*</span></label>
 									<div className="input-checkd"><input type="checkbox" className="mr-2" />Hidden</div>
 								</div>
-								<input type="tel" className="input" name="mobileNo" value={values?.mobileNo} onChange={handleInputChange} required maxLength={10} minLength={10}/>
+								<input type="tel" className="input" name="mobileNo" value={values?.mobileNo} onChange={handleInputChange} required maxLength={10} minLength={10} />
 								{errMsgObj.mobileNo && <span style={{ color: "red", fontSize: "10px" }}>{errMsgObj.mobileNo}</span>}
 							</div>
 							<div className="w-full md:w-1/3 px-2 inputHolder">
 								<label className="input-titel">Alternative Mobile Number <span></span></label>
-								<input type="tel" className="input" name="alterMobileNo" value={values?.alterMobileNo} onChange={handleInputChange} maxLength={10} minLength={10}/>
+								<input type="tel" className="input" name="alterMobileNo" value={values?.alterMobileNo} onChange={handleInputChange} maxLength={10} minLength={10} />
 							</div>
 							<div className="w-full md:w-1/3 px-2 inputHolder">
 								<div className="input-label-holder">
