@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Advertisement from '../Advertisement';
 import StepProgressBar from './StepProgressBar';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addPersonalDetails } from '../../redux/createEvent';
 import axios from 'axios';
 import { baseUrl } from '../../config'
@@ -16,6 +16,7 @@ const header = {
 function EventPersonalDetails() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const userId = useSelector(state => state.createLogin?.userId);
 
     const initialState = {
         personalSkill: "",
@@ -65,9 +66,9 @@ function EventPersonalDetails() {
         //     }
         // } else {
         //     tmpErrObj = { ...tmpErrObj, mobileNo: "Mobile No Is Required" }
-            
+
         // }
-        
+
         if (!values.mobileNo || values.mobileNo === "") {
             tmpErrObj = { ...tmpErrObj, mobileNo: "MobileNo Address is Required" }
         } else {
@@ -105,8 +106,8 @@ function EventPersonalDetails() {
         if (!tmpErrObj?.fullName && !tmpErrObj?.mobileNo && !tmpErrObj?.email && !tmpErrObj?.state && !tmpErrObj?.pincode) {
             try {
                 dispatch(addPersonalDetails({ personalDetail: values }));
-                // const response = await axios.post(`${baseUrl}/api/events/personaldetail`,{...values,user_id,eventId,is_mobile_no_hidden,is_alt_mobile_hidden,is_email_hidden,skill_banner,price_type}, { headers: header })
-                // console.log(response); 
+                const response = await axios.post(`${baseUrl}/api/events/personaldetail`,{...values,user_id:userId}, { headers: header })
+                console.log(response); 
                 navigate("/dashboard/event/photosandvideos");
             } catch (error) {
                 console.log(error);
