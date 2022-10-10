@@ -43,76 +43,76 @@ function EventPersonalDetails() {
 
     const clickNextHandler = async (e) => {
         e.preventDefault()
-        // let tmpErrObj = errMsgObj;
+        let tmpErrObj = errMsgObj;
 
-        // // FullName Condition check
-        // if (!values.fullName || values.fullName === "") {
-        //     tmpErrObj = { ...tmpErrObj, fullName: "Name is Required" }
+        // FullName Condition check
+        if (!values.fullName || values.fullName === "") {
+            tmpErrObj = { ...tmpErrObj, fullName: "Name is Required" }
+        } else {
+            tmpErrObj = { ...tmpErrObj, fullName: undefined };
+        }
+
+        // Mobile Number Condition check
+        // if (values.mobileNo !== "") {
+        //     if (values.mobileNo.length === 10) {
+        //         if (!values.mobileNo.test("/^[0-9\b]+$/")) {
+        //         	tmpErrObj = { ...tmpErrObj, mobileNo: "Mobile No Is Not Valid" }
+        //         } else {
+        //         tmpErrObj = { ...tmpErrObj, email: undefined };
+        //         }
+        //     } else {
+        //         tmpErrObj = { ...tmpErrObj, mobileNo: "Mobile No  10 " }
+        //     }
         // } else {
-        //     tmpErrObj = { ...tmpErrObj, fullName: undefined };
-        // }
-
-        // // Mobile Number Condition check
-        // // if (values.mobileNo !== "") {
-        // //     if (values.mobileNo.length === 10) {
-        // //         if (!values.mobileNo.test("/^[0-9\b]+$/")) {
-        // //         	tmpErrObj = { ...tmpErrObj, mobileNo: "Mobile No Is Not Valid" }
-        // //         } else {
-        // //         tmpErrObj = { ...tmpErrObj, email: undefined };
-        // //         }
-        // //     } else {
-        // //         tmpErrObj = { ...tmpErrObj, mobileNo: "Mobile No  10 " }
-        // //     }
-        // // } else {
-        // //     tmpErrObj = { ...tmpErrObj, mobileNo: "Mobile No Is Required" }
+        //     tmpErrObj = { ...tmpErrObj, mobileNo: "Mobile No Is Required" }
             
-        // // }
+        // }
         
-        // if (!values.mobileNo || values.mobileNo === "") {
-        //     tmpErrObj = { ...tmpErrObj, mobileNo: "MobileNo Address is Required" }
-        // } else {
-        //     tmpErrObj = { ...tmpErrObj, mobileNo: undefined };
-        // }
+        if (!values.mobileNo || values.mobileNo === "") {
+            tmpErrObj = { ...tmpErrObj, mobileNo: "MobileNo Address is Required" }
+        } else {
+            tmpErrObj = { ...tmpErrObj, mobileNo: undefined };
+        }
 
-        // // email Condition check
-        // if (!values.email || values.email === "") {
-        //     tmpErrObj = { ...tmpErrObj, email: "Email Address is Required" }
-        // } else {
-        //     tmpErrObj = { ...tmpErrObj, email: undefined };
-        // }
-        // // city Condition check
-        // if (!values.city || values.city === "") {
-        //     tmpErrObj = { ...tmpErrObj, city: "City Name is Required" }
-        // } else {
-        //     tmpErrObj = { ...tmpErrObj, city: undefined };
-        // }
-        // // state Condition check
-        // if (!values.state || values.state === "") {
-        //     tmpErrObj = { ...tmpErrObj, state: "State Name is Required" }
-        // } else {
-        //     tmpErrObj = { ...tmpErrObj, state: undefined };
-        // }
-        // // pincode Condition check
-        // if (!values.pincode || values.pincode === "") {
-        //     tmpErrObj = { ...tmpErrObj, pincode: "Pincode is Required" }
-        // } else {
-        //     tmpErrObj = { ...tmpErrObj, pincode: undefined };
-        // }
+        // email Condition check
+        if (!values.email || values.email === "") {
+            tmpErrObj = { ...tmpErrObj, email: "Email Address is Required" }
+        } else {
+            tmpErrObj = { ...tmpErrObj, email: undefined };
+        }
+        // city Condition check
+        if (!values.city || values.city === "") {
+            tmpErrObj = { ...tmpErrObj, city: "City Name is Required" }
+        } else {
+            tmpErrObj = { ...tmpErrObj, city: undefined };
+        }
+        // state Condition check
+        if (!values.state || values.state === "") {
+            tmpErrObj = { ...tmpErrObj, state: "State Name is Required" }
+        } else {
+            tmpErrObj = { ...tmpErrObj, state: undefined };
+        }
+        // pincode Condition check
+        if (!values.pincode || values.pincode === "") {
+            tmpErrObj = { ...tmpErrObj, pincode: "Pincode is Required" }
+        } else {
+            tmpErrObj = { ...tmpErrObj, pincode: undefined };
+        }
 
-        // setErrMsgObj(tmpErrObj)
-        // if (tmpErrObj) { }
+        setErrMsgObj(tmpErrObj)
+        if (tmpErrObj) { }
 
-        // if (!tmpErrObj?.fullName && !tmpErrObj?.mobileNo && !tmpErrObj?.email && !tmpErrObj?.state && !tmpErrObj?.pincode) {
+        if (!tmpErrObj?.fullName && !tmpErrObj?.mobileNo && !tmpErrObj?.email && !tmpErrObj?.state && !tmpErrObj?.pincode) {
             try {
-                // dispatch(addPersonalDetails({ personalDetail: values }));
-                const response = await axios.post(`${baseUrl}/api/events/personaldetail`,{values}, { headers: header })
+                dispatch(addPersonalDetails({ personalDetail: values }));
+                const response = await axios.post(`${baseUrl}/api/events/personaldetail`,{...values,user_id,eventId,is_mobile_no_hidden,is_alt_mobile_hidden,is_email_hidden,skill_banner,price_type}, { headers: header })
                 console.log(response);
                 navigate("/dashboard/event/photosandvideos");
             } catch (error) {
                 console.log(error);
                 // alert("Some error occured. Please try again")
             }
-        // }
+        }
     }
     return (
         // <!-- Content In -->
