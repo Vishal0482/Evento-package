@@ -3,7 +3,8 @@ import { useDispatch } from 'react-redux';
 import { addImageList } from '../../../redux/createEvent';
 
 function EventPopUpUploadPhoto({handleClose, setImageList}) {
-	const [image, setImage] = useState([]);
+	const [image, setImage] = useState("");
+	const [imagePreview, setImagePreview] = useState("");
 	const [details, setDetails] = useState("");
 	const [error, setError] = useState(false);
 	const dispatch = useDispatch();
@@ -11,14 +12,12 @@ function EventPopUpUploadPhoto({handleClose, setImageList}) {
 	const photoChangeHandler = (event) => {
 		const types = ['image/png', 'image/jpeg'];
 		let selected = event.target.files[0];
-		// console.log(event.target);
-
-		// console.log(event);
-
+	
 		try {
 			if(selected && types.includes(selected.type)) {
 				if(selected.size < (5*1024*1024)){
-					setImage(URL.createObjectURL(selected));
+					setImagePreview(URL.createObjectURL(selected));
+					setImage(selected);
 				}
 				else {
 					console.log("file size is greater than 5MB. File size is ", selected.size);
@@ -36,7 +35,7 @@ function EventPopUpUploadPhoto({handleClose, setImageList}) {
 
 	const submitHandler = async() => {
 		if(!error) {
-			setImageList(current => [...current, {url: image, detail: details}]);
+			setImageList((current) => [...current, {id: "5", image:image, previewUrl: imagePreview, detail: details}]);
 			handleClose(false);
 		} else {
 			console.log("error occured");

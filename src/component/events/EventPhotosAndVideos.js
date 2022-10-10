@@ -6,6 +6,8 @@ import EventPopUpUploadVideo from "./popups/EventPopUpUploadVideo";
 import { Link, useNavigate } from 'react-router-dom';
 import Advertisement from '../Advertisement';
 import StepProgressBar from './StepProgressBar';
+import axios from 'axios';
+import { baseUrl } from "../../config";
 
 
 function EventPhotosAndVideos() {
@@ -13,9 +15,38 @@ function EventPhotosAndVideos() {
 const [isUploadPhotoPopUpOpen, setIsUploadPhotoPopUpOpen] = useState(false);
 const [isUploadVideoPopUpOpen, setIsUploadVideoPopUpOpen] = useState(false);
 const [imageList, setImageList] = useState([]);
+const [videoList, setVideoList] = useState([]);
+const [loading, setloading] = useState(false);
 const navigate = useNavigate();
+const token = '7234eb833b21d7dae48848fb8d4a0cc3b1ea6c9f';
+	const header = {
+		'Authorization': `Token ${token}`,
+		'Content-Type': 'multipart/form-data'
+	}
+const handleNext = async() => {
+	try {
+		setloading(true);
+		imageList.map(async(element) =>{
+			let formData = new FormData();
+			formData.append("image_details",element.detail);
+			formData.append("event",element.id);
+			formData.append("image",element.image);
+			const response = await axios.post(`${baseUrl}/api/image_event`,formData, {headers: header});
+			console.log(response);
+		});
+		// videoList.map(async(element => {
+			// const response = await axios.post(`${baseUrl}/api/video_event`,{video:, description:, thumbnail:, event:}, {headers: header});
+			// console.log(response);
+		// }))
+		setloading(false);
+		// navigate("/dashboard/event/addservices");
+	} catch (error) {
+		setloading(false);
+	}
+}
 
 console.log(imageList);
+console.log(videoList);
   return (
 	//  <!-- Content In -->
 	 <div className="rightInContent">
@@ -43,8 +74,8 @@ console.log(imageList);
 					{imageList?.map((img, index) => (
 						<div className="upload-box" key={index}>
 							<div className="rounded relative overflow-hidden">
-							<img src={img.url} alt={"upload-"+index}/>
-							<button onClick={()=> setImageList(current => current.filter())}>Remove</button>
+							<img src={img.previewUrl} alt={"upload-"+index}/>
+							<button onClick={() => setImageList(current => current.filter(ele => ele.id !== index)) }>Remove</button>
 						</div>
 					</div>
 					))}
@@ -60,18 +91,14 @@ console.log(imageList);
 		   <div className="media-upload-holder">
 			   <span className="input-titel">Uploaded videos</span>
 			   <div className="flex space-x-2.5">
-				   <div className="upload-box">
-					   <div className="rounded relative overflow-hidden">
-						 <img src={uploadOne} alt="upload-1"/>
-						 <button>Remove</button>
-					   </div>
-				   </div>
-				   <div className="upload-box">
-					   <div className="rounded relative overflow-hidden">
-						 <img src={uploadOne} alt="upload-1"/>
-						 <button>Remove</button>
-					   </div>
-				   </div>
+					{videoList?.map((vid, index) => (
+						<div className="upload-box" key={index}>
+							<div className="rounded relative overflow-hidden">
+								<img src={vid.previewUrl} alt={"upload-"+index}/>
+								<button onClick={() => setVideoList(current => current.filter(ele => ele.id !== index)) }>Remove</button>
+							</div>
+						</div>
+					))}
 			   </div>
 		   </div>
 		   <div className="w-full inline-block">
@@ -84,15 +111,15 @@ console.log(imageList);
 	   </div>
 	   <div className="prw-next-btn">
 		 <button type="button" className="flex items-center" onClick={() => navigate(-1)}><i className="icon-back-arrow mr-3"></i><h3>Back</h3></button>
-		 <button type="button" className="flex items-center active" onClick={() => navigate("/dashboard/event/addservices")}><h3>Next</h3><i className="icon-next-arrow ml-3"></i></button>
+		 <button type="button" className="flex items-center active" onClick={handleNext}><h3>Next</h3><i className="icon-next-arrow ml-3"></i></button>
 	   </div>
 	 </div>
 	 <div>
 	 <Modal isOpen={isUploadPhotoPopUpOpen}>
-		<EventPopUpUploadPhoto handleClose={setIsUploadPhotoPopUpOpen} setImageList={setImageList}/>
+		<EventPopUpUploadPhoto handleClose={setIsUploadPhotoPopUpOpen} setImageList={setImageList} />
 	 </Modal>
 	 <Modal isOpen={isUploadVideoPopUpOpen}>
-		<EventPopUpUploadVideo handleClose={setIsUploadVideoPopUpOpen}/>
+		<EventPopUpUploadVideo handleClose={setIsUploadVideoPopUpOpen} setVideoList={setVideoList} />
 	</Modal>
 	 </div>
 

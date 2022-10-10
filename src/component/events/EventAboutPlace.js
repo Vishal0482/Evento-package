@@ -14,7 +14,7 @@ function EventAboutPlace() {
 	const [price, setPrice] = useState("");
 	const [priceType, setPriceType] = useState("per_hour");
 	const [about, setAbout] = useState("");
-	const eventId = useSelector(state => state.createEvent.category.id);
+	const eventId = useSelector(state => state.createEvent.category?.id);
 
 	// console.log(price, priceType, about, eventId);
 
