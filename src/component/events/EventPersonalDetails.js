@@ -105,8 +105,8 @@ function EventPersonalDetails() {
         if (!tmpErrObj?.fullName && !tmpErrObj?.mobileNo && !tmpErrObj?.email && !tmpErrObj?.state && !tmpErrObj?.pincode) {
             try {
                 dispatch(addPersonalDetails({ personalDetail: values }));
-                const response = await axios.post(`${baseUrl}/api/events/personaldetail`,{...values,user_id,eventId,is_mobile_no_hidden,is_alt_mobile_hidden,is_email_hidden,skill_banner,price_type}, { headers: header })
-                console.log(response);
+                // const response = await axios.post(`${baseUrl}/api/events/personaldetail`,{...values,user_id,eventId,is_mobile_no_hidden,is_alt_mobile_hidden,is_email_hidden,skill_banner,price_type}, { headers: header })
+                // console.log(response); 
                 navigate("/dashboard/event/photosandvideos");
             } catch (error) {
                 console.log(error);
@@ -136,7 +136,7 @@ function EventPersonalDetails() {
                             <div className="w-full md:w-1/2 px-2 inputHolder">
                                 <span className="input-titel">Full Name (Mr / Mrs / Ms) <span>*</span></span>
                                 <input type="text" className="input" name="fullName" value={values?.fullName} onChange={handleInputChange} required />
-                                {errMsgObj.fullName && <span style={{ color: "red", fontSize: "10px" }}>{errMsgObj.fullName}</span>}
+                                {errMsgObj.fullName && <span style={{ color: "red", fontSize: "12px" }}>{errMsgObj.fullName}</span>}
                             </div>
                         </div>
                         <div className="w-full flex items-end flex-wrap">
@@ -146,7 +146,7 @@ function EventPersonalDetails() {
                                     <div className="input-checkd"><input type="checkbox" className="mr-2" />Hidden</div>
                                 </div>
                                 <input type="tel" className="input" name="mobileNo" value={values?.mobileNo} onChange={handleInputChange} required maxLength={10} minLength={10} />
-                                {errMsgObj.mobileNo && <span style={{ color: "red", fontSize: "10px" }}>{errMsgObj.mobileNo}</span>}
+                                {errMsgObj.mobileNo && <span style={{ color: "red", fontSize: "12px" }}>{errMsgObj.mobileNo}</span>}
                             </div>
                             <div className="w-full md:w-1/3 px-2 inputHolder">
                                 <label className="input-titel">Alternative Mobile Number <span></span></label>
@@ -158,7 +158,7 @@ function EventPersonalDetails() {
                                     <div className="input-checkd"><input type="checkbox" className="mr-2" />Hidden</div>
                                 </div>
                                 <input type="email" className="input" name="email" value={values?.email} onChange={handleInputChange} required />
-                                {errMsgObj.email && <span style={{ color: "red", fontSize: "10px" }}>{errMsgObj.email}</span>}
+                                {errMsgObj.email && <span style={{ color: "red", fontSize: "12px" }}>{errMsgObj.email}</span>}
                             </div>
                         </div>
                         <div className="space-y-5">
@@ -181,17 +181,17 @@ function EventPersonalDetails() {
                                 <div className="w-full md:w-1/3 px-2 inputHolder">
                                     <label className="input-titel">City <span>*</span></label>
                                     <input type="text" className="input" name="city" value={values?.city} onChange={handleInputChange} required />
-                                    {errMsgObj.city && <span style={{ color: "red", fontSize: "10px" }}>{errMsgObj.city}</span>}
+                                    {errMsgObj.city && <span style={{ color: "red", fontSize: "12px" }}>{errMsgObj.city}</span>}
                                 </div>
                                 <div className="w-full md:w-1/3 px-2 inputHolder">
                                     <label className="input-titel">State <span>*</span></label>
                                     <input type="text" className="input" name="state" value={values?.state} onChange={handleInputChange} required />
-                                    {errMsgObj.state && <span style={{ color: "red", fontSize: "10px" }}>{errMsgObj.state}</span>}
+                                    {errMsgObj.state && <span style={{ color: "red", fontSize: "12px" }}>{errMsgObj.state}</span>}
                                 </div>
                                 <div className="w-full md:w-1/3 px-2 inputHolder">
                                     <label className="input-titel">Pincode <span>*</span></label>
                                     <input type="num" className="input" name="pincode" value={values?.pincode} onChange={handleInputChange} required maxLength={6} />
-                                    {errMsgObj.pincode && <span style={{ color: "red", fontSize: "10px" }}>{errMsgObj.pincode}</span>}
+                                    {errMsgObj.pincode && <span style={{ color: "red", fontSize: "12px" }}>{errMsgObj.pincode}</span>}
                                 </div>
                             </div>
                         </div>
