@@ -30,7 +30,7 @@ function DashboardEvent() {
 	
 	useEffect(() => {
 		getAllCatagories();
-	}, [])
+	}, []);
 	
 	console.log("All categories >> ",allCategories.data);
 
@@ -53,7 +53,7 @@ function DashboardEvent() {
 		</div>
 		<div className="space-y-5 pt-10">
 		  {allCategories.data?.map(ele => (
-			<DashboardEventCategoryItem key={ele.categoryId} />
+			<DashboardEventCategoryItem key={ele.eventId} data={ele} />
 		  ))}
 		  
 		  	 <Modal isOpen={isCreateNewPopUpOpen} >

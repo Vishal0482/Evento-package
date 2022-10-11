@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 function EventPopUpUploadVideo({handleClose, setVideoList}) {
   const [video, setVideo] = useState("");
   const [videoPreview, setVideoPreview] = useState("");
   const [details, setDetails] = useState("");
   const [error, setError] = useState(false);
+  const eventId = useSelector(state => state.createEvent.category?.id);
   
 	const videoChangeHandler = (event) => {
 		const types = ['video/mp4'];
@@ -32,7 +34,7 @@ function EventPopUpUploadVideo({handleClose, setVideoList}) {
 
   const submitHandler = async() => {
 		if(!error) {
-			setVideoList((current) => [...current, {id: current.length, video:video, previewUrl: videoPreview, detail: details}]);
+			setVideoList((current) => [...current, {id: current.length, eventId: "5", video:video, previewUrl: videoPreview, detail: details}]);
 			handleClose(false);
 		} else {
 			console.log("error occured");
@@ -60,7 +62,7 @@ function EventPopUpUploadVideo({handleClose, setVideoList}) {
               </div>
               <div className="w-full">
                 <span className="input-titel">Details</span>
-                <textarea name="" id="" cols="30" rows="5" className="outline-none flex items-center w-full bg-white p-2 px-3.5 rounded-md"></textarea>
+                <textarea name="" id="" cols="30" rows="5" className="outline-none flex items-center w-full bg-white p-2 px-3.5 rounded-md" onChange={(e) => setDetails(e.target.value)}></textarea>
               </div>
             </form>
             <div className="btn-primary w-full uppercase" onClick={submitHandler}>Submit</div>

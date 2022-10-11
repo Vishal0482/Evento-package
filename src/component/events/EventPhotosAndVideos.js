@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import Modal from "../modal/Modal";
-import uploadOne from "../../assest/images/upload-1.png";
 import EventPopUpUploadPhoto from './popups/EventPopUpUploadPhoto';
 import EventPopUpUploadVideo from "./popups/EventPopUpUploadVideo";
 import { Link, useNavigate } from 'react-router-dom';
@@ -8,7 +7,6 @@ import Advertisement from '../Advertisement';
 import StepProgressBar from './StepProgressBar';
 import axios from 'axios';
 import { baseUrl } from "../../config";
-
 
 function EventPhotosAndVideos() {
 
@@ -23,21 +21,33 @@ const token = '7234eb833b21d7dae48848fb8d4a0cc3b1ea6c9f';
 		'Authorization': `Token ${token}`,
 		'Content-Type': 'multipart/form-data'
 	}
+
 const handleNext = async() => {
 	try {
 		setloading(true);
-		imageList.map(async(element) =>{
-			let formData = new FormData();
-			formData.append("image_details",element.detail);
-			formData.append("event",element.id);
-			formData.append("image",element.image);
-			const response = await axios.post(`${baseUrl}/api/image_event`,formData, {headers: header});
-			console.log(response);
-		});
-		// videoList.map(async(element => {
-			// const response = await axios.post(`${baseUrl}/api/video_event`,{video:, description:, thumbnail:, event:}, {headers: header});
-			// console.log(response);
-		// }))
+		
+		if(imageList && imageList.length < 6 && imageList.length > 0) {
+			imageList?.map(async(element) =>{
+				let formDataImage = new FormData();
+				formDataImage.append("image_details",element.detail);
+				formDataImage.append("event",element.eventId);
+				formDataImage.append("image",element.image);
+				const response = await axios.post(`${baseUrl}/api/image_event`,formDataImage, {headers: header});
+				console.log(response);
+			});
+		}
+
+		if(videoList && videoList.length < 2 && videoList.length > 0) {
+			videoList?.map((async (element) => {
+				let formDataVideo = new FormData();
+				formDataVideo.append("image_details",element.detail);
+				formDataVideo.append("event",element.eventId);
+				formDataVideo.append("video",element.video);
+				const response = await axios.post(`${baseUrl}/api/video_event`,formDataVideo, {headers: header});
+				console.log(response);
+			}));
+		}
+
 		setloading(false);
 		// navigate("/dashboard/event/addservices");
 	} catch (error) {
@@ -75,7 +85,12 @@ console.log(videoList);
 						<div className="upload-box" key={index}>
 							<div className="rounded relative overflow-hidden">
 							<img src={img.previewUrl} alt={"upload-"+index}/>
-							<button onClick={() => setImageList(current => current.filter(ele => ele.id !== index)) }>Remove</button>
+							<button onClick={() => {
+								setImageList(current => current.filter(ele => ele.id !== index));
+								setImageList(current => current.map((ele, i) => {
+									return {...ele, id: i}
+								}));
+							}}>Remove</button>
 						</div>
 					</div>
 					))}
@@ -95,7 +110,12 @@ console.log(videoList);
 						<div className="upload-box" key={index}>
 							<div className="rounded relative overflow-hidden">
 								<img src={vid.previewUrl} alt={"upload-"+index}/>
-								<button onClick={() => setVideoList(current => current.filter(ele => ele.id !== index)) }>Remove</button>
+								<button onClick={() => {
+								setVideoList(current => current.filter(ele => ele.id !== index));
+								setVideoList(current => current.map((ele, i) => {
+									return {...ele, id: i}
+								}));
+							}}>Remove</button>
 							</div>
 						</div>
 					))}
@@ -115,12 +135,12 @@ console.log(videoList);
 	   </div>
 	 </div>
 	 <div>
-	 <Modal isOpen={isUploadPhotoPopUpOpen}>
+	{imageList.length < 5 && <Modal isOpen={isUploadPhotoPopUpOpen}>
 		<EventPopUpUploadPhoto handleClose={setIsUploadPhotoPopUpOpen} setImageList={setImageList} />
-	 </Modal>
-	 <Modal isOpen={isUploadVideoPopUpOpen}>
+	 </Modal>}
+	 {videoList.length < 2 && <Modal isOpen={isUploadVideoPopUpOpen}>
 		<EventPopUpUploadVideo handleClose={setIsUploadVideoPopUpOpen} setVideoList={setVideoList} />
-	</Modal>
+	</Modal>}
 	 </div>
 
    </div>
