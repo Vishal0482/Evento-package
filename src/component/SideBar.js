@@ -15,7 +15,7 @@ function SideBar({ children }) {
 
   const handleLogout = (e) => {
     e.preventDefault();
-    dispatch(logout())
+    dispatch(logout());
     navigator('/dashboard/login');
   }
 
