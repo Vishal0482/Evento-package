@@ -6,6 +6,7 @@ import { baseUrl } from '../../../config.js';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addCategory } from '../../../redux/createEvent.js';
+import GetData from "../../../hooks/GetData";
 
 function EventPopUpCreateNew({ handleClose }) {
 
@@ -17,25 +18,35 @@ function EventPopUpCreateNew({ handleClose }) {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-	const token = '7234eb833b21d7dae48848fb8d4a0cc3b1ea6c9f';
-	const header = {
-		'Authorization': `Token ${token}`
-	}
-	const getCategory = async() => {
-		try {
-			const response = await axios.get(`${baseUrl}/api/event_category_list`,{headers: header});
-			console.log("Categorys >> ",response);
-			setCategory(response.data.data);
-			setNewCategoryName(response.data.data[0].category_name);
-			setNewCategoryId(response.data.data[0].categoryId);
-		} catch (error) {
-			console.log(error);
-		}
-	}
+	// const token = '7234eb833b21d7dae48848fb8d4a0cc3b1ea6c9f';
+	// const header = {
+	// 	'Authorization': `Token ${token}`
+	// }
+	// const getCategory = async() => {
+	// 	try {
+	// 		const response = await axios.get(`${baseUrl}/api/event_category_list`,{headers: header});
+	// 		console.log("Categorys >> ",response);
+	// 		setCategory(response.data.data);
+	// 		setNewCategoryName(response.data.data[0].category_name);
+	// 		setNewCategoryId(response.data.data[0].categoryId);
+	// 	} catch (error) {
+	// 		console.log(error);
+	// 	}
+	// }
 
+	// useEffect(()=>{
+	// 	getCategory();
+	// },[]);
+
+	const {data} = GetData("event_category_list");
+	console.log("data",data);
 	useEffect(()=>{
-		getCategory();
-	},[]);
+			if(data) {
+			setCategory(data);
+			setNewCategoryName(data[0]?.category_name);
+			setNewCategoryId(data[0]?.categoryId);
+		}
+	},[data]);
 
 	console.log(newCategoryId, newCategoryName, newCategoryDisplayName);
 	const clickHandler = () => {
