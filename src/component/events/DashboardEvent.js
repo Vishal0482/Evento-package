@@ -12,27 +12,28 @@ import { useLocation, useParams } from 'react-router-dom';
 function DashboardEvent() {
 	const params = useParams();
 	const [isCreateNewPopUpOpen, setIsCreateNewPopUpOpen] = useState(false);
-	const [allCategories,setAllCatagories] =useState({});
+	const [allEvents,setAllEvents] =useState({});
 	const token = '7234eb833b21d7dae48848fb8d4a0cc3b1ea6c9f';
 	console.log("params",params.id);
-	const getAllCatagories = async() =>{
+	const getAllEvents = async() =>{
 		const header = {
 			'Authorization': `Token ${token}`
 		}
 		try {	
 			const response = await axios.get(`${baseUrl}/api/events_get_list`,{headers: header});
 			console.log(response);
-			setAllCatagories(response.data);
+			setAllEvents(response.data);
 		} catch (error) {
 			console.log(error);
 		}
 	}
 	
+	
 	useEffect(() => {
-		getAllCatagories();
+		getAllEvents();
 	}, []);
 	
-	console.log("All categories >> ",allCategories.data);
+	console.log("All Events >> ",allEvents.data);
 
   return ( 
 	<div className="rightInContent">
@@ -42,6 +43,7 @@ function DashboardEvent() {
 		  <div className="flex whitespace-nowrap space-x-5 ml-auto">
 			<select name="All Category"
 			  className="arrow bg-white pl-5 pr-11 py-3 text-japaneseIndigo font-bold rounded-md tracking-wider appearance-none focus-visible:outline-none">
+				{/* { allCategories.data } */}
 			  <option value="">All Category</option>
 			  <option value="">All Category</option>
 			  <option value="">All Category</option>
@@ -52,7 +54,7 @@ function DashboardEvent() {
 		  </div>
 		</div>
 		<div className="space-y-5 pt-10">
-		  {allCategories.data?.map(ele => (
+		  {allEvents.data?.map(ele => (
 			<DashboardEventCategoryItem key={ele.eventId} data={ele} />
 		  ))}
 		  

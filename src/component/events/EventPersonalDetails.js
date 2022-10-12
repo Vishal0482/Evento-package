@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Advertisement from '../Advertisement';
 import StepProgressBar from './StepProgressBar';
@@ -8,6 +8,8 @@ import { addPersonalDetails } from '../../redux/createEvent';
 function EventPersonalDetails() {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+	const [mobileNoHidden, setMobileNoHidden] = useState(false);
+	const [emailHidden, setEmailHidden] = useState(false);
 
 	const initialState = {
 		personalSkill: "",
@@ -23,13 +25,15 @@ function EventPersonalDetails() {
 		pincode: "",
 	}
 	const [values, setValues] = useState(initialState);
-	const handleInputChange = (e) => {
-		const { name, value } = e.target;
-		setValues({
-		  ...values,
-		  [name]: value,
-		});
-	  };
+	const handleInputChange = useCallback((e) =>{
+		// (e) => {
+			const { name, value } = e.target;
+			setValues({
+			  ...values,
+			  [name]: value,
+			});
+		//   };
+	},[values.flatNo] );
 	console.log(values);
 
 	const clickNextHandler = () => {
@@ -64,7 +68,7 @@ function EventPersonalDetails() {
 			<div className="w-full md:w-1/3 px-2 inputHolder">
 				<div className="input-label-holder">
 				  <label className="input-titel">Mobile Number <span>*</span></label>
-				  <div className="input-checkd"><input type="checkbox" className="mr-2" />Hidden</div>
+				  <div className="input-checkd"><input type="checkbox" className="mr-2" onClick={() => setMobileNoHidden(!mobileNoHidden)} />Hidden</div>
 				</div>
 				<input type="text" className="input" name="mobileNo" value={values?.mobileNo} onChange={handleInputChange} required/>
 			</div>
@@ -75,7 +79,7 @@ function EventPersonalDetails() {
 			<div className="w-full md:w-1/3 px-2 inputHolder">
 				<div className="input-label-holder">
 				  <label className="input-titel">Email Address <span>*</span></label>
-				  <div className="input-checkd"><input type="checkbox" className="mr-2"/>Hidden</div>
+				  <div className="input-checkd"><input type="checkbox" className="mr-2" onClick={() => setEmailHidden(!emailHidden)} />Hidden</div>
 				</div>
 				<input type="text" className="input" name="email" value={values?.email} onChange={handleInputChange} required/>
 			</div>

@@ -45,10 +45,6 @@ function EventAddServices() {
 		   { serviceList?.map(element => <EventAddServicesListItem data = {element} key={element.Id} edit={true} /> )}
 		   
 		 </div>
-		 {/* <!-- add more button  --> */}
-		 <div className="text-right">
-		   <button className="btn-primary small">Add More</button>
-		 </div>
 	   </div>
 	   {/* <!-- next preview button  --> */}
 	   <div className="prw-next-btn">
