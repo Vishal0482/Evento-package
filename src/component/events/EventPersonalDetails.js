@@ -12,16 +12,16 @@ const token = "7234eb833b21d7dae48848fb8d4a0cc3b1ea6c9f";
 const header = {
     'Authorization': `Token ${token}`
 }
-
 function EventPersonalDetails() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const userId = useSelector(state => state.createLogin?.userId);
+    const eventId = useSelector(state => state.createEvent.category?.eventId);
 
     const initialState = {
         personalSkill: "",
-        fullName: "",
-        mobileNo: "",
+        full_name: "",
+        mobile_no: "",
         alterMobileNo: "",
         email: "",
         flatNo: "",
@@ -32,6 +32,8 @@ function EventPersonalDetails() {
         pincode: "",
     }
     const [values, setValues] = useState(initialState);
+    const [mobileNoHide, setMobileNoHide] = useState(false);
+    const [emailHide, setEmailHide] = useState(false);
     const [errMsgObj, setErrMsgObj] = useState({});
 
     const handleInputChange = (e) => {
@@ -46,11 +48,11 @@ function EventPersonalDetails() {
         e.preventDefault()
         let tmpErrObj = errMsgObj;
 
-        // FullName Condition check
-        if (!values.fullName || values.fullName === "") {
-            tmpErrObj = { ...tmpErrObj, fullName: "Name is Required" }
+        // Full_name Condition check
+        if (!values.full_name || values.full_name === "") {
+            tmpErrObj = { ...tmpErrObj, full_name: "Name is Required" }
         } else {
-            tmpErrObj = { ...tmpErrObj, fullName: undefined };
+            tmpErrObj = { ...tmpErrObj, full_name: undefined };
         }
 
         // Mobile Number Condition check
@@ -69,7 +71,7 @@ function EventPersonalDetails() {
 
         // }
 
-        if (!values.mobileNo || values.mobileNo === "") {
+        if (!values.mobile_no || values.mobile_no === "") {
             tmpErrObj = { ...tmpErrObj, mobileNo: "MobileNo Address is Required" }
         } else {
             tmpErrObj = { ...tmpErrObj, mobileNo: undefined };
@@ -103,15 +105,15 @@ function EventPersonalDetails() {
         setErrMsgObj(tmpErrObj)
         if (tmpErrObj) { }
 
-        if (!tmpErrObj?.fullName && !tmpErrObj?.mobileNo && !tmpErrObj?.email && !tmpErrObj?.state && !tmpErrObj?.pincode) {
+        if (!tmpErrObj?.full_name && !tmpErrObj?.mobileNo && !tmpErrObj?.email && !tmpErrObj?.state && !tmpErrObj?.pincode) {
             try {
                 dispatch(addPersonalDetails({ personalDetail: values }));
-                const response = await axios.post(`${baseUrl}/api/events/personaldetail`,{...values,user_id:userId}, { headers: header })
-                console.log(response); 
+                const response = await axios.post(`${baseUrl}/api/events/personaldetail`, { ...values, is_mobile_no_hidden:mobileNoHide,user_id: userId, id: eventId }, { headers: header })
+                console.log(response);
                 navigate("/dashboard/event/photosandvideos");
             } catch (error) {
                 console.log(error);
-                // alert("Some error occured. Please try again")
+                alert("Some error occured. Please try again")
             }
         }
     }
@@ -136,17 +138,17 @@ function EventPersonalDetails() {
                             </div>
                             <div className="w-full md:w-1/2 px-2 inputHolder">
                                 <span className="input-titel">Full Name (Mr / Mrs / Ms) <span>*</span></span>
-                                <input type="text" className="input" name="fullName" value={values?.fullName} onChange={handleInputChange} required />
-                                {errMsgObj.fullName && <span style={{ color: "red", fontSize: "12px" }}>{errMsgObj.fullName}</span>}
+                                <input type="text" className="input" name="full_name" value={values?.full_name} onChange={handleInputChange} required />
+                                {errMsgObj.full_name && <span style={{ color: "red", fontSize: "12px" }}>{errMsgObj.full_name}</span>}
                             </div>
                         </div>
                         <div className="w-full flex items-end flex-wrap">
                             <div className="w-full md:w-1/3 px-2 inputHolder">
                                 <div className="input-label-holder">
                                     <label className="input-titel">Mobile Number <span>*</span></label>
-                                    <div className="input-checkd"><input type="checkbox" className="mr-2" />Hidden</div>
+                                    <div className="input-checkd"><input type="checkbox" onChange={() => setMobileNoHide(!mobileNoHide)} className="mr-2" />Hidden</div>
                                 </div>
-                                <input type="tel" className="input" name="mobileNo" value={values?.mobileNo} onChange={handleInputChange} required maxLength={10} minLength={10} />
+                                <input type="tel" className="input" name="mobile_no" value={values?.mobile_no} onChange={handleInputChange} required maxLength={10} minLength={10} />
                                 {errMsgObj.mobileNo && <span style={{ color: "red", fontSize: "12px" }}>{errMsgObj.mobileNo}</span>}
                             </div>
                             <div className="w-full md:w-1/3 px-2 inputHolder">
@@ -156,7 +158,7 @@ function EventPersonalDetails() {
                             <div className="w-full md:w-1/3 px-2 inputHolder">
                                 <div className="input-label-holder">
                                     <label className="input-titel">Email Address <span>*</span></label>
-                                    <div className="input-checkd"><input type="checkbox" className="mr-2" />Hidden</div>
+                                    <div className="input-checkd"><input type="checkbox" onChange={() => setEmailHide(!emailHide)} className="mr-2" />Hidden</div>
                                 </div>
                                 <input type="email" className="input" name="email" value={values?.email} onChange={handleInputChange} required />
                                 {errMsgObj.email && <span style={{ color: "red", fontSize: "12px" }}>{errMsgObj.email}</span>}

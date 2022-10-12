@@ -10,6 +10,7 @@ function EventCapacity() {
 	const dispatch = useDispatch();
 
   const [type, setType] = useState();
+  
 	const initialState = {
 		personCapacity: "",
     parkingCapacity: "",

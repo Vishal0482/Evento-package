@@ -68,7 +68,7 @@ function EventPopUpAddService({handleClose}) {
                       </span>
                     </label>
                     <label className="block cursor-pointer">
-                      <input type="radio" name="price" value="perHour" className="hidden" checked="" onChange={(e)=> setPriceType("per_Hour")} />
+                      <input type="radio" name="price" value="perHour" className="hidden"  onChange={(e)=> setPriceType("per_Hour")} />
                       <span className="text-sm text-quicksilver py-2 px-3 bg-white shadow-lg whitespace-nowrap font-bold rounded block">
                         Per / Person
                       </span>
