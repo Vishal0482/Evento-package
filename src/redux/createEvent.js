@@ -13,7 +13,7 @@ export const createEvent  = createSlice({
     name: 'createEvent',
     initialState,
     reducers: {
-      addCategory: (state, action) => {
+        addCategory: (state, action) => {
             state.category = action.payload.category
         },
         addAboutPlace: (state, action) => {
@@ -30,10 +30,13 @@ export const createEvent  = createSlice({
         },
         addTermsAndCondition: (state, action) => {
           state.termsAndCondition = action.payload.termsAndCondition
+        },
+        removeData: (state, action) => {
+          state[action.payload] = null
         }
     },
   })
   
-  export const { addCategory, addAboutPlace, addPersonalDetails, addCapacity, addCompanyDetail, addTermsAndCondition } = createEvent.actions
+  export const { addCategory, addAboutPlace, addPersonalDetails, addCapacity, addCompanyDetail, addTermsAndCondition, removeData } = createEvent.actions
   
   export default createEvent.reducer

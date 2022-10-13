@@ -1,16 +1,29 @@
-import React from 'react'
+import React from 'react';
+import { useSelector } from 'react-redux';
 
 function StepProgressBar() {
+
+    const placesProgressBarList = ["Add Place","About Place","Personal Details","Photos & Videos","Add Service","Capacity", "Company Details","Terms & Conditions","Discount","Calendar"];
+    const count = useSelector(state => state.StepProgressCount.count);
+    console.log("Count", count);
     return (
         <div className="w-full overflow-hidden">
             <ul className="flex justify-between step-progress-holder">
-                <li>
+                {placesProgressBarList.map((element, index) => (
+                    <li>
+                        <div>
+                            <span style={count>=(index+1) ? {backgroundColor:"#20C0E8", color:"#fff"} : {}}>{index+1}</span>
+                        </div>
+                        <h3>{element}</h3>
+                    </li>
+                ))}
+                {/* <li>
                     <div>
                         <span>01</span>
                     </div>
                     <h3>Add Place</h3>
-                </li>
-                <li>
+                </li> */}
+                {/* <li>
                     <div>
                         <span>02</span>
                     </div>
@@ -63,7 +76,7 @@ function StepProgressBar() {
                         <span>10</span>
                     </div>
                     <h3>Calendar</h3>
-                </li>
+                </li> */}
             </ul>
         </div>
     )

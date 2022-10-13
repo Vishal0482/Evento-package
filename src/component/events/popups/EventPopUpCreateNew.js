@@ -6,8 +6,9 @@ import { baseUrl } from '../../../config.js';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addCategory } from '../../../redux/createEvent.js';
+import { increment } from '../../../redux/stepProgressCount.js';
 
-function EventPopUpCreateNew({ handleClose }) {
+function EventPopUpCreateNew({ handleClose, selectedCategory, displayName, edit }) {
 
 	const [isCategoryPopUpOpen, setIsCategoryPopUpOpen] = useState(false);
 	const [category, setCategory] = useState([]);
@@ -35,13 +36,22 @@ function EventPopUpCreateNew({ handleClose }) {
 
 	useEffect(()=>{
 		getCategory();
+		if(edit){
+			setNewCategoryName(selectedCategory);
+			setNewCategoryDisplayName(displayName);
+		}
 	},[]);
 
 	console.log(newCategoryId, newCategoryName, newCategoryDisplayName);
 	const clickHandler = () => {
 		const category = {id: newCategoryId, categoryName: newCategoryName, displayName: newCategoryDisplayName}
 		dispatch(addCategory({category: category}));
-		navigate("/dashboard/event/addplaces");
+		if(edit){
+			handleClose(false);
+		} else {
+			dispatch(increment());
+			navigate("/dashboard/event/addplaces");
+		}
 	}
 
 
