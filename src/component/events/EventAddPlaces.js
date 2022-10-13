@@ -10,7 +10,6 @@ import { useDispatch } from 'react-redux';
 import { decrement, increment } from '../../redux/stepProgressCount';
 
 
-
 function EventAddPlaces() {
 
 	const navigate = useNavigate();
@@ -25,13 +24,13 @@ function EventAddPlaces() {
 	});
 
 	const clickNextHandler = () => {
-		dispatch(increment())
-		navigate("/dashboard/event/aboutplace")
+		dispatch(increment());
+		navigate("/dashboard/event/aboutplace");
 	};
 
 	const clickBackHander = () => {
-		dispatch(decrement())
-		navigate(-1)
+		dispatch(decrement());
+		navigate(-1);
 	}
 
   return (

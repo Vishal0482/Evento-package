@@ -6,11 +6,13 @@ import { addAboutPlace } from '../../redux/createEvent';
 import axios from 'axios';
 import { baseUrl } from '../../config';
 import StepProgressBar from './StepProgressBar';
+import { decrement, increment } from '../../redux/stepProgressCount';
 
 function EventAboutPlace() {
 
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+	const [banner, setBanner] = useState(null);
 	const [price, setPrice] = useState("");
 	const [priceType, setPriceType] = useState("per_hour");
 	const [about, setAbout] = useState("");
@@ -30,8 +32,15 @@ function EventAboutPlace() {
 		const response = await axios.post(`${baseUrl}/api/add_place_event`, { place_price: price, price_type: priceType, details: about ,event: eventId }, {headers: header});
 		console.log("About place >> ",response);
 
-		if(response.data.isSuccess == true)
+		if(response.data.isSuccess == true) {
+			dispatch(increment()) 
 			navigate("/dashboard/event/personaldetails");
+		}
+	}
+
+	const clickBackHander = () => {
+		dispatch(decrement());
+		navigate(-1);
 	}
   
   return (
@@ -49,6 +58,13 @@ function EventAboutPlace() {
 		 <StepProgressBar />
 		 {/* <!-- main-content  --> */}
 		 <div className="space-y-3">
+		 <div className="upload-holder">
+			  	<span className="input-titel ml-2">Place Banner</span>
+			   <label htmlFor="upload" className="upload">
+				 <input  name="images" id="upload" className="appearance-none hidden" />
+				 <span className="input-titel mt-1"><i className="icon-image mr-2"></i>Upload Images</span>
+			   </label>
+		   </div>
 		   <div className="w-full">
 			 <span className="input-titel">Price</span>
 			 <label htmlFor="" className="flex items-center w-full bg-white p-2 px-3.5 rounded-md">
@@ -91,7 +107,7 @@ function EventAboutPlace() {
 		<Advertisement />
 	   </div>
 	   <div className="prw-next-btn mt-auto">
-		 <button type="button" className="flex items-center" onClick={() => navigate(-1)}><i className="icon-back-arrow mr-3"></i><h3>Back</h3></button>
+		 <button type="button" className="flex items-center" onClick={clickBackHander}><i className="icon-back-arrow mr-3"></i><h3>Back</h3></button>
 		 <button type="button" className="flex items-center active" onClick={clickNextHandler}><h3>Next</h3><i className="icon-next-arrow ml-3"></i></button>
 	   </div>
 	 </div>

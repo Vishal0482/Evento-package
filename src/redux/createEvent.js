@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  category: null,
+  category: JSON.parse(localStorage.getItem("category")) || null,
   aboutPlace: null,
   personalDetail : null,
   capacity: null,
@@ -15,6 +15,7 @@ export const createEvent  = createSlice({
     reducers: {
         addCategory: (state, action) => {
             state.category = action.payload.category
+            localStorage.setItem("category",JSON.stringify(state.category));
         },
         addAboutPlace: (state, action) => {
           state.aboutPlace = action.payload.aboutPlace

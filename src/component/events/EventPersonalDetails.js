@@ -4,12 +4,19 @@ import Advertisement from '../Advertisement';
 import StepProgressBar from './StepProgressBar';
 import { useDispatch } from 'react-redux';
 import { addPersonalDetails } from '../../redux/createEvent';
+import { decrement, increment } from '../../redux/stepProgressCount';
 
 function EventPersonalDetails() {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const [mobileNoHidden, setMobileNoHidden] = useState(false);
 	const [emailHidden, setEmailHidden] = useState(false);
+
+	const token = '7234eb833b21d7dae48848fb8d4a0cc3b1ea6c9f';
+	const header = {
+		'Authorization': `Token ${token}`,
+		'Content-Type': 'multipart/form-data'
+	}
 
 	const initialState = {
 		personalSkill: "",
@@ -25,21 +32,26 @@ function EventPersonalDetails() {
 		pincode: "",
 	}
 	const [values, setValues] = useState(initialState);
-	const handleInputChange = useCallback((e) =>{
-		// (e) => {
+	const handleInputChange = (e) =>{
 			const { name, value } = e.target;
 			setValues({
 			  ...values,
 			  [name]: value,
 			});
-		//   };
-	},[values.flatNo] );
+	};
 	console.log(values);
 
 	const clickNextHandler = () => {
 		dispatch(addPersonalDetails({personalDetail : values}));
+		dispatch(increment());
 		navigate("/dashboard/event/photosandvideos");
 	}
+
+	const clickBackHander = () => {
+		dispatch(decrement());
+		navigate(-1);
+	}
+
   return (
 	// <!-- Content In -->
 	<div className="rightInContent">
@@ -120,7 +132,7 @@ function EventPersonalDetails() {
 		<Advertisement />
 	  </div>
 	  <div className="prw-next-btn">
-		<button type="button" className="flex items-center" onClick={() => navigate(-1)}><i className="icon-back-arrow mr-3"></i><h3>Back</h3></button>
+		<button type="button" className="flex items-center" onClick={clickBackHander}><i className="icon-back-arrow mr-3"></i><h3>Back</h3></button>
 		<button type="button" className="flex items-center active" onClick={clickNextHandler}><h3>Next</h3><i className="icon-next-arrow ml-3"></i></button>
 	  </div>
 	</div>
