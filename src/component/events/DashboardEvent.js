@@ -2,27 +2,37 @@ import React, { useEffect, useState } from "react";
 import ringAd from "../../assest/images/ring-ad.png";
 import Modal from "../modal/Modal";
 import EventPopUpCreateNew from "./popups/EventPopUpCreateNew";
-// import axios from '../../axios';
 import axios from "axios";
 import { baseUrl } from "../../config";
 import DashboardEventCategoryItem from "./DashboardEventCategoryItem";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 function DashboardEvent() {
 	const params = useParams();
 	const [isCreateNewPopUpOpen, setIsCreateNewPopUpOpen] = useState(false);
 	const [allCategories, setAllCatagories] = useState({});
+	const [categoriesList, setCategoriesList] = useState({});
 
 	const token = "7234eb833b21d7dae48848fb8d4a0cc3b1ea6c9f";
 	console.log("params", params.id);
+	const header = {
+		Authorization: `Token ${token}`,
+	};
 	const getAllCatagories = async () => {
-		const header = {
-			Authorization: `Token ${token}`,
-		};
 		try {
 			const response = await axios.get(`${baseUrl}/api/events_get_list`, { headers: header });
-			console.log(response);
+			// console.log(response);
 			setAllCatagories(response.data);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const categoriesLists = async () => {
+		try {
+			const response = await axios.get(`${baseUrl}/api/event_category_list`, { headers: header });
+			console.log(response);
+			setCategoriesList(categoriesList);
 		} catch (error) {
 			console.log(error);
 		}
@@ -30,6 +40,7 @@ function DashboardEvent() {
 
 	useEffect(() => {
 		getAllCatagories();
+		categoriesLists();
 	}, []);
 
 	console.log("All categories >> ", allCategories.data);
@@ -43,10 +54,9 @@ function DashboardEvent() {
 						<select
 							name="All Category"
 							className="arrow bg-white pl-5 pr-11 py-3 text-japaneseIndigo font-bold rounded-md tracking-wider appearance-none focus-visible:outline-none">
-							<option value="">All Category</option>
-							<option value="">All Category</option>
-							<option value="">All Category</option>
-							<option value="">All Category</option>
+							{categoriesLists.data?.map((ele) => (
+								<option key={ele.categoryId}>{categoriesList}</option>
+							))}
 						</select>
 						<button className="bg-white px-5 py-3 text-japaneseIndigo font-bold rounded-md tracking-wider">MultipleLive</button>
 						<button href="#" onClick={() => setIsCreateNewPopUpOpen(true)} className="btn-primary">
