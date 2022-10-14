@@ -1,20 +1,32 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addCompanyDetail } from '../../redux/createEvent';
 import StepProgressBar from './StepProgressBar';
+import { baseUrl } from '../../config';
+import axios from 'axios';
+import { increment } from '../../redux/stepProgressCount';
 
 function EventCompanyDetails() {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+	const userId = localStorage.getItem("userId");
+	const eventId = useSelector(state => state.createEvent.category?.id);
+	const [gstFile, setGstFile] = useState(null);
+
+	const token = '7234eb833b21d7dae48848fb8d4a0cc3b1ea6c9f';
+	const header = {
+		'Authorization': `Token ${token}`,
+		'Content-Type': 'multipart/form-data'
+	}
 
 	const initialState = {
-		companyName: "",
-		contactNo: "",
+		name: "",
+		contact_no: "",
 		email: "",
-		flatNo: "",
-		streetName: "",
-		areaName: "",
+		flat_no: "",
+		street: "",
+		area: "",
 		city: "",
 		state: "",
 		pincode: "",
@@ -29,9 +41,26 @@ function EventCompanyDetails() {
 	  };
 	console.log(values);
 
-	const clickNextHandler = () => {
-		dispatch(addCompanyDetail({companyDetail : values}));
-		navigate("/dashboard/event/termsandconditions");
+	const clickNextHandler = async() => {
+		const formData = new FormData();
+		for(var key in values){
+			formData.append(key,values[key]);
+		}
+		formData.append("eventId",eventId);
+		formData.append("user_id",userId);
+		formData.append("gst",gstFile);
+
+		try {
+			const response = await axios.post(`${baseUrl}/api/events/companydetail`, formData, {headers: header});
+			console.log("Company details > ", response);
+			if(response.data.isSuccess === true) {
+				dispatch(addCompanyDetail({companyDetail : values}));
+				dispatch(increment());
+				navigate("/dashboard/event/termsandconditions");
+			}	
+		} catch (error) {
+			console.log(error);
+		}
 	}
 
   return (
@@ -51,12 +80,12 @@ function EventCompanyDetails() {
 			<div className="w-full flex items-end flex-wrap">
 			  <d  iv className="w-full md:w-1/2 px-2 inputHolder">
 				  <span className="input-titel">Company Name</span>
-				  <input type="text" className="input" name="companyName" value={values?.companyName} onChange={handleInputChange} />
+				  <input type="text" className="input" name="companyName" value={values?.name} onChange={handleInputChange} />
 			  </d>
 			  <div className="w-full md:w-1/2 px-2 inputHolder">
 				  <span className="input-titel">Company GST (Optional)</span>
 				  <label htmlFor="upload" className="upload upload-popup">
-					<input type="file" name="images" id="upload" className="appearance-none hidden"/>
+					<input type="file" name="pdf" id="upload" className="appearance-none hidden" onClick={(e) => setGstFile(e.target.files[0])} />
 					<span className="input-titel mt-1"><i className="icon-pdf mr-2"></i>Upload PDF</span>
 				  </label>
 			  </div>
@@ -64,7 +93,7 @@ function EventCompanyDetails() {
 			<div className="w-full flex items-end flex-wrap">
 			  <div className="w-full md:w-1/2 px-2 inputHolder">
 				  <span className="input-titel">Company Contact No</span>
-				  <input type="text" className="input" name="contactNo" value={values?.contactNo} onChange={handleInputChange} />
+				  <input type="text" className="input" name="contactNo" value={values?.contact_no} onChange={handleInputChange} />
 			  </div>
 			  <div className="w-full md:w-1/2 px-2 inputHolder">
 				  <span className="input-titel">Company Email</span>
@@ -76,15 +105,15 @@ function EventCompanyDetails() {
 				<div className="w-full flex flex-wrap">
 				  <div className="w-full md:w-1/3 px-2 inputHolder">
 					  <span className="input-titel">Flat No.</span>
-					  <input type="text" className="input" name="flatNo" value={values?.flatNo} onChange={handleInputChange} />
+					  <input type="text" className="input" name="flatNo" value={values?.flat_no} onChange={handleInputChange} />
 				  </div>
 				  <div className="w-full md:w-1/3 px-2 inputHolder">
 					  <span className="input-titel">Street Name.</span>
-					  <input type="text" className="input" name="streetName" value={values?.streetName} onChange={handleInputChange} />
+					  <input type="text" className="input" name="streetName" value={values?.street} onChange={handleInputChange} />
 				  </div>
 				  <div className="w-full md:w-1/3 px-2 inputHolder">
 					  <span className="input-titel">Area Name.</span>
-					  <input type="text" className="input" name="areaName" value={values?.areaName} onChange={handleInputChange} />
+					  <input type="text" className="input" name="areaName" value={values?.area} onChange={handleInputChange} />
 				  </div>
 				</div>
 				<div className="w-full flex flex-wrap">

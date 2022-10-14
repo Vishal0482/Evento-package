@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import Advertisement from "../Advertisement";
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,26 +16,57 @@ function EventAboutPlace() {
 	const [price, setPrice] = useState("");
 	const [priceType, setPriceType] = useState("per_hour");
 	const [about, setAbout] = useState("");
-	const eventId = useSelector(state => state.createEvent.category?.id);
+	const eventId = useSelector(state => state.createEvent.category?.id);	
+	// const aboutPlaceSelector = useSelector(state => state.createEvent.aboutPlace);
+	// console.log("about place selector > ",aboutPlaceSelector);
+	// useEffect(() => {
+	// 	if(aboutPlaceSelector != null) {
+	// 		setAbout(aboutPlaceSelector?.about);
+	// 		setPrice(aboutPlaceSelector?.price);
+	// 		setPriceType(aboutPlaceSelector?.priceType);
+	// 	}
+	// },[]);
 
-	// console.log(price, priceType, about, eventId);
+	// console.log(banner,price, priceType, about, eventId);
 
 	const token = '7234eb833b21d7dae48848fb8d4a0cc3b1ea6c9f';
 	const header = {
-		'Authorization': `Token ${token}`
+		'Authorization': `Token ${token}`,
+		'Content-Type': 'multipart/form-data',
 	}
-
+	
 	const clickNextHandler = async() => {
-		const aboutPlace = {price: price, priceType: priceType, about: about};
-		dispatch(addAboutPlace({aboutPlace: aboutPlace}));
-		console.log({ ...aboutPlace,event: eventId });
-		const response = await axios.post(`${baseUrl}/api/add_place_event`, { place_price: price, price_type: priceType, details: about ,event: eventId }, {headers: header});
-		console.log("About place >> ",response);
 
-		if(response.data.isSuccess == true) {
-			dispatch(increment()) 
-			navigate("/dashboard/event/personaldetails");
-		}
+		// console.log({ ...aboutPlace,event: eventId });
+		const formData = new FormData();
+		formData.append("place_price",price);
+		formData.append("price_type",priceType);
+		formData.append("details",about);
+		formData.append("event",eventId);
+		formData.append("place_banner",banner);
+		
+
+		// if(aboutPlaceSelector == null) {
+			// Insert place
+			const response = await axios.post(`${baseUrl}/api/add_place_event`, formData, {headers: header});
+			console.log("About place Inserted>> ",response);
+			const aboutPlace = {id: response.data.data.Id , price: price, priceType: priceType, about: about};
+			dispatch(addAboutPlace({aboutPlace: aboutPlace}));
+			
+			if(response.data.isSuccess === true) {
+				dispatch(increment()) 
+				navigate("/dashboard/event/personaldetails");
+			}
+		// } else {
+			// Update Place
+			// const response = await axios.put(`${baseUrl}/api/add_place_event/${aboutPlaceSelector.id}`, formData, {headers: header});
+			// console.log("About place Inserted>> ",response);
+			// if(response.data.isSuccess === true) {
+			// 	dispatch(increment()) 
+			// 	navigate("/dashboard/event/personaldetails");
+			// }
+		// }
+
 	}
 
 	const clickBackHander = () => {
@@ -61,7 +92,7 @@ function EventAboutPlace() {
 		 <div className="upload-holder">
 			  	<span className="input-titel ml-2">Place Banner</span>
 			   <label htmlFor="upload" className="upload">
-				 <input  name="images" id="upload" className="appearance-none hidden" />
+				 <input type="file" name="images" id="upload" className="appearance-none hidden" onChange={(e) => setBanner(e.target.files[0])}/>
 				 <span className="input-titel mt-1"><i className="icon-image mr-2"></i>Upload Images</span>
 			   </label>
 		   </div>
@@ -74,21 +105,21 @@ function EventAboutPlace() {
 			   </div>
 			   <div className="selectPrice flex items-center space-x-3">
 				 <label className="block cursor-pointer">
-				   <input type="radio" name="price" value="perDay" className="hidden" onChange={(e) => setPriceType("per_day")} />
+				   <input type="radio" name="price" value="per_day" checked={priceType === "per_day" && true} className="hidden" onChange={(e) => setPriceType("per_day")} />
 				   <span
 					 className="text-sm text-quicksilver py-2 px-3 bg-white shadow-lg whitespace-nowrap font-bold rounded block">
 					 Per / Day
 				   </span>
 				 </label>
 				 <label className="block cursor-pointer">
-				   <input type="radio" name="price" value="perHour" className="hidden" defaultChecked onChange={(e) => setPriceType("per_hour")} />
+				   <input type="radio" name="price" value="per_hour" className="hidden" defaultChecked onChange={(e) => setPriceType("per_hour")} />
 				   <span
 					 className="text-sm text-quicksilver py-2 px-3 bg-white shadow-lg whitespace-nowrap font-bold rounded block">
 					 Per / Hour
 				   </span>
 				 </label>
 				 <label className="block cursor-pointer">
-				   <input type="radio" name="price" value="perEvent" className="hidden"onChange={(e) => setPriceType("per_event")} />
+				   <input type="radio" name="price" value="per_event" className="hidden" checked={priceType === "per_event" && true} onChange={(e) => setPriceType("per_event")} />
 				   <span
 					 className="text-sm text-quicksilver py-2 px-3 bg-white shadow-lg whitespace-nowrap font-bold rounded block">
 					 Per / Event
@@ -99,7 +130,7 @@ function EventAboutPlace() {
 		   </div>
 		   <div className="w-full">
 			 <span className="input-titel">About place</span>
-			 <textarea name="" id="" cols="30" rows="5"
+			 <textarea name="" id="" cols="30" rows="5" value={about}
 			   className="outline-none flex items-center w-full bg-white p-2 px-3.5 rounded-md" onChange={(e) => setAbout(e.target.value)}></textarea>
 		   </div>
 		 </div>

@@ -860,6 +860,10 @@ input[type="checkbox"].switch:checked ~ .off {
     --tw-content: "";
     content: var(--tw-content);
 }
+.step-progress-holder li .active div:after,
+.step-progress-holder li .active div:before {
+    background-color: #20C0E8;
+}
 .step-progress-holder li div:before {
     z-index: -1;
     width: 0;
@@ -867,6 +871,10 @@ input[type="checkbox"].switch:checked ~ .off {
 }
 .step-progress-holder li.active div:before {
     width: 100%;
+}
+.step-progress-holder li.active div span .active {
+    background-color:#20C0E8;
+    color : #fff;
 }
 .step-progress-holder li.active div span {
     --tw-bg-opacity: 1;
