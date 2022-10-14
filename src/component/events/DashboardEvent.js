@@ -11,7 +11,6 @@ function DashboardEvent() {
 	const params = useParams();
 	const [isCreateNewPopUpOpen, setIsCreateNewPopUpOpen] = useState(false);
 	const [allCategories, setAllCatagories] = useState({});
-	const [categoriesList, setCategoriesList] = useState({});
 
 	const token = "7234eb833b21d7dae48848fb8d4a0cc3b1ea6c9f";
 	console.log("params", params.id);
@@ -28,19 +27,8 @@ function DashboardEvent() {
 		}
 	};
 
-	const categoriesLists = async () => {
-		try {
-			const response = await axios.get(`${baseUrl}/api/event_category_list`, { headers: header });
-			console.log(response);
-			setCategoriesList(categoriesList);
-		} catch (error) {
-			console.log(error);
-		}
-	};
-
 	useEffect(() => {
 		getAllCatagories();
-		categoriesLists();
 	}, []);
 
 	console.log("All categories >> ", allCategories.data);
@@ -54,9 +42,9 @@ function DashboardEvent() {
 						<select
 							name="All Category"
 							className="arrow bg-white pl-5 pr-11 py-3 text-japaneseIndigo font-bold rounded-md tracking-wider appearance-none focus-visible:outline-none">
-							{categoriesLists.data?.map((ele) => (
+							{/* {categoriesLists.data?.map((ele) => (
 								<option key={ele.categoryId}>{categoriesList}</option>
-							))}
+							))} */}
 						</select>
 						<button className="bg-white px-5 py-3 text-japaneseIndigo font-bold rounded-md tracking-wider">MultipleLive</button>
 						<button href="#" onClick={() => setIsCreateNewPopUpOpen(true)} className="btn-primary">
@@ -66,7 +54,7 @@ function DashboardEvent() {
 				</div>
 				<div className="space-y-5 pt-10">
 					{allCategories.data?.map((ele) => (
-						<DashboardEventCategoryItem key={ele.categoryId} />
+						<DashboardEventCategoryItem key={ele.eventId} />
 					))}
 
 					<Modal isOpen={isCreateNewPopUpOpen}>
