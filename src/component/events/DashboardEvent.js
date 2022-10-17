@@ -11,6 +11,7 @@ function DashboardEvent() {
 	const params = useParams();
 	const [isCreateNewPopUpOpen, setIsCreateNewPopUpOpen] = useState(false);
 	const [allCategories, setAllCatagories] = useState({});
+	const [category, setCategory] = useState({});
 
 	const token = "7234eb833b21d7dae48848fb8d4a0cc3b1ea6c9f";
 	console.log("params", params.id);
@@ -26,12 +27,23 @@ function DashboardEvent() {
 			console.log(error);
 		}
 	};
+	const categoryList = async () => {
+		try {
+			const response = await axios.get(`${baseUrl}/api/event_category_list`, { headers: header });
+			// console.log(response);
+			setCategory(response.data);
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
 	useEffect(() => {
 		getAllCatagories();
+		categoryList();
 	}, []);
 
-	console.log("All categories >> ", allCategories.data);
+	console.log("All categories >> ", category.data);
+	// console.log("All categories >> ", allCategories.data);
 
 	return (
 		<div className="rightInContent">
@@ -40,11 +52,16 @@ function DashboardEvent() {
 					<h1>All Category</h1>
 					<div className="flex whitespace-nowrap space-x-5 ml-auto">
 						<select
+							onChange={(e) => {
+								setCategory(e.target.value);
+							}}
 							name="All Category"
 							className="arrow bg-white pl-5 pr-11 py-3 text-japaneseIndigo font-bold rounded-md tracking-wider appearance-none focus-visible:outline-none">
-							{/* {categoriesLists.data?.map((ele) => (
-								<option key={ele.categoryId}>{categoriesList}</option>
-							))} */}
+							{category.data?.map((element) => (
+								<option key={element.categoryId} value={element.category_name} data-id={element.categoryId}>
+									{element.category_name}
+								</option>
+							))}
 						</select>
 						<button className="bg-white px-5 py-3 text-japaneseIndigo font-bold rounded-md tracking-wider">MultipleLive</button>
 						<button href="#" onClick={() => setIsCreateNewPopUpOpen(true)} className="btn-primary">
