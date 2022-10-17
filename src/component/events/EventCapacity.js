@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import Advertisement from '../Advertisement';
 import StepProgressBar from './StepProgressBar';
 import { addCapacity } from '../../redux/createEvent';
+import { decrement, increment } from '../../redux/stepProgressCount';
 
 function EventCapacity() {
   const navigate = useNavigate();
 	const dispatch = useDispatch();
+  const params = useParams();
 
   const [type, setType] = useState();
 	const initialState = {
@@ -27,7 +29,13 @@ function EventCapacity() {
 
 	const clickNextHandler = () => {
 		dispatch(addCapacity({capacity: {...values,type: type}}));
-		navigate("/dashboard/event/companydetails");
+    dispatch(increment());
+		navigate(`/dashboard/event/companydetails/${params.eventId}/${params.userId}`);
+	}
+
+  const clickBackHander = () => {
+		dispatch(decrement());
+		navigate(-1);
 	}
 
   return (
@@ -84,7 +92,7 @@ function EventCapacity() {
               <Advertisement />
             </div>
             <div className="prw-next-btn">
-              <button type="button" className="flex items-center" onClick={() => navigate(-1)}><i className="icon-back-arrow mr-3"></i><h3>Back</h3></button>
+              <button type="button" className="flex items-center" onClick={clickBackHander}><i className="icon-back-arrow mr-3"></i><h3>Back</h3></button>
               <button type="button" className="flex items-center active" onClick={clickNextHandler}><h3>Next</h3><i className="icon-next-arrow ml-3"></i></button>
             </div>
           </div>

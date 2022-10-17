@@ -21,7 +21,7 @@ function EventPopUpAddService({handleClose, data, edit}) {
     }
   },[handleClose]);
 
-  const token = '14e2a7b580fd9ced0489754afb2af833c0050c0f';
+  const token = localStorage.getItem("Token");
   const addServices = async() => {
     const header = {
 			'Authorization': `Token ${token}`
@@ -39,7 +39,7 @@ function EventPopUpAddService({handleClose, data, edit}) {
     try {
       if (edit) {
         // Upadte service
-        console.log(data.Id)
+        console.log(data.Id);
         const response = await axios.put(`${baseUrl}/api/add_service_event/${data.Id}`, requestObj, { headers: header });
         console.log(response);
         handleClose(false);

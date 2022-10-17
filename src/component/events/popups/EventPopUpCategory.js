@@ -6,7 +6,7 @@ function EventPopUpCategory({handleClose}) {
 
 	const [catagoryInputName, setcatagoryInputName] = useState();
 	// console.log(catagoryInputName);
-	const token = '14e2a7b580fd9ced0489754afb2af833c0050c0f';
+	const token = localStorage.getItem("Token");;
 	const header = {
 		'Authorization': `Token ${token}`
 	}

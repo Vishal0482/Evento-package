@@ -2,11 +2,13 @@ import React, {useState} from 'react';
 import Modal from "../modal/Modal";
 import EventPopUpUploadPhoto from './popups/EventPopUpUploadPhoto';
 import EventPopUpUploadVideo from "./popups/EventPopUpUploadVideo";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import Advertisement from '../Advertisement';
 import StepProgressBar from './StepProgressBar';
 import axios from 'axios';
 import { baseUrl } from "../../config";
+import { increment } from '../../redux/stepProgressCount';
+import { useDispatch } from 'react-redux';
 
 function EventPhotosAndVideos() {
 
@@ -16,12 +18,15 @@ const [imageList, setImageList] = useState([]);
 const [videoList, setVideoList] = useState([]);
 const [loading, setloading] = useState(false);
 const navigate = useNavigate();
-const token = '7234eb833b21d7dae48848fb8d4a0cc3b1ea6c9f';
+const dispatch = useDispatch();
+const params = useParams();
+const eventId = params.eventId;
+const userId = params.userId;
+const token = localStorage.getItem("Token");
 	const header = {
 		'Authorization': `Token ${token}`,
 		'Content-Type': 'multipart/form-data'
 	}
-
 const handleNext = async() => {
 	try {
 		setloading(true);
@@ -29,9 +34,9 @@ const handleNext = async() => {
 		if(imageList && imageList.length < 6 && imageList.length > 0) {
 			imageList?.map(async(element) =>{
 				let formDataImage = new FormData();
-				formDataImage.append("image_details",element.detail);
-				formDataImage.append("event",element.eventId);
-				formDataImage.append("image",element.image);
+				formDataImage.append("image_details", element.detail);
+				formDataImage.append("event", eventId);
+				formDataImage.append("image", element.image);
 				const response = await axios.post(`${baseUrl}/api/image_event`,formDataImage, {headers: header});
 				console.log(response);
 			});
@@ -41,15 +46,16 @@ const handleNext = async() => {
 			videoList?.map((async (element) => {
 				let formDataVideo = new FormData();
 				formDataVideo.append("image_details",element.detail);
-				formDataVideo.append("event",element.eventId);
-				formDataVideo.append("video",element.video);
-				const response = await axios.post(`${baseUrl}/api/video_event`,formDataVideo, {headers: header});
+				formDataVideo.append("event", eventId);
+				formDataVideo.append("video", element.video);
+				const response = await axios.post(`${baseUrl}/api/video_event`, formDataVideo, {headers: header});
 				console.log(response);
 			}));
 		}
 
 		setloading(false);
-		// navigate("/dashboard/event/addservices");
+		dispatch(increment());
+		navigate(`/dashboard/event/addservices/${eventId}/${userId}`);
 	} catch (error) {
 		setloading(false);
 	}

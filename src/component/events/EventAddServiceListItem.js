@@ -8,7 +8,7 @@ import EventPopUpAddService from './popups/EventPopUpAddService';
 function EventAddServiceListItem({data, edit}) {
 	
 	const [isAddServicesPopUpOpen, setIsAddServicesPopUpOpen] = useState(false);
-	const token = '7234eb833b21d7dae48848fb8d4a0cc3b1ea6c9f';
+	const token = localStorage.getItem("Token");;
 	const header = {
 		'Authorization': `Token ${token}`
 	}

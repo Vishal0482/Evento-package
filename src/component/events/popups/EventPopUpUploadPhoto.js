@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
 
 function EventPopUpUploadPhoto({handleClose, setImageList}) {
 	const [image, setImage] = useState("");
 	const [imagePreview, setImagePreview] = useState("");
 	const [details, setDetails] = useState("");
 	const [error, setError] = useState(false);
-	const eventId = useSelector(state => state.createEvent.category?.id);
 
 	const photoChangeHandler = (event) => {
 		const types = ['image/png', 'image/jpeg'];
@@ -34,7 +32,7 @@ function EventPopUpUploadPhoto({handleClose, setImageList}) {
 
 	const submitHandler = async() => {
 		if(!error) {
-			setImageList((current) => [...current, {id: current.length, eventId: "5", image:image, previewUrl: imagePreview, detail: details}]);
+			setImageList((current) => [...current, {id: current.length, image:image, previewUrl: imagePreview, detail: details}]);
 			handleClose(false);
 		} else {
 			console.log("error occured");

@@ -1,18 +1,31 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { baseUrl } from '../../config';
 import { removeData } from '../../redux/createEvent';
 import Modal from "../modal/Modal";
 import EventPopUpCreateNew from './popups/EventPopUpCreateNew';
 
-function EventAddPlacesEventList({ displayName, categoryName }) {
+function EventAddPlacesEventList({ displayName, categoryName, eventId }) {
     const [isCreateNewPopUpOpen, setIsCreateNewPopUpOpen] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const deleteClickHandler = () => {
-        dispatch(removeData("category"));
-        navigate(-1)
+    const token = localStorage.getItem("Token");;
+    const header = {
+        'Authorization': `Token ${token}`
+    }
+    const deleteClickHandler = async() => {
+        try {
+			const response = await axios.delete(`${baseUrl}/api/event/type?id=${eventId}`,{headers: header});
+			console.log("deleted event >> ",response.data);
+            if(response.data.isSuccess === true) {
+                navigate(-1);
+            }
+		} catch (error) {
+			console.log(error);
+        }
     }
 
     const editClickHandler = () =>{
@@ -30,8 +43,8 @@ function EventAddPlacesEventList({ displayName, categoryName }) {
                             <span className="text-sm text-spiroDiscoBall font-medium tracking-wider">{categoryName}</span>
                         </div>
                         <div className="flex">
-                            <div className="flex items-center text-xs text-quicksilver font-semibold tracking-wider pr-4 border-r border-quicksilver" onClick={deleteClickHandler}><i className="icon-fill-delete mr-1"></i>Delete</div>
-                            <div className="flex items-center text-xs text-quicksilver font-semibold tracking-wider pl-4" onClick={editClickHandler}><i className="icon-edit mr-1"></i>Edit</div>
+                            <div className="flex items-center text-xs text-quicksilver font-semibold tracking-wider pr-4 border-r border-quicksilver cursor-pointer" onClick={deleteClickHandler}><i className="icon-fill-delete mr-1"></i>Delete</div>
+                            <div className="flex items-center text-xs text-quicksilver font-semibold tracking-wider pl-4 cursor-pointer" onClick={editClickHandler}><i className="icon-edit mr-1"></i>Edit</div>
                         </div>
                     </div>
                 </div>

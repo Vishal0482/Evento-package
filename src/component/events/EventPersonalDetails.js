@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import Advertisement from '../Advertisement';
 import StepProgressBar from './StepProgressBar';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,12 +11,13 @@ import axios from 'axios';
 function EventPersonalDetails() {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+	const params = useParams();
 	const [mobileNoHidden, setMobileNoHidden] = useState(false);
 	const [emailHidden, setEmailHidden] = useState(false);
-	const eventId = useSelector(state => state.createEvent.category?.id);	
-	const userId = localStorage.getItem("userId");
-
-	const token = '7234eb833b21d7dae48848fb8d4a0cc3b1ea6c9f';
+	const eventId = params.eventId;	
+	const userId = params.userId;
+	console.log(eventId, userId);
+	const token = localStorage.getItem("Token");
 	const header = {
 		'Authorization': `Token ${token}`
 	}
@@ -50,9 +51,9 @@ function EventPersonalDetails() {
 			const response = await axios.post(`${baseUrl}/api/events/personaldetail`, requestObj, {headers: header});
 			console.log("Personal details > ", response);		
 			if(response.data.isSuccess === true) {
-				dispatch(addPersonalDetails({personalDetail : values}));
+				// dispatch(addPersonalDetails({personalDetail : values}));
 				dispatch(increment());
-				navigate("/dashboard/event/photosandvideos");
+				navigate(`/dashboard/event/photosandvideos/${eventId}/${userId}`);
 			}
 		} catch (error) {
 			console.log(error);

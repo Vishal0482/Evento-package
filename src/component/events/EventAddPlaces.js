@@ -3,29 +3,61 @@ import React, {useEffect, useState} from 'react';
 import EventAddPlacesEventList from './EventAddPlacesEventList';
 import EventPopUpAddPlaceWithDisplayName from "./popups/EventPopUpAddPlaceWithDisplayName";
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Advertisement from '../Advertisement';
 import StepProgressBar from './StepProgressBar';
 import { useDispatch } from 'react-redux';
 import { decrement, increment } from '../../redux/stepProgressCount';
+import axios from 'axios';
+import { baseUrl } from '../../config';
 
 
 function EventAddPlaces() {
 
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-	const newEvent = useSelector((state) => state.createEvent.category);
+	const params = useParams();
+	const eventId = params.eventId;
+	const [newEvent, setNewEvent] = useState([]);
+	const [categoryName, setCategoryName] = useState("");
+	// const newEvent = useSelector((state) => state.createEvent.category);
 	console.log(newEvent);
+	const token = localStorage.getItem("Token");;
+	const header = {
+		'Authorization': `Token ${token}`
+	}
+	const getAddedEvent = async() => {
+		try {
+			const response = await axios.get(`${baseUrl}/api/event/type?id=${eventId}`,{headers: header});
+			console.log("New created event >> ",response.data.data);
+			setNewEvent(response.data.data);
 
-	useEffect(()=> {
-		if(newEvent == null){
-			navigate(-1);
+			const responseCategoryName = await axios.get(`${baseUrl}/api/event_category/${response.data.data[0].categoryId}`,{headers: header});
+			console.log("get category by id >> ",responseCategoryName.data);
+			setCategoryName(responseCategoryName.data.data[0].category_name);
+		} catch (error) {
+			console.log(error);
 		}
-	});
+	}
+
+	// const getCategoryById = async() => {
+	// 	try {
+	// 		const response = await axios.get(`${baseUrl}/api/event_category/${newEvent[0].categoryId}`,{headers: header});
+	// 		console.log("get category by id >> ",response.data);
+	// 		setCategoryName(response.data.data[0].category_name);
+	// 	} catch (error) {
+	// 		console.log(error);
+	// 	}
+	// }
+	
+	useEffect(()=> {
+		getAddedEvent();
+		// getCategoryById();
+	},[]);
 
 	const clickNextHandler = () => {
 		dispatch(increment());
-		navigate("/dashboard/event/aboutplace");
+		navigate(`/dashboard/event/aboutplace/${eventId}`);
 	};
 
 	const clickBackHander = () => {
@@ -46,7 +78,7 @@ function EventAddPlaces() {
 		<StepProgressBar />
 		 {/* <!-- main-content  --> */}
 		 <div className=" space-y-3">
-		   {newEvent && <EventAddPlacesEventList displayName={newEvent?.displayName} categoryName={newEvent?.categoryName}/>}
+		   <EventAddPlacesEventList displayName={newEvent[0]?.display_name} categoryName={categoryName} eventId={eventId} />
 		 </div>
 		 {/* <!-- advisement --> */}
 		 <Advertisement />

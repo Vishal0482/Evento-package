@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
 
 function EventPopUpUploadVideo({handleClose, setVideoList}) {
   const [video, setVideo] = useState("");
   const [videoPreview, setVideoPreview] = useState("");
   const [details, setDetails] = useState("");
   const [error, setError] = useState(false);
-  const eventId = useSelector(state => state.createEvent.category?.id);
   
 	const videoChangeHandler = (event) => {
 		const types = ['video/mp4'];
@@ -34,7 +32,7 @@ function EventPopUpUploadVideo({handleClose, setVideoList}) {
 
   const submitHandler = async() => {
 		if(!error) {
-			setVideoList((current) => [...current, {id: current.length, eventId: "5", video:video, previewUrl: videoPreview, detail: details}]);
+			setVideoList((current) => [...current, {id: current.length, video:video, previewUrl: videoPreview, detail: details}]);
 			handleClose(false);
 		} else {
 			console.log("error occured");

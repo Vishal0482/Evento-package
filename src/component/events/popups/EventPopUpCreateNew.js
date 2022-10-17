@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 import { addCategory } from '../../../redux/createEvent.js';
 import { increment } from '../../../redux/stepProgressCount.js';
 
-function EventPopUpCreateNew({ handleClose, selectedCategory, displayName, edit }) {
+function EventPopUpCreateNew({ handleClose, selectedCategory, displayName, eventType, edit }) {
 
 	const [isCategoryPopUpOpen, setIsCategoryPopUpOpen] = useState(false);
 	const [category, setCategory] = useState([]);
@@ -18,7 +18,7 @@ function EventPopUpCreateNew({ handleClose, selectedCategory, displayName, edit 
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-	const token = '7234eb833b21d7dae48848fb8d4a0cc3b1ea6c9f';
+	const token = localStorage.getItem("Token");;
 	const header = {
 		'Authorization': `Token ${token}`
 	}
@@ -40,17 +40,33 @@ function EventPopUpCreateNew({ handleClose, selectedCategory, displayName, edit 
 			setNewCategoryName(selectedCategory);
 			setNewCategoryDisplayName(displayName);
 		}
-	},[]);
+	},[handleClose]);
 
-	console.log(newCategoryId, newCategoryName, newCategoryDisplayName);
-	const clickHandler = () => {
-		const category = {id: newCategoryId, categoryName: newCategoryName, displayName: newCategoryDisplayName}
-		dispatch(addCategory({category: category}));
-		if(edit){
-			handleClose(false);
-		} else {
-			dispatch(increment());
-			navigate("/dashboard/event/addplaces");
+	// console.log(newCategoryId, newCategoryName, newCategoryDisplayName);
+	const clickHandler = async() => {
+		// const category = {id: newCategoryId, categoryName: newCategoryName, displayName: newCategoryDisplayName}
+		// dispatch(addCategory({category: category}));
+		const requestObj = {
+			event_type: eventType,
+    		display_name: newCategoryDisplayName,
+    		categoryId: newCategoryId
+		}
+
+		try {
+			const response = await axios.post(`${baseUrl}/api/event/type`, requestObj , {headers: header});
+			console.log("created event >> ",response.data.data.eventId);
+			// dispatch(addCategory({eventId: response.data}));
+			// if(edit){
+			// 	handleClose(false);
+			// }
+			// if(response.data.isSuccess === true) {
+				console.log("hello");
+				handleClose(false);
+				dispatch(increment());
+				navigate(`/dashboard/event/addplaces/${response.data.data.eventId}`);
+			// }
+		} catch (error) {
+			console.log(error);
 		}
 	}
 
@@ -79,7 +95,7 @@ function EventPopUpCreateNew({ handleClose, selectedCategory, displayName, edit 
 									setNewCategoryId(e.target[e.target.selectedIndex].getAttribute('data-id'));
 								}} >
 									{category && category.map((element) =>
-										<option key={element.categoryId} value={element.category_name} data-id={element.categoryId} >{element.category_name}</option>
+										<option key={element.categoryId} value={element.category_name} data-id={element.categoryId}>{element.category_name}</option>
 									)}
 								</select>
 							</div>

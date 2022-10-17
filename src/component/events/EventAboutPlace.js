@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import Advertisement from "../Advertisement";
 import { useDispatch, useSelector } from 'react-redux';
 import { addAboutPlace } from '../../redux/createEvent';
@@ -12,11 +12,12 @@ function EventAboutPlace() {
 
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+	const params = useParams();
 	const [banner, setBanner] = useState(null);
 	const [price, setPrice] = useState("");
 	const [priceType, setPriceType] = useState("per_hour");
 	const [about, setAbout] = useState("");
-	const eventId = useSelector(state => state.createEvent.category?.id);	
+	const eventId = params.eventId;	
 	// const aboutPlaceSelector = useSelector(state => state.createEvent.aboutPlace);
 	// console.log("about place selector > ",aboutPlaceSelector);
 	// useEffect(() => {
@@ -29,7 +30,7 @@ function EventAboutPlace() {
 
 	// console.log(banner,price, priceType, about, eventId);
 
-	const token = '7234eb833b21d7dae48848fb8d4a0cc3b1ea6c9f';
+	const token = localStorage.getItem("Token");
 	const header = {
 		'Authorization': `Token ${token}`,
 		'Content-Type': 'multipart/form-data',
@@ -50,12 +51,12 @@ function EventAboutPlace() {
 			// Insert place
 			const response = await axios.post(`${baseUrl}/api/add_place_event`, formData, {headers: header});
 			console.log("About place Inserted>> ",response);
-			const aboutPlace = {id: response.data.data.Id , price: price, priceType: priceType, about: about};
-			dispatch(addAboutPlace({aboutPlace: aboutPlace}));
+			// const aboutPlace = {id: response.data.data.Id , price: price, priceType: priceType, about: about};
+			// dispatch(addAboutPlace({aboutPlace: aboutPlace}));
 			
 			if(response.data.isSuccess === true) {
 				dispatch(increment()) 
-				navigate("/dashboard/event/personaldetails");
+				navigate(`/dashboard/event/personaldetails/${eventId}/${response.data.data.user_id}`);
 			}
 		// } else {
 			// Update Place
