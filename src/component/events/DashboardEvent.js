@@ -12,16 +12,18 @@ function DashboardEvent() {
 	const [isCreateNewPopUpOpen, setIsCreateNewPopUpOpen] = useState(false);
 	const [allCategories, setAllCatagories] = useState({});
 	const [category, setCategory] = useState({});
+	const [catItiam, setCatItiam] = useState();
 
-	const token = "7234eb833b21d7dae48848fb8d4a0cc3b1ea6c9f";
+	const token = "248258927fede2b3e48c182f40539846bcd47037";
 	console.log("params", params.id);
 	const header = {
 		Authorization: `Token ${token}`,
 	};
+
 	const getAllCatagories = async () => {
 		try {
-			const response = await axios.get(`${baseUrl}/api/events_get_list`, { headers: header });
-			// console.log(response);
+			const response = await axios.get(`${baseUrl}/api/event_category_list`, { headers: header });
+			console.log(response);
 			setAllCatagories(response.data);
 		} catch (error) {
 			console.log(error);
@@ -30,7 +32,7 @@ function DashboardEvent() {
 	const categoryList = async () => {
 		try {
 			const response = await axios.get(`${baseUrl}/api/event_category_list`, { headers: header });
-			// console.log(response);
+			console.log(response);
 			setCategory(response.data);
 		} catch (error) {
 			console.log(error);
@@ -43,7 +45,6 @@ function DashboardEvent() {
 	}, []);
 
 	console.log("All categories >> ", category.data);
-	// console.log("All categories >> ", allCategories.data);
 
 	return (
 		<div className="rightInContent">
@@ -53,7 +54,7 @@ function DashboardEvent() {
 					<div className="flex whitespace-nowrap space-x-5 ml-auto">
 						<select
 							onChange={(e) => {
-								setCategory(e.target.value);
+								setCatItiam(e.target.value);
 							}}
 							name="All Category"
 							className="arrow bg-white pl-5 pr-11 py-3 text-japaneseIndigo font-bold rounded-md tracking-wider appearance-none focus-visible:outline-none">
