@@ -16,8 +16,9 @@ function DashboardEvent() {
 	const [category, setCategory] = useState({});
 	const [catItiam, setCatItiam] = useState();
 	const dispatch = useDispatch();
+	const eventType = params.eventType;
 
-	
+
 
 	dispatch(reset())
 
@@ -83,7 +84,7 @@ function DashboardEvent() {
 					))}
 
 					<Modal isOpen={isCreateNewPopUpOpen}>
-						<EventPopUpCreateNew handleClose={setIsCreateNewPopUpOpen} />
+						<EventPopUpCreateNew handleClose={setIsCreateNewPopUpOpen} eventType={eventType} />
 					</Modal>
 				</div>
 				{/* <!-- advisement --> */}

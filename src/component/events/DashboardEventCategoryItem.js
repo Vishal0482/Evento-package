@@ -44,6 +44,9 @@ function DashboardEventCategoryItem() {
 							</div>
 							<div className="flex space-x-2">
 								<Link to="/" className="bg-brightGray px-2 py-1 text-center rounded">
+									<i className="text-base edit icon-edit"></i>
+								</Link>
+								<Link to="/" className="bg-brightGray px-2 py-1 text-center rounded">
 									<i className="icon-fill-megaphone text-base text-black"></i>
 								</Link>
 								<Link to="/" className="bg-brightGray px-2 py-1 text-center rounded">

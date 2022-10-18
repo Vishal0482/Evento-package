@@ -932,6 +932,11 @@ input[type="checkbox"].switch:checked~.off {
     color: #fff;
 }
 
+.edit.icon-edit:before {
+    content: "\e910";
+    color: #000;
+}
+
 .step-progress-holder li div span {
     margin-left: auto;
     margin-right: auto;
