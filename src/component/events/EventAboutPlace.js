@@ -35,6 +35,14 @@ function EventAboutPlace() {
 		'Authorization': `Token ${token}`,
 		'Content-Type': 'multipart/form-data',
 	}
+
+	useEffect(()=>{
+		
+	},[]);
+
+	const getAboutPlace = async() => {
+		const response = await axios.get(`${baseUrl}/api/add_place_event`, {headers: header});
+	}
 	
 	const clickNextHandler = async() => {
 
@@ -96,6 +104,7 @@ function EventAboutPlace() {
 				 <input type="file" name="images" id="upload" className="appearance-none hidden" onChange={(e) => setBanner(e.target.files[0])}/>
 				 <span className="input-titel mt-1"><i className="icon-image mr-2"></i>Upload Images</span>
 			   </label>
+				<span className="input-titel ml-2">{banner ? banner.name : "Please select Images"}</span>
 		   </div>
 		   <div className="w-full">
 			 <span className="input-titel">Price</span>

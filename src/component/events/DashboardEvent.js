@@ -13,9 +13,10 @@ function DashboardEvent() {
 	const params = useParams();
 	const dispatch = useDispatch();
 	const [isCreateNewPopUpOpen, setIsCreateNewPopUpOpen] = useState(false);
-	const [allEvents,setAllEvents] =useState([]);
+	const [allEvents,setAllEvents] = useState([]);
+	const [allEventsCopy,setAllEventsCopy] = useState([]);
 	const [category, setCategory] = useState([]);
-	const token = localStorage.getItem("Token");;
+	const token = localStorage.getItem("Token");
 	const eventType = params.eventType;
 
 	const header = {
@@ -26,6 +27,7 @@ function DashboardEvent() {
 			const response = await axios.get(`${baseUrl}/api/events_get_list`,{headers: header});
 			// console.log("events >> ",response.data);
 			setAllEvents(response.data.data);
+			setAllEventsCopy(response.data.data);
 		} catch (error) {
 			console.log(error);
 		}
@@ -47,17 +49,27 @@ function DashboardEvent() {
 		dispatch(reset());
 	}, []);
 	
-	// console.log("All Events >> ",allEvents.data);
-
 	const filterCategory = (event) => {
+		let copy = allEventsCopy.map(item => {return {...item}});
+		console.log("All event copy >>", allEventsCopy);
+		console.log("copy >>", copy);
+		
 		console.log(event.target.value);
-		const filtereArray = allEvents.filter((item) => {
-			if(item.categoryId.category_name === event.target.value) {
+		if (event.target.value !== "all-category") {
+			const filtereArray = copy.filter((item) => {
+				if(item.categoryId.category_name === event.target.value) {
+					return item;
+				}
+			});
+			setAllEvents(filtereArray);
+		} else {
+			const filtereArray = copy.filter((item) => {
 				return item;
-			}
-		});
-		setAllEvents(filtereArray);
-		console.log("filter >> ", filtereArray);
+			});
+			setAllEvents(filtereArray);
+		}
+		console.log("All Events >> ",allEvents);
+		// console.log("filter >> ", filtereArray);
 	}
 
   return ( 
@@ -68,6 +80,7 @@ function DashboardEvent() {
 		  <div className="flex whitespace-nowrap space-x-5 ml-auto">
 			<select name="All Category" onChange={filterCategory}
 			  className="arrow bg-white pl-5 pr-11 py-3 text-japaneseIndigo font-bold rounded-md tracking-wider appearance-none focus-visible:outline-none">
+				  <option value="all-category" >All Category</option>
 				{category?.map(ele => (
 					<option value={ele.category_name} key={ele.categoryId} >{ele.category_name}</option>
 				))}

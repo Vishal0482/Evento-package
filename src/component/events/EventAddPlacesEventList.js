@@ -47,7 +47,7 @@ function EventAddPlacesEventList({ displayName, categoryName, eventId }) {
                     </div>
                 </div>
                 <Modal isOpen={isCreateNewPopUpOpen} >
-		            <EventPopUpCreateNew handleClose={setIsCreateNewPopUpOpen} selectedCategory={categoryName} displayName={displayName} edit={true}/>
+		            <EventPopUpCreateNew handleClose={setIsCreateNewPopUpOpen} selectedCategory={categoryName} displayName={displayName} edit={true} event_id={eventId} />
 	            </Modal>
             </div>
         );

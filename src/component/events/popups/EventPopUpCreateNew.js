@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 // import { addCategory } from '../../../redux/createEvent.js';
 import { increment } from '../../../redux/stepProgressCount.js';
 
-function EventPopUpCreateNew({ handleClose, selectedCategory, displayName, eventType, edit }) {
+function EventPopUpCreateNew({ handleClose, selectedCategory, displayName, eventType, edit, event_id }) {
 
 	const [isCategoryPopUpOpen, setIsCategoryPopUpOpen] = useState(false);
 	const [category, setCategory] = useState([]);
@@ -53,18 +53,22 @@ function EventPopUpCreateNew({ handleClose, selectedCategory, displayName, event
 		}
 
 		try {
-			const response = await axios.post(`${baseUrl}/api/event/type`, requestObj , {headers: header});
-			console.log("created event >> ",response.data.data.eventId);
-			// dispatch(addCategory({eventId: response.data}));
-			// if(edit){
-			// 	handleClose(false);
-			// }
-			// if(response.data.isSuccess === true) {
-				console.log("hello");
-				handleClose(false);
-				dispatch(increment());
-				navigate(`/dashboard/event/addplaces/${response.data.data.eventId}`);
-			// }
+			if(!edit) {
+				const response = await axios.post(`${baseUrl}/api/event/type`, requestObj , {headers: header});
+				console.log("created event >> ",response.data.data.eventId);
+
+				if(response.data.isSuccess === true) {
+					handleClose(false);
+					dispatch(increment());
+					navigate(`/dashboard/event/addplaces/${response.data.data.eventId}`);
+				}
+			} else {
+				const response = await axios.put(`${baseUrl}/api/event/type?id=${event_id}`, requestObj , {headers: header});
+				console.log("updated event >> ",response.data.data);
+				if(response.data.isSuccess === true) {
+					handleClose(false);
+				}
+			}
 		} catch (error) {
 			console.log(error);
 		}

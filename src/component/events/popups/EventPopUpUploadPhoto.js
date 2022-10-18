@@ -1,10 +1,18 @@
+import axios from 'axios';
 import React, { useState } from 'react';
+import { baseUrl } from '../../../config';
 
-function EventPopUpUploadPhoto({handleClose, setImageList}) {
+function EventPopUpUploadPhoto({handleClose, eventId}) {
 	const [image, setImage] = useState("");
 	const [imagePreview, setImagePreview] = useState("");
 	const [details, setDetails] = useState("");
 	const [error, setError] = useState(false);
+
+	const token = localStorage.getItem("Token");
+	const header = {
+		'Authorization': `Token ${token}`,
+		'Content-Type': 'multipart/form-data'
+	}
 
 	const photoChangeHandler = (event) => {
 		const types = ['image/png', 'image/jpeg'];
@@ -30,9 +38,25 @@ function EventPopUpUploadPhoto({handleClose, setImageList}) {
 		}
 	}  
 
+	const uploadImage = async() => {
+		try {
+			let formDataImage = new FormData();
+			formDataImage.append("image_details", details);
+			formDataImage.append("event", eventId);
+			formDataImage.append("image", image);
+			const response = await axios.post(`${baseUrl}/api/image_event`,formDataImage, {headers: header});
+			if(response.data.isSuccess === true) {
+				uploadImage();
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	}
+
 	const submitHandler = async() => {
 		if(!error) {
-			setImageList((current) => [...current, {id: current.length, image:image, previewUrl: imagePreview, detail: details}]);
+			uploadImage();
+			// setImageList((current) => [...current, {id: current.length, image:image, previewUrl: imagePreview, detail: details}]);
 			handleClose(false);
 		} else {
 			console.log("error occured");

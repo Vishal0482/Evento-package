@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Modal from "../modal/Modal";
 import EventPopUpUploadPhoto from './popups/EventPopUpUploadPhoto';
 import EventPopUpUploadVideo from "./popups/EventPopUpUploadVideo";
@@ -9,6 +9,7 @@ import axios from 'axios';
 import { baseUrl } from "../../config";
 import { increment } from '../../redux/stepProgressCount';
 import { useDispatch } from 'react-redux';
+import { current } from '@reduxjs/toolkit';
 
 function EventPhotosAndVideos() {
 
@@ -27,20 +28,34 @@ const token = localStorage.getItem("Token");
 		'Authorization': `Token ${token}`,
 		'Content-Type': 'multipart/form-data'
 	}
+
+	const getImage = async() => {
+		try {
+			const response = await axios.get(`${baseUrl}/api/image_event?eventId=${eventId}`, {headers: header});
+			setImageList((current) => [...current, response.data.data]);
+		} catch (error) {
+			console.log(error);
+		}
+	}
+
+	useEffect(()=>{
+		getImage();
+	},[isUploadPhotoPopUpOpen]);
+
 const handleNext = async() => {
 	try {
 		setloading(true);
 		
-		if(imageList && imageList.length < 6 && imageList.length > 0) {
-			imageList?.map(async(element) =>{
-				let formDataImage = new FormData();
-				formDataImage.append("image_details", element.detail);
-				formDataImage.append("event", eventId);
-				formDataImage.append("image", element.image);
-				const response = await axios.post(`${baseUrl}/api/image_event`,formDataImage, {headers: header});
-				console.log(response);
-			});
-		}
+		// if(imageList && imageList.length < 6 && imageList.length > 0) {
+		// 	imageList?.map(async(element) =>{
+		// 		let formDataImage = new FormData();
+		// 		formDataImage.append("image_details", element.detail);
+		// 		formDataImage.append("event", eventId);
+		// 		formDataImage.append("image", element.image);
+		// 		const response = await axios.post(`${baseUrl}/api/image_event`,formDataImage, {headers: header});
+		// 		console.log(response);
+		// 	});
+		// }
 
 		if(videoList && videoList.length < 2 && videoList.length > 0) {
 			videoList?.map((async (element) => {
@@ -142,7 +157,7 @@ console.log(videoList);
 	 </div>
 	 <div>
 	{imageList.length < 5 && <Modal isOpen={isUploadPhotoPopUpOpen}>
-		<EventPopUpUploadPhoto handleClose={setIsUploadPhotoPopUpOpen} setImageList={setImageList} />
+		<EventPopUpUploadPhoto handleClose={setIsUploadPhotoPopUpOpen} eventId={eventId} />
 	 </Modal>}
 	 {videoList.length < 2 && <Modal isOpen={isUploadVideoPopUpOpen}>
 		<EventPopUpUploadVideo handleClose={setIsUploadVideoPopUpOpen} setVideoList={setVideoList} />
