@@ -13,7 +13,7 @@ function DashboardEvent() {
 	const params = useParams();
 	const dispatch = useDispatch();
 	const [isCreateNewPopUpOpen, setIsCreateNewPopUpOpen] = useState(false);
-	const [allEvents,setAllEvents] =useState({});
+	const [allEvents,setAllEvents] =useState([]);
 	const [category, setCategory] = useState([]);
 	const token = localStorage.getItem("Token");;
 	const eventType = params.eventType;
@@ -25,7 +25,7 @@ function DashboardEvent() {
 		try {	
 			const response = await axios.get(`${baseUrl}/api/events_get_list`,{headers: header});
 			// console.log("events >> ",response.data);
-			setAllEvents(response.data);
+			setAllEvents(response.data.data);
 		} catch (error) {
 			console.log(error);
 		}
@@ -49,13 +49,24 @@ function DashboardEvent() {
 	
 	// console.log("All Events >> ",allEvents.data);
 
+	const filterCategory = (event) => {
+		console.log(event.target.value);
+		const filtereArray = allEvents.filter((item) => {
+			if(item.categoryId.category_name === event.target.value) {
+				return item;
+			}
+		});
+		setAllEvents(filtereArray);
+		console.log("filter >> ", filtereArray);
+	}
+
   return ( 
 	<div className="rightInContent">
 	  <div className="wrapper">
 		<div className="flex flex-wrap items-center">
 		  <h1>All Category</h1>
 		  <div className="flex whitespace-nowrap space-x-5 ml-auto">
-			<select name="All Category"
+			<select name="All Category" onChange={filterCategory}
 			  className="arrow bg-white pl-5 pr-11 py-3 text-japaneseIndigo font-bold rounded-md tracking-wider appearance-none focus-visible:outline-none">
 				{category?.map(ele => (
 					<option value={ele.category_name} key={ele.categoryId} >{ele.category_name}</option>
@@ -66,7 +77,7 @@ function DashboardEvent() {
 		  </div>
 		</div>
 		<div className="space-y-5 pt-10">
-		  {allEvents.data?.map(ele => (
+		  {allEvents?.map(ele => (
 			<DashboardEventCategoryItem key={ele.eventId} data={ele} />
 		  ))}
 		  
@@ -81,4 +92,4 @@ function DashboardEvent() {
   )
 }
 
-export default DashboardEvent
+export default DashboardEvent;

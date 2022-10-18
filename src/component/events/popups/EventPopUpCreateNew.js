@@ -5,7 +5,7 @@ import axios from "axios";
 import { baseUrl } from '../../../config.js';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { addCategory } from '../../../redux/createEvent.js';
+// import { addCategory } from '../../../redux/createEvent.js';
 import { increment } from '../../../redux/stepProgressCount.js';
 
 function EventPopUpCreateNew({ handleClose, selectedCategory, displayName, eventType, edit }) {
@@ -70,7 +70,6 @@ function EventPopUpCreateNew({ handleClose, selectedCategory, displayName, event
 		}
 	}
 
-
 	return (
 		//    <!-- Create New  -->
 		<div className="popup table fixed w-full inset-0 z-40 bg-black bg-opacity-75 h-screen">
@@ -95,7 +94,7 @@ function EventPopUpCreateNew({ handleClose, selectedCategory, displayName, event
 									setNewCategoryId(e.target[e.target.selectedIndex].getAttribute('data-id'));
 								}} >
 									{category && category.map((element) =>
-										<option key={element.categoryId} value={element.category_name} data-id={element.categoryId}>{element.category_name}</option>
+										<option key={element.categoryId} value={element.category_name} selected={(element.category_name === selectedCategory) && true } data-id={element.categoryId}>{element.category_name}</option>
 									)}
 								</select>
 							</div>

@@ -1,15 +1,14 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { baseUrl } from '../../config';
-import { removeData } from '../../redux/createEvent';
 import Modal from "../modal/Modal";
 import EventPopUpCreateNew from './popups/EventPopUpCreateNew';
 
 function EventAddPlacesEventList({ displayName, categoryName, eventId }) {
     const [isCreateNewPopUpOpen, setIsCreateNewPopUpOpen] = useState(false);
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const token = localStorage.getItem("Token");;
@@ -30,7 +29,6 @@ function EventAddPlacesEventList({ displayName, categoryName, eventId }) {
 
     const editClickHandler = () =>{
         setIsCreateNewPopUpOpen(true);
-
     }
 
     if (displayName !== "" && categoryName !== "")
