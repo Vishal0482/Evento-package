@@ -3,7 +3,7 @@ import Modal from "../../modal/Modal.js";
 import EventPopUpCategory from "./EventPopUpCategory.js";
 import axios from "axios";
 import { baseUrl } from "../../../config.js";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addCategory } from "../../../redux/createEvent.js";
 import { increment } from "../../../redux/stepCountPogress.js";
@@ -42,11 +42,19 @@ function EventPopUpCreateNew({ handleClose, selectedCategory, displayName, edit 
 	}, []);
 
 	console.log(newCategoryId, newCategoryName, newCategoryDisplayName);
-	const clickHandler = () => {
-		const category = { id: newCategoryId, categoryName: newCategoryName, displayName: newCategoryDisplayName };
-		navigate("/dashboard/event/addplaces");
-		dispatch(increment());
-		dispatch(addCategory({ category: category }));
+	const clickHandler = async () => {
+
+		try {
+			const category = { id: newCategoryId, categoryName: newCategoryName, displayName: newCategoryDisplayName };
+			dispatch(increment());
+			dispatch(addCategory({ category: category }));
+			const response = await axios.post(`${baseUrl}/api/event/type`,{ headers: header });
+			console.log(response.data.data)
+			navigate("/dashboard/event/addplaces");
+
+		} catch (error) {
+			console.log(error);
+		}
 
 	};
 
@@ -99,9 +107,9 @@ function EventPopUpCreateNew({ handleClose, selectedCategory, displayName, edit 
 									onChange={(e) => setNewCategoryDisplayName(e.target.value)}
 								/>
 							</div>
-							<a href="#" className="btn-primary w-full uppercase" onClick={() => clickHandler()}>
+							<Link to='' className="btn-primary w-full uppercase" onClick={clickHandler}>
 								Submit
-							</a>
+							</Link>
 						</form>
 					</div>
 				</div>

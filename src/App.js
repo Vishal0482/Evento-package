@@ -67,56 +67,11 @@ function App() {
 						<Route exact path="/dashboard/notification/history" element={<NotificationHistory />} />
 						<Route exact path="/dashboard/notification/details" element={<NotificationDetails />} />
 						<Route exact path="/dashboard/notification/promote" element={<Promote> </Promote>} />
-						<Route
-							exact
-							path="/dashboard/notification/promote/select-business"
-							element={
-								<Promote>
-									{" "}
-									<SelectBusiness />{" "}
-								</Promote>
-							}
-						/>
-						<Route
-							exact
-							path="/dashboard/notification/promote/all-user-plan"
-							element={
-								<Promote>
-									{" "}
-									<AllUserSelectPlan />{" "}
-								</Promote>
-							}
-						/>
-						<Route
-							exact
-							path="/dashboard/notification/promote/personal-skill-business"
-							element={
-								<Promote>
-									{" "}
-									<PersonalSkillBusinessPromote />{" "}
-								</Promote>
-							}
-						/>
-						<Route
-							exact
-							path="/dashboard/notification/promote/mode"
-							element={
-								<Promote>
-									{" "}
-									<NotificationMode />{" "}
-								</Promote>
-							}
-						/>
-						<Route
-							exact
-							path="/dashboard/notification/promote/payment"
-							element={
-								<Promote>
-									{" "}
-									<NotificationPayment />{" "}
-								</Promote>
-							}
-						/>
+						<Route exact path="/dashboard/notification/promote/select-business" element={<Promote>{" "}<SelectBusiness />{" "}</Promote>} />
+						<Route exact path="/dashboard/notification/promote/all-user-plan" element={<Promote>{" "}<AllUserSelectPlan />{" "}</Promote>} />
+						<Route exact path="/dashboard/notification/promote/personal-skill-business" element={<Promote>{" "}<PersonalSkillBusinessPromote />{" "}</Promote>} />
+						<Route exact path="/dashboard/notification/promote/mode" element={<Promote>{" "}<NotificationMode />{" "}</Promote>} />
+						<Route exact path="/dashboard/notification/promote/payment" element={<Promote>{" "}<NotificationPayment />{" "}</Promote>} />
 
 						{/* 0.2.1 select who you are? */}
 						<Route exact path="/dashboard/select-who-you-are" element={<SelectWhoYouAre />} />
