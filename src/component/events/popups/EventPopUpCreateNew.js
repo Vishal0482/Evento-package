@@ -43,8 +43,8 @@ function EventPopUpCreateNew({ handleClose, selectedCategory, displayName, event
 
 	const responseObj = {
 		eventType: eventType,
-		display_name: displayName,
-		categoryId: displayName
+		display_name: newCategoryDisplayName,
+		categoryId: newCategoryId
 	}
 	console.log(newCategoryId, newCategoryName, newCategoryDisplayName);
 	const clickHandler = async () => {
@@ -55,11 +55,11 @@ function EventPopUpCreateNew({ handleClose, selectedCategory, displayName, event
 			dispatch(addCategory({ category: category }));
 			const response = await axios.post(`${baseUrl}/api/event/type`, responseObj, { headers: header });
 			console.log(response.data.data)
-			alert("Event Not create Sucessfull")
+			alert("Event create Sucessfull")
 			navigate("/dashboard/event/addplaces");
 
 		} catch (error) {
-			alert("Event Not created")
+			alert("Sommthing Went To Worong. Event Not created")
 			console.log(error);
 		}
 
