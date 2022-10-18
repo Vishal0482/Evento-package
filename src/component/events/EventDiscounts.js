@@ -17,7 +17,7 @@ function EventDiscounts() {
 	const [isDiscountOnEquipmentOrItemPopUpOpen, setIsDiscountOnEquipmentOrItemPopUpOpen] = useState(false);
 	const [isAdvanceAndDiscountConfirmationPopUpOpen, setIsAdvanceAndDiscountConfirmationPopUpOpen] = useState(false);
 	const [allDiscount, setAllDiscount] = useState({});
-	const token = '7234eb833b21d7dae48848fb8d4a0cc3b1ea6c9f';
+	const token = '248258927fede2b3e48c182f40539846bcd47037'
 
 	const getDiscount = async() => {
 		const header = {

@@ -16,7 +16,7 @@ function EventPopUpCreateNew({ handleClose, selectedCategory, displayName, edit 
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-	const token = "7234eb833b21d7dae48848fb8d4a0cc3b1ea6c9f";
+	const token = "248258927fede2b3e48c182f40539846bcd47037";
 	const header = {
 		Authorization: `Token ${token}`,
 	};

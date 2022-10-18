@@ -7,7 +7,7 @@ import { addPersonalDetails } from '../../redux/createEvent';
 import axios from 'axios';
 import { baseUrl } from '../../config'
 
-const token = "7234eb833b21d7dae48848fb8d4a0cc3b1ea6c9f";
+const token = "248258927fede2b3e48c182f40539846bcd47037";
 
 const header = {
     'Authorization': `Token ${token}`
@@ -108,7 +108,7 @@ function EventPersonalDetails() {
         if (!tmpErrObj?.full_name && !tmpErrObj?.mobileNo && !tmpErrObj?.email && !tmpErrObj?.state && !tmpErrObj?.pincode) {
             try {
                 dispatch(addPersonalDetails({ personalDetail: values }));
-                const response = await axios.post(`${baseUrl}/api/events/personaldetail`, { ...values, is_mobile_no_hidden:mobileNoHide,user_id: userId, id: eventId }, { headers: header })
+                const response = await axios.post(`${baseUrl}/api/events/personaldetail`, { ...values, is_mobile_no_hidden:mobileNoHide,user_id: userId, eventId: eventId }, { headers: header })
                 console.log(response);
                 navigate("/dashboard/event/photosandvideos");
             } catch (error) {

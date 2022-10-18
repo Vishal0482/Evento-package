@@ -15,14 +15,14 @@ function DashboardEvent() {
 	const [catItiam, setCatItiam] = useState();
 
 	const token = "248258927fede2b3e48c182f40539846bcd47037";
-	console.log("params", params.id);
+	console.log("params", params.id)
 	const header = {
 		Authorization: `Token ${token}`,
 	};
 
 	const getAllCatagories = async () => {
 		try {
-			const response = await axios.get(`${baseUrl}/api/event_category_list`, { headers: header });
+			const response = await axios.get(`${baseUrl}/api/events_get_list`, { headers: header });
 			console.log(response);
 			setAllCatagories(response.data);
 		} catch (error) {
@@ -72,7 +72,7 @@ function DashboardEvent() {
 				</div>
 				<div className="space-y-5 pt-10">
 					{allCategories.data?.map((ele) => (
-						<DashboardEventCategoryItem key={ele.eventId} />
+						<DashboardEventCategoryItem key={ele.eventId}/>
 					))}
 
 					<Modal isOpen={isCreateNewPopUpOpen}>
