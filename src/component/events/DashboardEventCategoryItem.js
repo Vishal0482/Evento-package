@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import sweetLoveCatering from "../../assest/images/sweet-love-catering.png";
 
-function DashboardEventCategoryItem() {
+function DashboardEventCategoryItem(data) {
 	return (
 		<div className="w-full flex items-center">
 			<div>
@@ -17,7 +17,7 @@ function DashboardEventCategoryItem() {
 					<div className="w-full">
 						<div className="flex justify-between border-b-2 pb-4">
 							<div className="">
-								<span className="text-sm text-white bg-spiroDiscoBall px-3 py-1">Caterers</span>
+								<span className="text-sm text-white bg-spiroDiscoBall px-3 py-1">{data.category}</span>
 								<h2 className="text-japaneseIndigo pt-5">Sweet Love Catering</h2>
 								<div className="text-sm text-quicksilver pt-3">
 									<i className="icon-fill-location mr-3"></i>Dallas, Texas

@@ -80,7 +80,7 @@ function DashboardEvent() {
 				</div>
 				<div className="space-y-5 pt-10">
 					{allCategories.data?.map((ele) => (
-						<DashboardEventCategoryItem key={ele.eventId} />
+						<DashboardEventCategoryItem key={ele.eventId} data={ele}/>
 					))}
 
 					<Modal isOpen={isCreateNewPopUpOpen}>
