@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addPersonalDetails } from '../../redux/createEvent';
 import axios from 'axios';
 import { baseUrl } from '../../config'
+import { decrement, increment } from '../../redux/stepCountPogress';
 
 const token = "248258927fede2b3e48c182f40539846bcd47037";
 
@@ -108,7 +109,8 @@ function EventPersonalDetails() {
         if (!tmpErrObj?.full_name && !tmpErrObj?.mobileNo && !tmpErrObj?.email && !tmpErrObj?.state && !tmpErrObj?.pincode) {
             try {
                 dispatch(addPersonalDetails({ personalDetail: values }));
-                const response = await axios.post(`${baseUrl}/api/events/personaldetail`, { ...values, is_mobile_no_hidden:mobileNoHide,user_id: userId, eventId: eventId }, { headers: header })
+                dispatch(increment());
+                const response = await axios.post(`${baseUrl}/api/events/personaldetail`, { ...values, is_mobile_no_hidden: mobileNoHide, user_id: userId, eventId: eventId }, { headers: header })
                 console.log(response);
                 navigate("/dashboard/event/photosandvideos");
             } catch (error) {
@@ -203,7 +205,10 @@ function EventPersonalDetails() {
                     <Advertisement />
                 </div>
                 <div className="prw-next-btn">
-                    <button type="button" className="flex items-center" onClick={() => navigate(-1)}><i className="icon-back-arrow mr-3"></i><h3>Back</h3></button>
+                    <button type="button" className="flex items-center" onClick={() => {
+                        navigate(-1)
+                        dispatch(decrement())
+                    }}><i className="icon-back-arrow mr-3"></i><h3>Back</h3></button>
                     <button type="button" className="flex items-center active" onClick={clickNextHandler}><h3>Next</h3><i className="icon-next-arrow ml-3"></i></button>
                 </div>
             </div>

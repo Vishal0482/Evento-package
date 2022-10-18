@@ -8,6 +8,8 @@ import Advertisement from '../Advertisement';
 import axios from 'axios';
 import { baseUrl } from "../../config";
 import StepProgressBar from './StepProgressBar';
+import { useDispatch } from 'react-redux';
+import { decrement, increment } from '../../redux/stepCountPogress';
 
 
 
@@ -20,6 +22,7 @@ function EventPhotosAndVideos() {
 
 	const [loading, setloading] = useState(false);
 	const navigate = useNavigate();
+	const dispatch = useDispatch()
 
 	const token = '248258927fede2b3e48c182f40539846bcd47037'
 	const header = {
@@ -30,6 +33,7 @@ function EventPhotosAndVideos() {
 	const handleNext = async () => {
 		try {
 			setloading(true);
+			dispatch(increment())
 			imageList.map(async (element) => {
 				let formData = new FormData();
 				formData.append("image_details", element.detail);
@@ -105,7 +109,7 @@ function EventPhotosAndVideos() {
 							</div>
 						</div>
 						<div className="w-full inline-block">
-							<Link to="/" className="float-right btn-primary small leading-10" onClick={() => navigate("/dashboard/event/buy-space-plan")}>Buy Space</Link>
+							{/* <Link to="/" className="float-right btn-primary small leading-10" onClick={() => navigate("/dashboard/event/buy-space-plan")}>Buy Space</Link> */}
 							<span className="float-left input-titel text-sm lg:leading-10">Disclaimer - These images and videos will first be verified by the admin and then given the authority.</span>
 						</div>
 					</div>
@@ -113,7 +117,10 @@ function EventPhotosAndVideos() {
 					<Advertisement />
 				</div>
 				<div className="prw-next-btn">
-					<button type="button" className="flex items-center" onClick={() => navigate(-1)}><i className="icon-back-arrow mr-3"></i><h3>Back</h3></button>
+					<button type="button" className="flex items-center" onClick={() => {
+						navigate(-1)
+						dispatch(decrement())
+					}}><i className="icon-back-arrow mr-3"></i><h3>Back</h3></button>
 					<button type="button" className="flex items-center active" onClick={handleNext}><h3>Next</h3><i className="icon-next-arrow ml-3"></i></button>
 				</div>
 			</div>

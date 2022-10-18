@@ -6,6 +6,8 @@ import axios from "axios";
 import { baseUrl } from "../../config";
 import DashboardEventCategoryItem from "./DashboardEventCategoryItem";
 import { useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { reset } from "../../redux/stepCountPogress";
 
 function DashboardEvent() {
 	const params = useParams();
@@ -13,6 +15,9 @@ function DashboardEvent() {
 	const [allCategories, setAllCatagories] = useState({});
 	const [category, setCategory] = useState({});
 	const [catItiam, setCatItiam] = useState();
+	const dispatch = useDispatch();
+
+	dispatch(reset())
 
 	const token = "248258927fede2b3e48c182f40539846bcd47037";
 	console.log("params", params.id)
@@ -72,7 +77,7 @@ function DashboardEvent() {
 				</div>
 				<div className="space-y-5 pt-10">
 					{allCategories.data?.map((ele) => (
-						<DashboardEventCategoryItem key={ele.eventId}/>
+						<DashboardEventCategoryItem key={ele.eventId} />
 					))}
 
 					<Modal isOpen={isCreateNewPopUpOpen}>

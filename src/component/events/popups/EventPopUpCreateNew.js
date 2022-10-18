@@ -6,6 +6,7 @@ import { baseUrl } from "../../../config.js";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addCategory } from "../../../redux/createEvent.js";
+import { increment } from "../../../redux/stepCountPogress.js";
 
 function EventPopUpCreateNew({ handleClose, selectedCategory, displayName, edit }) {
 	const [isCategoryPopUpOpen, setIsCategoryPopUpOpen] = useState(false);
@@ -44,8 +45,9 @@ function EventPopUpCreateNew({ handleClose, selectedCategory, displayName, edit 
 	const clickHandler = () => {
 		const category = { id: newCategoryId, categoryName: newCategoryName, displayName: newCategoryDisplayName };
 		navigate("/dashboard/event/addplaces");
+		dispatch(increment());
 		dispatch(addCategory({ category: category }));
-		
+
 	};
 
 	return (

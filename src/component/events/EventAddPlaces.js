@@ -2,16 +2,23 @@ import React, { useState } from "react";
 import Modal from "../modal/Modal";
 import EventAddPlacesEventList from "./EventAddPlacesEventList";
 import EventPopUpAddPlaceWithDisplayName from "./popups/EventPopUpAddPlaceWithDisplayName";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import Advertisement from "../Advertisement";
 import StepProgressBar from "./StepProgressBar";
+import { decrement, increment } from "../../redux/stepCountPogress";
 
 function EventAddPlaces() {
 	const [isAddPlaceWithDisplayNamePopUpOpen, setIsAddPlaceWithDisplayNamePopUpOpen] = useState(false);
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 	const newEvent = useSelector((state) => state.createEvent.category);
 	console.log(newEvent);
+
+	const handeladdplace = () => {
+		dispatch(increment());
+		navigate("/dashboard/event/aboutplace")
+	}
 	return (
 		//  <!-- Content In -->
 		<div className="rightInContent">
@@ -37,11 +44,14 @@ function EventAddPlaces() {
 					<Advertisement />
 				</div>
 				<div className="prw-next-btn mt-auto">
-					<button type="button" className="flex items-center" onClick={() => navigate(-1)}>
+					<button type="button" className="flex items-center" onClick={() => {
+						navigate(-2)
+						dispatch(decrement())
+					}}>
 						<i className="icon-back-arrow mr-3"></i>
 						<h3>Back</h3>
 					</button>
-					<button type="button" className="flex items-center active" onClick={() => navigate("/dashboard/event/aboutplace")}>
+					<button type="button" className="flex items-center active" onClick={handeladdplace}>
 						<h3>Next</h3>
 						<i className="icon-next-arrow ml-3"></i>
 					</button>

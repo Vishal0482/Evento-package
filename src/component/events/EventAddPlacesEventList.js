@@ -5,12 +5,6 @@ function EventAddPlacesEventList({ displayName, categoryName }) {
 	if (displayName !== "" && categoryName !== "")
 		return (
 			<div className="w-full flex items-center">
-				<div>
-					<label className="checkbox w-16">
-						<input type="checkbox" />
-						<i className="icon-right"></i>
-					</label>
-				</div>
 				<div className="w-full px-7 py-5 bg-white rounded">
 					<div className="flex items-start justify-between">
 						<div>

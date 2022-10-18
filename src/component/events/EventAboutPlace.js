@@ -4,6 +4,7 @@ import Advertisement from "../Advertisement";
 import { useDispatch } from "react-redux";
 import { addAboutPlace } from "../../redux/createEvent";
 import StepProgressBar from "./StepProgressBar";
+import { increment, decrement } from "../../redux/stepCountPogress"
 
 function EventAboutPlace() {
 	const navigate = useNavigate();
@@ -17,6 +18,7 @@ function EventAboutPlace() {
 	const clickNextHandler = () => {
 		const aboutPlace = { price: price, priceType: priceType, about: about };
 		dispatch(addAboutPlace({ aboutPlace: aboutPlace }));
+		dispatch(increment())
 		navigate("/dashboard/event/personaldetails");
 	};
 
@@ -103,7 +105,11 @@ function EventAboutPlace() {
 					<Advertisement />
 				</div>
 				<div className="prw-next-btn mt-auto">
-					<button type="button" className="flex items-center" onClick={() => navigate(-1)}>
+					<button type="button" className="flex items-center"
+						onClick={() => {
+							navigate(-1)
+							dispatch(decrement())
+						}}>
 						<i className="icon-back-arrow mr-3"></i>
 						<h3>Back</h3>
 					</button>

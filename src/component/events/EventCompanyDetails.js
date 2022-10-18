@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addCompanyDetail } from "../../redux/createEvent";
 import StepProgressBar from "./StepProgressBar";
+import { decrement, increment } from "../../redux/stepCountPogress";
 
 function EventCompanyDetails() {
 	const navigate = useNavigate();
@@ -32,6 +33,7 @@ function EventCompanyDetails() {
 	const clickNextHandler = () => {
 		dispatch(addCompanyDetail({ companyDetail: values }));
 		navigate("/dashboard/event/termsandconditions");
+		dispatch(increment());
 	};
 
 	return (
@@ -143,7 +145,10 @@ function EventCompanyDetails() {
 				</div>
 
 				<div className="prw-next-btn">
-					<button type="button" className="flex items-center" onClick={() => navigate(-1)}>
+					<button type="button" className="flex items-center" onClick={() => {
+						navigate(-1)
+						dispatch(decrement())
+					}}>
 						<i className="icon-back-arrow mr-3"></i>
 						<h3>Back</h3>
 					</button>

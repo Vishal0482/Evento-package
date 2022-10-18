@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import Advertisement from "../Advertisement";
 import StepProgressBar from "./StepProgressBar";
 import { addCapacity } from "../../redux/createEvent";
+import { decrement, increment } from "../../redux/stepCountPogress";
 
 function EventCapacity() {
 	const navigate = useNavigate();
@@ -29,6 +30,7 @@ function EventCapacity() {
 	const clickNextHandler = () => {
 		dispatch(addCapacity({ capacity: { ...values, type: type } }));
 		navigate("/dashboard/event/companydetails");
+		dispatch(increment());
 	};
 
 	return (
@@ -126,7 +128,10 @@ function EventCapacity() {
 					<Advertisement />
 				</div>
 				<div className="prw-next-btn">
-					<button type="button" className="flex items-center" onClick={() => navigate(-1)}>
+					<button type="button" className="flex items-center" onClick={() => {
+						navigate(-1)
+						dispatch(decrement())
+					}}>
 						<i className="icon-back-arrow mr-3"></i>
 						<h3>Back</h3>
 					</button>
