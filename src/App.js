@@ -74,7 +74,7 @@ function App() {
 						<Route exact path="/dashboard/notification/promote/payment" element={<Promote>{" "}<NotificationPayment />{" "}</Promote>} />
 
 						{/* 0.2.1 select who you are? */}
-						<Route exact path="/dashboard/" element={<SelectWhoYouAre />} />
+						<Route exact path="/dashboard/select-who-you-are" element={<SelectWhoYouAre />} />
 						<Route exact path="/dashboard/event/:eventType" element={<DashboardEvent />} />
 						<Route exact path="/dashboard/event/addplaces" element={<EventAddPlaces />} />
 						<Route exact path="/dashboard/event/aboutplace" element={<EventAboutPlace />} />
