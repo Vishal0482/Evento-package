@@ -56,7 +56,7 @@ function DashboardEvent() {
 
 	const getAllEvent = async () => {
 		try {
-			const response = await axios.get(`${baseUrl}/api/event_category_list`, { headers: header });
+			const response = await axios.get(`${baseUrl}/api/events_get_list`, { headers: header });
 			console.log(response);
 			setAllEvent(response.data.data);
 			setAllEventsCopy(response.data.data);
