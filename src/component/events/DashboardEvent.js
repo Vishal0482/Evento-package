@@ -105,12 +105,12 @@ function DashboardEvent() {
 					</div>
 				</div>
 				<div className="space-y-5 pt-10">
-					{allEvent?.map((ele) => (
-						<DashboardEventCategoryItem key={ele.eventId} data={ele} />
+					{allEvent?.map((element) => (
+						<DashboardEventCategoryItem key={element.eventId} data={element} />
 					))}
 
 					<Modal isOpen={isCreateNewPopUpOpen}>
-						<EventPopUpCreateNew handleClose={setIsCreateNewPopUpOpen} eventType={eventType}/>
+						<EventPopUpCreateNew handleClose={setIsCreateNewPopUpOpen} eventType={eventType} />
 					</Modal>
 				</div>
 				{/* <!-- advisement --> */}

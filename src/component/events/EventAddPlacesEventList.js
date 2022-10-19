@@ -15,12 +15,10 @@ function EventAddPlacesEventList({ displayName, categoryName, eventType }) {
 							<span className="text-sm text-spiroDiscoBall font-medium tracking-wider">{categoryName}</span>
 						</div>
 						<div className="flex">
-							<div
-
-								className="flex items-center text-xs text-quicksilver font-semibold tracking-wider pr-4 border-r border-quicksilver">
+							<div className="flex items-center text-xs text-quicksilver font-semibold tracking-wider pr-4 border-r border-quicksilver cursor-pointer">
 								<i className="icon-fill-delete mr-1"></i>Delete
 							</div>
-							<div onClick={() => setIsCreateNewPopUpOpen(true)} className="flex items-center text-xs text-quicksilver font-semibold tracking-wider pl-4">
+							<div onClick={() => setIsCreateNewPopUpOpen(true)} className="flex items-center text-xs text-quicksilver font-semibold tracking-wider pl-4 cursor-pointer">
 								<i className="icon-edit mr-1"></i>Edit
 							</div>
 						</div>

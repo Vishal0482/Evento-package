@@ -26,14 +26,14 @@ function EventAddPlaces() {
 	};
 
 	const [addPlace, setaddPlace] = useState([])
-	const [addCategory, setAddCategory] = useState([])
+	const [addCategory, setAddCategory] = useState('')
 
 	const getEventType = async () => {
 		const response = await axios.get(`${baseUrl}/api/event/type?id=${eventId}`, { headers: header })
 		console.log(response);
 		setaddPlace(response.data.data)
 
-		const responseCatagory = await axios.get(`${baseUrl}/api/event_category/${responseCatagory.data.data[0].categoryId}`, { headers: header })
+		const responseCatagory = await axios.get(`${baseUrl}/api/event_category/${response.data.data[0].categoryId}`, { headers: header })
 		console.log(responseCatagory);
 		setAddCategory(responseCatagory.data.data[0].category_name)
 	}
@@ -65,7 +65,7 @@ function EventAddPlaces() {
 					<StepProgressBar />
 					{/* <!-- main-content  --> */}
 					<div className=" space-y-3">
-						<EventAddPlacesEventList displayName={addPlace[0]?.display_name} categoryName={categoryName} event={eventId} />
+						<EventAddPlacesEventList displayName={addPlace[0]?.display_name} categoryName={addCategory} event={eventId} />
 					</div>
 					{/* <!-- advisement --> */}
 					<Advertisement />
