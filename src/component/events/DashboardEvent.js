@@ -39,7 +39,6 @@ function DashboardEvent() {
 			setAllEvent(filtereArray);
 		}
 		console.log("All Events >> ", allEvent);
-		// console.log("filter >> ", filtereArray);
 	}
 
 
@@ -92,6 +91,7 @@ function DashboardEvent() {
 							onChange={filterCategory}
 							name="All Category"
 							className="arrow bg-white pl-5 pr-11 py-3 text-japaneseIndigo font-bold rounded-md tracking-wider appearance-none focus-visible:outline-none">
+							<option value="all-category" >All Category</option>
 							{category?.map((element) => (
 								<option key={element.categoryId} value={element.category_name} data-id={element.categoryId}>
 									{element.category_name}

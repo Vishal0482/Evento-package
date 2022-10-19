@@ -4,7 +4,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   token: localStorage.getItem('token'),
   email: "",
-  userId:localStorage.getItem('userId')
+  userId: localStorage.getItem('userId')
 }
 
 const createLogin = createSlice({
@@ -18,7 +18,7 @@ const createLogin = createSlice({
       localStorage.setItem("token", action.payload.token);
       localStorage.setItem("userId", action.payload.userId);
     },
-    logout:(state) =>{
+    logout: (state) => {
       state.token = null
       state.userId = null
       localStorage.removeItem("token");
@@ -27,6 +27,6 @@ const createLogin = createSlice({
   }
 })
 
-export const { addLogin , logout} = createLogin.actions
+export const { addLogin, logout } = createLogin.actions
 
 export default createLogin.reducer
