@@ -15,8 +15,37 @@ function DashboardEvent() {
 	const [allCategories, setAllCatagories] = useState({});
 	const [category, setCategory] = useState({});
 	const [catItiam, setCatItiam] = useState();
+	const [allEvents, setAllEvents] = useState();
+	const [allEventsCopy, setAllEventsCopy] = useState();
 	const dispatch = useDispatch();
 	const eventType = params.eventType;
+
+
+	const filterCategory = (event) => {
+		let copy = allEventsCopy.map(item => { return { ...item } });
+		console.log("All event copy >>", allEventsCopy);
+		console.log("copy >>", copy);
+
+		console.log(event.target.value);
+		if (event.target.value !== "all-category") {
+			const filtereArray = copy.filter((item) => {
+				if (item.categoryId.category_name === event.target.value) {
+					return item;
+				}
+			});
+			setAllEvents(filtereArray);
+		} else {
+			const filtereArray = copy.filter((item) => {
+				return item;
+			});
+			setAllEvents(filtereArray);
+		}
+		console.log("All Events >> ", allEvents);
+		// console.log("filter >> ", filtereArray);
+	}
+
+
+
 
 
 
@@ -80,7 +109,7 @@ function DashboardEvent() {
 				</div>
 				<div className="space-y-5 pt-10">
 					{allCategories.data?.map((ele) => (
-						<DashboardEventCategoryItem key={ele.eventId} data={ele}/>
+						<DashboardEventCategoryItem key={ele.eventId} data={ele} />
 					))}
 
 					<Modal isOpen={isCreateNewPopUpOpen}>
