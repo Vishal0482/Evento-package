@@ -13,14 +13,15 @@ function DashboardEvent() {
 	const params = useParams();
 	const [isCreateNewPopUpOpen, setIsCreateNewPopUpOpen] = useState(false);
 	const [allEvent, setAllEvent] = useState([]);
+	const [allEventsCopy,setAllEventsCopy] = useState([]);
 	const [category, setCategory] = useState([]);
 	const dispatch = useDispatch();
 	const eventType = params.eventType;
 
 
 	const filterCategory = (event) => {
-		let copy = allEvent.map(item => { return { ...item } });
-		console.log("All event copy >>", allEvent);
+		let copy = allEventsCopy.map(item => { return { ...item } });
+		console.log("All event copy >>", allEventsCopy);
 		console.log("copy >>", copy);
 
 		console.log(event.target.value);
