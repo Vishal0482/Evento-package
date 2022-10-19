@@ -12,32 +12,32 @@ import { reset } from "../../redux/stepCountPogress";
 function DashboardEvent() {
 	const params = useParams();
 	const [isCreateNewPopUpOpen, setIsCreateNewPopUpOpen] = useState(false);
-	const [allCategories, setAllCatagories] = useState({});
-	const [category, setCategory] = useState({});
+	const [allEvent, setAllEvent] = useState([]);
+	const [category, setCategory] = useState([]);
 	const dispatch = useDispatch();
 	const eventType = params.eventType;
 
 
 	const filterCategory = (event) => {
-		let copy = allEventsCopy.map(item => { return { ...item } });
-		console.log("All event copy >>", allEventsCopy);
+		let copy = allEvent.map(item => { return { ...item } });
+		console.log("All event copy >>", allEvent);
 		console.log("copy >>", copy);
 
 		console.log(event.target.value);
-		if (event.target.value !== "all-category") {
+		if (event.target.value !== "all-allCategories") {
 			const filtereArray = copy.filter((item) => {
 				if (item.categoryId.category_name === event.target.value) {
 					return item;
 				}
 			});
-			setAllEvents(filtereArray);
+			setAllEvent(filtereArray);
 		} else {
 			const filtereArray = copy.filter((item) => {
 				return item;
 			});
-			setAllEvents(filtereArray);
+			setAllEvent(filtereArray);
 		}
-		console.log("All Events >> ", allEvents);
+		console.log("All Events >> ", allEvent);
 		// console.log("filter >> ", filtereArray);
 	}
 
@@ -54,11 +54,11 @@ function DashboardEvent() {
 		Authorization: `Token ${token}`,
 	};
 
-	const getAllCatagories = async () => {
+	const getAllEvent = async () => {
 		try {
 			const response = await axios.get(`${baseUrl}/api/events_get_list`, { headers: header });
 			console.log(response);
-			setAllCatagories(response.data);
+			setAllEvent(response.data.data);
 		} catch (error) {
 			console.log(error);
 		}
@@ -67,14 +67,14 @@ function DashboardEvent() {
 		try {
 			const response = await axios.get(`${baseUrl}/api/event_category_list`, { headers: header });
 			console.log(response);
-			setCategory(response.data);
+			setCategory(response.data.data);
 		} catch (error) {
 			console.log(error);
 		}
 	};
 
 	useEffect(() => {
-		getAllCatagories();
+		getAllEvent();
 		categoryList();
 	}, []);
 
@@ -90,7 +90,7 @@ function DashboardEvent() {
 							onChange={filterCategory}
 							name="All Category"
 							className="arrow bg-white pl-5 pr-11 py-3 text-japaneseIndigo font-bold rounded-md tracking-wider appearance-none focus-visible:outline-none">
-							{category.data?.map((element) => (
+							{category?.map((element) => (
 								<option key={element.categoryId} value={element.category_name} data-id={element.categoryId}>
 									{element.category_name}
 								</option>
@@ -103,7 +103,7 @@ function DashboardEvent() {
 					</div>
 				</div>
 				<div className="space-y-5 pt-10">
-					{allCategories.data?.map((ele) => (
+					{allEvent?.map((ele) => (
 						<DashboardEventCategoryItem key={ele.eventId} data={ele} />
 					))}
 
