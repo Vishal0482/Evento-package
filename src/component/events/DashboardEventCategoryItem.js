@@ -13,7 +13,7 @@ function DashboardEventCategoryItem({ data }) {
 			</div>
 			<div className="w-full p-4 pr-7 bg-white rounded">
 				<div className="flex space-x-5">
-					<img src={data?.sweetLoveCatering} alt="" />
+					<img src={sweetLoveCatering} alt="" />
 					<div className="w-full">
 						<div className="flex justify-between border-b-2 pb-4">
 							<div className="">

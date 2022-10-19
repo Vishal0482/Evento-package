@@ -10,6 +10,7 @@ function EventAboutPlace() {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const [price, setPrice] = useState("");
+	const [banner, setBanner] = useState(null)
 	const [priceType, setPriceType] = useState("per_hour");
 	const [about, setAbout] = useState("");
 
@@ -21,6 +22,8 @@ function EventAboutPlace() {
 		dispatch(increment())
 		navigate("/dashboard/event/personaldetails");
 	};
+
+
 
 	return (
 		//  <!-- Content In -->
@@ -39,6 +42,14 @@ function EventAboutPlace() {
 					{/* <!-- main-content  --> */}
 					<div className="space-y-3">
 						<div className="w-full">
+							<div className="upload-holder">
+								<span className="input-titel">Place Banner</span>
+								<label htmlFor="upload" className="upload">
+									<input type="file" name="images" id="upload" className="appearance-none hidden" onChange={(e) => setBanner(e.target.files[0])} />
+									<span className="input-titel mt-1"><i className="icon-image mr-2"></i>Upload Images</span>
+								</label>
+								<span className="input-titel">{banner ? banner.name : "Please select Images"}</span>
+							</div>
 							<span className="input-titel">Price</span>
 							<label htmlFor="" className="flex items-center w-full bg-white p-2 px-3.5 rounded-md">
 								<div className="w-full px-3.5">

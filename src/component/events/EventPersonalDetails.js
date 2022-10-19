@@ -133,18 +133,18 @@ function EventPersonalDetails() {
                     <StepProgressBar />
                     {/* <!-- main-content  --> */}
                     <div className="space-y-5 -mx-2">
-                        <div className="w-full flex items-end flex-wrap">
+                        <div className="w-full flex items-baseline flex-wrap">
                             <div className="w-full md:w-1/2 px-2 inputHolder">
-                                <span className="input-titel">Professional Skill</span>
+                                <span className="input-titel epds">Professional Skill</span>
                                 <input type="text" className="input" name="personalSkill" value={values?.personalSkill} onChange={handleInputChange} />
                             </div>
                             <div className="w-full md:w-1/2 px-2 inputHolder">
-                                <span className="input-titel">Full Name (Mr / Mrs / Ms) <span>*</span></span>
+                                <span className="input-titel epds">Full Name (Mr / Mrs / Ms) <span>*</span></span>
                                 <input type="text" className="input" name="full_name" value={values?.full_name} onChange={handleInputChange} required />
                                 {errMsgObj.full_name && <span style={{ color: "red", fontSize: "12px" }}>{errMsgObj.full_name}</span>}
                             </div>
                         </div>
-                        <div className="w-full flex items-end flex-wrap">
+                        <div className="w-full flex items-baseline flex-wrap">
                             <div className="w-full md:w-1/3 px-2 inputHolder">
                                 <div className="input-label-holder">
                                     <label className="input-titel">Mobile Number <span>*</span></label>
@@ -170,15 +170,15 @@ function EventPersonalDetails() {
                             <h3 className="px-2">Address</h3>
                             <div className="w-full flex flex-wrap">
                                 <div className="w-full md:w-1/3 px-2 inputHolder">
-                                    <span className="input-titel">Flat No.</span>
+                                    <span className="input-titel epds">Flat No.</span>
                                     <input type="text" className="input" name="flatNo" value={values?.flatNo} onChange={handleInputChange} required />
                                 </div>
                                 <div className="w-full md:w-1/3 px-2 inputHolder">
-                                    <span className="input-titel">Street Name.</span>
+                                    <span className="input-titel epds">Street Name.</span>
                                     <input type="text" className="input" name="streetName" value={values?.streetName} onChange={handleInputChange} />
                                 </div>
                                 <div className="w-full md:w-1/3 px-2 inputHolder">
-                                    <span className="input-titel">Area Name.</span>
+                                    <span className="input-titel epds">Area Name.</span>
                                     <input type="text" className="input" name="areaName" value={values?.areaName} onChange={handleInputChange} required />
                                 </div>
                             </div>

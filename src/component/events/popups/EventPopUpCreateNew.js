@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 import { addCategory } from "../../../redux/createEvent.js";
 import { increment } from "../../../redux/stepCountPogress.js";
 
-function EventPopUpCreateNew({ handleClose, selectedCategory, displayName, eventType, edit }) {
+function EventPopUpCreateNew({ handleClose, selectedCategory, displayName, eventType, edit, eventId }) {
 	const [isCategoryPopUpOpen, setIsCategoryPopUpOpen] = useState(false);
 	const [category, setCategory] = useState([]);
 	const [newCategoryId, setNewCategoryId] = useState(0);
@@ -56,7 +56,7 @@ function EventPopUpCreateNew({ handleClose, selectedCategory, displayName, event
 			const response = await axios.post(`${baseUrl}/api/event/type`, responseObj, { headers: header });
 			console.log(response.data.data)
 			alert("Event create Sucessfull")
-			navigate("/dashboard/event/addplaces");
+			navigate(`/dashboard/event/addplaces/${eventId}`);
 
 		} catch (error) {
 			alert("Sommthing Went To Worong. Event Not created")

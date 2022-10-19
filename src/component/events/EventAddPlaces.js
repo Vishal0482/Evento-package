@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "../modal/Modal";
 import EventAddPlacesEventList from "./EventAddPlacesEventList";
 import EventPopUpAddPlaceWithDisplayName from "./popups/EventPopUpAddPlaceWithDisplayName";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Advertisement from "../Advertisement";
 import StepProgressBar from "./StepProgressBar";
 import { decrement, increment } from "../../redux/stepCountPogress";
+import axios from "axios";
+import { baseUrl } from "../../config";
 
 function EventAddPlaces() {
 	const [isAddPlaceWithDisplayNamePopUpOpen, setIsAddPlaceWithDisplayNamePopUpOpen] = useState(false);
@@ -15,9 +17,34 @@ function EventAddPlaces() {
 	const newEvent = useSelector((state) => state.createEvent.category);
 	console.log(newEvent);
 
+	const { eventId } = useParams();
+	console.log(eventId);
+
+	const token = "248258927fede2b3e48c182f40539846bcd47037";
+	const header = {
+		Authorization: `Token ${token}`,
+	};
+
+	const [addPlace, setaddPlace] = useState([])
+	const [addCategory, setAddCategory] = useState([])
+
+	const getEventType = async () => {
+		const response = await axios.get(`${baseUrl}/api/event/type?id=${eventId}`, { headers: header })
+		console.log(response);
+		setaddPlace(response.data.data)
+
+		const responseCatagory = await axios.get(`${baseUrl}/api/event_category_list`, { headers: header })
+		console.log(responseCatagory);
+		setAddCategory(responseCatagory.data.data)
+	}
+
+	useEffect(() => {
+		getEventType();
+	}, [])
+
 	const handeladdplace = () => {
 		dispatch(increment());
-		navigate("/dashboard/event/aboutplace")
+		navigate(`/dashboard/event/aboutplace/${eventId}`)
 	}
 	return (
 		//  <!-- Content In -->
@@ -38,7 +65,7 @@ function EventAddPlaces() {
 					<StepProgressBar />
 					{/* <!-- main-content  --> */}
 					<div className=" space-y-3">
-						<EventAddPlacesEventList displayName={newEvent?.displayName} categoryName={newEvent?.categoryName} />
+						<EventAddPlacesEventList displayName={addPlace[0]?.display_name} categoryName={addPlace[0]?.category_name} event={eventId} />
 					</div>
 					{/* <!-- advisement --> */}
 					<Advertisement />

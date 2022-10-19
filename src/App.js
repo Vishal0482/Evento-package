@@ -75,8 +75,8 @@ function App() {
 
 						{/* 0.2.1 select who you are? */}
 						<Route exact path="/dashboard/select-who-you-are" element={<SelectWhoYouAre />} />
-						<Route exact path="/dashboard/event/:eventType" element={<DashboardEvent />} />
-						<Route exact path="/dashboard/event/addplaces" element={<EventAddPlaces />} />
+						<Route exact path="/dashboard/event/:eventId" element={<DashboardEvent />} />
+						<Route exact path="/dashboard/event/addplaces/:eventId" element={<EventAddPlaces />} />
 						<Route exact path="/dashboard/event/aboutplace" element={<EventAboutPlace />} />
 						<Route exact path="/dashboard/event/personaldetails" element={<EventPersonalDetails />} />
 						<Route exact path="/dashboard/event/photosandvideos" element={<EventPhotosAndVideos />} />

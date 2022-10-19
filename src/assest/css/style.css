@@ -615,6 +615,9 @@ input:checked+i {
     --tw-text-opacity: 1;
     color: rgb(155 166 168 / var(--tw-text-opacity));
 }
+.input-titel.epds {
+    line-height: 1.75rem;
+}
 
 .title-btn {
     display: flex;
