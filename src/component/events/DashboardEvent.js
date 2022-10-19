@@ -14,9 +14,6 @@ function DashboardEvent() {
 	const [isCreateNewPopUpOpen, setIsCreateNewPopUpOpen] = useState(false);
 	const [allCategories, setAllCatagories] = useState({});
 	const [category, setCategory] = useState({});
-	const [catItiam, setCatItiam] = useState();
-	const [allEvents, setAllEvents] = useState();
-	const [allEventsCopy, setAllEventsCopy] = useState();
 	const dispatch = useDispatch();
 	const eventType = params.eventType;
 
@@ -90,9 +87,7 @@ function DashboardEvent() {
 					<h1>All Category</h1>
 					<div className="flex whitespace-nowrap space-x-5 ml-auto">
 						<select
-							onChange={(e) => {
-								setCatItiam(e.target.value);
-							}}
+							onChange={filterCategory}
 							name="All Category"
 							className="arrow bg-white pl-5 pr-11 py-3 text-japaneseIndigo font-bold rounded-md tracking-wider appearance-none focus-visible:outline-none">
 							{category.data?.map((element) => (
