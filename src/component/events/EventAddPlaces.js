@@ -33,9 +33,9 @@ function EventAddPlaces() {
 		console.log(response);
 		setaddPlace(response.data.data)
 
-		const responseCatagory = await axios.get(`${baseUrl}/api/event_category_list`, { headers: header })
+		const responseCatagory = await axios.get(`${baseUrl}/api/event_category/${responseCatagory.data.data[0].categoryId}`, { headers: header })
 		console.log(responseCatagory);
-		setAddCategory(responseCatagory.data.data)
+		setAddCategory(responseCatagory.data.data[0].category_name)
 	}
 
 	useEffect(() => {
@@ -65,7 +65,7 @@ function EventAddPlaces() {
 					<StepProgressBar />
 					{/* <!-- main-content  --> */}
 					<div className=" space-y-3">
-						<EventAddPlacesEventList displayName={addPlace[0]?.display_name} categoryName={addPlace[0]?.category_name} event={eventId} />
+						<EventAddPlacesEventList displayName={addPlace[0]?.display_name} categoryName={categoryName} event={eventId} />
 					</div>
 					{/* <!-- advisement --> */}
 					<Advertisement />
