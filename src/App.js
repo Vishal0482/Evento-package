@@ -48,7 +48,8 @@ import Invoice from "./component/other/Invoice";
 import InvoiceHistory from "./component/other/InvoiceHistory";
 import Profile from "./component/other/Profile";
 import Booking from "./component/other/Booking";
-
+import SelectWhoYouAre from "./component/events/SelectWhoYouAre";
+import BuySpacePlan from "./component/events/BuySpacePlan";
 
 function App() {
   return (
@@ -73,15 +74,17 @@ function App() {
             <Route exact path="/dashboard/notification/promote/payment" element={<Promote> <NotificationPayment />  </Promote> } />
 
             {/* 0.2.1 select who you are? */}
-            <Route exact path="/dashboard/event" element={<DashboardEvent />} />
-            <Route exact path="/dashboard/event/addplaces" element={<EventAddPlaces />} />
-            <Route exact path="/dashboard/event/aboutplace" element={<EventAboutPlace />} />
-            <Route exact path="/dashboard/event/personaldetails" element={<EventPersonalDetails />} />
-            <Route exact path="/dashboard/event/photosandvideos" element={<EventPhotosAndVideos />} />
-            <Route exact path="/dashboard/event/addservices" element={<EventAddServices />} />
-            <Route exact path="/dashboard/event/capacity" element={<EventCapacity />} />
-            <Route exact path="/dashboard/event/companydetails" element={<EventCompanyDetails />} />
-            <Route exact path="/dashboard/event/termsandconditions" element={<EventTermsAndConditions />} />
+            <Route exact path="/dashboard/select-who-you-are" element={<SelectWhoYouAre/>} />
+            <Route exact path="/dashboard/event/:eventType" element={<DashboardEvent />} />
+            <Route exact path="/dashboard/event/addplaces/:eventId" element={<EventAddPlaces />} />
+            <Route exact path="/dashboard/event/aboutplace/:eventId" element={<EventAboutPlace />} />
+            <Route exact path="/dashboard/event/personaldetails/:eventId/:userId" element={<EventPersonalDetails />} />
+            <Route exact path="/dashboard/event/photosandvideos/:eventId/:userId" element={<EventPhotosAndVideos />} />
+            {/* <Route exact path="/dashboard/event/buy-space-plan" element={<BuySpacePlan />} /> */}
+            <Route exact path="/dashboard/event/addservices/:eventId/:userId" element={<EventAddServices />} />
+            <Route exact path="/dashboard/event/capacity/:eventId/:userId" element={<EventCapacity />} />
+            <Route exact path="/dashboard/event/companydetails/:eventId/:userId" element={<EventCompanyDetails />} />
+            <Route exact path="/dashboard/event/termsandconditions/:eventId/:userId" element={<EventTermsAndConditions />} />
             <Route exact path="/dashboard/event/discounts" element={<EventDiscounts />} />
             <Route exact path="/dashboard/event/calender" element={<EventCalender />} />
 

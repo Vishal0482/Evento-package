@@ -1,12 +1,11 @@
 import axios from 'axios'
 import React, { useState, useEffect } from 'react'
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import DashboardEvent from './events/DashboardEvent';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 
 
 
-const Register = (value, callback) => {
+function Register() {
     const location = useLocation();
 
     const [registerFrom, setRegisterFrom] = useState({
@@ -14,73 +13,115 @@ const Register = (value, callback) => {
         email: "",
         password: "",
         password2: "",
-        phone_no: "6356855230",
-    });
+        phone_no: "",
+    })
 
-    const [errors, setErrors] = useState({})
-    const [isSuccess, setIsSuccess] = useState(false)
+    const [errMsgObj, setErrMsgObj] = useState({});
 
-    const handelChange = (event) => {
-        const { name, value } = event.target;
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if (location.state?.phone) {
+            handelChange('phone_no', location.state?.phone)
+        }
+    }, [])
+
+    const handelChange = (name, value) => {
         setRegisterFrom({ ...registerFrom, [name]: value })
-        console.log(registerFrom);
     }
 
-    // useEffect(
-    //     () => {
-    //         if (Object.keys(errors).length === 0 && isSuccess) {
-    //             callback();
-    //         }
-    //     },
-    //     [errors])
-
-    // const fromSubmited = () => {
-    //     setIsSuccess(true);
-    // }
-    const validationRegFrom = (value) => {
-        let errors = {};
-
-        // username 
-        if (!value.name) {
-            errors.name = "Name Is Required"
-        }
-        // Email 
-        if (!value.email) {
-            errors.email = "Email Address Is Required"
-        } else if (!/\S+@\S+\.\S+/.test(value.email)) {
-            errors.email = "Email Address Is invalid"
-        }
-        // password 
-        if (!value.password) {
-            errors.password = "Password Is Required"
-        } else if (value.password.length < 6) {
-            errors.password = "Password Must be 6 character"
-        }
-        // password 2 
-        if (!value.password2) {
-            errors.password2 = "Conform Is Required"
-        } else if (!value.password !== value.password2) {
-            errors.password2 = "Conform Password Not Mach"
-        }
-        return errors;
-    }
 
     const handelRegFrom = async (e) => {
         e.preventDefault();
-        // setErrors(validationRegFrom(value));
-        console.log(registerFrom);
 
-        try {
-            const response = await axios.post("http://192.168.29.23:8080/api/register/customer", registerFrom)
-            console.log(response);
-            if (response.data.isSuccess === true) {
-                console.log("Success");
-            } else {
-                alert("Registration fail !")
+        console.log("handle form submit");
+        console.log('registerFrom', registerFrom);
+
+        let tmpErrObj = errMsgObj;
+        // Name Condition check
+        if (!registerFrom.name || registerFrom.name === "") {
+            tmpErrObj = { ...tmpErrObj, name: "name is required" }
+        } else {
+            tmpErrObj = { ...tmpErrObj, name: undefined };
+        }
+        // Email Condition check
+        if (!registerFrom.email || registerFrom.email === "") {
+            tmpErrObj = { ...tmpErrObj, email: "email is required" }
+        } else {
+            tmpErrObj = { ...tmpErrObj, email: undefined };
+        }
+        // password Condition check
+        if (!registerFrom.password || registerFrom.password === "") {
+            tmpErrObj = { ...tmpErrObj, password: "password is required" }
+        } else {
+            if (registerFrom.password2 && registerFrom.password2 !== "") {
+                if (registerFrom.password2 !== registerFrom.password) {
+                    tmpErrObj = { ...tmpErrObj, password: "password and confirm password does not match" }
+                } else {
+                    tmpErrObj = { ...tmpErrObj, password: undefined }
+                }
             }
+        }
+        // password 2 Condition check
+        if (!registerFrom.password2 || registerFrom.password2 === "") {
+            tmpErrObj = { ...tmpErrObj, password2: "password2 is required" }
+        } else {
+            tmpErrObj = { ...tmpErrObj, password2: undefined };
+        }
+        // phone Number Condition check
+        if (!registerFrom.phone_no || registerFrom.phone_no === "") {
+            tmpErrObj = { ...tmpErrObj, phone_no: "phone_no is required" }
+        } else {
+            tmpErrObj = { ...tmpErrObj, phone_no: undefined };
+        }
+        setErrMsgObj(tmpErrObj)
+        // http://64.227.167.195:8000/api
+        if (tmpErrObj) { }
+        if (!tmpErrObj.password2 && !tmpErrObj.email && !tmpErrObj.name && !tmpErrObj.password && !tmpErrObj.phone_no) {
+            try {
+                const response = await axios.post(`http://64.227.167.195:8000/api/register/organizer`, registerFrom);
+                console.log('response', response);
+                if (response && response.data && response.data.isSuccess) {
+                    console.log("Hello");
+                    console.log('registerFrom', registerFrom);
+                    window.location.href = "/dashboard/event/";
+                } else {
+                    if (response && response.data && response.data.data) {
+                        if (response.data.data.email && response.data.data.email[0]) {
+                            tmpErrObj = { ...tmpErrObj, email: response.data.data.email[0] }
+                            setErrMsgObj(tmpErrObj)
+                        }
+                        if (response.data.data.phone_no && response.data.data.phone_no[0]) {
+                            tmpErrObj = { ...tmpErrObj, phone_no: response.data.data.phone_no[0] }
+                            setErrMsgObj(tmpErrObj)
+                        }
+                    }
+                }
+            } catch (error) {
+                console.log(error);
+                alert("Some error occured. Please try again")
+            }
+        }
+    }
 
-        } catch (error) {
-            console.log(error);
+    const verifyHandler = async () => {
+        try {
+            const response = await axios.post(`http://64.227.167.195:8000/api/sms`, {
+                "phone": "+91" + registerFrom.phone_no
+            });
+            console.log('response', response);
+
+            if (response.data.data) {
+                alert(response.data.message)
+                navigate("/dashboard/otp", {
+                    phone: response.data.data.phone,
+                    otp: response.data.data.OTP
+                })
+            } else {
+                alert("Error in sending OTP")
+            }
+        } catch (errorInApi) {
+            console.log('errorInApi', errorInApi);
         }
 
     }
@@ -97,48 +138,50 @@ const Register = (value, callback) => {
                         <div className="form f-2">
                             <form method="post" onSubmit={handelRegFrom}>
                                 <div className="sm-holder">
-                                    <div className="sm-1 mb-4">
-                                        <label className="block" htmlFor="">Your Name</label>
-                                        <input type="text" name="name" value={registerFrom.name} onChange={handelChange} />
-                                        {/* {errors.name && <span style={{ color: "red", fontSize: "12px" }}>{errors.name}</span>} */}
+                                    <div className="sm-1">
+                                        <label htmlFor="">Your Name</label>
+                                        <input type="text" name="name" value={registerFrom.name} onChange={(e) => { handelChange('name', e.target.value) }} />
+                                        {/* {registerFrom.name && <p style={{ color: "red", fontSize: "12px" }}>{errors.name}</p>} */}
+                                        {errMsgObj.name && <span style={{ color: "red" }}>{errMsgObj.name}</span>}
                                     </div>
                                 </div>
                                 <div className="sm-holder">
-                                    <div className="sm-1 mb-4">
-                                        <label className="block" htmlFor="">Email</label>
-                                        <input type="email" name="email" value={registerFrom.email} onChange={handelChange} />
-                                        {/* {errors.email && <span style={{ color: "red", fontSize: "12px" }}>{errors.email}</span>} */}
+                                    <div className="sm-1">
+                                        <label htmlFor="">Email</label>
+                                        <input type="text" name="email" value={registerFrom.email} onChange={(e) => { handelChange('email', e.target.value) }} />
+                                        {/* {registerFrom.email && <p style={{ color: "red", fontSize: "12px" }}>{errors.email}</p>} */}
+                                        {errMsgObj.email && <span style={{ color: "red" }}>{errMsgObj.email}</span>}
                                     </div>
                                 </div>
-                                {/* <div className="ps-1 mb-4">
-                                    <label className="block" htmlFor="">Phone Number</label>
+                                <div className="ps-1">
+                                    <label htmlFor="">Phone Number</label>
                                     <div className="verify-holder">
-                                        <input disabled={(location.state?.phone) ? true : false} type="tel" value={registerFrom.phone_no} onChange={handelChange}/>
-                                        { {!(location.state?.phone) ? <Link to="/" style={{ cursor: "pointer" }} onClick={verifyHandler}>Verify</Link> :
+                                        <input disabled={(location.state?.phone) ? true : false} type="tel" value={registerFrom.phone_no} onChange={(e) => { handelChange('phone_no', e.target.value) }} />
+                                        {!(location.state?.phone) ? <a style={{ cursor: "pointer" }} onClick={verifyHandler}>Verify</a> :
                                             <a style={{ color: "green", fontSize: 20 }} > <span  >&#10003;</span></a>}
-                                        {!(location.state?.phone) && registerFrom.phone_no.length === 10 && <span style={{ color: "red" }}>Please verify your number before continue</span>}
-                                        {errMsgObj.phone_no && <span style={{ color: "red" }}>{errMsgObj.phone_no}</span>} }
+                                        {!(location.state?.phone) && registerFrom.phone_no.length !== 10 && <span style={{ color: "red" }}>Please verify your number before continue</span>}
+                                        {errMsgObj.phone_no && <span style={{ color: "red" }}>{errMsgObj.phone_no}</span>}
                                     </div>
-                                </div> */}
+                                </div>
                                 <div className="sm-holder">
-                                    <div className="sm-1 mb-4">
-                                        <label className="block" htmlFor="">Password</label>
+                                    <div className="sm-1">
+                                        <label htmlFor="">Password</label>
                                         <div className="c-pass">
-                                            <input type="password" name="password" value={registerFrom.password} onChange={handelChange} />
-                                            {/* {errors.password && <span style={{ color: "red", fontSize: "12px" }}>{errors.password}</span>} */}
+                                            <input type="password" name="password" value={registerFrom.password} onChange={(e) => { handelChange('password', e.target.value) }} />
                                             {/* <i onClick={() => setPassVisible(!passVisible)} className="icon-view"></i> */}
+                                            {errMsgObj.password && <span style={{ color: "red" }}>{errMsgObj.password}</span>}
                                         </div>
                                     </div>
-                                    <div className="sm-1 mb-4">
-                                        <label className="block" htmlFor="">Confirm Password</label>
+                                    <div className="sm-1">
+                                        <label htmlFor="">Confirm Password</label>
                                         <div className="c-pass">
-                                            <input type="password" name="password2" value={registerFrom.password2} onChange={handelChange} />
-                                            {/* {errors.password2 && <span style={{ color: "red", fontSize: "12px" }}>{errors.password2}</span>} */}
+                                            <input type="password" value={registerFrom.password2} onChange={(e) => { handelChange('password2', e.target.value) }} />
                                             {/* <i onClick={() => setPassVisible(!passVisible)} className="icon-view"></i> */}
+                                            {errMsgObj.password2 && <span style={{ color: "red" }}>{errMsgObj.password2}</span>}
                                         </div>
                                     </div>
                                 </div>
-                                <button type="Submit">REGISTER NOW</button>
+                                <button>REGISTER NOW</button>
                             </form>
                         </div>
                     </div>
