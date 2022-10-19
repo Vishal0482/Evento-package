@@ -13,7 +13,7 @@ function DashboardEvent() {
 	const params = useParams();
 	const [isCreateNewPopUpOpen, setIsCreateNewPopUpOpen] = useState(false);
 	const [allEvent, setAllEvent] = useState([]);
-	const [allEventsCopy,setAllEventsCopy] = useState([]);
+	const [allEventsCopy, setAllEventsCopy] = useState([]);
 	const [category, setCategory] = useState([]);
 	const dispatch = useDispatch();
 	const eventType = params.eventType;
@@ -60,6 +60,7 @@ function DashboardEvent() {
 			const response = await axios.get(`${baseUrl}/api/events_get_list`, { headers: header });
 			console.log(response);
 			setAllEvent(response.data.data);
+			setAllEventsCopy(response.data.data);
 		} catch (error) {
 			console.log(error);
 		}
