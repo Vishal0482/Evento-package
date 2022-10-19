@@ -7,6 +7,7 @@ function EventPopUpUploadPhoto({handleClose, eventId}) {
 	const [imagePreview, setImagePreview] = useState("");
 	const [details, setDetails] = useState("");
 	const [error, setError] = useState(false);
+	const [errorMessage, setErrorMessage] = useState("");
 
 	const token = localStorage.getItem("Token");
 	const header = {
@@ -20,16 +21,20 @@ function EventPopUpUploadPhoto({handleClose, eventId}) {
 		
 		try {
 			if(selected && types.includes(selected.type)) {
-				if(selected.size < (5*1024*1024)){
+				if(selected.size < (3*1024*1024)){
 					setImagePreview(URL.createObjectURL(selected));
 					setImage(selected);
+					setErrorMessage(null);
+					setError(false);
 				}
 				else {
-					console.log("file size is greater than 5MB. File size is ", selected.size);
+					console.log("file size is greater than 3MB. File size is ", selected.size);
+					setErrorMessage("file size is greater than 3MB.");
 					setError(true);
 				}
 			} else {
 				console.log("please select image file with jpeg/png. File type is ", selected.type);
+				setErrorMessage("please select image file with jpeg/png.");
 				setError(true);
 			}
 		} catch (error) {
@@ -45,8 +50,9 @@ function EventPopUpUploadPhoto({handleClose, eventId}) {
 			formDataImage.append("event", eventId);
 			formDataImage.append("image", image);
 			const response = await axios.post(`${baseUrl}/api/image_event`,formDataImage, {headers: header});
-			if(response.data.isSuccess === true) {
-				uploadImage();
+			console.log(response)
+			if(response.data.statusText === "OK") {
+				handleClose(false);
 			}
 		} catch (error) {
 			console.log(error);
@@ -56,7 +62,6 @@ function EventPopUpUploadPhoto({handleClose, eventId}) {
 	const submitHandler = async() => {
 		if(!error) {
 			uploadImage();
-			// setImageList((current) => [...current, {id: current.length, image:image, previewUrl: imagePreview, detail: details}]);
 			handleClose(false);
 		} else {
 			console.log("error occured");
@@ -77,11 +82,12 @@ function EventPopUpUploadPhoto({handleClose, eventId}) {
 		   </div>
 		   <form className="py-7 space-y-5">
 			 <div className="upload-holder">
-			   <h6 className="text-sm font-bold text-quicksilver">Select Photo <span className="text-10">5 Images (up to 5MB/Image)</span></h6>
+			   <h6 className="text-sm font-bold text-quicksilver">Select Photo <span className="text-10">15 Images (up to 3MB/Image)</span></h6>
 			   <label htmlfor="upload" className="upload upload-popup">
 				 <input type="file" name="images" id="upload" className="appearance-none hidden" onChange={photoChangeHandler}/>
 				 <span className="input-titel mt-1"><i className="icon-image mr-2"></i>Choose Images</span>
 			   </label>
+			    {error ? <span className="mt-1" style={{color: "red", fontSize: "14px"}}>{errorMessage} </span> : <span className="mt-1" style={{fontSize: "14px"}}>{image.name}</span>}
 			 </div>
 			 <div className="w-full">
 			   <span className="input-titel">Details</span>
@@ -97,4 +103,4 @@ function EventPopUpUploadPhoto({handleClose, eventId}) {
   )
 }
 
-export default EventPopUpUploadPhoto
+export default EventPopUpUploadPhoto;

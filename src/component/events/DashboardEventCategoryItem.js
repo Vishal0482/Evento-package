@@ -3,8 +3,11 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import sweetLoveCatering from "../../assest/images/sweet-love-catering.png";
 import { baseUrl } from '../../config';
+import { useDispatch } from 'react-redux';
+import { increment } from '../../redux/stepProgressCount';
 
 function DashboardEventCategoryItem({data}) {
+	const dispatch = useDispatch();
 	// const [isLive, setIsLive] = useState(false);
 	// const token = localStorage.getItem("Token");
 	// const header = {
@@ -63,7 +66,7 @@ function DashboardEventCategoryItem({data}) {
 					  <span className="text-quicksilver text-xs font-bold pl-2"> 19,981 ratings</span>
 					</div>
 					<div className="flex space-x-2">
-					  <Link to={`/dashboard/event/addplaces/${data.eventId}`} className="bg-brightGray px-2 py-1 text-center rounded"><i className="text-base edit text-black icon-edit" style={{color: "#000"}}></i></Link>
+					  <Link to={`/dashboard/event/addplaces/${data.eventId}`} onClick={()=> dispatch(increment())} className="bg-brightGray px-2 py-1 text-center rounded"><i className="text-base edit text-black icon-edit" style={{color: "#000"}}></i></Link>
 						<Link to="/" className="bg-brightGray px-2 py-1 text-center rounded"><i
 						className="icon-fill-megaphone text-base text-black"></i></Link>
 					  <Link to="/" className="bg-brightGray px-2 py-1 text-center rounded"><i

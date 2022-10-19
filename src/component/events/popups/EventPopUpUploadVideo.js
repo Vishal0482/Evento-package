@@ -1,10 +1,19 @@
+import axios from 'axios';
 import React, { useState } from 'react';
+import { baseUrl } from '../../../config';
 
-function EventPopUpUploadVideo({handleClose, setVideoList}) {
+function EventPopUpUploadVideo({handleClose, eventId}) {
   const [video, setVideo] = useState("");
   const [videoPreview, setVideoPreview] = useState("");
   const [details, setDetails] = useState("");
   const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const token = localStorage.getItem("Token");
+	const header = {
+		'Authorization': `Token ${token}`,
+		'Content-Type': 'multipart/form-data'
+	}
   
 	const videoChangeHandler = (event) => {
 		const types = ['video/mp4'];
@@ -15,13 +24,17 @@ function EventPopUpUploadVideo({handleClose, setVideoList}) {
 				if(selected.size < (512*1024*1024)){
           setVideoPreview(URL.createObjectURL(selected));
 					setVideo(selected);
+          setErrorMessage(null);
+					setError(false);
 				}
 				else {
 					console.log("file size is greater than 512MB. File size is ", selected.size);
+					setErrorMessage("file size is greater than 512MB.");
 					setError(true);
 				}
 			} else {
-				console.log("please select video file with mp4 extension",selected.type);
+				console.log("please select video file with mp4 extension.",selected.type);
+				setErrorMessage("please select video file with mp4 extension.");
 				setError(true);
 			}
 		} catch (error) {
@@ -30,10 +43,26 @@ function EventPopUpUploadVideo({handleClose, setVideoList}) {
 		}
 	}  
 
+  const videoUpload = async() =>{
+    try {
+      let formDataVideo = new FormData();
+      formDataVideo.append("image_details",details);
+      formDataVideo.append("event", eventId);
+      formDataVideo.append("video", video);
+      const response = await axios.post(`${baseUrl}/api/video_event`, formDataVideo, {headers: header});
+      console.log(response);
+      if(response.data.isSuccess === true) {
+				handleClose(false);
+			}
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   const submitHandler = async() => {
 		if(!error) {
-			setVideoList((current) => [...current, {id: current.length, video:video, previewUrl: videoPreview, detail: details}]);
-			handleClose(false);
+      videoUpload();
+      handleClose(false);
 		} else {
 			console.log("error occured");
 		}
@@ -57,6 +86,7 @@ function EventPopUpUploadVideo({handleClose, setVideoList}) {
                   <input type="file" name="video" id="upload" className="appearance-none hidden" onChange={videoChangeHandler} />
                   <span className="input-titel mt-1"><i className="icon-video-play mr-2"></i>Upload Video</span>
                 </label>
+                {error ? <span className="mt-1" style={{color: "red", fontSize: "14px"}}>{errorMessage} </span> : <span className="mt-1" style={{fontSize: "14px"}}>{video.name}</span>}
               </div>
               <div className="w-full">
                 <span className="input-titel">Details</span>
@@ -71,4 +101,4 @@ function EventPopUpUploadVideo({handleClose, setVideoList}) {
   )
 }
 
-export default EventPopUpUploadVideo
+export default EventPopUpUploadVideo;

@@ -17,18 +17,8 @@ function EventAboutPlace() {
 	const [price, setPrice] = useState("");
 	const [priceType, setPriceType] = useState("per_hour");
 	const [about, setAbout] = useState("");
+	const [edit, setEdit] = useState(false);
 	const eventId = params.eventId;	
-	// const aboutPlaceSelector = useSelector(state => state.createEvent.aboutPlace);
-	// console.log("about place selector > ",aboutPlaceSelector);
-	// useEffect(() => {
-	// 	if(aboutPlaceSelector != null) {
-	// 		setAbout(aboutPlaceSelector?.about);
-	// 		setPrice(aboutPlaceSelector?.price);
-	// 		setPriceType(aboutPlaceSelector?.priceType);
-	// 	}
-	// },[]);
-
-	// console.log(banner,price, priceType, about, eventId);
 
 	const token = localStorage.getItem("Token");
 	const header = {
@@ -36,46 +26,53 @@ function EventAboutPlace() {
 		'Content-Type': 'multipart/form-data',
 	}
 
+	const getAboutPlace = async() => {
+		try {
+			const response = await axios.get(`${baseUrl}/api/add_place_event/${eventId}`, {headers: header});
+			if(response.data.data.length !== 0) {
+				setBanner(response.data.data[0].place_banner);
+				setAbout(response.data.data[0].details);
+				setPrice(response.data.data[0].place_price);
+				setPriceType(response.data.data[0].price_type);
+				setEdit(true);
+			}
+			console.log(response);
+		} catch (error) {
+			console.log(error);
+		}
+
+	}
 	useEffect(()=>{
-		
+		getAboutPlace();
 	},[]);
 
-	const getAboutPlace = async() => {
-		const response = await axios.get(`${baseUrl}/api/add_place_event`, {headers: header});
-	}
 	
 	const clickNextHandler = async() => {
 
-		// console.log({ ...aboutPlace,event: eventId });
 		const formData = new FormData();
 		formData.append("place_price",price);
 		formData.append("price_type",priceType);
 		formData.append("details",about);
 		formData.append("event",eventId);
-		formData.append("place_banner",banner);
 		
-
-		// if(aboutPlaceSelector == null) {
+		if(edit == false) {
+			formData.append("place_banner",banner);
 			// Insert place
 			const response = await axios.post(`${baseUrl}/api/add_place_event`, formData, {headers: header});
-			console.log("About place Inserted>> ",response);
-			// const aboutPlace = {id: response.data.data.Id , price: price, priceType: priceType, about: about};
-			// dispatch(addAboutPlace({aboutPlace: aboutPlace}));
-			
+			console.log("About place Inserted>> ",response.data);
 			if(response.data.isSuccess === true) {
 				dispatch(increment()) 
 				navigate(`/dashboard/event/personaldetails/${eventId}/${response.data.data.user_id}`);
 			}
-		// } else {
+		} else {
 			// Update Place
-			// const response = await axios.put(`${baseUrl}/api/add_place_event/${aboutPlaceSelector.id}`, formData, {headers: header});
-			// console.log("About place Inserted>> ",response);
-			// if(response.data.isSuccess === true) {
-			// 	dispatch(increment()) 
-			// 	navigate("/dashboard/event/personaldetails");
-			// }
-		// }
-
+			const response = await axios.put(`${baseUrl}/api/add_place_event/${eventId}`, formData, {headers: header});
+			console.log("About place updated>> ",response.data);
+			if(response.data.isSuccess === true) {
+				dispatch(increment()) 
+				navigate("/dashboard/event/personaldetails");
+			}
+		}
 	}
 
 	const clickBackHander = () => {
@@ -104,7 +101,7 @@ function EventAboutPlace() {
 				 <input type="file" name="images" id="upload" className="appearance-none hidden" onChange={(e) => setBanner(e.target.files[0])}/>
 				 <span className="input-titel mt-1"><i className="icon-image mr-2"></i>Upload Images</span>
 			   </label>
-				<span className="input-titel ml-2">{banner ? banner.name : "Please select Images"}</span>
+				<span className="input-titel ml-2">{banner ? (banner.name || banner) : "Please select Images"}</span>
 		   </div>
 		   <div className="w-full">
 			 <span className="input-titel">Price</span>

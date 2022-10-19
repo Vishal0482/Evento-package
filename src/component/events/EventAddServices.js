@@ -16,6 +16,7 @@ function EventAddServices() {
 	const dispatch = useDispatch();
 	const [isAddServicesPopUpOpen, setIsAddServicesPopUpOpen] = useState(false);
 	const [serviceList, setServiceList] = useState([]);
+	const [reload, setReload] = useState(false);
 	const token = localStorage.getItem("Token");
 	const header = {
 		'Authorization': `Token ${token}`
@@ -28,7 +29,7 @@ function EventAddServices() {
 
 	useEffect(() => {
 		getServiceList();
-	},[isAddServicesPopUpOpen]);
+	},[isAddServicesPopUpOpen, reload]);
 
 	const clickNextHandler = () => {
 		dispatch(increment());
@@ -55,7 +56,7 @@ function EventAddServices() {
 		  {/* <!-- step-progress-bar  --> */}
 		 <StepProgressBar />
 		 <div className="pt-5 space-y-3">
-		   { serviceList?.map(element => <EventAddServicesListItem data = {element} key={element.Id} edit={true} /> )}
+		   { serviceList?.map(element => <EventAddServicesListItem data = {element} key={element.Id} edit={true} setReload={setReload} /> )}
 		   
 		 </div>
 	   </div>

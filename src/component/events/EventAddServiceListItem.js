@@ -5,7 +5,7 @@ import { baseUrl } from '../../config';
 import Modal from '../modal/Modal';
 import EventPopUpAddService from './popups/EventPopUpAddService';
 
-function EventAddServiceListItem({data, edit}) {
+function EventAddServiceListItem({data, edit, setReload}) {
 	
 	const [isAddServicesPopUpOpen, setIsAddServicesPopUpOpen] = useState(false);
 	const token = localStorage.getItem("Token");;
@@ -56,7 +56,7 @@ function EventAddServiceListItem({data, edit}) {
 			   </div>
 			 </div>
 			 <Modal isOpen={isAddServicesPopUpOpen}>
-				<EventPopUpAddService handleClose={setIsAddServicesPopUpOpen} data={data} edit={edit}/>
+				<EventPopUpAddService handleClose={setIsAddServicesPopUpOpen} data={data} edit={edit} setReload={setReload} />
 	 		</Modal>
 		   </div>
   )

@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import Advertisement from '../Advertisement';
 import StepProgressBar from './StepProgressBar';
@@ -14,6 +14,7 @@ function EventPersonalDetails() {
 	const params = useParams();
 	const [mobileNoHidden, setMobileNoHidden] = useState(false);
 	const [emailHidden, setEmailHidden] = useState(false);
+	const [edit, setEdit] = useState(false);
 	const eventId = params.eventId;	
 	const userId = params.userId;
 	console.log(eventId, userId);
@@ -35,6 +36,7 @@ function EventPersonalDetails() {
 		state: "",
 		pincode: "",
 	}
+
 	const [values, setValues] = useState(initialState);
 	const handleInputChange = (e) =>{
 			const { name, value } = e.target;
@@ -44,6 +46,20 @@ function EventPersonalDetails() {
 			});
 	};
 	console.log(values);
+
+	const getPersonalDetail = async() => {
+		try {
+			const response = await axios.get(`${baseUrl}/api/events/personaldetail`, {headers: header});
+			console.log("Personal details > ", response);		
+			if(response.data.isSuccess === true) {
+				// dispatch(addPersonalDetails({personalDetail : values}));
+				dispatch(increment());
+				navigate(`/dashboard/event/photosandvideos/${eventId}/${userId}`);
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	}
 
 	const clickNextHandler = async() => {
 		const requestObj = {...values, is_mobile_no_hidden : mobileNoHidden , is_email_hidden: emailHidden, eventId: eventId, user_id: userId};

@@ -3,11 +3,12 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { baseUrl } from '../../../config';
 
-function EventPopUpAddService({handleClose, data, edit}) {
+function EventPopUpAddService({handleClose, data, edit, setReload}) {
   // validation pending htmlFor required field.
 
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
+  const [quantity, setQuantity] = useState("");
   const [priceType, setPriceType] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
@@ -22,10 +23,12 @@ function EventPopUpAddService({handleClose, data, edit}) {
   },[handleClose]);
 
   const token = localStorage.getItem("Token");
+  const header = {
+    'Authorization': `Token ${token}`,
+    // 'Content-Type': 'multipart/form-data'
+  }
+
   const addServices = async() => {
-    const header = {
-			'Authorization': `Token ${token}`
-		}
     
     const requestObj = {
         service_name: name,
@@ -34,14 +37,24 @@ function EventPopUpAddService({handleClose, data, edit}) {
         service_desc: description,
         service_image: image
     }
-    console.log(requestObj);
 
+    // let formData = new FormData();
+    // formData.append("service_name", name);
+    // formData.append("service_price", price);
+    // formData.append("", quantity);
+    // formData.append("service_price_type", priceType);
+    // formData.append("service_desc", description);
+    // formData.append("service_image", image);
+    console.log(requestObj);
+    console.log(edit);
     try {
       if (edit) {
         // Upadte service
+        console.log(edit)
         console.log(data.Id);
         const response = await axios.put(`${baseUrl}/api/add_service_event/${data.Id}`, requestObj, { headers: header });
         console.log(response);
+        setReload(true);
         handleClose(false);
       } else {
         // Create new Service
@@ -100,6 +113,10 @@ function EventPopUpAddService({handleClose, data, edit}) {
                     </label>
                   </div>
                 </label>
+              </div>
+              <div className="w-full inputHolder">
+                <label className="input-titel">Add Quantity</label>
+                <input className="input option" type="text" value={quantity} onChange={(e) => setQuantity(e.target.value) } />
               </div>
               <div className="upload-holder">
                 <h6 className="text-sm font-bold text-quicksilver">Select Photo <span className="text-10">2 images (up to 3MB/Image)</span></h6>
