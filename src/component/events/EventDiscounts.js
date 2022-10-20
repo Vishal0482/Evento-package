@@ -64,39 +64,48 @@ function EventDiscounts() {
 					<StepProgressBar />
 					{/* <!-- main-content  --> */}
 					<div className="space-y-5">
-						<div onClick={() => setIsDiscountOnTotalBillPopUpOpen(true)} className="bg-gradient-to-r from-[#13e1b094] to-[#13E1B0] p-5 pr-8 rounded-lg">
-							<div className="flex justify-between items-center">
+						<div className="bg-gradient-to-r from-[#13e1b094] to-[#13E1B0] p-5 pr-8 relative overflow-hidden rounded-lg">
+							<div className="flex justify-between">
 								<div>
 									<h1 className="text-white">Discount On Total Bill</h1>
 									<div className="text-[40px] text-black font-bold">10%</div>
 									<span className="text-xs text-white font-normal">4 Event can be posted or one with max 30 day</span>
 								</div>
 								<div>
-									<img src={celebration} alt="" />
+									<button onClick={() => setIsDiscountOnTotalBillPopUpOpen(true)} className="bg-white p-2 rounded-md text-sm font-bold"><i className="text-sm edit text-black icon-edit mr-2"></i>Edit</button>
+									<div className="absolute" style={{ right: "40px", top: "65%", transform: "scale(1.2)" }}>
+										<img src={celebration} alt="" />
+									</div>
 								</div>
 							</div>
 						</div>
-						<div onClick={() => setIsDiscountOnEquipmentOrItemPopUpOpen(true)} className="bg-gradient-to-r from-[#20c0e878] to-[#20C0E8] p-5 pr-8 rounded-lg">
-							<div className="flex justify-between items-center">
+						<div className="bg-gradient-to-r from-[#20c0e878] to-[#20C0E8] p-5 pr-8 relative overflow-hidden rounded-lg">
+							<div className="flex justify-between">
 								<div>
-									<h1 className="text-white">Discount On Equipment Or Item</h1>
+									<h1 className="text-white">Discount On Total Bill</h1>
 									<div className="text-[40px] text-black font-bold">10%</div>
 									<span className="text-xs text-white font-normal">4 Event can be posted or one with max 30 day</span>
 								</div>
 								<div>
-									<img src={celebration} alt="" />
+									<button onClick={() => setIsDiscountOnTotalBillPopUpOpen(true)} className="bg-white p-2 rounded-md text-sm font-bold"><i className="text-sm edit text-black icon-edit mr-2"></i>Edit</button>
+									<div className="absolute" style={{ right: "40px", top: "65%", transform: "scale(1.2)" }}>
+										<img src={celebration} alt="" />
+									</div>
 								</div>
 							</div>
 						</div>
-						<div onClick={() => setIsAdvanceAndDiscountConfirmationPopUpOpen(true)} className="bg-gradient-to-r from-[#faba1585] to-[#FABA15] p-5 pr-8 rounded-lg">
-							<div className="flex justify-between items-center">
+						<div className="bg-gradient-to-r from-[#faba1585] to-[#FABA15] p-5 pr-8 relative overflow-hidden rounded-lg">
+							<div className="flex justify-between">
 								<div>
-									<h1 className="text-white">Advance and Discount Confirmation</h1>
+									<h1 className="text-white">Discount On Total Bill</h1>
 									<div className="text-[40px] text-black font-bold">10%</div>
 									<span className="text-xs text-white font-normal">4 Event can be posted or one with max 30 day</span>
 								</div>
 								<div>
-									<img src={celebration} alt="" />
+									<button onClick={() => setIsDiscountOnTotalBillPopUpOpen(true)} className="bg-white p-2 rounded-md text-sm font-bold"><i className="text-sm edit text-black icon-edit mr-2"></i>Edit</button>
+									<div className="absolute" style={{ right: "40px", top: "65%", transform: "scale(1.2)" }}>
+										<img src={celebration} alt="" />
+									</div>
 								</div>
 							</div>
 						</div>

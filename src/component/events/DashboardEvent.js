@@ -19,7 +19,7 @@ function DashboardEvent() {
 	const eventType = params.eventType;
 
 
-	const filterCategory = (event) => {
+	const  = (event) => {
 		let copy = allEventsCopy.map(item => { return { ...item } });
 		console.log("All event copy >>", allEventsCopy);
 		console.log("copy >>", copy);
