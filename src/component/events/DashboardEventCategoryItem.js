@@ -24,7 +24,7 @@ function DashboardEventCategoryItem({ data }) {
 								</div>
 							</div>
 							<div className="">
-								<div className="flex items-center">
+								<div className="flex items-center">									
 									<input type="checkbox" className="switch mr-3" />
 									<label htmlFor="">
 										<h3>Live</h3>
