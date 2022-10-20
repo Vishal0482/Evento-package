@@ -1,5 +1,5 @@
 import React ,{useState}from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import Modal from "../modal/Modal";
 import EventPopUpTermsAndCondition from "./popups/EventPopUpTermsAndConditions";
 import { useDispatch } from 'react-redux';
@@ -11,6 +11,9 @@ function EventTermsAndConditions() {
   const [isTermsAndConditionPopUpOpen, setIsTermsAndConditionPopUpOpen] = useState(false)
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const params = useParams();
+  const eventId = params.eventId;
+  
 	const initialState = {
 		termAndCondition: "",
     socialMedia: {
@@ -48,7 +51,7 @@ function EventTermsAndConditions() {
 
   const clickNextHandler = () => {
 		dispatch(addTermsAndCondition({termsAndCondition : values}));
-		navigate("/dashboard/event/discounts");
+		navigate(`/dashboard/event/discounts/${eventId}`);
 	}
 
   return (

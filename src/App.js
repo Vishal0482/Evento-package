@@ -85,8 +85,8 @@ function App() {
             <Route exact path="/dashboard/event/capacity/:eventId/:userId" element={<EventCapacity />} />
             <Route exact path="/dashboard/event/companydetails/:eventId/:userId" element={<EventCompanyDetails />} />
             <Route exact path="/dashboard/event/termsandconditions/:eventId/:userId" element={<EventTermsAndConditions />} />
-            <Route exact path="/dashboard/event/discounts" element={<EventDiscounts />} />
-            <Route exact path="/dashboard/event/calender" element={<EventCalender />} />
+            <Route exact path="/dashboard/event/discounts/:eventId" element={<EventDiscounts />} />
+            <Route exact path="/dashboard/event/calender/:eventId" element={<EventCalender />} />
 
             {/* 0.3.1 personal skill business */}
             <Route exact path="/dashboard/personalskillbusiness/selectskill" element={<PSBSelectSkill />}/>

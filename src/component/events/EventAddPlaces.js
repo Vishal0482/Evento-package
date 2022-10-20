@@ -22,7 +22,7 @@ function EventAddPlaces() {
 	const [categoryName, setCategoryName] = useState("");
 	// const newEvent = useSelector((state) => state.createEvent.category);
 	console.log(newEvent);
-	const token = localStorage.getItem("Token");;
+	const token = localStorage.getItem("Token");
 	const header = {
 		'Authorization': `Token ${token}`
 	}
@@ -32,7 +32,7 @@ function EventAddPlaces() {
 			console.log("New created event >> ",response.data.data);
 			setNewEvent(response.data.data);
 
-			const responseCategoryName = await axios.get(`${baseUrl}/api/event_category/${response.data.data[0].categoryId}`,{headers: header});
+			const responseCategoryName = await axios.get(`${baseUrl}/api/event_category/${response.data.data[0].category_id}`,{headers: header});
 			console.log("get category by id >> ",responseCategoryName.data);
 			setCategoryName(responseCategoryName.data.data[0].category_name);
 		} catch (error) {

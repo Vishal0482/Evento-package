@@ -22,9 +22,13 @@ function EventAddServices() {
 		'Authorization': `Token ${token}`
 	}
 	const getServiceList = async() => {
-		const response = await axios.get(`${baseUrl}/api/service_list`, {headers: header});
-		setServiceList(response.data.data);
-		console.log("services >> ",response);
+		try {
+			const response = await axios.get(`${baseUrl}/api/service_list`, {headers: header});
+			setServiceList(response.data.data);
+			console.log("services >> ",response);
+		} catch (error) {
+			console.log(error);
+		}
 	}
 
 	useEffect(() => {
