@@ -171,7 +171,7 @@ const clickBackHander = () => {
 				 <input  name="images" id="upload2" className="appearance-none hidden"/>
 				 <div className="mt-1 flex items-baseline justify-center"><i className="icon-video-play text-base mr-2"></i> <span className="input-titel pt-1">Upload videos</span></div>
 			   </label>
-			   <span className="input-titel mt-1">{videoList.length} Images Uploaded</span>
+			   <span className="input-titel mt-1">{videoList.length} Videos Uploaded</span>
 		   </div>
 		   <div className="media-upload-holder">
 			   <span className="input-titel">Uploaded videos</span>
