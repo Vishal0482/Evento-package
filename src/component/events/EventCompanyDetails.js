@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addCompanyDetail } from '../../redux/createEvent';
@@ -32,6 +32,31 @@ function EventCompanyDetails() {
 		state: "",
 		pincode: "",
 	}
+
+	const getCompanyDetail = async() => {
+		try {
+			const response = await axios.get(`${baseUrl}/api/events/companydetail?eventId=${eventId}`, {headers: header});
+			console.log("Company details > ", response);		
+			if(response.data.isSuccess === true) {
+				initialState.name = response.data.data[0].name;
+				initialState.contact_no = response.data.data[0].contact_no;
+				initialState.email = response.data.data[0].email;
+				initialState.flat_no = response.data.data[0].flat_no;
+				initialState.street = response.data.data[0].street;
+				initialState.area = response.data.data[0].area;
+				initialState.city = response.data.data[0].city;
+				initialState.state = response.data.data[0].state;
+				initialState.pincode = response.data.data[0].pincode;
+			  }
+		  } catch (error) {
+			  console.log(error);
+		  }
+	  }
+	  
+	useEffect(() => {
+		getCompanyDetail();
+	},[]);
+
 	const [values, setValues] = useState(initialState);
 	const handleInputChange = (e) => {
 		const { name, value } = e.target;
