@@ -6,8 +6,16 @@ import StepProgressBar from './StepProgressBar';
 import { baseUrl } from '../../config';
 import axios from 'axios';
 import { increment } from '../../redux/stepProgressCount';
+import Modal from "../modal/Modal";
+import EventPopUpUploadPhoto from '../../component/events/popups/EventPopUpUploadPhoto';
+import EventPopUpUploadVideo from "../../component/events/popups/EventPopUpUploadVideo";
+import videoThumb from '../../assest/images/video-thumbnail.jpg';
 
 function EventCompanyDetails() {
+	const [isUploadPhotoPopUpOpen, setIsUploadPhotoPopUpOpen] = useState(false);
+  const [isUploadVideoPopUpOpen, setIsUploadVideoPopUpOpen] = useState(false);
+	const [imageList, setImageList] = useState([]);
+	const [videoList, setVideoList] = useState([]);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const params = useParams();
@@ -31,6 +39,55 @@ function EventCompanyDetails() {
 		city: "",
 		state: "",
 		pincode: "",
+	}
+	const getImage = async() => {
+		try {
+			const response = await axios.get(`${baseUrl}/api/image_event?eventId=${eventId}`, {headers: header});
+			setImageList(response.data.data);
+			console.log("Image response >> ",response);
+		} catch (error) {
+			console.log(error);
+		}
+	}
+	
+	const getVideo = async() => {
+		try {
+			const response = await axios.get(`${baseUrl}/api/video_event?eventId=${eventId}`, {headers: header});
+			setVideoList(response.data.data);
+			console.log("Video response >> ",response);
+		} catch (error) {
+			console.log(error);
+		}
+	}
+
+	useEffect(()=>{
+		getImage();
+	},[isUploadPhotoPopUpOpen]);
+
+	useEffect(()=>{
+		getVideo();
+	},[isUploadVideoPopUpOpen]);
+
+	const removeImageClick = async(id) => {
+		try {
+			const response = await axios.delete(`${baseUrl}/api/event/image/?id=${id}`, {headers: header});
+			if(response.data.isSuccess === true) {
+				getImage();
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	}
+	
+	const removeVideoClick = async(id) => {
+		try {
+			const response = await axios.delete(`${baseUrl}/api/event/video/?id=${id}`, {headers: header});
+			if(response.data.isSuccess === true) {
+				getImage();
+			}
+		} catch (error) {
+			console.log(error);
+		}
 	}
 
 	const getCompanyDetail = async() => {
@@ -166,19 +223,49 @@ function EventCompanyDetails() {
 			</div>
 			<div className="upload-holder px-2">
 			  <span className="input-titel ml-2">Company Photos Max 5 images (up to 5MB/image)</span>
-			  <label htmlFor="upload" className="upload">
-				<input type="file" name="images" id="upload" className="appearance-none hidden" />
+			  <label onClick={()=>setIsUploadPhotoPopUpOpen(true)} htmlFor="upload" className="upload">
+				<input  name="images" id="upload" className="appearance-none hidden" />
 				<span className="input-titel mt-1"><i className="icon-image mr-2"></i>Upload Images</span>
 			  </label>
+				<span className="input-titel mt-1">{imageList.length} Images Uploaded</span>
 			</div>
+			<div className="media-upload-holder">
+			   <span className="input-titel">Uploaded Photo</span>
+				<div className="flex space-x-2.5">
+					{imageList?.map((img, index) => (
+						<div className="upload-box" key={index}>
+							<div className="rounded relative overflow-hidden h-full">
+							<img src={baseUrl+"/api"+img.image} alt={"upload-"+index}/>
+							<button onClick={() =>removeImageClick(img.id)}>Remove</button>
+						</div>
+					</div>
+					))}
+				</div>
+			</div>
+
+
 			<div className="upload-holder px-2">
 				<span className="input-titel ml-2">Company Video Max 2 videos (up to 2GB/video)</span>
-				<label htmlFor="upload2" className="upload">
-				  <input type="file" name="images" id="upload2" className="appearance-none hidden" />
+				<label onClick={()=>setIsUploadVideoPopUpOpen(true)} htmlFor="upload2" className="upload">
+				  <input  name="images" id="upload2" className="appearance-none hidden" />
 				  <div className="mt-1 flex items-baseline justify-center"><i className="icon-video-play text-base mr-2"></i> <span className="input-titel pt-1">Upload videos</span></div>
 				</label>
+				<span className="input-titel mt-1">{videoList.length} Videos Uploaded</span>
 			</div>
 		  </div>
+			<div className="media-upload-holder">
+			   <span className="input-titel">Uploaded videos</span>
+			   <div className="flex space-x-2.5">
+					{videoList?.map((vid, index) => (
+						<div className="upload-box" key={index}>
+							<div className="rounded relative overflow-hidden h-full">
+								<img src={vid.thumbnail ? vid.thumbnail : videoThumb} alt={"upload-"+index}/>
+							<button onClick={()=> removeVideoClick(vid.id)}>Remove</button>
+							</div>
+						</div>
+					))}
+			   </div>
+		   </div>
 		  <span className="input-titel capitalize">Disclaimer - These images and videos will first be verified by the admin and then given the authority.
 		</span>
 		</div>
@@ -187,7 +274,12 @@ function EventCompanyDetails() {
 		  <button type="button" className="flex items-center" onClick={() => navigate(-1)} ><i className="icon-back-arrow mr-3"></i><h3>Back</h3></button>
 		  <button type="button" className="flex items-center active" onClick={clickNextHandler} ><h3>Next</h3><i className="icon-next-arrow ml-3"></i></button>
 		</div>
-
+		{imageList.length < 15 && <Modal isOpen={isUploadPhotoPopUpOpen}>
+		<EventPopUpUploadPhoto handleClose={setIsUploadPhotoPopUpOpen} eventId={eventId} />
+	 </Modal>}
+	 {videoList.length < 2 && <Modal isOpen={isUploadVideoPopUpOpen}>
+		<EventPopUpUploadVideo handleClose={setIsUploadVideoPopUpOpen} eventId={eventId} />
+	</Modal>}
 	  </div>
 	</div>
   )
