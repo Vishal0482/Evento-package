@@ -249,6 +249,14 @@ video {
 .container {
     width: 100%;
 }
+.herobox > div {
+    width: calc(100% / 9) !important;
+    margin: 0 !important;
+    padding: 5px;
+}
+.herobox > div .upload-box{
+    width: 100%;
+}
 @media (min-width: 640px) {
     .container {
         max-width: 640px;

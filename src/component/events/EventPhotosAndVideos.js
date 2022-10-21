@@ -9,7 +9,6 @@ import axios from 'axios';
 import { baseUrl } from "../../config";
 import { decrement, increment } from '../../redux/stepProgressCount';
 import { useDispatch } from 'react-redux';
-import { current } from '@reduxjs/toolkit';
 import videoThumb from '../../assest/images/video-thumbnail.jpg';
 
 function EventPhotosAndVideos() {
@@ -52,11 +51,8 @@ const token = localStorage.getItem("Token");
 
 	useEffect(()=>{
 		getImage();
-	},[isUploadPhotoPopUpOpen]);
-
-	useEffect(()=>{
 		getVideo();
-	},[isUploadVideoPopUpOpen]);
+	},[isUploadPhotoPopUpOpen, isUploadVideoPopUpOpen]);
 
 // const handleNext = async() => {
 // 	try {
@@ -148,18 +144,14 @@ const clickBackHander = () => {
 		   </div>
 		   <div className="media-upload-holder">
 			   <span className="input-titel">Uploaded Photo</span>
-				<div className="flex space-x-2.5">
+				<div className="flex flex-wrap herobox">
 					{imageList?.map((img, index) => (
-						<div className="upload-box" key={index}>
-							<div className="rounded relative overflow-hidden h-full">
-							<img src={baseUrl+"/api"+img.image} alt={"upload-"+index}/>
-							{/* <button onClick={() => {
-								setImageList(current => current.filter(ele => ele.id !== index));
-								setImageList(current => current.map((ele, i) => {
-									return {...ele, id: i}
-								}));
-							}}>Remove</button> */}
-							<button onClick={() =>removeImageClick(img.id)}>Remove</button>
+						<div>
+							<div className="upload-box" key={index}>
+								<div className="rounded relative overflow-hidden flex justify-center items-center h-full">
+								<img src={baseUrl+"/api"+img.image} alt={"upload-"+index}/>
+								<button onClick={() =>removeImageClick(img.id)}>Remove</button>
+							</div>
 						</div>
 					</div>
 					))}
@@ -180,12 +172,6 @@ const clickBackHander = () => {
 						<div className="upload-box" key={index}>
 							<div className="rounded relative overflow-hidden h-full">
 								<img src={vid.thumbnail ? vid.thumbnail : videoThumb} alt={"upload-"+index}/>
-								{/* <button onClick={() => {
-								setVideoList(current => current.filter(ele => ele.id !== index));
-								setVideoList(current => current.map((ele, i) => {
-									return {...ele, id: i}
-								}));
-							}}>Remove</button> */}
 							<button onClick={()=> removeVideoClick(vid.id)}>Remove</button>
 							</div>
 						</div>

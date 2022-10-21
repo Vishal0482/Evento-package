@@ -1,12 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import Advertisement from '../Advertisement';
-import celebration from "../../assest/svg/celebration.svg"
-import Modal from "../modal/Modal"
-import EventPopUpDiscountOnTotalBill  from "./popups/EventPopUpDiscountOnTotalBill"
-import EventPopUpDiscountOnEquipmentOrItem from "./popups/EventPopUpDiscountOnEquipmentOrItem"
-import EventPopUpAdvanceAndDiscountConfirmation from "./popups/EventPopUpAdvanceAndDiscountConfirmation"
-import axios from 'axios'
-import { baseUrl } from '../../config'
+import celebration from "../../assest/svg/celebration.svg";
+import Modal from "../modal/Modal";
+import EventPopUpDiscountOnTotalBill  from "./popups/EventPopUpDiscountOnTotalBill";
+import EventPopUpDiscountOnEquipmentOrItem from "./popups/EventPopUpDiscountOnEquipmentOrItem";
+import axios from 'axios';
+import { baseUrl } from '../../config';
 import StepProgressBar from './StepProgressBar';
 import { useParams } from 'react-router-dom';
 
@@ -21,7 +20,7 @@ function EventDiscounts() {
 
 	const [totalDiscountId, setTotalDiscountId] = useState("");
 	const [equipmentDiscountId, setEquipmentDiscountIdDiscountId] = useState("");
-	const [AdvanceDiscountId, setAdvanceDiscountId] = useState("");
+	const [advanceDiscountId, setAdvanceDiscountId] = useState("");
 
 	
 	const token = localStorage.getItem("Token");
@@ -63,7 +62,7 @@ function EventDiscounts() {
 				if(ele.discount_type === "discount_on_total_bill") {
 					return (
 						<div className="bg-gradient-to-r from-[#13e1b094] to-[#13E1B0] p-5 pr-8 relative overflow-hidden rounded-lg">
-							<div className="flex justify-between items-center">
+							<div className="flex justify-between item-basline">
 								<div>
 									<h1 className="text-white">Discount On Total Bill</h1>
 									<div className="text-[40px] text-black font-bold">{ele.discount}</div>
@@ -85,7 +84,7 @@ function EventDiscounts() {
 				if(ele.discount_type === "discount_on_equipment_or_item") {
 					return (
 						<div className="bg-gradient-to-r from-[#20c0e878] to-[#20C0E8] p-5 pr-8 relative overflow-hidden rounded-lg">
-							<div className="flex justify-between items-center">
+							<div className="flex justify-between item-basline">
 								<div>
 									<h1 className="text-white">Discount On Equipment Or Item</h1>
 									<div className="text-[40px] text-black font-bold">{ele.discount}</div>
@@ -107,7 +106,7 @@ function EventDiscounts() {
 				if(ele.discount_type === "advance_and_discount_confirmation") {
 					return (
 						<div className="bg-gradient-to-r from-[#faba1585] to-[#FABA15] p-5 pr-8 relative overflow-hidden rounded-lg">
-							<div className="flex justify-between items-center">
+							<div className="flex justify-between item-basline">
 								<div>
 									<h1 className="text-white">Advance and Discount Confirmation</h1>
 									<div className="text-[40px] text-black font-bold">{ele.discount}</div>
@@ -139,13 +138,13 @@ function EventDiscounts() {
 	   </div>
 
 	 <Modal isOpen={isDiscountOnTotalBillPopUpOpen}>
-		<EventPopUpDiscountOnTotalBill handleClose={setIsDiscountOnTotalBillPopUpOpen} eventId={eventId} discountId={totalDiscountId}/>
+		<EventPopUpDiscountOnTotalBill handleClose={setIsDiscountOnTotalBillPopUpOpen} eventId={eventId} totalDiscountId={totalDiscountId}/>
 	 </Modal>
 	 <Modal isOpen={isDiscountOnEquipmentOrItemPopUpOpen}>
 		<EventPopUpDiscountOnEquipmentOrItem handleClose={setIsDiscountOnEquipmentOrItemPopUpOpen} eventId={eventId} discountId={equipmentDiscountId} />
 	 </Modal>
 	 <Modal isOpen={isAdvanceAndDiscountConfirmationPopUpOpen}>
-		<EventPopUpAdvanceAndDiscountConfirmation handleClose={setIsAdvanceAndDiscountConfirmationPopUpOpen} eventId={eventId} discountId={AdvanceDiscountId} />
+		<EventPopUpDiscountOnTotalBill handleClose={setIsAdvanceAndDiscountConfirmationPopUpOpen} eventId={eventId} advanceDiscountId={advanceDiscountId} />
 	 </Modal>
 
 	 </div>

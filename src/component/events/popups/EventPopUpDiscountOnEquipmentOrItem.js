@@ -7,6 +7,11 @@ function EventPopUpDiscountOnEquipmentOrItem({handleClose, eventId, discountId})
   console.log(discountId);
   const [value, setValue] = useState("");
   const [serviceList, setServiceList] = useState([]);
+  const [selected, setSelected] = useState([]);
+  const [selecetdServiceId, setSelectedServiceId] = useState([]);
+  const [error, setError] = useState("");
+  console.log(serviceList);
+  console.log(selected);
   const token = localStorage.getItem("Token");
 	const header = {
 		'Authorization': `Token ${token}`
@@ -15,10 +20,11 @@ function EventPopUpDiscountOnEquipmentOrItem({handleClose, eventId, discountId})
 		try {
 			setServiceList([]);
 			const response = await axios.get(`${baseUrl}/api/service_list`, {headers: header});
+			setServiceList([]);
 			response.data.data.map(ele => {
-				setServiceList(current => [...current, {value: ele.id, label: ele.service_name}])
+				setServiceList(current => [...current, {value: ele.Id, label: ele.service_name}]);
 			})
-			// console.log("services >> ",response);
+			console.log("services >> ",response.data.data);
 		} catch (error) {
 			console.log(error);
 		}
@@ -28,9 +34,26 @@ function EventPopUpDiscountOnEquipmentOrItem({handleClose, eventId, discountId})
 		getServiceList();
 	},[]);
 
+	const optionChangeHandler = (e) => {
+		// setSelected(e);
+		e.map(ele => {
+			setSelectedServiceId(cuurent => [...cuurent, ele.value])
+		})
+		console.log(selecetdServiceId);
+	}
+
+	const validateDiscount = (e) => {
+		if((e.target.value <= 100) && (e.target.value >= 0)) {
+			setValue(e.target.value);
+			setError(null);
+		} else {
+			setError("Enter Valid Discount value");
+		}
+	}
+
 	const handleSubmit = async() => {
 		try {	
-			const response = await axios.put(`${baseUrl}/api/org/discount/${discountId}?event_id=${eventId}`,{equipment_id: [], discount: value+"%"},{headers: header});
+			const response = await axios.put(`${baseUrl}/api/org/discount/${discountId}?event_id=${eventId}`,{equipment_id: selecetdServiceId, discount: value+"%"},{headers: header});
 			console.log(response);
       handleClose(false);
 		} catch (error) {
@@ -52,11 +75,12 @@ function EventPopUpDiscountOnEquipmentOrItem({handleClose, eventId, discountId})
 				 <option>Love</option>
 				 <option>Sweet</option>
 			   </select> */}
-			   <Select options={serviceList} />
+			   <Select options={serviceList} isMulti onChange={(e) => optionChangeHandler(e)} />
 			 </div>
 			 <div className="w-full lg:w-1/2 inputHolder">
 			   <label className="input-titel">Discount</label>
-			   <input className="input option" type="text" onChange={(e)=> setValue(e.target.value)} />
+			   <input className="input option" type="text" onChange={validateDiscount} />
+			   <span className="mt-1" style={{color: "red", fontSize: "14px"}}>{error} </span>
 			 </div>
 		   </form>
 		   {/* <div className="flex justify-end">

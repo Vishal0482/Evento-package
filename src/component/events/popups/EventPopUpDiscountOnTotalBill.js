@@ -1,14 +1,26 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { baseUrl } from '../../../config';
 
-function EventPopUpDiscountOnTotalBill({handleClose, eventId, discountId}) {
-  console.log(discountId);
+function EventPopUpDiscountOnTotalBill({handleClose, eventId, totalDiscountId, advanceDiscountId}) {
+  // console.log(discountId);
   const [value, setValue] = useState("");
   const token = localStorage.getItem("Token");
+  const [error, setError] = useState("");
+  let discountId = totalDiscountId || advanceDiscountId;
 	const header = {
 		'Authorization': `Token ${token}`
 	}
+
+  const validateDiscount = (e) => {
+		if((e.target.value <= 100) && (e.target.value >= 0)) {
+			setValue(e.target.value);
+			setError(null);
+		} else {
+			setError("Enter Valid Discount value");
+		}
+	}
+
 	const handleSubmit = async() => {
 		try {	
 			const response = await axios.put(`${baseUrl}/api/org/discount/${discountId}?event_id=${eventId}`,{equipment_id: [], discount: value+"%"},{headers: header});
@@ -20,7 +32,7 @@ function EventPopUpDiscountOnTotalBill({handleClose, eventId, discountId}) {
 	}
 
   return (
-	//   <!--  Discount On Total Bill  -->
+	//   <!--  Discount On Total Bill/ Advance and Discount Confirmation  -->
 	  <div className="popup table fixed w-full inset-0 z-40 bg-black bg-opacity-75 h-screen">
       <div className="table-cell align-middle">
         <div className="popin max-w-2xl w-full mx-auto max-h-[calc(100vh-55px)] overflow-y-auto lg:px-9">
@@ -28,8 +40,8 @@ function EventPopUpDiscountOnTotalBill({handleClose, eventId, discountId}) {
             <h2 className="h1 w-full max-w-xs text-center mx-auto"> Discount On Total Bill </h2>
             <form>
               <div className="w-full inputHolder">
-                <label className="input-titel">Discount On Total Bill</label>
-                <input className="input option" type="text" onChange={(e)=> setValue(e.target.value)}/>
+                <label className="input-titel">{totalDiscountId ? "Discount On Total Bill" : "Advance and Discount Confirmation"}</label>
+                <input className="input option" type="text" onChange={validateDiscount}/>
               </div>
             </form>
             <ul className="space-y-2.5">
