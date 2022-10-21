@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState} from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addCompanyDetail } from '../../redux/createEvent';
@@ -36,24 +36,16 @@ function EventCompanyDetails() {
 	}
 	const validationSchema = Yup.object().shape({
 		name: Yup.string(),
-		contact_no: Yup.number().min(10, "To short").max(10, "Too long").positive().integer(),
+		contact_no: Yup.number().typeError('The value must be a digit').integer().positive("contact number must be positive"),
 		email: Yup.string().email('Invalid Email format'),
 		flat_no: Yup.string(),
 		street: Yup.string(),
 		area: Yup.string(),
 		city: Yup.string(),
 		state: Yup.string(),
-		pincode:Yup.number().min(6, "To short").max(6, "Too long"),
+		pincode: Yup.number().typeError('The value must be a digit').integer().positive("pincode must be positive"),
 	})
-	const [values, setValues] = useState(initialState);
-	const handleInputChange = (e) => {
-		const { name, value } = e.target;
-		setValues({
-		  ...values,
-		  [name]: value,
-		});
-	  };
-	console.log(values);
+
 	const types = ['application/pdf'];
 	const pdfUpload = (e) => {
 		setGstFile(e.target.files[0]);
@@ -62,7 +54,8 @@ function EventCompanyDetails() {
 		}  
 	}
 
-	const clickNextHandler = async() => {
+	const clickNextHandler = async(values) => {
+		
 		const formData = new FormData();
 		for(var key in values){
 			formData.append(key,values[key]);
@@ -71,8 +64,10 @@ function EventCompanyDetails() {
 		formData.append("user_id",userId);
 		formData.append("gst",gstFile);
 
+		const requestObj = {...values,formData};
+		console.log(requestObj);
 		try {
-			const response = await axios.post(`${baseUrl}/api/events/companydetail`, formData, {headers: header});
+			const response = await axios.post(`${baseUrl}/api/events/companydetail`, requestObj, {headers: header});
 			console.log("Company details > ", response);
 			if(response.data.isSuccess === true) {
 				dispatch(addCompanyDetail({companyDetail : values}));
@@ -83,7 +78,6 @@ function EventCompanyDetails() {
 			console.log(error);
 		}
 	}
-
   return (
 	//   <!-- Content In -->
 	  <div className="rightInContent">
@@ -92,6 +86,7 @@ function EventCompanyDetails() {
       initialValues={initialState}
       validationSchema={validationSchema}
       onSubmit={clickNextHandler}>
+			 {({ errors, touched,formik }) => (
       <Form>
 		<div className="space-y-8 h-full">
 		  {/* <!-- title-holder  --> */}
@@ -105,8 +100,8 @@ function EventCompanyDetails() {
 			<div className="w-full flex items-end flex-wrap">
 			  <div  iv className="w-full md:w-1/2 px-2 inputHolder">
 				  <span className="input-titel">Company Name</span>
-				  <Field type="text" className="input" name="name" value={values?.name} onChange={handleInputChange} />
-					<ErrorMessage name='name' />
+				  <Field type="text" className="input" name="name" value={formik?.values.name} />
+					<ErrorMessage name='name'  component="span" className="field_error" />
 				<br/>
 			  </div>
 			  <div className="w-full md:w-1/2 px-2 inputHolder">
@@ -120,14 +115,14 @@ function EventCompanyDetails() {
 			<div className="w-full flex items-end flex-wrap">
 			  <div className="w-full md:w-1/2 px-2 inputHolder">
 				  <span className="input-titel">Company Contact No</span>
-				  <Field type="text" className="input" name="contact_no" value={values?.contact_no} onChange={handleInputChange} />
-					<ErrorMessage name='contact_no' />
+				  <Field type="text" className="input" name="contact_no"  value={formik?.values.contact_no} />
+					<ErrorMessage name='contact_no'  component="span" className="field_error"/>
 				<br/>
 			  </div>
 			  <div className="w-full md:w-1/2 px-2 inputHolder">
 				  <span className="input-titel">Company Email</span>
-				  <Field type="email" className="input" name="email" value={values?.email} onChange={handleInputChange}/>
-					<ErrorMessage name='email' />
+				  <Field type="email" className="input" name="email"  value={formik?.values.email}/>
+					<ErrorMessage name='email'  component="span" className="field_error"/>
 				<br/>
 			  </div>
 			</div> 
@@ -136,40 +131,40 @@ function EventCompanyDetails() {
 				<div className="w-full flex flex-wrap">
 				  <div className="w-full md:w-1/3 px-2 inputHolder">
 					  <span className="input-titel">Flat No.</span>
-					  <Field type="text" className="input" name="flat_no" value={values?.flat_no} onChange={handleInputChange} />
-						<ErrorMessage name='flat_no' />
+					  <Field type="text" className="input" name="flat_no"  value={formik?.values.flat_no} />
+						<ErrorMessage name='flat_no'  component="span" className="field_error"/>
 				<br/>
 				  </div>
 				  <div className="w-full md:w-1/3 px-2 inputHolder">
 					  <span className="input-titel">Street Name.</span>
-					  <Field type="text" className="input" name="street" value={values?.street} onChange={handleInputChange} />
-						<ErrorMessage name='street' />
+					  <Field type="text" className="input" name="street" value={formik?.values.street} />
+						<ErrorMessage name='street'  component="span" className="field_error" />
 				<br/>
 				  </div>
 				  <div className="w-full md:w-1/3 px-2 inputHolder">
 					  <span className="input-titel">Area Name.</span>
-					  <Field type="text" className="input" name="area" value={values?.area} onChange={handleInputChange} />
-						<ErrorMessage name='area' />
+					  <Field type="text" className="input" name="area" value={formik?.values.area} />
+						<ErrorMessage name='area' component="span" className="field_error"/>
 				<br/>
 				  </div>
 				</div>
 				<div className="w-full flex flex-wrap">
 				  <div className="w-full md:w-1/3 px-2 inputHolder">
 					  <label className="input-titel">City</label>
-					  <Field type="text" className="input" name="city" value={values?.city} onChange={handleInputChange} />
-						<ErrorMessage name='city' />
+					  <Field type="text" className="input" name="city" value={formik?.values.city} />
+						<ErrorMessage name='city' component="span" className="field_error"/>
 				<br/>
 				  </div>
 				  <div className="w-full md:w-1/3 px-2 inputHolder">
 					  <label className="input-titel">State</label>
-					  <Field type="text" className="input" name="state" value={values?.state} onChange={handleInputChange} />
-						<ErrorMessage name='state' />
+					  <Field type="text" className="input" name="state" value={formik?.values.state} />
+						<ErrorMessage name='state' component="span" className="field_error" />
 				<br/>						
 				  </div>
 				  <div className="w-full md:w-1/3 px-2 inputHolder">
 					  <label className="input-titel">Pincode</label>
-					  <Field type="text" className="input" name="pincode" value={values?.pincode} onChange={handleInputChange}/>
-						<ErrorMessage name='pincode' />
+					  <Field type="text" className="input" name="pincode" value={formik?.values.pincode}/>
+						<ErrorMessage name='pincode' component="span" className="field_error" />
 				<br/>		
 				  </div>
 				</div>
@@ -194,10 +189,11 @@ function EventCompanyDetails() {
 		</div>
 
 		<div className="prw-next-btn">
-		  <button type="submit" className="flex items-center" onClick={() => navigate(-1)} ><i className="icon-back-arrow mr-3"></i><h3>Back</h3></button>
+		  <button className="flex items-center" onClick={() => navigate(-1)} ><i className="icon-back-arrow mr-3"></i><h3>Back</h3></button>
 		  <button type="submit" className="flex items-center active"><h3>Next</h3><i className="icon-next-arrow ml-3"></i></button>
 		</div>
     </Form>
+		)}
     </Formik>  
 	  </div>
 	</div>

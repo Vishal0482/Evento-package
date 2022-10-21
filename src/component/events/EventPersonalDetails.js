@@ -36,19 +36,18 @@ function EventPersonalDetails() {
 		state: "",
 		pincode: "",
 	}
-	
 	const ValidationSchema = Yup.object().shape({
-		professional_skill: Yup.string().min(2, 'Too Short!').max(10, 'Too Long!'),
-		full_name: Yup.string().min(2, 'Too Short!').max(40, 'Too Long!').required('Full Name is Required*'),
-		mobile_no: Yup.number().positive().integer().required("Mobile number is required"),
-		alt_mobile_no: Yup.number().min(10, "To short").max(10, "Too long"),
-		email: Yup.string().email('Invalid format').required('Required this field*'),
+		professional_skill: Yup.string().min(3, 'Too Short!').max(40, 'Too Long!'),
+		full_name: Yup.string().min(2, 'Too Short!').max(40, 'Too Long!').required('Full name is required*'),
+		mobile_no:Yup.number().typeError('Contact number must be a digit').integer().positive("Contact number must be positive").required("Contact number is required"),
+		alt_mobile_no: Yup.number().typeError('Contact number must be a digit').integer().positive("Contact number must be positive"),
+		email: Yup.string().email('Invalid email format').required('Email address is required*'),
 		flat_no: Yup.string(),
 		street: Yup.string(),
 		area: Yup.string(),
-		city: Yup.string().required('Required this field*'),
-		state: Yup.string().required('Required this field*'),
-		pincode: Yup.string().min(6, 'Too Short!').max(6, 'Too Long!').required('Required this field*')
+		city: Yup.string().required('City name is required*'),
+		state: Yup.string().required('State name is required*'),
+		pincode: Yup.string().min(6, 'Too Short!').max(6, 'Too Long!').required('Pincode is required*')
 	});
 
 
@@ -96,7 +95,7 @@ function EventPersonalDetails() {
 			<div className="w-full md:w-1/2 px-2 inputHolder">
 				<span className="input-titel">Professional Skill</span>
 				<Field type="text" className="input" name="professional_skill" value={formik?.values.professional_skill} />
-        <ErrorMessage name='professional_skill' />
+        <ErrorMessage name='professional_skill' component="span" className="field_error" />
 				<br/>
 			</div>
 			<div className="w-full md:w-1/2 px-2 inputHolder">

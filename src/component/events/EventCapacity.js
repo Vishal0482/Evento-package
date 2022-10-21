@@ -20,8 +20,8 @@ function EventCapacity() {
     aboutPlace: "",
 	}
   const validationSchema = Yup.object().shape({
-		personCapacity: Yup.number().positive().integer(),
-		parkingCapacity: Yup.number().positive().integer(),
+		personCapacity: Yup.number().typeError('Person capacity must be a digit').integer().positive("Person capacity must be positive"),
+		parkingCapacity: Yup.number().typeError('Parking capacity must be a digit').integer().positive("Parking capacity must be positive"),
 		aboutPlace: Yup.string()
 	})
 	const [values, setValues] = useState(initialState);
@@ -107,7 +107,7 @@ function EventCapacity() {
               <Advertisement />
             </div>
             <div className="prw-next-btn">
-              <button type="submit" className="flex items-center" onClick={clickBackHander}><i className="icon-back-arrow mr-3"></i><h3>Back</h3></button>
+              <button  className="flex items-center" onClick={clickBackHander}><i className="icon-back-arrow mr-3"></i><h3>Back</h3></button>
               <button type="submit" className="flex items-center active" ><h3>Next</h3><i className="icon-next-arrow ml-3"></i></button>
             </div>
             </Form>
