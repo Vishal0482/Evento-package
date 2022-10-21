@@ -5,7 +5,6 @@ import axios from "axios";
 import { baseUrl } from '../../../config.js';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-// import { addCategory } from '../../../redux/createEvent.js';
 import { increment } from '../../../redux/stepProgressCount.js';
 
 function EventPopUpCreateNew({ handleClose, selectedCategory, displayName, eventType, edit, event_id }) {
@@ -13,7 +12,6 @@ function EventPopUpCreateNew({ handleClose, selectedCategory, displayName, event
 	const [isCategoryPopUpOpen, setIsCategoryPopUpOpen] = useState(false);
 	const [category, setCategory] = useState([]);
 	const [newCategoryId, setNewCategoryId] = useState(0);
-	const [newCategoryName, setNewCategoryName] = useState("");
 	const [newCategoryDisplayName, setNewCategoryDisplayName] = useState("");
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -27,7 +25,6 @@ function EventPopUpCreateNew({ handleClose, selectedCategory, displayName, event
 			const response = await axios.get(`${baseUrl}/api/event_category_list`,{headers: header});
 			console.log("Categorys >> ",response);
 			setCategory(response.data.data);
-			setNewCategoryName(response.data.data[0].category_name);
 			setNewCategoryId(response.data.data[0].categoryId);
 		} catch (error) {
 			console.log(error);
@@ -37,36 +34,36 @@ function EventPopUpCreateNew({ handleClose, selectedCategory, displayName, event
 	useEffect(()=>{
 		getCategory();
 		if(edit){
-			setNewCategoryName(selectedCategory);
 			setNewCategoryDisplayName(displayName);
 		}
 	},[handleClose]);
 
-	// console.log(newCategoryId, newCategoryName, newCategoryDisplayName);
 	const clickHandler = async() => {
-		// const category = {id: newCategoryId, categoryName: newCategoryName, displayName: newCategoryDisplayName}
-		// dispatch(addCategory({category: category}));
 		const requestObj = {
 			event_type: eventType,
     		display_name: newCategoryDisplayName,
-    		categoryId: newCategoryId
+    		category_id: newCategoryId
 		}
 
 		try {
 			if(!edit) {
+				// insert
 				const response = await axios.post(`${baseUrl}/api/event/type`, requestObj , {headers: header});
-				console.log("created event >> ",response.data.data.eventId);
+				console.log("created event >> ",response);
 
-				if(response.data.isSuccess === true) {
+				if(response.data.category_id) {
 					handleClose(false);
 					dispatch(increment());
 					navigate(`/dashboard/event/addplaces/${response.data.data.eventId}`);
 				}
 			} else {
+				// update
 				const response = await axios.put(`${baseUrl}/api/event/type?id=${event_id}`, requestObj , {headers: header});
-				console.log("updated event >> ",response.data.data);
-				if(response.data.isSuccess === true) {
+				console.log("updated event >> ",response);
+				if(response.statusText === "OK") {
 					handleClose(false);
+					// Temparory fix, need to find alternative solution
+					window.location.reload();
 				}
 			}
 		} catch (error) {
@@ -94,7 +91,6 @@ function EventPopUpCreateNew({ handleClose, selectedCategory, displayName, event
 							<div className="w-full inputHolder">
 								<label className="input-titel">Select Category</label>
 								<select className="w-full arrow option" onChange={(e) => {
-									setNewCategoryName(e.target.value);
 									setNewCategoryId(e.target[e.target.selectedIndex].getAttribute('data-id'));
 								}} >
 									{category && category.map((element) =>

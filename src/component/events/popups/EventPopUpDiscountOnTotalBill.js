@@ -42,6 +42,7 @@ function EventPopUpDiscountOnTotalBill({handleClose, eventId, totalDiscountId, a
               <div className="w-full inputHolder">
                 <label className="input-titel">{totalDiscountId ? "Discount On Total Bill" : "Advance and Discount Confirmation"}</label>
                 <input className="input option" type="text" onChange={validateDiscount}/>
+                <span className="mt-1" style={{color: "red", fontSize: "14px"}}>{error} </span>
               </div>
             </form>
             <ul className="space-y-2.5">
