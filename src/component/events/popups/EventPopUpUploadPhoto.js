@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 function EventPopUpUploadPhoto({ handleClose, setImageList }) {
@@ -16,7 +16,7 @@ function EventPopUpUploadPhoto({ handleClose, setImageList }) {
 
 		try {
 			if (selected && types.includes(selected.type)) {
-				if (selected.size < (5 * 1024 * 1024)) {
+				if (selected.size < (15 * 1024 * 1024)) {
 					setImagePreview(URL.createObjectURL(selected));
 					setImage(selected);
 				} else {
@@ -36,7 +36,7 @@ function EventPopUpUploadPhoto({ handleClose, setImageList }) {
 	const handelImageSubmit = async (e) => {
 		e.preventDefault();
 		if (!error) {
-			setImageList((current) => [...current, {eventId: "5", image:image, previewUrl: imagePreview, detail: details}]);
+			setImageList((current) => [...current, { eventId: "5", image: image, previewUrl: imagePreview, detail: details }]);
 			handleClose(false);
 		} else {
 			console.log("error occured");
@@ -66,7 +66,7 @@ function EventPopUpUploadPhoto({ handleClose, setImageList }) {
 							</div>
 							<div className="w-full">
 								<span className="input-titel">Details</span>
-								<textarea name="" id="" cols="30" rows="5"  onChange={(e) => setDetails(e.target.value)} className="outline-none flex items-center w-full bg-white p-2 px-3.5 rounded-md"></textarea>
+								<textarea name="" id="" cols="30" rows="5" onChange={(e) => setDetails(e.target.value)} className="outline-none flex items-center w-full bg-white p-2 px-3.5 rounded-md"></textarea>
 							</div>
 						</form>
 						<Link to="/" className="btn-primary w-full uppercase" onClick={handelImageSubmit}>Submit</Link>

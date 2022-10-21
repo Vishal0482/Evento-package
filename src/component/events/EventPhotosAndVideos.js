@@ -10,6 +10,7 @@ import { baseUrl } from "../../config";
 import StepProgressBar from './StepProgressBar';
 import { useDispatch } from 'react-redux';
 import { decrement, increment } from '../../redux/stepCountPogress';
+import { current } from '@reduxjs/toolkit';
 
 
 
@@ -18,7 +19,7 @@ function EventPhotosAndVideos() {
 	const [isUploadPhotoPopUpOpen, setIsUploadPhotoPopUpOpen] = useState(false);
 	const [isUploadVideoPopUpOpen, setIsUploadVideoPopUpOpen] = useState(false);
 	const [imageList, setImageList] = useState([]);
-	// const [videoList, setVideoList] = useState([]);
+	const [videoList, setVideoList] = useState([]);
 
 	const [loading, setloading] = useState(false);
 	const navigate = useNavigate();
@@ -41,6 +42,15 @@ function EventPhotosAndVideos() {
 				formData.append("image", element.image);
 				const response = await axios.post(`${baseUrl}/api/image_event`, formData, { headers: header });
 				console.log(response);
+
+				videoList.map(async (element) => {
+					let formDatavideo = new FormData();
+					formDatavideo.append("video-Details", element.detail);
+					formDatavideo.append("event", element.eventId);
+					formDatavideo.append("image", element.video);
+					const response = axios.post(`${baseUrl}/api//video_event`, formDatavideo, { headers: header });
+					console.log(response)
+				})
 			});
 			setloading(false);
 			navigate("/dashboard/event/addservices");
@@ -74,7 +84,7 @@ function EventPhotosAndVideos() {
 							<span className="input-titel">Uploaded Photo</span>
 							<div className="flex flex-wrap">
 								{imageList?.map((img, index) => (
-									<div className="" style={{ width: "10%",margin:"10px" }}>
+									<div>
 										<div className="w-full upload-box" key={index}>
 											<div className="rounded relative overflow-hidden h-full">
 												<img src={img.previewUrl} alt={"upload-" + index} />
@@ -96,18 +106,26 @@ function EventPhotosAndVideos() {
 						<div className="media-upload-holder">
 							<span className="input-titel">Uploaded videos</span>
 							<div className="flex space-x-2.5">
-								<div className="upload-box">
-									<div className="rounded relative overflow-hidden">
-										<img src={uploadOne} alt="upload-1" />
-										<button>Remove</button>
+								{imageList?.map((img, index) => (
+									<div>
+										<div className="w-full upload-box" key={index}>
+											<div className="rounded relative overflow-hidden h-full">
+												<img src={img.previewUrl} alt={"upload-" + index} />
+												<button onClick={() => { setImageList(current => current.filter(ele => ele.id !== index)); setImageList(current => current.map((ele, i) => { return { ...ele, id: i } })); }}>Remove</button>
+											</div>
+										</div>
 									</div>
-								</div>
-								<div className="upload-box">
-									<div className="rounded relative overflow-hidden">
-										<img src={uploadOne} alt="upload-1" />
-										<button>Remove</button>
+								))}
+								{videoList?.map((vid, index) => (
+									<div>
+										<div className="upload-box" key={index}>
+											<div className="rounded relative overflow-hidden">
+												<img src={vid.previewUrl} alt={"upload-" + index} />
+												<button onClick={() => { setVideoList(current => current.filter(ele => ele.Id !== index)); setVideoList(current => current.map((ele, i) => { return { ...ele, id: i } })); }}>Remove</button>
+											</div>
+										</div>
 									</div>
-								</div>
+								))}
 							</div>
 						</div>
 						<div className="w-full inline-block">
@@ -135,7 +153,7 @@ function EventPhotosAndVideos() {
 				</Modal>
 			</div>
 
-		</div>
+		</div >
 	)
 }
 
