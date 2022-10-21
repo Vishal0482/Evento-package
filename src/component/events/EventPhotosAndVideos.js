@@ -72,13 +72,15 @@ function EventPhotosAndVideos() {
 						</div>
 						<div className="media-upload-holder">
 							<span className="input-titel">Uploaded Photo</span>
-							<div className="flex space-x-2.5">
+							<div className="flex flex-wrap">
 								{imageList?.map((img, index) => (
-									<div className="upload-box" key={index}>
-										<div className="rounded relative overflow-hidden h-full">
-											<img src={img.previewUrl} alt={"upload-" + index} />
-											{/* <button onClick={() => setImageList(current => current.filter(ele => ele.id !== index))}>Remove</button> */}
-											<button onClick={() => { setImageList(current => current.filter(ele => ele.id !== index)); setImageList(current => current.map((ele, i) => { return { ...ele, id: i } })); }}>Remove</button>
+									<div className="" style={{ width: "10%",margin:"10px" }}>
+										<div className="w-full upload-box" key={index}>
+											<div className="rounded relative overflow-hidden h-full">
+												<img src={img.previewUrl} alt={"upload-" + index} />
+												{/* <button onClick={() => setImageList(current => current.filter(ele => ele.id !== index))}>Remove</button> */}
+												<button onClick={() => { setImageList(current => current.filter(ele => ele.id !== index)); setImageList(current => current.map((ele, i) => { return { ...ele, id: i } })); }}>Remove</button>
+											</div>
 										</div>
 									</div>
 								))}
