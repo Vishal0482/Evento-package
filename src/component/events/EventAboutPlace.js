@@ -54,24 +54,28 @@ function EventAboutPlace() {
 		formData.append("price_type",priceType);
 		formData.append("details",about);
 		formData.append("event",eventId);
-		
-		if(edit == false) {
-			formData.append("place_banner",banner);
-			// Insert place
-			const response = await axios.post(`${baseUrl}/api/add_place_event`, formData, {headers: header});
-			console.log("About place Inserted>> ",response.data);
-			if(response.data.isSuccess === true) {
-				dispatch(increment()) 
-				navigate(`/dashboard/event/personaldetails/${eventId}/${response.data.data.user_id}`);
+		formData.append("place_banner",banner);
+
+		try {
+			if(edit == false) {
+				// Insert place
+				const response = await axios.post(`${baseUrl}/api/add_place_event`, formData, {headers: header});
+				console.log("About place Inserted>> ",response.data);
+				if(response.data.isSuccess === true) {
+					dispatch(increment()) 
+					navigate(`/dashboard/event/personaldetails/${eventId}/${response.data.data.user_id}`);
+				}
+			} else {
+				// Update Place
+				const response = await axios.put(`${baseUrl}/api/add_place_event/${eventId}`, formData, {headers: header});
+				console.log("About place updated>> ",response.data);
+				if(response.data.isSuccess === true) {
+					dispatch(increment()) 
+					navigate("/dashboard/event/personaldetails");
+				}
 			}
-		} else {
-			// Update Place
-			const response = await axios.put(`${baseUrl}/api/add_place_event/${eventId}`, formData, {headers: header});
-			console.log("About place updated>> ",response.data);
-			if(response.data.isSuccess === true) {
-				dispatch(increment()) 
-				navigate("/dashboard/event/personaldetails");
-			}
+		} catch (error) {
+			console.log(error);
 		}
 	}
 

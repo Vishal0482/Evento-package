@@ -4,8 +4,14 @@ import { useSelector } from 'react-redux';
 function StepProgressBar() {
 
     const placesProgressBarList = ["Add Place","About Place","Personal Details","Photos & Videos","Add Service","Capacity", "Company Details","Terms & Conditions","Discount","Calendar"];
+
+    const personalSkillProgressVBarList = ["Select Skill", "Personal Details", "Photos & Videos", "Equipment", "Other Cost", "Company Details", "Terms and Conditions", "Discount", "Calendar"];
+
+    const groupSkillProgressBarList = ["Select Skill", "Personal Details", "Photos & Videos", "Add Item", "Equipment", "Other Cost", "Company Details", "Terms and Conditions", "Discount", "Calendar" ];
+
     const count = useSelector(state => state.StepProgressCount.count);
     console.log("Count", count);
+    
     return (
         <div className="w-full overflow-hidden">
             <ul className="flex justify-between step-progress-holder">

@@ -81,7 +81,7 @@ function EventCapacity() {
                     <input type="text" className="input font-bold" name="parkingCapacity" value={values.parkingCapacity} onChange={handleInputChange} />
                 </div>
                 <div className="w-full relative">
-                    <span className="input-titel">About place</span>
+                    <span className="input-titel">Address</span>
                     <div className="w-full flex flex-wrap bg-white p-2 rounded-md">
                       <textarea id="" cols="30" rows="5" className="outline-none w-full" name="aboutPlace" value={values.aboutPlace} onChange={handleInputChange} ></textarea>
                       <Link to="/" className="title-btn ml-auto uppercase">Location from Google map</Link>

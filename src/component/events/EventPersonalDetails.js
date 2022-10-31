@@ -1,4 +1,4 @@
-import React, {  useState } from 'react';
+import React, {  useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import Advertisement from '../Advertisement';
 import StepProgressBar from './StepProgressBar';
@@ -49,6 +49,19 @@ function EventPersonalDetails() {
 		state: Yup.string().required('State name is required*'),
 		pincode: Yup.string().min(6, 'Too Short!').max(6, 'Too Long!').required('Pincode is required*')
 	});
+
+	const getPersonalDetails = async() => {
+		try {
+			const response = await axios.get(`${baseUrl}/api/events/personaldetail`, {headers: header});
+			console.log("Get Personal details > ", response);		
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	// useEffect(() => {
+		// getPersonalDetails();
+	// },[]);
 
 
 	const clickNextHandler = async(values) => {

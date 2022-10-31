@@ -1,10 +1,8 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react';
 import { baseUrl } from '../../../config';
 
 function EventPopUpAddService({handleClose, data, edit, setReload}) {
-  // validation pending htmlFor required field.
 
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
@@ -19,8 +17,9 @@ function EventPopUpAddService({handleClose, data, edit, setReload}) {
       setPrice(data.service_price);
       setDescription(data.service_desc);
       setPriceType(data.service_price_type);
+      setQuantity(data.service_quantity);
     }
-  },[handleClose]);
+  },[handleClose, data]);
 
   const token = localStorage.getItem("Token");
   const header = {
@@ -35,13 +34,14 @@ function EventPopUpAddService({handleClose, data, edit, setReload}) {
         service_price: price,
         service_price_type: priceType,
         service_desc: description,
-        service_image: image
+        service_quantity: quantity,
+        // service_image: image
     }
 
     // let formData = new FormData();
     // formData.append("service_name", name);
     // formData.append("service_price", price);
-    // formData.append("", quantity);
+    // formData.append("service_quantity", quantity);
     // formData.append("service_price_type", priceType);
     // formData.append("service_desc", description);
     // formData.append("service_image", image);
@@ -76,7 +76,7 @@ function EventPopUpAddService({handleClose, data, edit, setReload}) {
             <div className="flex justify-between items-center">
               <h1 className="h1">Add Service</h1>
               <div className="flex items-center space-x-6">
-                <Link to="/" className="text-base font-bold text-spiroDiscoBall"><i className="icon-plus font-bold text-xs"></i> <span>Add Service</span></Link>
+                {/* <Link to="/" className="text-base font-bold text-spiroDiscoBall"><i className="icon-plus font-bold text-xs"></i> <span>Add Service</span></Link> */}
                 <button onClick={()=>handleClose(false)} href="#" className="text-xl"><i className="icon-close"></i></button>
               </div>
             </div>
@@ -94,19 +94,19 @@ function EventPopUpAddService({handleClose, data, edit, setReload}) {
                   </div>
                   <div className="selectPrice flex items-center space-x-3">
                     <label className="block cursor-pointer">
-                      <input type="radio" name="price" value="perDay" className="hidden" checked={priceType == "per_day" && true} onChange={(e)=> setPriceType("per_day")} />
+                      <input type="radio" name="price" value="perDay" className="hidden" checked={priceType === "per_day" && true} onChange={(e)=> setPriceType("per_day")} />
                       <span className="text-sm text-quicksilver py-2 px-3 bg-white shadow-lg whitespace-nowrap font-bold rounded block">
                         Per / Day
                       </span>
                     </label>
                     <label className="block cursor-pointer">
-                      <input type="radio" name="price" value="perHour" className="hidden" checked={priceType == "per_person" && true} onChange={(e)=> setPriceType("per_person")} />
+                      <input type="radio" name="price" value="perHour" className="hidden" checked={priceType === "per_person" && true} onChange={(e)=> setPriceType("per_person")} />
                       <span className="text-sm text-quicksilver py-2 px-3 bg-white shadow-lg whitespace-nowrap font-bold rounded block">
                         Per / Person
                       </span>
                     </label>
                     <label className="block cursor-pointer">
-                      <input type="radio" name="price" value="perEvent" className="hidden" checked={priceType == "per_event" && true} onChange={(e)=> setPriceType("per_event")} />
+                      <input type="radio" name="price" value="perEvent" className="hidden" checked={priceType === "per_event" && true} onChange={(e)=> setPriceType("per_event")} />
                       <span className="text-sm text-quicksilver py-2 px-3 bg-white shadow-lg whitespace-nowrap font-bold rounded block">
                         Per / Event
                       </span>
