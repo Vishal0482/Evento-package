@@ -1,11 +1,58 @@
-import React ,{useState}from 'react'
-import { Link } from 'react-router-dom'
-import Modal from "../modal/Modal"
-import EventPopUpTermsAndCondition from "./popups/EventPopUpTermsAndConditions"
+import React ,{useState}from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import Modal from "../modal/Modal";
+import EventPopUpTermsAndCondition from "./popups/EventPopUpTermsAndConditions";
+import { useDispatch } from 'react-redux';
+import { addTermsAndCondition } from '../../redux/createEvent';
+import StepProgressBar from './StepProgressBar';
 
 function EventTermsAndConditions() {
 
   const [isTermsAndConditionPopUpOpen, setIsTermsAndConditionPopUpOpen] = useState(false)
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const params = useParams();
+  const eventId = params.eventId;
+  
+	const initialState = {
+		termAndCondition: "",
+    socialMedia: {
+      facebook: "",
+      youtube: "",
+      twitter: "",
+      pintrest: "",
+      instagram: "",
+      linkedin: "",
+    }
+	}
+  const [acceptTerm, setAcceptTerm] = useState(false);
+	const [values, setValues] = useState(initialState);
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    console.log(e.target);
+    const temp = name.split(".");
+    if (temp.length !== 2) {
+      setValues({
+        ...values,
+        [name]: value,
+      });
+    } else {
+      setValues({
+        ...values,
+        socialMedia: {
+          ...values.socialMedia,
+          [temp[1]]: value,
+        }
+      });
+    }
+  };
+	console.log(values);
+  console.log(acceptTerm);
+
+  const clickNextHandler = () => {
+		dispatch(addTermsAndCondition({termsAndCondition : values}));
+		navigate(`/dashboard/event/discounts/${eventId}`);
+	}
 
   return (
 		// <!-- Content In -->
@@ -18,70 +65,7 @@ function EventTermsAndConditions() {
                 <Link to="/" className="flex items-center"><i className="icon-back-arrow mr-4 text-2xl"></i><h1>Sweet Love Catering</h1></Link>
               </div>
               {/* <!-- step-progress-bar  --> */}
-              <div className="w-full overflow-hidden">
-                <ul className="flex justify-between step-progress-holder">
-                  <li>
-                    <div>
-                      <span>01</span>
-                    </div>
-                    <h3>Add Place</h3>                        
-                  </li>                      
-                  <li>
-                    <div>
-                      <span>02</span>
-                    </div>
-                    <h3>about place</h3>                        
-                  </li>
-                  <li>
-                    <div>
-                      <span>03</span>
-                    </div>
-                    <h3>personal details</h3>                        
-                  </li>
-                  <li>
-                    <div>
-                      <span>04</span>
-                    </div>
-                    <h3>Photos & videos</h3>                        
-                  </li>
-                  <li>
-                    <div>
-                      <span>05</span>
-                    </div>
-                    <h3>add service</h3>                        
-                  </li>
-                  <li>
-                    <div>
-                      <span>06</span>
-                    </div>
-                    <h3>capacity</h3>                        
-                  </li>
-                  <li>
-                    <div>
-                      <span>07</span>
-                    </div>
-                    <h3>company details</h3>                        
-                  </li>
-                  <li>
-                    <div>
-                      <span>08</span>
-                    </div>
-                    <h3>Terms & Conditions</h3>                        
-                  </li>
-                  <li>
-                    <div>
-                      <span>09</span>
-                    </div>
-                    <h3>Discount</h3>                        
-                  </li>
-                  <li>
-                    <div>
-                      <span>10</span>
-                    </div>
-                    <h3>Calendar</h3>                        
-                  </li>
-                </ul>
-              </div>
+              <StepProgressBar />
               {/* <!-- main-content  --> */}
               <div className="space-y-5">
                 <div className="w-full space-y-2.5">
@@ -105,7 +89,7 @@ function EventTermsAndConditions() {
                         <button type="button"><i className="icon-list-num text-xl"></i></button>
                       </div>
                     </div>
-                    <textarea cols="30" rows="10" className="w-full outline-none p-7 py-5"></textarea>
+                    <textarea cols="30" rows="10" className="w-full outline-none p-7 py-5" name="termAndCondition" value={values?.termAndCondition} onChange={handleInputChange}></textarea>
                   </div>
                 </div>
                 <div className="w-full">
@@ -121,7 +105,7 @@ function EventTermsAndConditions() {
                               </svg>
                             </div>
                           </div>
-                          <input type="text" className="w-full outline-none" placeholder="Enter URL"/>
+                          <input type="text" className="w-full outline-none" placeholder="Enter URL" name="socialMedia.facebook" value={values?.socialMedia.facebook} onChange={handleInputChange}/>
                         </div>
                       </div>
                       <div className="w-full md:w-1/2 p-2">
@@ -129,7 +113,7 @@ function EventTermsAndConditions() {
                           <div className="">
                             <div className="text-center w-6">
                               <svg className="mx-auto" width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <g clip-path="url(#clip0_1_11310)">
+                                <g clipPath="url(#clip0_1_11310)">
                                 <path d="M22.1717 5.89269C21.9181 4.95023 21.1751 4.20735 20.2328 3.95357C18.5112 3.48242 11.6248 3.48242 11.6248 3.48242C11.6248 3.48242 4.73857 3.48242 3.01697 3.93561C2.09281 4.18922 1.33163 4.9504 1.07802 5.89269C0.625 7.61412 0.625 11.1842 0.625 11.1842C0.625 11.1842 0.625 14.7722 1.07802 16.4757C1.3318 17.418 2.07469 18.1611 3.01714 18.4148C4.7567 18.886 11.625 18.886 11.625 18.886C11.625 18.886 18.5112 18.886 20.2328 18.4328C21.1752 18.1792 21.9181 17.4361 22.1719 16.4938C22.6249 14.7722 22.6249 11.2023 22.6249 11.2023C22.6249 11.2023 22.643 7.61412 22.1717 5.89269Z" fill="#FF0000"/>
                                 <path d="M9.43262 14.4831L15.159 11.1849L9.43262 7.88672V14.4831Z" fill="white"/>
                                 </g>
@@ -141,7 +125,7 @@ function EventTermsAndConditions() {
                               </svg>
                             </div>
                           </div>
-                          <input type="text" className="w-full outline-none" placeholder="Enter URL"/>
+                          <input type="text" className="w-full outline-none" placeholder="Enter URL" name="socialMedia.youtube" value={values?.socialMedia.youtube} onChange={handleInputChange}/>
                         </div>
                       </div>
                       <div className="w-full md:w-1/2 p-2">
@@ -153,7 +137,7 @@ function EventTermsAndConditions() {
                               </svg>
                             </div>
                           </div>
-                          <input type="text" className="w-full outline-none" placeholder="Enter URL"/>
+                          <input type="text" className="w-full outline-none" placeholder="Enter URL" name="socialMedia.twitter" value={values?.socialMedia.twitter} onChange={handleInputChange}/>
                         </div>
                       </div>
                       <div className="w-full md:w-1/2 p-2">
@@ -165,7 +149,7 @@ function EventTermsAndConditions() {
                               </svg>
                             </div>
                           </div>
-                          <input type="text" className="w-full outline-none" placeholder="Enter URL"/>
+                          <input type="text" className="w-full outline-none" placeholder="Enter URL" name="socialMedia.pintrest" value={values?.socialMedia.pintrest} onChange={handleInputChange}/>
                         </div>
                       </div>
                       <div className="w-full md:w-1/2 p-2">
@@ -173,15 +157,15 @@ function EventTermsAndConditions() {
                           <div className="">
                             <div className="text-center w-6">
                               <svg className="mx-auto" width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <g clip-path="url(#clip0_1_11326)">
+                                <g clipPath="url(#clip0_1_11326)">
                                 <path d="M1.87476 1.53539C0.303093 3.16789 0.624759 4.90206 0.624759 10.1704C0.624759 14.5454 -0.138574 18.9312 3.85643 19.9637C5.10393 20.2846 16.1573 20.2846 17.4031 19.9621C19.0664 19.5329 20.4198 18.1837 20.6048 15.8312C20.6306 15.5029 20.6306 4.84372 20.6039 4.50872C20.4073 2.00289 18.8648 0.558725 16.8323 0.266225C16.3664 0.198725 16.2731 0.178725 13.8831 0.174559C5.40559 0.178725 3.54726 -0.198775 1.87476 1.53539Z" fill="url(#paint0_linear_1_11326)"/>
                                 <path d="M10.6233 2.79033C7.59751 2.79033 4.72417 2.52116 3.62667 5.33783C3.17334 6.50116 3.23917 8.012 3.23917 10.1753C3.23917 12.0737 3.17834 13.8578 3.62667 15.012C4.72167 17.8303 7.61834 17.5603 10.6217 17.5603C13.5192 17.5603 16.5067 17.862 17.6175 15.012C18.0717 13.837 18.005 12.3487 18.005 10.1753C18.005 7.29033 18.1642 5.42783 16.765 4.0295C15.3483 2.61283 13.4325 2.79033 10.62 2.79033H10.6233ZM9.96167 4.12116C16.2733 4.11116 17.0767 3.4095 16.6333 13.157C16.4758 16.6045 13.8508 16.2262 10.6242 16.2262C4.74084 16.2262 4.57167 16.0578 4.57167 10.172C4.57167 4.21783 5.03834 4.1245 9.96167 4.1195V4.12116ZM14.565 5.347C14.0758 5.347 13.6792 5.74366 13.6792 6.23283C13.6792 6.722 14.0758 7.11866 14.565 7.11866C15.0542 7.11866 15.4508 6.722 15.4508 6.23283C15.4508 5.74366 15.0542 5.347 14.565 5.347ZM10.6233 6.38283C8.52917 6.38283 6.83167 8.08116 6.83167 10.1753C6.83167 12.2695 8.52917 13.967 10.6233 13.967C12.7175 13.967 14.4142 12.2695 14.4142 10.1753C14.4142 8.08116 12.7175 6.38283 10.6233 6.38283ZM10.6233 7.71366C13.8775 7.71366 13.8817 12.637 10.6233 12.637C7.37001 12.637 7.36501 7.71366 10.6233 7.71366Z" fill="white"/>
                                 </g>
                                 <defs>
                                 <linearGradient id="paint0_linear_1_11326" x1="1.91311" y1="18.8971" x2="20.501" y2="2.80954" gradientUnits="userSpaceOnUse">
-                                <stop stop-color="#FFDD55"/>
-                                <stop offset="0.5" stop-color="#FF543E"/>
-                                <stop offset="1" stop-color="#C837AB"/>
+                                <stop stopColor="#FFDD55"/>
+                                <stop offset="0.5" stopColor="#FF543E"/>
+                                <stop offset="1" stopColor="#C837AB"/>
                                 </linearGradient>
                                 <clipPath id="clip0_1_11326">
                                 <rect width="20" height="20" fill="white" transform="translate(0.625 0.173828)"/>
@@ -190,7 +174,7 @@ function EventTermsAndConditions() {
                               </svg>
                             </div>
                           </div>
-                          <input type="text" className="w-full outline-none" placeholder="Enter URL"/>
+                          <input type="text" className="w-full outline-none" placeholder="Enter URL" name="socialMedia.instagram" value={values?.socialMedia.instagram} onChange={handleInputChange}/>
                         </div>
                       </div>
                       <div className="w-full md:w-1/2 p-2">
@@ -202,7 +186,7 @@ function EventTermsAndConditions() {
                               </svg>
                             </div>
                           </div>
-                          <input type="text" className="w-full outline-none" placeholder="Enter URL"/>
+                          <input type="text" className="w-full outline-none" placeholder="Enter URL" name="socialMedia.linkedin" value={values?.socialMedia.linkedin} onChange={handleInputChange}/>
                         </div>
                       </div>
                     </div>
@@ -210,7 +194,7 @@ function EventTermsAndConditions() {
                 </div>
                 <div className="flex items-end">
                     <label className="checkbox rounded bg-white">
-                        <input type="checkbox"/>
+                        <input type="checkbox" onChange={(e) => setAcceptTerm(!acceptTerm)} />
                         <i className="icon-right"></i>                  
                     </label>
                     <span className="input-titel text-base ml-4">Accept Your <button onClick={()=>setIsTermsAndConditionPopUpOpen(true)}>Terms and Conditions</button></span>
@@ -219,8 +203,8 @@ function EventTermsAndConditions() {
               </div>
             </div>
             <div className="prw-next-btn">
-              <button type="button" className="flex items-center"><i className="icon-back-arrow mr-3"></i><h3>Back</h3></button>
-              <button type="button" className="flex items-center active"><h3>Next</h3><i className="icon-next-arrow ml-3"></i></button>
+              <button type="button" className="flex items-center" onClick={(e) => navigate(-1)}><i className="icon-back-arrow mr-3"></i><h3>Back</h3></button>
+              <button type="button" className="flex items-center active" onClick={clickNextHandler}><h3>Next</h3><i className="icon-next-arrow ml-3"></i></button>
             </div>
           </div>
           <Modal isOpen={isTermsAndConditionPopUpOpen}>

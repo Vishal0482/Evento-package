@@ -1,8 +1,32 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import sweetLoveCatering from "../../assest/images/sweet-love-catering.png";
+import { baseUrl } from '../../config';
+import { useDispatch } from 'react-redux';
+import { increment } from '../../redux/stepProgressCount';
 
-function DashboardEventCategoryItem() {
+function DashboardEventCategoryItem({data}) {
+	const dispatch = useDispatch();
+	// const [isLive, setIsLive] = useState(false);
+	// const token = localStorage.getItem("Token");
+	// const header = {
+	// 	'Authorization': `Token ${token}`,
+	// }
+
+	// useEffect(async()=> {
+	// 	const requestObj = {
+
+	// 	};
+
+	// 	try {
+	// 		const response = await axios.put(`${baseUrl}/api/events_get_list`, {requestObj},{headers: header});
+	// 		console.log(response);
+	// 	} catch (error) {	
+	// 		 console.log(error);
+	// 	}
+	// }, []);
+
   return (
     <div className="w-full flex items-center">
 			<div>
@@ -17,8 +41,8 @@ function DashboardEventCategoryItem() {
 				<div className="w-full">
 				  <div className="flex justify-between border-b-2 pb-4">
 					<div className="">
-					  <span className="text-sm text-white bg-spiroDiscoBall px-3 py-1">Caterers</span>
-					  <h2 className="text-japaneseIndigo pt-5">Sweet Love Catering</h2>
+					  <span className="text-sm text-white bg-spiroDiscoBall px-3 py-1">{data?.event_type}</span>
+					  <h2 className="text-japaneseIndigo pt-5">{data?.display_name}</h2>
 					  <div className="text-sm text-quicksilver pt-3"><i className="icon-fill-location mr-3"></i>Dallas, Texas
 					  </div>
 					</div>
@@ -42,7 +66,8 @@ function DashboardEventCategoryItem() {
 					  <span className="text-quicksilver text-xs font-bold pl-2"> 19,981 ratings</span>
 					</div>
 					<div className="flex space-x-2">
-					  <Link to="/" className="bg-brightGray px-2 py-1 text-center rounded"><i
+					  <Link to={`/dashboard/event/addplaces/${data.eventId}`} onClick={()=> dispatch(increment())} className="bg-brightGray px-2 py-1 text-center rounded"><i className="text-base edit text-black icon-edit" style={{color: "#000"}}></i></Link>
+						<Link to="/" className="bg-brightGray px-2 py-1 text-center rounded"><i
 						className="icon-fill-megaphone text-base text-black"></i></Link>
 					  <Link to="/" className="bg-brightGray px-2 py-1 text-center rounded"><i
 						className="icon-calendar1 text-base text-black"></i></Link>

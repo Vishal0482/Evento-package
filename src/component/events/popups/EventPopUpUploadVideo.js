@@ -1,7 +1,73 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import axios from 'axios';
+import React, { useState } from 'react';
+import { baseUrl } from '../../../config';
 
-function EventPopUpUploadVideo({handleClose}) {
+function EventPopUpUploadVideo({handleClose, eventId}) {
+  const [video, setVideo] = useState("");
+  const [videoPreview, setVideoPreview] = useState("");
+  const [details, setDetails] = useState("");
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const token = localStorage.getItem("Token");
+	const header = {
+		'Authorization': `Token ${token}`,
+		'Content-Type': 'multipart/form-data'
+	}
+  
+	const videoChangeHandler = (event) => {
+		const types = ['video/mp4'];
+		let selected = event.target.files[0];
+		
+		try {
+			if(selected && types.includes(selected.type)) {
+				if(selected.size < (512*1024*1024)){
+          setVideoPreview(URL.createObjectURL(selected));
+					setVideo(selected);
+          setErrorMessage(null);
+					setError(false);
+				}
+				else {
+					console.log("file size is greater than 512MB. File size is ", selected.size);
+					setErrorMessage("file size is greater than 512MB.");
+					setError(true);
+				}
+			} else {
+				console.log("please select video file with mp4 extension.",selected.type);
+				setErrorMessage("please select video file with mp4 extension.");
+				setError(true);
+			}
+		} catch (error) {
+			console.log(error);
+			setError(true);
+		}
+	}  
+
+  const videoUpload = async() =>{
+    try {
+      let formDataVideo = new FormData();
+      formDataVideo.append("image_details",details);
+      formDataVideo.append("event", eventId);
+      formDataVideo.append("video", video);
+      const response = await axios.post(`${baseUrl}/api/video_event`, formDataVideo, {headers: header});
+      console.log(response);
+      if(response.data.isSuccess === true) {
+				handleClose(false);
+			}
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const submitHandler = async() => {
+		if(!error) {
+      videoUpload();
+      handleClose(false);
+		} else {
+			console.log("error occured");
+		}
+	}
+
   return (
 	<div className="popup table fixed w-full inset-0 z-40 bg-black bg-opacity-75 h-screen">
       <div className="table-cell align-middle">
@@ -17,16 +83,17 @@ function EventPopUpUploadVideo({handleClose}) {
               <div className="upload-holder">
                 <h6 className="text-sm font-bold text-quicksilver">Select Video <span className="text-10">2 video (up to 512MB/Video)</span></h6>
                 <label htmlfor="upload" className="upload upload-popup">
-                  <input type="file" name="images" id="upload" className="appearance-none hidden"/>
+                  <input type="file" name="video" id="upload" className="appearance-none hidden" onChange={videoChangeHandler} />
                   <span className="input-titel mt-1"><i className="icon-video-play mr-2"></i>Upload Video</span>
                 </label>
+                {error ? <span className="mt-1" style={{color: "red", fontSize: "14px"}}>{errorMessage} </span> : <span className="mt-1" style={{fontSize: "14px"}}>{video.name}</span>}
               </div>
               <div className="w-full">
                 <span className="input-titel">Details</span>
-                <textarea name="" id="" cols="30" rows="5" className="outline-none flex items-center w-full bg-white p-2 px-3.5 rounded-md"></textarea>
+                <textarea name="" id="" cols="30" rows="5" className="outline-none flex items-center w-full bg-white p-2 px-3.5 rounded-md" onChange={(e) => setDetails(e.target.value)}></textarea>
               </div>
             </form>
-            <Link to="/" className="btn-primary w-full uppercase">Submit</Link>
+            <div className="btn-primary w-full uppercase" onClick={submitHandler}>Submit</div>
           </div>
         </div>
       </div>
@@ -34,4 +101,4 @@ function EventPopUpUploadVideo({handleClose}) {
   )
 }
 
-export default EventPopUpUploadVideo
+export default EventPopUpUploadVideo;
