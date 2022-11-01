@@ -1,13 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import logoImage from "../assest/svg/logo.svg";
 import userImage from "../assest/images/user-2.png";
 import Modal from "./modal/Modal.js"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LanguagePopup from "./other/modal/LanguagePopup"
 
 function SideBar({children}) {
   
   const [languagePopup, setLanguagePopup] = useState(false);
+  const navigate = useNavigate();
+  const token = localStorage.getItem("Token") || null;
+  console.log(token);
+
+  useEffect(()=>{
+    if(token == null) return navigate("/login")
+  },[])
+
   return (
     <div className="main flex min-h-screen">
       {/* <!-- Left Panel --> */}

@@ -1,0 +1,179 @@
+.logo img {
+    margin-left: 161px;
+}
+.main {
+    width: 100%;
+    height: auto;
+    position: relative;
+   
+    overflow: hidden;
+}
+.login-page {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    background: #fff;
+}
+.logo {
+    background-image: url(../../images/landing-page/bg-1.png);
+    height: 100%;
+    width: 100%;
+    background-repeat: no-repeat;
+    position: relative;
+    background-size: cover;
+}
+.logo, .form-holder {
+    width: 100%;
+    position: relative;
+    display: block;
+}
+.form-main {
+    max-width: 470px;
+    height: auto;
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+}
+.form-title h1 {
+    font-size: 40px;
+    color: #25364F;
+}
+.form-title p {
+    font-size: 20px;
+    line-height: 32px;
+    color: #9BA0A8;
+    font-weight: 400;
+    max-width: 100%;
+    margin-top: 14px;
+}
+.form-main .form {
+    width: 100%;
+    height: auto;
+    position: relative;
+    display: block;
+    margin-top: 55px;
+}
+.form .ps-1 {
+    width: 100%;
+    height: auto;
+    position: relative;
+}
+.form-main .form a {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 14px;
+    line-height: 16.1px;
+    color: #E58F0D;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+}
+.form .ps-1 label {
+    font-size: 14px;
+    font-weight: 700;
+    color: #9BA0A8;
+}
+.form .ps-1 input {
+    margin-top: 7px;
+    margin-bottom: 15px;
+    padding: 15px 20px;
+    outline: none;
+    background: #eee;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    width: 100%;
+    font-size: 16px;
+}
+.form button, .social-media-main .event-other-btn button, .Create-an-notification button {
+    width: 100%;
+    background-color:  #20C0E8;
+    border: none;
+    font-size: 18px;
+    color: #ffffff;
+    font-weight: 700;
+    padding: 15px 10px;
+    border-radius: 5px;
+    margin-top: 30px;
+    cursor: pointer;
+    text-transform: uppercase;    
+}
+.btn-hr p {
+    font-size: 12px;
+    color: #9BA0A8;
+    font-weight: 400;
+    text-align: center;
+    margin-top: 33px;
+}
+.btn-hr p {
+    font-size: 12px;
+    color: #9BA0A8;
+    font-weight: 400;
+    text-align: center;
+    margin-top: 33px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.btn-hr p::before {
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 200px;
+    background: #ddd;
+    left: 0;
+}
+.btn-hr p::after {
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 200px;
+    background: #ddd;
+    right: 0;
+}
+a.social-btn {
+    display: flex;
+    align-items: center;
+    border: 2px solid #D3DCEA;
+    background-color: #ffffff;
+    border-radius: 5px;
+    margin-top: 27px;
+    width: 100%;
+    cursor: pointer;
+    position: relative;
+    padding: 15px 0;
+    text-decoration: none;
+}
+a.social-btn img {
+    padding: 12px 14px;
+    position: absolute;
+    left: 0;
+}
+.social-holder {
+    display: flex;
+    justify-content: center;
+}
+a.social-btn p {
+    font-size: 18px;
+    color: #25364F;
+    font-weight: 700;
+    margin: auto;
+}
+a.social-btn.btn1 {
+    margin-right: 4px;
+}
+a.social-btn.btn2 {
+    margin-left: 4px;
+}
+.botm-t p {
+    text-align: center;
+    font-size: 14px;
+    color: #25364F;
+    font-weight: 700;
+    margin-top: 30px;
+}
+.botm-t a {
+    color: #25364F;
+    text-decoration: underline !important;
+}
