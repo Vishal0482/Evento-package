@@ -13,7 +13,7 @@ function SideBar({children}) {
   console.log(token);
 
   useEffect(()=>{
-    if(token == null) return navigate("/login")
+    if(token == null) return navigate("/auth/login")
   },[])
 
   return (

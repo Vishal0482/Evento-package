@@ -1,7 +1,7 @@
 import React, { useState,useEffect } from "react";
 import $ from "jquery";
 import OwlCarousel from "react-owl-carousel";
-// import i18n from "../assest/js/i18n";
+import i18n from "../../assest/js/i18n";
 
 // import '../../assest/css/landing-page/bootstrap.min.css';
 import "../../assest/css/landing-page/style1.css";
@@ -9,7 +9,6 @@ import "../../assest/css/landing-page/style1.css";
 
 import "owl.carousel/dist/assets/owl.carousel.min.css";
 import "owl.carousel/dist/assets/owl.theme.default.min.css";
-// import "../assets/css/style-old.css"
 
 import  fcoin from "../../assest/images/landing-page/F-coin.png";
 import  sfe from "../../assest/images/landing-page/FE.png";
@@ -33,11 +32,11 @@ import ShowBACK from "../../assest/images/landing-page/BACK.jpg";
 import giftboxl from "../../assest/images/landing-page/gift-box-l.png";
 import giftboxl2 from "../../assest/images/landing-page/gift-box-l2.png";
 import giftboxl3 from "../../assest/images/landing-page/gift-box-l3.png";
-// import aboutg from "../assest/landing-page/about-g.png";
+import aboutg from "../../assest/images/landing-page/about-g.png";
 import MobileStoreOffer from "../../assest/images/landing-page/Mobile Store Offer.png";
 import GrocerystoreOffer from "../../assest/images/landing-page/Grocery store Offer.png";
 import friutmarket from "../../assest/images/landing-page/friut-market.jpg";
-// import fashionstore from "../assest/imgages/landing-pagefashion-store.png";
+import fashionstore from "../../assest/images/landing-page/fashion-store.png";
 import ourcompany from "../../assest/images/landing-page/our-company.png";
 // import lbanner from "../assets/img/l-banner.png";
 // import logo from "../assets/img/evento packege.png";
@@ -59,14 +58,13 @@ import india from "../../assest/images/landing-page/india.png";
 import germany from "../../assest/images/landing-page/germany.png";
 import china from "../../assest/images/landing-page/china.png";
 import thailand from "../../assest/images/landing-page/thailand.png";
-// import multidevice from "../assets/img/Multi-Devices.png";
 
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
 const changeLanguage = (ln) => {
   return () => {
-    // i18n.changeLanguage(ln);
+    i18n.changeLanguage(ln);
     console.log(`lanuage changed to ${ln}`);
   };
 };
@@ -154,7 +152,7 @@ function LandingPage() {
       $(function () {
         // Dropdown toggle
         $(".language-toggle").click(function () {
-          $(".notification-holder").slideToggle();
+          $(".notification-holder").slideDown();
         });
         $(".radio-btn-icon input").click(function () {
           $(".notification-holder").slideUp();
@@ -362,17 +360,14 @@ function LandingPage() {
                   </div>
                 </div>
                 <a >{t("Contact us")}</a>
-               <Link to="/dashboard" style={{marginLeft:10}} > <a >{t("Dashboard")}</a></Link>
+               <Link to="/auth/login" style={{marginLeft:10}} > <a >{t("Dashboard")}</a></Link>
               </div>
             </div>
             <div className="home-page-titel">
-              {/* <div className="multi-device">
-                <img src={multidevice} class="img-fluid" alt="" />
-              </div> */}
               <div className="landing-bg-img">
                 <p>{t("Explore Us")}</p>
                 <h2>
-                  {t("Get Ready ")} <br />{" "}
+                  {t("Get Ready")} <br />{" "}
                   {t("For Mindblowing Public and Private Events  ")}
                 </h2>
               </div>
@@ -919,7 +914,7 @@ function LandingPage() {
         </div>
       </div>
       <div className="showcase-main" id="showcase">
-        <div className="position-relative pt-0 pt-sm-5 pb-5">
+        <div className="position-relative pt-14 pt-sm-5 pb-5">
           <img src={ShowBACK} className="img-fluid showBack" alt="" />
           <div className="showcase-titel position-relative">
             <h2>{t("What exactly is Evento Package?")}</h2>
@@ -1055,7 +1050,7 @@ function LandingPage() {
       </div>
       <div className="about-video-g" id="about">
         <div className="about-holder-g">
-          {/* <img src={aboutg} className="img-fluid" alt="" /> */}
+          <img src={aboutg} className="img-fluid" alt="" />
           <div className="about-text">
             <h2>{t("Who we are?")}</h2>
             <p>
@@ -1142,7 +1137,7 @@ function LandingPage() {
               <div className="vg-card">
                 <div className="video-img vi-main">
                   <div className="brick">
-                    {/* <img src={fashionstore} /> */}
+                    <img src={fashionstore} />
                     <div className="bt-play"></div>
                   </div>
                   <div className="video-container">

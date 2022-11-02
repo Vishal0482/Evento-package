@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 // import "../assets/icon/font/style.css";
 // import '../../assest/css/landing-page/bootstrap.min.css';
@@ -7,18 +7,21 @@ import React, { useState } from 'react';
 import logo from "../../assest/svg/logo.svg";
 // import googlelogo from "../assest/img/google.png";
 // import facebooklogo from "../assest/img/facebook.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { baseUrl } from '../../config';
 
-
-// import { API_URL } from "../constants"
 
 const axios = require('axios');
 
 
 function Login() {
+	const navigate = useNavigate();
+  	const token = localStorage.getItem("Token") || null;
+  	console.log(token);
 
-	// console.log('API_URL',API_URL);
+	useEffect(()=>{
+		if(token != null) return navigate("/dashboard")
+	},[])
 
 	const [userData, setUserData] = useState({ emailOrPhone: "", password: "" });
 	const [errMsg, setErrMsg] = useState("");
@@ -40,15 +43,14 @@ function Login() {
 			if (response && response.data && response.data.data && response.data.data.token) {
 
 				localStorage.clear();
-
-				localStorage.setItem("token", response.data.data.token);
-				console.log("token", response.data.data.token);
+				localStorage.setItem("Token", response.data.data.token);
+				console.log("Token", response.data.data.token);
 
 				if (response && response.data && response.data.data && response.data.data.userId) {
 					localStorage.setItem("userId", response.data.data.userId);
 				}
 
-				window.location.href = "/dashboard";
+				navigate("/dashboard");
 
 				//alert('login success')
 			} else {
@@ -67,7 +69,7 @@ function Login() {
 		<div className="main">
 			<div className="login-page">
 				<div className="logo">
-					<img src={logo} alt="logo" />
+					<img src={logo} alt="logo" onClick={() => navigate("/")}/>
 				</div>
 				<div className="form-holder">
 					<div className="form-main">
@@ -106,7 +108,7 @@ function Login() {
 						</div> */}
 						<div className="botm-t">
 							<p>
-								Are You new? <Link to="/register">Registrater Now</Link>
+								Are You new? <Link to="/auth/register">Registrater Now</Link>
 							</p>
 						</div>
 					</div>

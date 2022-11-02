@@ -16,8 +16,8 @@ import { baseUrl } from '../../config';
 const axios = require('axios');
 function Register() {
 
-  const location = useLocation();
-
+    const location = useLocation();
+    const navigate = useNavigate();
     const [errMsgObj, setErrMsgObj] = useState({});
     const [formData, setFormData] = useState({ name: "", email: "", phone_no: "", password: "", password2: "", refer_code: "", user_type: 2 });
     const [passVisible, setPassVisible] = useState(false)
@@ -122,7 +122,7 @@ function Register() {
 
     async function verifyHandler() {
         try {
-            const response = await axios.post(`${baseUrl}/sms`, {
+            const response = await axios.post(`${baseUrl}/sendotp`, {
                 "phone" : "+91" + formData.phone_no
             }); 
             console.log('response', response);
@@ -144,7 +144,7 @@ function Register() {
     return (
         <div class="main">
             <div class="login-page">
-                <div class="logo"><img src={logo} alt="logo" /></div>
+                <div class="logo" ><img src={logo} alt="logo" onClick={() => navigate("/")} /></div>
                 <div class="form-holder">
                     <div class="form-main">
                         <div class="form-title ">

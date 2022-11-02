@@ -7546,6 +7546,7 @@ margin: 0px 150px 0px 20px;
     left: 0;
     width: 100%;
     height: 100%;
+    z-index: -1
   }
 .condition-holder i.icon-right:before {
     color: #4EE8C4 !important;

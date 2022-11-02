@@ -1,5 +1,5 @@
 import "./assest/css/fonts.css";
-import "./assest/css/style.css";
+// import "./assest/css/style.css";
 import "./assest/css/moon-icon.css";
 import './App.css';
 import {BrowserRouter, Routes, Route} from "react-router-dom";
@@ -51,6 +51,9 @@ import Booking from "./component/other/Booking";
 import SelectWhoYouAre from "./component/events/SelectWhoYouAre";
 // import BuySpacePlan from "./component/events/BuySpacePlan";
 import LandingPage from "./component/landing_page/LandingPage";
+import Otp from "./component/auth/Otp";
+import ForgotPassword from "./component/auth/ForgetPassword";
+import NewPassword from "./component/auth/NewPassword";
 
 function App() {
   return (
@@ -60,8 +63,11 @@ function App() {
           <Routes className="main min-h-screen w-full">
             {/* Login  */}
             <Route exact path="/" element={<LandingPage />} />
-            <Route exact path="/login" element={<Login />} />
-            <Route exact path="/register" element={<Register />} />
+            <Route exact path="/auth/login" element={<Login />} />
+            <Route exact path="/auth/register" element={<Register />} />
+            <Route exact path="/auth/verify" element={<Otp />} />
+            <Route exact path="/auth/forgot-password" element={<ForgotPassword />} />
+            <Route exact path="/auth/new-password" element={<NewPassword />} />
 
             {/* 0.2.1 select who you are? */}
             <Route exact path="/dashboard" element={<SideBar> <SelectWhoYouAre/></SideBar>} />
