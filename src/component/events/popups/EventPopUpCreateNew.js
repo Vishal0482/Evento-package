@@ -17,7 +17,7 @@ function EventPopUpCreateNew({ handleClose, selectedCategory, displayName, event
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-	const token = "248258927fede2b3e48c182f40539846bcd47037";
+	const token = "c179cb30de8a1d5c2c17fbd7a35093cb6f8a7325";
 	const header = {
 		Authorization: `Token ${token}`,
 	};
@@ -44,7 +44,7 @@ function EventPopUpCreateNew({ handleClose, selectedCategory, displayName, event
 	const responseObj = {
 		eventType: eventType,
 		display_name: newCategoryDisplayName,
-		categoryId: newCategoryId
+		category_id: newCategoryId
 	}
 	console.log(newCategoryId, newCategoryName, newCategoryDisplayName);
 	const clickHandler = async () => {
