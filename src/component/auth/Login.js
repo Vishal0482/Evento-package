@@ -108,7 +108,7 @@ function Login() {
 						</div> */}
 						<div className="botm-t">
 							<p>
-								Are You new? <Link to="/auth/register">Registrater Now</Link>
+								Are You new? <Link to="/register">Registrater Now</Link>
 							</p>
 						</div>
 					</div>

@@ -360,7 +360,7 @@ function LandingPage() {
                   </div>
                 </div>
                 <a >{t("Contact us")}</a>
-               <Link to="/auth/login" style={{marginLeft:10}} > <a >{t("Dashboard")}</a></Link>
+               <Link to="/login" style={{marginLeft:10}} > <a >{t("Dashboard")}</a></Link>
               </div>
             </div>
             <div className="home-page-titel">

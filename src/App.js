@@ -63,11 +63,11 @@ function App() {
           <Routes className="main min-h-screen w-full">
             {/* Login  */}
             <Route exact path="/" element={<LandingPage />} />
-            <Route exact path="/auth/login" element={<Login />} />
-            <Route exact path="/auth/register" element={<Register />} />
-            <Route exact path="/auth/verify" element={<Otp />} />
+            <Route exact path="/login" element={<Login />} />
+            <Route exact path="/register" element={<Register />} />
+            {/* <Route exact path="/auth/verify" element={<Otp />} />
             <Route exact path="/auth/forgot-password" element={<ForgotPassword />} />
-            <Route exact path="/auth/new-password" element={<NewPassword />} />
+            <Route exact path="/auth/new-password" element={<NewPassword />} /> */}
 
             {/* 0.2.1 select who you are? */}
             <Route exact path="/dashboard" element={<SideBar> <SelectWhoYouAre/></SideBar>} />
