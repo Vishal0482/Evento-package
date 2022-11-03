@@ -51,7 +51,7 @@ function EventPopUpCreateNew({ handleClose, selectedCategory, displayName, event
 				const response = await axios.post(`${baseUrl}/api/event/type`, requestObj , {headers: header});
 				console.log("created event >> ",response);
 
-				if(response.data.category_id) {
+				if(response.data.data.category_id) {
 					handleClose(false);
 					dispatch(increment());
 					navigate(`/dashboard/event/addplaces/${response.data.data.eventId}`);

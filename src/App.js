@@ -62,27 +62,27 @@ function App() {
         {/* <SideBar> */}
           <Routes className="main min-h-screen w-full">
             {/* Login  */}
-            <Route exact path="/" element={<LandingPage />} />
-            <Route exact path="/login" element={<Login />} />
-            <Route exact path="/register" element={<Register />} />
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
             {/* <Route exact path="/auth/verify" element={<Otp />} />
             <Route exact path="/auth/forgot-password" element={<ForgotPassword />} />
             <Route exact path="/auth/new-password" element={<NewPassword />} /> */}
 
             {/* 0.2.1 select who you are? */}
-            <Route exact path="/dashboard" element={<SideBar> <SelectWhoYouAre/></SideBar>} />
-            <Route exact path="/dashboard/event/:eventType" element={<SideBar> <DashboardEvent /></SideBar>} />
-            <Route exact path="/dashboard/event/addplaces/:eventId" element={<SideBar> <EventAddPlaces /></SideBar>} />
-            <Route exact path="/dashboard/event/aboutplace/:eventId" element={<SideBar> <EventAboutPlace /></SideBar>} />
-            <Route exact path="/dashboard/event/personaldetails/:eventId/:userId" element={<SideBar> <EventPersonalDetails /></SideBar>} />
-            <Route exact path="/dashboard/event/photosandvideos/:eventId/:userId" element={<SideBar> <EventPhotosAndVideos /></SideBar>} />
+            <Route path="/dashboard" element={<SideBar> <SelectWhoYouAre/></SideBar>} />
+            <Route path="/dashboard/event/:eventType" element={<SideBar> <DashboardEvent /></SideBar>} />
+            <Route path="/dashboard/event/addplaces/:eventId" element={<SideBar> <EventAddPlaces /></SideBar>} />
+            <Route path="/dashboard/event/aboutplace/:eventId" element={<SideBar> <EventAboutPlace /></SideBar>} />
+            <Route path="/dashboard/event/personaldetails/:eventId/:userId" element={<SideBar> <EventPersonalDetails /></SideBar>} />
+            <Route path="/dashboard/event/photosandvideos/:eventId/:userId" element={<SideBar> <EventPhotosAndVideos /></SideBar>} />
             {/* <Route exact path="/dashboard/event/buy-space-plan" element={<BuySpacePlan />} /> */}
-            <Route exact path="/dashboard/event/addservices/:eventId/:userId" element={<SideBar> <EventAddServices /></SideBar>} />
-            <Route exact path="/dashboard/event/capacity/:eventId/:userId" element={<SideBar> <EventCapacity /></SideBar>} />
-            <Route exact path="/dashboard/event/companydetails/:eventId/:userId" element={<SideBar> <EventCompanyDetails /></SideBar>} />
-            <Route exact path="/dashboard/event/termsandconditions/:eventId/:userId" element={<SideBar> <EventTermsAndConditions /></SideBar>} />
-            <Route exact path="/dashboard/event/discounts/:eventId" element={<SideBar> <EventDiscounts /></SideBar>} />
-            <Route exact path="/dashboard/event/calender/:eventId" element={<SideBar> <EventCalender /></SideBar>} />
+            <Route path="/dashboard/event/addservices/:eventId/:userId" element={<SideBar> <EventAddServices /></SideBar>} />
+            <Route path="/dashboard/event/capacity/:eventId/:userId" element={<SideBar> <EventCapacity /></SideBar>} />
+            <Route path="/dashboard/event/companydetails/:eventId/:userId" element={<SideBar> <EventCompanyDetails /></SideBar>} />
+            <Route path="/dashboard/event/termsandconditions/:eventId/:userId" element={<SideBar> <EventTermsAndConditions /></SideBar>} />
+            <Route path="/dashboard/event/discounts/:eventId" element={<SideBar> <EventDiscounts /></SideBar>} />
+            <Route path="/dashboard/event/calender/:eventId" element={<SideBar> <EventCalender /></SideBar>} />
 
             {/* 0.3.1 personal skill business */}
             <Route exact path="/dashboard/personalskillbusiness/selectskill" element={<PSBSelectSkill />}/>
@@ -96,15 +96,15 @@ function App() {
             <Route exact path="/dashboard/personalskillbusiness/calender" element={<PSBCalender/>} />
  
             {/* 5.1 Notification */}
-            <Route exact path="/dashboard/notification" element={<Notification />} />
-            <Route exact path="/dashboard/notification/history" element={<NotificationHistory />} />
-            <Route exact path="/dashboard/notification/details" element={<NotificationDetails />} />
-            <Route exact path="/dashboard/notification/promote" element={<Promote> </Promote> } />
-            <Route exact path="/dashboard/notification/promote/select-business" element={<Promote> <SelectBusiness /> </Promote> } />
-            <Route exact path="/dashboard/notification/promote/all-user-plan" element={<Promote> <AllUserSelectPlan />  </Promote> } />
-            <Route exact path="/dashboard/notification/promote/personal-skill-business" element={<Promote> <PersonalSkillBusinessPromote />  </Promote> } />
-            <Route exact path="/dashboard/notification/promote/mode" element={<Promote> <NotificationMode />  </Promote> } />
-            <Route exact path="/dashboard/notification/promote/payment" element={<Promote> <NotificationPayment />  </Promote> } />
+            <Route path="/dashboard/notification" element={<Notification />} />
+            <Route path="/dashboard/notification/history" element={<NotificationHistory />} />
+            <Route path="/dashboard/notification/details" element={<NotificationDetails />} />
+            <Route path="/dashboard/notification/promote" element={<Promote> </Promote> } />
+            <Route path="/dashboard/notification/promote/select-business" element={<Promote> <SelectBusiness /> </Promote> } />
+            <Route path="/dashboard/notification/promote/all-user-plan" element={<Promote> <AllUserSelectPlan />  </Promote> } />
+            <Route path="/dashboard/notification/promote/personal-skill-business" element={<Promote> <PersonalSkillBusinessPromote />  </Promote> } />
+            <Route path="/dashboard/notification/promote/mode" element={<Promote> <NotificationMode />  </Promote> } />
+            <Route path="/dashboard/notification/promote/payment" element={<Promote> <NotificationPayment />  </Promote> } />
 
             {/* 2.1.1 event-view */}
             <Route exact path="/dashboard/event-view" element={<DashboardEventView />} />    
