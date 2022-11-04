@@ -615,6 +615,7 @@ input:checked+i {
     --tw-text-opacity: 1;
     color: rgb(155 166 168 / var(--tw-text-opacity));
 }
+
 .input-titel.epds {
     line-height: 1.75rem;
 }
@@ -3270,4 +3271,25 @@ li#video-card.active .video-cover {
         padding-left: 1.75rem;
         padding-right: 1.75rem;
     }
+}
+
+.profile-dropdown::before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    transform: rotate(45deg);
+    top: -6px;
+    right: 16px;
+    background-color: #fff;
+    border-left: 1px solid #eeeeee;
+    border-top: 1px solid #eeeeee;
+}
+
+.profile-dropdown {
+    background-color: #fff;
+    position: absolute;
+    right: 48px;
+    padding: 10px 15px;
+    margin-top: 10px;
 }

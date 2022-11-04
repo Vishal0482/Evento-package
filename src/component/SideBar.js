@@ -127,34 +127,39 @@ function SideBar({ children }) {
           {/* <!-- Right Bar --> */}
           <div className="ml-auto">
             <div className="flex items-center space-x-6">
-              <a
-                href="#"
+              <Link
+                to="/"
                 className="block hover:text-spiroDiscoBall anim"
                 title="Language"
                 onClick={() => setLanguagePopup(true)}
               >
                 <span className="icon-language text-2xl block"></span>
-              </a>
-              <a
-                href="#"
+              </Link>
+              <Link
+                to="/"
                 className="block hover:text-spiroDiscoBall anim"
                 title="Massage"
               >
                 <span className="icon-massage text-2xl block"></span>
-              </a>
-              <a
-                href="#"
+              </Link>
+              <Link
+                to="/"
                 className="block hover:text-spiroDiscoBall anim"
                 title="Megaphone"
               >
                 <span className="icon-megaphone text-2xl block"></span>
-              </a>
+              </Link>
               <Link to="/" onClick={handleLogout} className="block">
                 <img
                   src={userImage}
                   alt="user name"
-                  className="w-12 h-12 object-cover rounded-2xl"
+                  className="w-12 h-12 object-cover rounded-2xl relative"
                 />
+                <div className="profile-dropdown " style={{ border: "1px solid #EEEEEE", borderRadius: "5px" }}>
+                  <div className="text-xs flex" style={{ marginBottom: "15px" }}> <i className="w-6 block text-center text-lg icon-membership mr-4"></i><span className="font-bold font-primary leading-4">View Profile</span></div>
+                  <div className="text-xs flex" style={{ color: "#FE4D5F" }}> <i className="w-6 block text-center text-lg icon-membership mr-4"></i><span className="font-bold font-primary leading-4">Sign Out</span></div>
+
+                </div>
               </Link>
             </div>
           </div>
@@ -166,8 +171,8 @@ function SideBar({ children }) {
         <div className="rightInContent">
           {children}
         </div>
-      </div>
-    </div>
+      </div >
+    </div >
   );
 }
 

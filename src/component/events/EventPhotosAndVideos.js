@@ -25,7 +25,7 @@ function EventPhotosAndVideos() {
 	const navigate = useNavigate();
 	const dispatch = useDispatch()
 
-	const token = '248258927fede2b3e48c182f40539846bcd47037'
+	const token = 'c179cb30de8a1d5c2c17fbd7a35093cb6f8a7325'
 	const header = {
 		'Authorization': `Token ${token}`,
 		'Content-Type': 'multipart/form-data'

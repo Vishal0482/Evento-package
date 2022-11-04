@@ -8,7 +8,7 @@ import axios from 'axios';
 import { baseUrl } from '../../config'
 import { decrement, increment } from '../../redux/stepCountPogress';
 
-const token = "248258927fede2b3e48c182f40539846bcd47037";
+const token = "c179cb30de8a1d5c2c17fbd7a35093cb6f8a7325";
 
 const header = {
     'Authorization': `Token ${token}`
@@ -109,8 +109,8 @@ function EventPersonalDetails() {
         if (!tmpErrObj?.full_name && !tmpErrObj?.mobileNo && !tmpErrObj?.email && !tmpErrObj?.state && !tmpErrObj?.pincode) {
             try {
                 dispatch(addPersonalDetails({ personalDetail: values }));
-                dispatch(increment());
                 const response = await axios.post(`${baseUrl}/api/events/personaldetail`, { ...values, is_mobile_no_hidden: mobileNoHide, user_id: userId, eventId: eventId }, { headers: header })
+                dispatch(increment());
                 console.log(response);
                 navigate("/dashboard/event/photosandvideos");
             } catch (error) {
