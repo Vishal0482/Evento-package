@@ -20,7 +20,7 @@ function Login() {
   	console.log(token);
 
 	useEffect(()=>{
-		if(token != null) return navigate("/dashboard")
+		if(token != null) return navigate("../../dashboard")
 	},[])
 
 	const [userData, setUserData] = useState({ emailOrPhone: "", password: "" });
@@ -50,7 +50,7 @@ function Login() {
 					localStorage.setItem("userId", response.data.data.userId);
 				}
 
-				navigate("/dashboard");
+				navigate("../../dashboard");
 
 				//alert('login success')
 			} else {

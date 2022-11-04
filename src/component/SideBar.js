@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import logoImage from "../assest/svg/logo.svg";
 import userImage from "../assest/images/user-2.png";
 import Modal from "./modal/Modal.js"
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Route, Routes, useNavigate } from "react-router-dom";
 import LanguagePopup from "./other/modal/LanguagePopup"
+import SelectWhoYouAre from "./events/SelectWhoYouAre";
+import DashboardEvent from "./events/DashboardEvent";
 
 function SideBar({children}) {
   
@@ -13,8 +15,13 @@ function SideBar({children}) {
   console.log(token);
 
   useEffect(()=>{
-    if(token == null) return navigate("/login")
-  },[])
+    if(token == null) return navigate("auth/login")
+  },[]);
+
+  const logout = () => {
+    localStorage.clear();
+    navigate("/");
+  }
 
   return (
     <div className="main flex min-h-screen">
@@ -54,12 +61,6 @@ function SideBar({children}) {
             </span>
             <span>Redeem</span>
           </Link>
-          <Link to="/" className="" title="Help & FAQ">
-            <span>
-              <i className="w-6 block text-center text-lg icon-help"></i>
-            </span>
-            <span>Help & FAQ</span>
-          </Link>
           <Link to="/" className="" title="Gallery">
             <span>
               <i className="w-6 block text-center text-lg icon-gallery"></i>
@@ -89,6 +90,24 @@ function SideBar({children}) {
               <i className="w-6 block text-center text-lg icon-membership"></i>
             </span>
             <span>Membership</span>
+          </Link>
+          <Link to="/" className="" title="Help & FAQ">
+            <span>
+              <i className="w-6 block text-center text-lg icon-our-product"></i>
+            </span>
+            <span>Our Products</span>
+          </Link>
+          <Link to="/" className="" title="Help & FAQ">
+            <span>
+              <i className="w-6 block text-center text-lg icon-refer"></i>
+            </span>
+            <span>Gift</span>
+          </Link>
+          <Link to="/" className="" title="Help & FAQ">
+            <span>
+              <i className="w-6 block text-center text-lg icon-help"></i>
+            </span>
+            <span>Help & FAQ</span>
           </Link>
         </div>
       </div>
@@ -146,13 +165,13 @@ function SideBar({children}) {
               >
                 <span className="icon-megaphone text-2xl block"></span>
               </a>
-              <Link to="/" className="block">
+              <div className="block" onClick={logout} >
                 <img
                   src={ userImage }
                   alt="user name"
                   className="w-12 h-12 object-cover rounded-2xl"
                 />
-              </Link>
+              </div>
             </div>
           </div>
         </div>
@@ -161,7 +180,13 @@ function SideBar({children}) {
         </Modal>
         {/* <!-- Content In --> */}
         <div className="rightInContent">
-            {children}
+            {/* {children} */}
+            <Routes>
+                <Route index element={<SelectWhoYouAre />} />
+                <Route path="event">
+                  <Route path=":eventType" element={<DashboardEvent />} />
+                </Route>
+            </Routes>
         </div>
       </div>
     </div>

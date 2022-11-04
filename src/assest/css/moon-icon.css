@@ -25,6 +25,9 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-our-product:before {
+  content: "\e949";
+}
 .icon-list-alpha:before {
   content: "\e92b";
 }

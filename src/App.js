@@ -58,34 +58,49 @@ import NewPassword from "./component/auth/NewPassword";
 function App() {
   return (
     <div className="app">
-        <BrowserRouter>
+
+      <Routes className="main min-h-screen w-full">
+        <Route path="/"  >
+          <Route index element={<LandingPage />} />
+          <Route path="auth" >
+            <Route path="login" element={<Login />} />
+            <Route path="register" element={<Register />} />
+            <Route path="verify" element={<Otp />} />
+            <Route path="forgot-password" element={<ForgotPassword />} />
+            <Route path="new-password" element={<NewPassword />} />
+          </Route>
+          <Route path="dashboard/*" element={<SideBar/>} />
+          <Route path="*" element={<h1 style={{color: "red", margin: "50px"}}>404 | PAGE NOT FOUND</h1>} />
+        </Route>
+      </Routes>
+       
         {/* <SideBar> */}
-          <Routes className="main min-h-screen w-full">
+          {/* <Routes className="main min-h-screen w-full"> */}
             {/* Login  */}
-            <Route exact path="/" element={<LandingPage />} />
+            {/* <Route exact path="/" element={<LandingPage />} />
             <Route exact path="/login" element={<Login />} />
-            <Route exact path="/register" element={<Register />} />
+            <Route exact path="/register" element={<Register />} /> */}
             {/* <Route exact path="/auth/verify" element={<Otp />} />
             <Route exact path="/auth/forgot-password" element={<ForgotPassword />} />
             <Route exact path="/auth/new-password" element={<NewPassword />} /> */}
 
             {/* 0.2.1 select who you are? */}
-            <Route exact path="/dashboard" element={<SideBar> <SelectWhoYouAre/></SideBar>} />
+            {/* <Route exact path="/dashboard" element={<SideBar> <SelectWhoYouAre/></SideBar>} />
             <Route exact path="/dashboard/event/:eventType" element={<SideBar> <DashboardEvent /></SideBar>} />
             <Route exact path="/dashboard/event/addplaces/:eventId" element={<SideBar> <EventAddPlaces /></SideBar>} />
             <Route exact path="/dashboard/event/aboutplace/:eventId" element={<SideBar> <EventAboutPlace /></SideBar>} />
             <Route exact path="/dashboard/event/personaldetails/:eventId/:userId" element={<SideBar> <EventPersonalDetails /></SideBar>} />
-            <Route exact path="/dashboard/event/photosandvideos/:eventId/:userId" element={<SideBar> <EventPhotosAndVideos /></SideBar>} />
+            <Route exact path="/dashboard/event/photosandvideos/:eventId/:userId" element={<SideBar> <EventPhotosAndVideos /></SideBar>} /> */}
             {/* <Route exact path="/dashboard/event/buy-space-plan" element={<BuySpacePlan />} /> */}
-            <Route exact path="/dashboard/event/addservices/:eventId/:userId" element={<SideBar> <EventAddServices /></SideBar>} />
+            {/* <Route exact path="/dashboard/event/addservices/:eventId/:userId" element={<SideBar> <EventAddServices /></SideBar>} />
             <Route exact path="/dashboard/event/capacity/:eventId/:userId" element={<SideBar> <EventCapacity /></SideBar>} />
             <Route exact path="/dashboard/event/companydetails/:eventId/:userId" element={<SideBar> <EventCompanyDetails /></SideBar>} />
             <Route exact path="/dashboard/event/termsandconditions/:eventId/:userId" element={<SideBar> <EventTermsAndConditions /></SideBar>} />
             <Route exact path="/dashboard/event/discounts/:eventId" element={<SideBar> <EventDiscounts /></SideBar>} />
-            <Route exact path="/dashboard/event/calender/:eventId" element={<SideBar> <EventCalender /></SideBar>} />
+            <Route exact path="/dashboard/event/calender/:eventId" element={<SideBar> <EventCalender /></SideBar>} /> */}
 
             {/* 0.3.1 personal skill business */}
-            <Route exact path="/dashboard/personalskillbusiness/selectskill" element={<PSBSelectSkill />}/>
+            {/* <Route exact path="/dashboard/personalskillbusiness/selectskill" element={<PSBSelectSkill />}/>
             <Route exact path="/dashboard/personalskillbusiness/personaldetails" element={<PSBPersonalDetails/>}/>
             <Route exact path="/dashboard/personalskillbusiness/photosandvideos" element={<PSBPhotosAndVideos/>}/>
             <Route exact path="/dashboard/personalskillbusiness/addequipment" element={<PSBAddEquipment/>} />
@@ -93,10 +108,10 @@ function App() {
             <Route exact path="/dashboard/personalskillbusiness/companydetails" element={<PSBCompanyDetails/>} />
             <Route exact path="/dashboard/personalskillbusiness/termsandconditions" element={<PSBTermsAndConditions/>} />
             <Route exact path="/dashboard/personalskillbusiness/discounts" element={<PSBDiscounts/>} />
-            <Route exact path="/dashboard/personalskillbusiness/calender" element={<PSBCalender/>} />
+            <Route exact path="/dashboard/personalskillbusiness/calender" element={<PSBCalender/>} /> */}
  
             {/* 5.1 Notification */}
-            <Route exact path="/dashboard/notification" element={<Notification />} />
+            {/* <Route exact path="/dashboard/notification" element={<Notification />} />
             <Route exact path="/dashboard/notification/history" element={<NotificationHistory />} />
             <Route exact path="/dashboard/notification/details" element={<NotificationDetails />} />
             <Route exact path="/dashboard/notification/promote" element={<Promote> </Promote> } />
@@ -104,10 +119,10 @@ function App() {
             <Route exact path="/dashboard/notification/promote/all-user-plan" element={<Promote> <AllUserSelectPlan />  </Promote> } />
             <Route exact path="/dashboard/notification/promote/personal-skill-business" element={<Promote> <PersonalSkillBusinessPromote />  </Promote> } />
             <Route exact path="/dashboard/notification/promote/mode" element={<Promote> <NotificationMode />  </Promote> } />
-            <Route exact path="/dashboard/notification/promote/payment" element={<Promote> <NotificationPayment />  </Promote> } />
+            <Route exact path="/dashboard/notification/promote/payment" element={<Promote> <NotificationPayment />  </Promote> } /> */}
 
             {/* 2.1.1 event-view */}
-            <Route exact path="/dashboard/event-view" element={<DashboardEventView />} />    
+            {/* <Route exact path="/dashboard/event-view" element={<DashboardEventView />} />    
             <Route exact path="/dashboard/refer-to-earn" element={<ReferToEarn />} />    
             <Route exact path="/dashboard/redeem-coin" element={<RedeemCoin />} />    
             <Route exact path="/dashboard/faqs" element={<FAQ />} />    
@@ -116,10 +131,9 @@ function App() {
             <Route exact path="/dashboard/invoice" element={<Invoice />} />    
             <Route exact path="/dashboard/invoice-history" element={<InvoiceHistory />} />    
             <Route exact path="/dashboard/profile" element={<Profile />} />    
-            <Route exact path="/dashboard/booking" element={<Booking />} />    
-          </Routes>
+            <Route exact path="/dashboard/booking" element={<Booking />} />     */}
+          {/* </Routes> */}
           {/* </SideBar> */}
-        </BrowserRouter>
     </div>
   );
 }
