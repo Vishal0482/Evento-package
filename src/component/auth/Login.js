@@ -13,7 +13,6 @@ import { baseUrl } from '../../config';
 
 const axios = require('axios');
 
-
 function Login() {
 	const navigate = useNavigate();
   	const token = localStorage.getItem("Token") || null;

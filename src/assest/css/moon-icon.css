@@ -25,6 +25,13 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-logout:before {
+  content: "\e94a";
+  color: #fe4d5f;
+}
+.icon-user:before {
+  content: "\e94b";
+}
 .icon-our-product:before {
   content: "\e949";
 }

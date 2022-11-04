@@ -7,18 +7,19 @@ import LanguagePopup from "./other/modal/LanguagePopup"
 import SelectWhoYouAre from "./events/SelectWhoYouAre";
 import DashboardEvent from "./events/DashboardEvent";
 
-function SideBar({children}) {
-  
+function SideBar({ children }) {
+
   const [languagePopup, setLanguagePopup] = useState(false);
+  const [visibleProfilePopup, setVisibleProfilePopup] = useState(false);
   const navigate = useNavigate();
   const token = localStorage.getItem("Token") || null;
   console.log(token);
 
-  useEffect(()=>{
-    if(token == null) return navigate("auth/login")
-  },[]);
+  useEffect(() => {
+    if (token == null) return navigate("auth/login")
+  }, []);
 
-  const logout = () => {
+  const handleLogout = () => {
     localStorage.clear();
     navigate("/");
   }
@@ -30,7 +31,7 @@ function SideBar({children}) {
         <div className="logo text-center px-4 pt-5 pb-8">
           <Link to="/" className="block">
             <img
-              src={ logoImage } 
+              src={logoImage}
               alt="Evento Package Logo"
               className="max-w-full w-auto mx-auto"
             />
@@ -147,7 +148,7 @@ function SideBar({children}) {
                 href="#"
                 className="block hover:text-spiroDiscoBall anim"
                 title="Language"
-                onClick={() => setLanguagePopup(true) }
+                onClick={() => setLanguagePopup(true)}
               >
                 <span className="icon-language text-2xl block"></span>
               </a>
@@ -165,12 +166,24 @@ function SideBar({children}) {
               >
                 <span className="icon-megaphone text-2xl block"></span>
               </a>
-              <div className="block" onClick={logout} >
+              <div className="block por">
                 <img
-                  src={ userImage }
+                  src={userImage}
                   alt="user name"
-                  className="w-12 h-12 object-cover rounded-2xl"
+                  className="w-12 h-12 object-cover rounded-2xl relative"
                 />
+                <div className="dropprofile">
+                  <div className="profile-dropdown" style={{ border: "1px solid #EEEEEE", borderRadius: "5px" }}>
+                    <div className="text-xs flex" style={{ marginBottom: "15px" }}> 
+                      <i className="w-6 block text-center text-lg icon-membership mr-4"></i>
+                      <span className="font-bold font-primary leading-4">View Profile</span>
+                    </div>
+                    <div className="text-xs flex" style={{ color: "#FE4D5F" }}> 
+                      <i className="w-6 block text-center text-lg icon-membership mr-4"></i>
+                      <span className="font-bold font-primary leading-4">Sign Out</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -180,13 +193,13 @@ function SideBar({children}) {
         </Modal>
         {/* <!-- Content In --> */}
         <div className="rightInContent">
-            {/* {children} */}
-            <Routes>
-                <Route index element={<SelectWhoYouAre />} />
-                <Route path="event">
-                  <Route path=":eventType" element={<DashboardEvent />} />
-                </Route>
-            </Routes>
+          {/* {children} */}
+          <Routes>
+            <Route index element={<SelectWhoYouAre />} />
+            <Route path="event">
+              <Route path=":eventType" element={<DashboardEvent />} />
+            </Route>
+          </Routes>
         </div>
       </div>
     </div>
