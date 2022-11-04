@@ -126,7 +126,7 @@ function SideBar({ children }) {
 
           {/* <!-- Right Bar --> */}
           <div className="ml-auto">
-            <div className="flex items-center space-x-6">
+            <div className="flex items-center space-x-6 relative">
               <Link
                 to="/"
                 className="block hover:text-spiroDiscoBall anim"
@@ -149,16 +149,17 @@ function SideBar({ children }) {
               >
                 <span className="icon-megaphone text-2xl block"></span>
               </Link>
-              <Link to="/" onClick={handleLogout} className="block">
+              <Link to="/" onClick={handleLogout} className="block por">
                 <img
                   src={userImage}
                   alt="user name"
                   className="w-12 h-12 object-cover rounded-2xl relative"
                 />
-                <div className="profile-dropdown " style={{ border: "1px solid #EEEEEE", borderRadius: "5px" }}>
-                  <div className="text-xs flex" style={{ marginBottom: "15px" }}> <i className="w-6 block text-center text-lg icon-membership mr-4"></i><span className="font-bold font-primary leading-4">View Profile</span></div>
-                  <div className="text-xs flex" style={{ color: "#FE4D5F" }}> <i className="w-6 block text-center text-lg icon-membership mr-4"></i><span className="font-bold font-primary leading-4">Sign Out</span></div>
-
+                <div className="dropprofile">
+                  <div className="profile-dropdown" style={{ border: "1px solid #EEEEEE", borderRadius: "5px" }}>
+                    <div className="text-xs flex" style={{ marginBottom: "15px" }}> <i className="w-6 block text-center text-lg icon-membership mr-4"></i><span className="font-bold font-primary leading-4">View Profile</span></div>
+                    <div className="text-xs flex" style={{ color: "#FE4D5F" }}> <i className="w-6 block text-center text-lg icon-membership mr-4"></i><span className="font-bold font-primary leading-4">Sign Out</span></div>
+                  </div>
                 </div>
               </Link>
             </div>
