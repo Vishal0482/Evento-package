@@ -50,8 +50,8 @@ function EventPopUpUploadPhoto({handleClose, eventId}) {
 			formDataImage.append("event", eventId);
 			formDataImage.append("image", image);
 			const response = await axios.post(`${baseUrl}/api/image_event`,formDataImage, {headers: header});
-			console.log(response)
-			if(response.data.statusText === "OK") {
+			console.log(response);
+			if(response.data.status) {
 				handleClose(false);
 			}
 		} catch (error) {
@@ -62,7 +62,6 @@ function EventPopUpUploadPhoto({handleClose, eventId}) {
 	const submitHandler = async() => {
 		if(!error) {
 			uploadImage();
-			handleClose(false);
 		} else {
 			console.log("error occured");
 		}

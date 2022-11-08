@@ -228,25 +228,25 @@ function LandingPage() {
                   >
                     <i className="icon-language" aria-hidden="true"></i>
                   </a>
-                  <div class="notification-holder">
-                    <div class="notif-title">
+                  <div className="notification-holder">
+                    <div className="notif-title">
                       <h2>{t("Language")}</h2>
                       {/* <a href="javascript:void(0)">
-                                <i class="icon-close"></i>
+                                <i className="icon-close"></i>
                             </a> */}
                     </div>
-                    <div class="notification-box notif-lag">
-                      <label class="notif-holder">
-                        <div class="notif-data">
-                          <div class="notifiction-i">
+                    <div className="notification-box notif-lag">
+                      <label className="notif-holder">
+                        <div className="notif-data">
+                          <div className="notifiction-i">
                             <img src={usa} alt="" />
                           </div>
-                          <div class="contry-state">
+                          <div className="contry-state">
                             <h3>{t("United States - English")}</h3>
                             <span>{t("Dollar")}</span>
                           </div>
                         </div>
-                        <div class="radio-btn-icon">
+                        <div className="radio-btn-icon">
                           <input
                             type="radio"
                             id="United-States"
@@ -256,17 +256,17 @@ function LandingPage() {
                           />
                         </div>
                       </label>
-                      <label class="notif-holder">
-                        <div class="notif-data">
-                          <div class="notifiction-i">
+                      <label className="notif-holder">
+                        <div className="notif-data">
+                          <div className="notifiction-i">
                             <img src={france} alt="" />
                           </div>
-                          <div class="contry-state">
+                          <div className="contry-state">
                             <h3>{t("Europe - French")}</h3>
                             <span>{t("Euro")}</span>
                           </div>
                         </div>
-                        <div class="radio-btn-icon">
+                        <div className="radio-btn-icon">
                           <input
                             type="radio"
                             id="Europe-French"
@@ -276,17 +276,17 @@ function LandingPage() {
                           />
                         </div>
                       </label>
-                      <label class="notif-holder">
-                        <div class="notif-data">
-                          <div class="notifiction-i">
+                      <label className="notif-holder">
+                        <div className="notif-data">
+                          <div className="notifiction-i">
                             <img src={india} alt="" />
                           </div>
-                          <div class="contry-state">
+                          <div className="contry-state">
                             <h3>{t("India - Hindi")}</h3>
                             <span>{t("Indian Rupee")}</span>
                           </div>
                         </div>
-                        <div class="radio-btn-icon">
+                        <div className="radio-btn-icon">
                           <input
                             type="radio"
                             id="India-Hindi"
@@ -296,17 +296,17 @@ function LandingPage() {
                           />
                         </div>
                       </label>
-                      <label class="notif-holder">
-                        <div class="notif-data">
-                          <div class="notifiction-i">
+                      <label className="notif-holder">
+                        <div className="notif-data">
+                          <div className="notifiction-i">
                             <img src={germany} alt="" />
                           </div>
-                          <div class="contry-state">
+                          <div className="contry-state">
                             <h3>{t("Germany - German")}</h3>
                             <span>{t("German Mark (DEM)")}</span>
                           </div>
                         </div>
-                        <div class="radio-btn-icon">
+                        <div className="radio-btn-icon">
                           <input
                             type="radio"
                             id="Germany-German"
@@ -316,17 +316,17 @@ function LandingPage() {
                           />
                         </div>
                       </label>
-                      <label class="notif-holder">
-                        <div class="notif-data">
-                          <div class="notifiction-i">
+                      <label className="notif-holder">
+                        <div className="notif-data">
+                          <div className="notifiction-i">
                             <img src={china} alt="" />
                           </div>
-                          <div class="contry-state">
+                          <div className="contry-state">
                             <h3>{t("China - Mandarin")}</h3>
                             <span>{t("Renminbi")}</span>
                           </div>
                         </div>
-                        <div class="radio-btn-icon">
+                        <div className="radio-btn-icon">
                           <input
                             type="radio"
                             id="China-Mandarin"
@@ -336,17 +336,17 @@ function LandingPage() {
                           />
                         </div>
                       </label>
-                      <label class="notif-holder">
-                        <div class="notif-data">
-                          <div class="notifiction-i">
+                      <label className="notif-holder">
+                        <div className="notif-data">
+                          <div className="notifiction-i">
                             <img src={thailand} alt="" />
                           </div>
-                          <div class="contry-state">
+                          <div className="contry-state">
                             <h3>{t("Thailand - Thai")}</h3>
                             <span>{t("Thai Baht")}</span>
                           </div>
                         </div>
-                        <div class="radio-btn-icon">
+                        <div className="radio-btn-icon">
                           <input
                             type="radio"
                             id="Thailand-Thai"

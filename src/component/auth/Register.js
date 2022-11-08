@@ -142,31 +142,31 @@ function Register() {
        
     }
     return (
-        <div class="main">
-            <div class="login-page">
-                <div class="logo" ><img src={logo} alt="logo" onClick={() => navigate("/")} /></div>
-                <div class="form-holder">
-                    <div class="form-main">
-                        <div class="form-title ">
+        <div className="main">
+            <div className="login-page">
+                <div className="logo" ><img src={logo} alt="logo" onClick={() => navigate("/")} /></div>
+                <div className="form-holder">
+                    <div className="form-main">
+                        <div className="form-title ">
                             <h1>Create an Account</h1>
-                            <p class="title-pera">Let’s get you all set up you can verify your personal account and login setting up your profile</p>
+                            <p className="title-pera">Let’s get you all set up you can verify your personal account and login setting up your profile</p>
                         </div>
-                        <div class="form f-2">
+                        <div className="form f-2">
                             <form method="post">
-                                <div class="ps-1">
+                                <div className="ps-1">
                                     <label for="">Your Name</label>
                                     <input type="text" value={formData.name} onChange={(e) => { setFormField('name', e.target.value) }} />
                                     {errMsgObj.name && <span style={{ color: "red" }}>{errMsgObj.name}</span>}
 
                                 </div>
-                                <div class="ps-1">
+                                <div className="ps-1">
                                     <label for="">Email</label>
                                     <input type="text" value={formData.email} onChange={(e) => { setFormField('email', e.target.value) }} />
                                     {errMsgObj.email && <span style={{ color: "red" }}>{errMsgObj.email}</span>}
                                 </div>
-                                <div class="ps-1">
+                                <div className="ps-1">
                                     <label for="">Phone Number</label>
-                                    <div class="verify-holder">
+                                    <div className="verify-holder">
                                         <input disabled={(location.state?.phone)?true:false} type="text" value={formData.phone_no} onChange={(e) => { setFormField('phone_no', e.target.value) }} />
                                      {!(location.state?.phone)?  <a style={{cursor:"pointer"}} onClick={verifyHandler}>Verify</a> :
                                        <a style={{color:"green",fontSize:20}} > <span  >&#10003;</span></a>}
@@ -174,37 +174,37 @@ function Register() {
                                         {errMsgObj.phone_no && <span style={{ color: "red" }}>{errMsgObj.phone_no}</span>}
                                     </div>
                                 </div>
-                                <div class="sm-holder">
-                                    <div class="sm-1">
+                                <div className="sm-holder">
+                                    <div className="sm-1">
                                         <label for="">Password</label>
-                                        <div class="c-pass">
+                                        <div className="c-pass">
                                             <input  type={(passVisible)?"text":"password"}  value={formData.password} onChange={(e) => { setFormField('password', e.target.value) }} />
-                                            <i onClick={()=>setPassVisible(!passVisible)} class="icon-view"></i>
+                                            <i onClick={()=>setPassVisible(!passVisible)} className="icon-view"></i>
 
                                         </div>
                                         {errMsgObj.password && <span style={{ color: "red" }}>{errMsgObj.password}</span>}
                                     </div>
-                                    <div class="sm-1">
+                                    <div className="sm-1">
                                         <label for="">Confirm Password</label>
-                                        <div class="c-pass">
+                                        <div className="c-pass">
                                             <input type={(passVisible)?"text":"password"} value={formData.password2} onChange={(e) => { setFormField('password2', e.target.value) }} />
-                                            <i onClick={()=>setPassVisible(!passVisible)} class="icon-view"></i>
+                                            <i onClick={()=>setPassVisible(!passVisible)} className="icon-view"></i>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="ps-1 rc">
+                                <div className="ps-1 rc">
                                     <label for="">Refer Code</label>
                                     <input type="text" value={formData.refer_code} onChange={(e) => { setFormField('refer_code', e.target.value) }} />
                                 </div>
 
-                                <button disabled={(location.state?.phone)?false:true}  class="form-btn" type="button" onClick={handleSubmit}>REGISTER NOW</button>
+                                <button disabled={(location.state?.phone)?false:true}  className="form-btn" type="button" onClick={handleSubmit}>REGISTER NOW</button>
                                 {/* {JSON.stringify(errMsgObj)} */}
 
                             </form>
                         </div>
                        
-                        <div class="botm-t">
-                            <p>Are you Already User?<Link to="/login">Login Now</Link></p>
+                        <div className="botm-t">
+                            <p>Are you Already User?<Link to="../login">Login Now</Link></p>
                         </div>
                     </div>
                 </div>
@@ -215,15 +215,15 @@ function Register() {
 
 export default Register;
 
-// <div class="btn-hr">
+// <div className="btn-hr">
 // <p>or</p>
 // </div>
-// <div class="social-holder">
-// <a href="https://www.google.com/" class="social-btn btn1">
+// <div className="social-holder">
+// <a href="https://www.google.com/" className="social-btn btn1">
 //     <img src={googlelogo} alt="goooglelogo" />
 //     <p>Google</p>
 // </a>
-// <a href="https://www.google.com/" class="social-btn btn2">
+// <a href="https://www.google.com/" className="social-btn btn2">
 //     <img src={facebooklogo} alt="facebooklogo" />
 //     <p>Facebook</p>
 // </a>

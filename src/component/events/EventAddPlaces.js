@@ -10,7 +10,8 @@ import { useDispatch } from 'react-redux';
 import { decrement, increment } from '../../redux/stepProgressCount';
 import axios from 'axios';
 import { baseUrl } from '../../config';
-
+import Modal from "../modal/Modal";
+import EventPopUpCreateNew from './popups/EventPopUpCreateNew';
 
 function EventAddPlaces() {
 
@@ -20,8 +21,7 @@ function EventAddPlaces() {
 	const eventId = params.eventId;
 	const [newEvent, setNewEvent] = useState([]);
 	const [categoryName, setCategoryName] = useState("");
-	// const newEvent = useSelector((state) => state.createEvent.category);
-	console.log(newEvent);
+	console.log("new event", newEvent);
 	const token = localStorage.getItem("Token");
 	const header = {
 		'Authorization': `Token ${token}`
@@ -29,7 +29,7 @@ function EventAddPlaces() {
 	const getAddedEvent = async() => {
 		try {
 			const response = await axios.get(`${baseUrl}/api/event/type?id=${eventId}`,{headers: header});
-			console.log("New created event >> ",response.data.data);
+			console.log("New created event >> ", response.data.data);
 			setNewEvent(response.data.data);
 
 			const responseCategoryName = await axios.get(`${baseUrl}/api/event_category/${response.data.data[0].category_id}`,{headers: header});
@@ -39,25 +39,14 @@ function EventAddPlaces() {
 			console.log(error);
 		}
 	}
-
-	// const getCategoryById = async() => {
-	// 	try {
-	// 		const response = await axios.get(`${baseUrl}/api/event_category/${newEvent[0].categoryId}`,{headers: header});
-	// 		console.log("get category by id >> ",response.data);
-	// 		setCategoryName(response.data.data[0].category_name);
-	// 	} catch (error) {
-	// 		console.log(error);
-	// 	}
-	// }
 	
 	useEffect(()=> {
 		getAddedEvent();
-		// getCategoryById();
 	},[]);
 
 	const clickNextHandler = () => {
 		dispatch(increment());
-		navigate(`/dashboard/event/aboutplace/${eventId}`);
+		navigate(`../aboutplace/${eventId}`);
 	};
 
 	const clickBackHander = () => {

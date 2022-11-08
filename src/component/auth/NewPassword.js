@@ -48,37 +48,37 @@ function NewPassword() {
 	 }
 
 	return (
-		<div class="main">
-			<div class="login-page">
-				<div class="logo height">
+		<div className="main">
+			<div className="login-page">
+				<div className="logo height">
 					<img src={logo} alt="logo" onClick={() => navigate("/")} />
 				</div>
-				<div class="form-holder">
-					<div class="form-main">
-						<div class="form-title">
+				<div className="form-holder">
+					<div className="form-main">
+						<div className="form-title">
 							<h1>Enter new Password</h1>
 							<p>Please enter a new password</p>
 						</div>
-						<div class="form f1">
+						<div className="form f1">
 							<form>
-								<div class="new-ps-holder">
-									<div class="sm-1 new-ps-1">
+								<div className="new-ps-holder">
+									<div className="sm-1 new-ps-1">
 										<label for="">Password</label>
-										<div class="c-pass">
+										<div className="c-pass">
 											<input onChange={(e)=>setPass(e.target.value)} type={isVisible?"text":"password"} id="" name=""  />
-											<i onClick={()=>setIsVisible(!isVisible)} class="icon-view"></i>
+											<i onClick={()=>setIsVisible(!isVisible)} className="icon-view"></i>
 										</div>
 									</div>
-									<div class="sm-1 new-ps-1">
+									<div className="sm-1 new-ps-1">
 										<label for="">Confirm Password</label>
-										<div class="c-pass">
+										<div className="c-pass">
 											<input onChange={(e)=>setCpass(e.target.value)}   type={isVisible?"text":"password"} id="" name=""  />
-											<i  onClick={()=>setIsVisible(!isVisible)} class="icon-view"></i>
+											<i  onClick={()=>setIsVisible(!isVisible)} className="icon-view"></i>
 										</div>
 									</div>
 								</div>
 
-								<button type="submit" onClick={onSubmitHandler} class="form-btn1">SUBMIT A NEW PASSWORD</button>
+								<button type="submit" onClick={onSubmitHandler} className="form-btn1">SUBMIT A NEW PASSWORD</button>
 							</form>
 						</div>
 					</div>

@@ -1,7 +1,23 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import Advertisement from '../Advertisement';
+import StepProgressBar from './StepProgressBar';
+import { decrement, reset } from '../../redux/stepProgressCount';
+import { useDispatch } from 'react-redux';
 
 function EventCalender() {
+	const navigate = useNavigate();
+	const dispatch = useDispatch();
+
+	const clickNextHandler = () => {
+    	dispatch(reset());
+		navigate("../../");
+	}
+
+  const clickBackHander = () => {
+		dispatch(decrement());
+		navigate(-1);
+	}
   return (
 	    // <!-- Content In -->
 		<div className="rightInContent">
@@ -13,70 +29,7 @@ function EventCalender() {
 			  <Link to="/" className="flex items-center"><i className="icon-back-arrow mr-4 text-2xl"></i><h1>Sweet Love Catering</h1></Link>
 			</div>
 			{/* <!-- step-progress-bar  --> */}
-			<div className="w-full overflow-hidden">
-			  <ul className="flex justify-between step-progress-holder">
-				<li>
-				  <div>
-					<span>01</span>
-				  </div>
-				  <h3>Add Place</h3>                        
-				</li>                      
-				<li>
-				  <div>
-					<span>02</span>
-				  </div>
-				  <h3>about place</h3>                        
-				</li>
-				<li>
-				  <div>
-					<span>03</span>
-				  </div>
-				  <h3>personal details</h3>                        
-				</li>
-				<li>
-				  <div>
-					<span>04</span>
-				  </div>
-				  <h3>Photos & videos</h3>                        
-				</li>
-				<li>
-				  <div>
-					<span>05</span>
-				  </div>
-				  <h3>add service</h3>                        
-				</li>
-				<li>
-				  <div>
-					<span>06</span>
-				  </div>
-				  <h3>capacity</h3>                        
-				</li>
-				<li>
-				  <div>
-					<span>07</span>
-				  </div>
-				  <h3>company details</h3>                        
-				</li>
-				<li>
-				  <div>
-					<span>08</span>
-				  </div>
-				  <h3>Terms & Conditions</h3>                        
-				</li>
-				<li>
-				  <div>
-					<span>09</span>
-				  </div>
-				  <h3>Discount</h3>                        
-				</li>
-				<li>
-				  <div>
-					<span>10</span>
-				  </div>
-				  <h3>Calendar</h3>                        
-				</li>
-			  </ul>
-			</div>
+			<StepProgressBar />
 			{/* <!-- main-content  --> */}
 			<div className="space-y-5">
 			  <div className="flex items-end -mx-3.5">
@@ -118,8 +71,8 @@ function EventCalender() {
 				  <span>Sunday</span><span>Monday</span><span>Tuesday</span><span>Wednesday</span><span>Thursday</span><span>Friday</span><span>Saturday</span>
 				</div>
 				<div className="dates flex flex-wrap rounded-md overflow-hidden border border-gray-200">
-				  <div className="calender_number" style="color: #B8B8B8;">30</div>
-				  <div className="calender_number" style="color: #B8B8B8;">31</div>
+				  <div className="calender_number" style={{color: "#B8B8B8"}}>30</div>
+				  <div className="calender_number" style={{color: "#B8B8B8"}}>31</div>
 				  <div className="calender_number">1</div>
 				  <div className="calender_number">2</div>
 				  <div className="calender_number">3</div>
@@ -164,23 +117,21 @@ function EventCalender() {
 					  <li><span><svg width="3" height="3" viewBox="0 0 3 3" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M1.0791 0C1.3916 0 1.64876 0.100911 1.85059 0.302734C2.05566 0.504557 2.1582 0.761719 2.1582 1.07422C2.1582 1.38672 2.05566 1.64551 1.85059 1.85059C1.64876 2.05566 1.3916 2.1582 1.0791 2.1582C0.766602 2.1582 0.507812 2.05566 0.302734 1.85059C0.100911 1.64551 0 1.38672 0 1.07422C0 0.761719 0.100911 0.504557 0.302734 0.302734C0.507812 0.100911 0.766602 0 1.0791 0Z" fill="#2E363F"/> </svg></span>Lorem ipsum <i className="icon-dark-fill-time"></i> 08:45 AM</li>
 					</ul>
 				  </div>
-				  <div className="calender_number" style="color: #B8B8B8;">2</div>
-				  <div className="calender_number" style="color: #B8B8B8;">3</div>
-				  <div className="calender_number" style="color: #B8B8B8;">4</div>
-				  <div className="calender_number" style="color: #B8B8B8;">5</div>
-				  <div className="calender_number" style="color: #B8B8B8;">6</div>
-				  <div className="calender_number" style="color: #B8B8B8;">7</div>
-				  <div className="calender_number" style="color: #B8B8B8;">8</div>
-				  <div className="calender_number" style="color: #B8B8B8;">9</div>
+				  <div className="calender_number" style={{color: "#B8B8B8"}}>2</div>
+				  <div className="calender_number" style={{color: "#B8B8B8"}}>3</div>
+				  <div className="calender_number" style={{color: "#B8B8B8"}}>4</div>
+				  <div className="calender_number" style={{color: "#B8B8B8"}}>5</div>
+				  <div className="calender_number" style={{color: "#B8B8B8"}}>6</div>
+				  <div className="calender_number" style={{color: "#B8B8B8"}}>7</div>
+				  <div className="calender_number" style={{color: "#B8B8B8"}}>8</div>
+				  <div className="calender_number" style={{color: "#B8B8B8"}}>9</div>
 				</div>
 			  </div>
 			  {/* <!-- calendar end --> */}
-			  <div className="w-full mt-5">
-				  <img src="./assest/images/ring-ad.png" alt="ring-ad" className="w-full object-cover"/>
-			  </div>
+			  <Advertisement />
 			  <div className="prw-next-btn">
-				<button type="button" className="flex items-center"><i className="icon-back-arrow mr-3"></i><h3>Back</h3></button>
-				<button className="btn-primary">Done</button>
+				<button type="button" className="flex items-center" onClick={clickBackHander}><i className="icon-back-arrow mr-3"></i><h3>Back</h3></button>
+				<button className="btn-primary" onClick={clickNextHandler}>Done</button>
 			  </div>
 			</div>
 		</div>

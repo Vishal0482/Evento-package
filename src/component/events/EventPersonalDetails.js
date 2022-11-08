@@ -66,13 +66,13 @@ function EventPersonalDetails() {
 
 	const clickNextHandler = async(values) => {
 		const requestObj = {...values, is_mobile_no_hidden : mobileNoHidden , is_email_hidden: emailHidden, eventId: eventId, user_id: userId};
-	console.log(requestObj);
+		console.log(requestObj);
 		try {
 			const response = await axios.post(`${baseUrl}/api/events/personaldetail`, requestObj, {headers: header});
 			console.log("Personal details > ", response);		
 			if(response.data.isSuccess === true) {
 				dispatch(increment());
-				navigate(`/dashboard/event/photosandvideos/${eventId}/${userId}`);
+				navigate(`../photosandvideos/${eventId}/${userId}`);
 			}
 		} catch (error) {
 			console.log(error);

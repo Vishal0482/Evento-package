@@ -33,7 +33,7 @@ const token = localStorage.getItem("Token");
 		try {
 			const response = await axios.get(`${baseUrl}/api/image_event?eventId=${eventId}`, {headers: header});
 			setImageList(response.data.data);
-			console.log("Image response >> ",response);
+			// console.log("Image response >> ",response);
 		} catch (error) {
 			console.log(error);
 		}
@@ -43,7 +43,7 @@ const token = localStorage.getItem("Token");
 		try {
 			const response = await axios.get(`${baseUrl}/api/video_event?eventId=${eventId}`, {headers: header});
 			setVideoList(response.data.data);
-			console.log("Video response >> ",response);
+			// console.log("Video response >> ",response);
 		} catch (error) {
 			console.log(error);
 		}
@@ -53,40 +53,6 @@ const token = localStorage.getItem("Token");
 		getImage();
 		getVideo();
 	},[isUploadPhotoPopUpOpen, isUploadVideoPopUpOpen]);
-
-// const handleNext = async() => {
-// 	try {
-		// setloading(true);
-		
-		// if(imageList && imageList.length < 6 && imageList.length > 0) {
-		// 	imageList?.map(async(element) =>{
-		// 		let formDataImage = new FormData();
-		// 		formDataImage.append("image_details", element.detail);
-		// 		formDataImage.append("event", eventId);
-		// 		formDataImage.append("image", element.image);
-		// 		const response = await axios.post(`${baseUrl}/api/image_event`,formDataImage, {headers: header});
-		// 		console.log(response);
-		// 	});
-		// }
-
-		// if(videoList && videoList.length < 2 && videoList.length > 0) {
-		// 	videoList?.map((async (element) => {
-		// 		let formDataVideo = new FormData();
-		// 		formDataVideo.append("image_details",element.detail);
-		// 		formDataVideo.append("event", eventId);
-		// 		formDataVideo.append("video", element.video);
-		// 		const response = await axios.post(`${baseUrl}/api/video_event`, formDataVideo, {headers: header});
-		// 		console.log(response);
-		// 	}));
-		// }
-
-		// setloading(false);
-		// dispatch(increment());
-		// navigate(`/dashboard/event/addservices/${eventId}/${userId}`);
-	// } catch (error) {
-		// setloading(false);
-	// }
-// }
 
 const removeImageClick = async(id) => {
 	try {
@@ -112,7 +78,7 @@ const removeVideoClick = async(id) => {
 
 const clickNextHandler = () => {
 	dispatch(increment());
-	navigate(`/dashboard/event/addservices/${eventId}/${userId}`);
+	navigate(`../addservices/${eventId}/${userId}`);
 }
 
 const clickBackHander = () => {
@@ -146,8 +112,8 @@ const clickBackHander = () => {
 			   <span className="input-titel">Uploaded Photo</span>
 				<div className="flex flex-wrap herobox">
 					{imageList?.map((img, index) => (
-						<div>
-							<div className="upload-box" key={index}>
+						<div key={index}>
+							<div className="upload-box" >
 								<div className="rounded relative overflow-hidden flex justify-center items-center h-full">
 								<img src={baseUrl+"/api"+img.image} alt={"upload-"+index}/>
 								<button onClick={() =>removeImageClick(img.id)}>Remove</button>

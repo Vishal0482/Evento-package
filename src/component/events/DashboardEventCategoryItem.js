@@ -9,23 +9,24 @@ import { increment } from '../../redux/stepProgressCount';
 function DashboardEventCategoryItem({data}) {
 	const dispatch = useDispatch();
 	// const [isLive, setIsLive] = useState(false);
-	// const token = localStorage.getItem("Token");
-	// const header = {
-	// 	'Authorization': `Token ${token}`,
-	// }
+	// const [category, setCategory] = useState({});
+	const token = localStorage.getItem("Token");
+	const header = {
+		'Authorization': `Token ${token}`,
+	}
 
-	// useEffect(async()=> {
-	// 	const requestObj = {
-
-	// 	};
-
+	// const getCategory = async()=> {
 	// 	try {
-	// 		const response = await axios.put(`${baseUrl}/api/events_get_list`, {requestObj},{headers: header});
+	// 		const response = await axios.get(`${baseUrl}/api/event_category/${data.category_id}`,{headers: header});
 	// 		console.log(response);
+	// 		setCategory(response.data.data[0]);
 	// 	} catch (error) {	
 	// 		 console.log(error);
 	// 	}
-	// }, []);
+	// }
+	// useEffect(() => {
+	// 	getCategory();
+	// },[]);
 
   return (
     <div className="w-full flex items-center">
@@ -41,14 +42,14 @@ function DashboardEventCategoryItem({data}) {
 				<div className="w-full">
 				  <div className="flex justify-between border-b-2 pb-4">
 					<div className="">
-					  <span className="text-sm text-white bg-spiroDiscoBall px-3 py-1">{data?.event_type}</span>
+					  <span className="text-sm text-white bg-spiroDiscoBall px-3 py-1">{data?.category_id.category_name}</span>
 					  <h2 className="text-japaneseIndigo pt-5">{data?.display_name}</h2>
 					  <div className="text-sm text-quicksilver pt-3"><i className="icon-fill-location mr-3"></i>Dallas, Texas
 					  </div>
 					</div>
 					<div className="">
 					  <div className="flex items-center">
-						<input type="checkbox" className="switch mr-3" />
+						<input type="checkbox" className="switch mr-3" defaultChecked={data?.is_active} />
 						<label htmlFor="">
 						  <h3>Live</h3>
 						</label>

@@ -1,6 +1,5 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-// import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { baseUrl } from '../../config';
 import Modal from "../modal/Modal";
@@ -8,9 +7,8 @@ import EventPopUpCreateNew from './popups/EventPopUpCreateNew';
 
 function EventAddPlacesEventList({ displayName, categoryName, eventId }) {
     const [isCreateNewPopUpOpen, setIsCreateNewPopUpOpen] = useState(false);
-    // const dispatch = useDispatch();
     const navigate = useNavigate();
-
+    console.log("reload");
     const token = localStorage.getItem("Token");;
     const header = {
         'Authorization': `Token ${token}`

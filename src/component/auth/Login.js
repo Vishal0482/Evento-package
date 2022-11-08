@@ -5,13 +5,11 @@ import React, { useEffect, useState } from 'react';
 // import "../../assest/css/landing-page/style1.css";
 
 import logo from "../../assest/svg/logo.svg";
-// import googlelogo from "../assest/img/google.png";
-// import facebooklogo from "../assest/img/facebook.png";
+import googlelogo from "../../assest/images/landing-page/google.png";
+import facebooklogo from "../../assest/images/landing-page/facebook.png";
 import { Link, useNavigate } from "react-router-dom";
 import { baseUrl } from '../../config';
-
-
-const axios = require('axios');
+import axios from 'axios';
 
 function Login() {
 	const navigate = useNavigate();
@@ -23,8 +21,7 @@ function Login() {
 	},[])
 
 	const [userData, setUserData] = useState({ emailOrPhone: "", password: "" });
-	const [errMsg, setErrMsg] = useState("");
-
+	const [error, setError] = useState(false);
 
 	const setFormField = (field, value) => {
 		setUserData({ ...userData, [field]: value })
@@ -32,36 +29,23 @@ function Login() {
 
 
 	const handleSubmit = async () => {
-		console.log("handle form submit");
 		console.log('userData', userData);
 
 		try {
-			// const response = await axios.post('http://143.244.137.15:8000/login', { username: "kishup713@gmail.com", password: "A" });
 			const response = await axios.post(baseUrl+'/api/login', { username: userData.emailOrPhone, password: userData.password });
 			console.log('response', response);
-			if (response && response.data && response.data.data && response.data.data.token) {
-
+			if (response.data?.isSuccess == true) {
+				setError(false);
 				localStorage.clear();
 				localStorage.setItem("Token", response.data.data.token);
+				localStorage.setItem("UserId", response.data.data.userId);
 				console.log("Token", response.data.data.token);
-
-				if (response && response.data && response.data.data && response.data.data.userId) {
-					localStorage.setItem("userId", response.data.data.userId);
-				}
-
 				navigate("../../dashboard");
-
-				//alert('login success')
-			} else {
-				//alert('login error')
-				setErrMsg("Username or Password incorrect");
-
 			}
 		} catch (e) {
 			console.log(e);
+			setError(true);
 		}
-
-
 	}
 
 	return (
@@ -77,22 +61,22 @@ function Login() {
 							<p>Log in with your data that you entered during your registration</p>
 						</div>
 						<div className="form">
-							{errMsg && <span style={{ color: "red" }}>Username or Password incorrect</span>}
+							{error && <span style={{ color: "red" }}>Username or Password incorrect</span>}
 							<form action="" method="post" >
 								<div className="ps-1">
-									<label for="">Email or Phone number</label>
-									<input type="text" name="" value={userData.emailOrPhone} onChange={(e) => { setFormField('emailOrPhone', e.target.value) }} />
+									<label htmlFor="">Email or Phone number</label>
+									<input type="text" name="" value={userData.emailOrPhone} onChange={(e) => { setFormField('emailOrPhone', e.target.value) }} required/>
 								</div>
 								<div className="ps-1">
-									<label for="">Password</label>
-									<input type="password" name="" value={userData.password} onChange={(e) => { setFormField('password', e.target.value) }} />
+									<label htmlFor="">Password</label>
+									<input type="password" name="" value={userData.password} onChange={(e) => { setFormField('password', e.target.value) }} required/>
 								</div>
 
-								<Link to="/forgatepassword"> Forget Password?</Link>
+								<Link to="../forgatepassword"> Forget Password?</Link>
 								<button type="button" onClick={handleSubmit}>LOGIN NOW</button>
 							</form>
 						</div>
-						{/* <div className="btn-hr">
+						<div className="btn-hr">
 							<p>or</p>
 						</div>
 						<div className="social-holder">
@@ -104,10 +88,10 @@ function Login() {
 								<img src={facebooklogo} alt="facebooklogo" />
 								<p>Facebook</p>
 							</a>
-						</div> */}
+						</div>
 						<div className="botm-t">
 							<p>
-								Are You new? <Link to="/register">Registrater Now</Link>
+								Are You new? <Link to="../register">Registrater Now</Link>
 							</p>
 						</div>
 					</div>

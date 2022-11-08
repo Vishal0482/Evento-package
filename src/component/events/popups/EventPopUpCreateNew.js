@@ -54,7 +54,7 @@ function EventPopUpCreateNew({ handleClose, selectedCategory, displayName, event
 				if(response.data.data.category_id) {
 					handleClose(false);
 					dispatch(increment());
-					navigate(`/dashboard/event/addplaces/${response.data.data.eventId}`);
+					navigate(`addplaces/${response.data.data.eventId}`);
 				}
 			} else {
 				// update
@@ -94,7 +94,7 @@ function EventPopUpCreateNew({ handleClose, selectedCategory, displayName, event
 									setNewCategoryId(e.target[e.target.selectedIndex].getAttribute('data-id'));
 								}} >
 									{category && category.map((element) =>
-										<option key={element.categoryId} value={element.category_name} selected={(element.category_name === selectedCategory) && true } data-id={element.categoryId}>{element.category_name}</option>
+										<option key={element.categoryId} value={element.category_name} defaultValue={(element.category_name === selectedCategory) && true } data-id={element.categoryId}>{element.category_name}</option>
 									)}
 								</select>
 							</div>

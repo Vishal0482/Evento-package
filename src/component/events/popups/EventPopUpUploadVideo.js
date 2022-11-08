@@ -51,7 +51,7 @@ function EventPopUpUploadVideo({handleClose, eventId}) {
       formDataVideo.append("video", video);
       const response = await axios.post(`${baseUrl}/api/video_event`, formDataVideo, {headers: header});
       console.log(response);
-      if(response.data.isSuccess === true) {
+      if(response.data.status) {
 				handleClose(false);
 			}
     } catch (error) {
@@ -62,7 +62,6 @@ function EventPopUpUploadVideo({handleClose, eventId}) {
   const submitHandler = async() => {
 		if(!error) {
       videoUpload();
-      handleClose(false);
 		} else {
 			console.log("error occured");
 		}

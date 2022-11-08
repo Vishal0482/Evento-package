@@ -40,7 +40,6 @@ function EventAboutPlace() {
 		} catch (error) {
 			console.log(error);
 		}
-
 	}
 	useEffect(()=>{
 		getAboutPlace();
@@ -54,16 +53,16 @@ function EventAboutPlace() {
 		formData.append("price_type",priceType);
 		formData.append("details",about);
 		formData.append("event",eventId);
-		formData.append("place_banner",banner);
-
+		
 		try {
 			if(edit == false) {
 				// Insert place
+				formData.append("place_banner",banner);
 				const response = await axios.post(`${baseUrl}/api/add_place_event`, formData, {headers: header});
 				console.log("About place Inserted>> ",response.data);
 				if(response.data.isSuccess === true) {
 					dispatch(increment()) 
-					navigate(`/dashboard/event/personaldetails/${eventId}/${response.data.data.user_id}`);
+					navigate(`../personaldetails/${eventId}/${response.data.data.user_id}`);
 				}
 			} else {
 				// Update Place
@@ -71,7 +70,7 @@ function EventAboutPlace() {
 				console.log("About place updated>> ",response.data);
 				if(response.data.isSuccess === true) {
 					dispatch(increment()) 
-					navigate("/dashboard/event/personaldetails");
+					navigate(`../personaldetails/${eventId}/${response.data.data.user_id}`);
 				}
 			}
 		} catch (error) {

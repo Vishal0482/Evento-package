@@ -6,6 +6,16 @@ import { Link, Route, Routes, useNavigate } from "react-router-dom";
 import LanguagePopup from "./other/modal/LanguagePopup"
 import SelectWhoYouAre from "./events/SelectWhoYouAre";
 import DashboardEvent from "./events/DashboardEvent";
+import EventCalender from "./events/EventCalender";
+import EventAddPlaces from "./events/EventAddPlaces";
+import EventAboutPlace from "./events/EventAboutPlace";
+import EventPersonalDetails from "./events/EventPersonalDetails";
+import EventPhotosAndVideos from "./events/EventPhotosAndVideos";
+import EventAddServices from "./events/EventAddServices";
+import EventCapacity from "./events/EventCapacity";
+import EventCompanyDetails from "./events/EventCompanyDetails";
+import EventTermsAndConditions from "./events/EventTermsAndConditions";
+import EventDiscounts from "./events/EventDiscounts";
 
 function SideBar({ children }) {
 
@@ -13,10 +23,10 @@ function SideBar({ children }) {
   const [visibleProfilePopup, setVisibleProfilePopup] = useState(false);
   const navigate = useNavigate();
   const token = localStorage.getItem("Token") || null;
-  console.log(token);
+  // console.log(token);
 
   useEffect(() => {
-    if (token == null) return navigate("auth/login")
+    if (token == null) return navigate("../auth/login")
   }, []);
 
   const handleLogout = () => {
@@ -174,12 +184,12 @@ function SideBar({ children }) {
                 />
                 <div className="dropprofile">
                   <div className="profile-dropdown" style={{ border: "1px solid #EEEEEE", borderRadius: "5px" }}>
-                    <div className="text-xs flex" style={{ marginBottom: "15px" }}> 
-                      <i className="w-6 block text-center text-lg icon-membership mr-4"></i>
+                    <div className="text-xs flex view-profile vp cursor-pointer" style={{ marginBottom: "15px" }}>
+                      <i className="w-6 block text-center text-lg icon-user mr-4"></i>
                       <span className="font-bold font-primary leading-4">View Profile</span>
                     </div>
-                    <div className="text-xs flex" style={{ color: "#FE4D5F" }}> 
-                      <i className="w-6 block text-center text-lg icon-membership mr-4"></i>
+                    <div className="text-xs flex view-profile cursor-pointer" style={{ color: "#FE4D5F" }} onClick={handleLogout}>
+                      <i className="w-6 block text-center text-lg icon-logout mr-4"></i>
                       <span className="font-bold font-primary leading-4">Sign Out</span>
                     </div>
                   </div>
@@ -197,7 +207,19 @@ function SideBar({ children }) {
           <Routes>
             <Route index element={<SelectWhoYouAre />} />
             <Route path="event">
-              <Route path=":eventType" element={<DashboardEvent />} />
+              <Route path=":eventType" >
+                <Route index element={<DashboardEvent />} />
+              </Route>
+              <Route path="addplaces/:eventId" element={<EventAddPlaces />} />
+              <Route path="aboutplace/:eventId" element={<EventAboutPlace />} />
+              <Route path="personaldetails/:eventId/:userId" element={<EventPersonalDetails />} />
+              <Route path="photosandvideos/:eventId/:userId" element={<EventPhotosAndVideos />} />
+              <Route path="addservices/:eventId/:userId" element={<EventAddServices />} />
+              <Route path="capacity/:eventId/:userId" element={<EventCapacity />} />
+              <Route path="companydetails/:eventId/:userId" element={<EventCompanyDetails />} />
+              <Route path="termsandconditions/:eventId/:userId" element={<EventTermsAndConditions />} />
+              <Route path="discounts/:eventId/:userId" element={<EventDiscounts />} />
+              <Route path="calender" element={<EventCalender />} />
             </Route>
           </Routes>
         </div>
