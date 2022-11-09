@@ -1,12 +1,13 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import sweetLoveCatering from "../../assest/images/sweet-love-catering.png";
 import { baseUrl } from '../../config';
 import { useDispatch } from 'react-redux';
 import { increment } from '../../redux/stepProgressCount';
 
 function DashboardEventCategoryItem({data}) {
+	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	// const [isLive, setIsLive] = useState(false);
 	// const [category, setCategory] = useState({});
@@ -38,7 +39,7 @@ function DashboardEventCategoryItem({data}) {
 			</div>
 			<div className="w-full p-4 pr-7 bg-white rounded">
 			  <div className="flex space-x-5">
-				<img src={sweetLoveCatering} alt=""/>
+				<img src={sweetLoveCatering} alt="" onClick={() => navigate(`../../event-view/${data?.eventId}`)}/>
 				<div className="w-full">
 				  <div className="flex justify-between border-b-2 pb-4">
 					<div className="">

@@ -19,9 +19,10 @@ import dish2Video from "../../assest/images/dish-video-2.png";
 import dish3Video from "../../assest/images/dish-video-3.png";
 import dish4Video from "../../assest/images/dish-video-4.png";
 import dish5Video from "../../assest/images/dish-video-5.png";
+import { baseUrl } from '../../config';
 
 
-function DashboardEventViewOverview() {
+function DashboardEventViewOverview({data}) {
     const [preview, setPreview] = useState(false);
     return (
         <div className="pt-7 lg:pt-10">
@@ -35,7 +36,7 @@ function DashboardEventViewOverview() {
                             <p className="text-quicksilver text-sm font-normal">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
                         </div>
                         {/* <!-- Photo-holder --> */}
-                        <div className="media-upload-holder">
+                        {data?.image?.length > 0 && <div className="media-upload-holder">
                             {/* <!-- media title  --> */}
                             <div className="flex justify-between items-center">
                                 <h3 className="text-lg">Photo</h3>
@@ -44,17 +45,14 @@ function DashboardEventViewOverview() {
                             {/* <!-- photo-holder --> */}
                             <div className="w-full">
                                 <div className="flex flex-wrap -mx-2" onClick={() => setPreview(true)} >
-                                    <DashboardEventViewOverviewPhoto imageUrl={bigDishImage} />
-                                    <DashboardEventViewOverviewPhoto imageUrl={cuttingBoardImage} />
-                                    <DashboardEventViewOverviewPhoto imageUrl={dish1Image} />
-                                    <DashboardEventViewOverviewPhoto imageUrl={dish2Image} />
-                                    <DashboardEventViewOverviewPhoto imageUrl={dish3Image} />
-                                    <DashboardEventViewOverviewPhoto imageUrl={dish4Image} />        
+                                    {data?.image?.map(e => (
+                                        <DashboardEventViewOverviewPhoto key={e.id} alt={e.image_details} imageUrl={baseUrl+"/api"+e.image} />
+                                    ))}
                                 </div>
                             </div>
-                        </div>
+                        </div>}
                         {/* <!-- videos-holder --> */}
-                        <div className="media-upload-holder">
+                        {data?.video?.length > 0 && <div className="media-upload-holder">
                             {/* <!-- media title  --> */}
                             <div className="flex justify-between items-center">
                                 <h3 className="text-lg">Videos</h3>
@@ -63,14 +61,12 @@ function DashboardEventViewOverview() {
                             {/* <!-- media-holder --> */}
                             <div className="w-full">
                                 <div className="flex flex-wrap -mx-2">
-                                    <DashboardEventViewOverviewVideo videoUrl={dish1Video} />
-                                    <DashboardEventViewOverviewVideo videoUrl={dish2Video} />
-                                    <DashboardEventViewOverviewVideo videoUrl={dish3Video} />
-                                    <DashboardEventViewOverviewVideo videoUrl={dish4Video} />
-                                    <DashboardEventViewOverviewVideo videoUrl={dish5Video} />
+                                    {data?.video?.map(e => (
+                                        <DashboardEventViewOverviewVideo key={e.id} videoUrl={baseUrl+"/api"+e.thumbnail} />
+                                    ))}
                                 </div>
                             </div>
-                        </div>
+                        </div>}
                         {/* <!-- Service --> */}
                         <div className="space-y-1.5">
                             <h3 className="text-lg">Service</h3>

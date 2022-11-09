@@ -21,12 +21,13 @@ function DashboardEvent() {
 	const [pageNo, setPageNo] = useState(1);
 	const token = localStorage.getItem("Token");
 	const eventType = params.eventType;
+	const limit = 3;
 	const header = {
 		'Authorization': `Token ${token}`
 	}
 	const getAllEvents = async () => {
 		try {
-			const response = await axios.get(`${baseUrl}/api/events?limit=3&page=${pageNo}&event_type=${eventType}`, { headers: header });
+			const response = await axios.get(`${baseUrl}/api/events?limit=${limit}&page=${pageNo}&event_type=${eventType}`, { headers: header });
 			console.log("events >> ", response.data);
 			setAllEvents(response.data);
 			setLoading(false);
@@ -81,10 +82,10 @@ function DashboardEvent() {
 					data-testid="loader"
 				/>
 				{allEvents.data?.map(ele => (
-					<DashboardEventCategoryItem key={ele.eventId} data={ele} />
+					<DashboardEventCategoryItem key={ele.eventId}  data={ele} />
 				))}
 				
-				<Paggination allEvents={allEvents} setPageNo={setPageNo} pageNo={pageNo} />
+				<Paggination allEvents={allEvents} limit={limit} setPageNo={setPageNo} pageNo={pageNo} />
 
 				<Modal isOpen={isCreateNewPopUpOpen} >
 					<EventPopUpCreateNew handleClose={setIsCreateNewPopUpOpen} eventType={eventType} edit={false} />

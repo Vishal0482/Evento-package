@@ -16,6 +16,7 @@ import EventCapacity from "./events/EventCapacity";
 import EventCompanyDetails from "./events/EventCompanyDetails";
 import EventTermsAndConditions from "./events/EventTermsAndConditions";
 import EventDiscounts from "./events/EventDiscounts";
+import DashboardEventView from "./event-view/DashboardEventView";
 
 function SideBar({ children }) {
 
@@ -39,7 +40,7 @@ function SideBar({ children }) {
       {/* <!-- Left Panel --> */}
       <div className="leftPanel max-w-[230px] w-full bg-white shadow-md relative z-30">
         <div className="logo text-center px-4 pt-5 pb-8">
-          <Link to="/" className="block">
+          <Link to="../dashboard" className="block">
             <img
               src={logoImage}
               alt="Evento Package Logo"
@@ -48,7 +49,7 @@ function SideBar({ children }) {
           </Link>
         </div>
         <div className="nav">
-          <Link to="/" className="active" title="Dashboard">
+          <Link to="../dashboard" className="active" title="Dashboard">
             <span>
               <i className="w-6 block text-center text-lg icon-deshbord"></i>
             </span>
@@ -207,6 +208,7 @@ function SideBar({ children }) {
           <Routes>
             <Route index element={<SelectWhoYouAre />} />
             <Route path="event">
+              <Route path="event-view/:eventId" element={<DashboardEventView /> } />
               <Route path=":eventType" >
                 <Route index element={<DashboardEvent />} />
               </Route>
