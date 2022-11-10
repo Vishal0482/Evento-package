@@ -17,6 +17,14 @@ import EventCompanyDetails from "./events/EventCompanyDetails";
 import EventTermsAndConditions from "./events/EventTermsAndConditions";
 import EventDiscounts from "./events/EventDiscounts";
 import DashboardEventView from "./event-view/DashboardEventView";
+import Gallery from "./other/Gallery";
+import ReferToEarn from "./other/ReferToEarn";
+import RedeemCoin from "./other/RedeemCoin";
+import Booking from "./other/Booking";
+import Invoice from "./other/Invoice";
+import FAQ from "./other/FAQ";
+import Chatbot from "./other/Chatbot";
+import Notification from "./Notification/Notification";
 
 function SideBar({ children }) {
 
@@ -61,37 +69,37 @@ function SideBar({ children }) {
             </span>
             <span>Subscription</span>
           </Link>
-          <Link to="/" className="" title="Refer & Earn">
+          <Link to="refer-to-earn" className="" title="Refer & Earn">
             <span>
               <i className="w-6 block text-center text-lg icon-refer"></i>
             </span>
             <span>Refer & Earn</span>
           </Link>
-          <Link to="/" className="" title="Redeem">
+          <Link to="redeem" className="" title="Redeem">
             <span>
               <i className="w-6 block text-center text-lg icon-redem"></i>
             </span>
             <span>Redeem</span>
           </Link>
-          <Link to="/" className="" title="Gallery">
+          <Link to="gallery" className="" title="Gallery">
             <span>
               <i className="w-6 block text-center text-lg icon-gallery"></i>
             </span>
             <span>Gallery</span>
           </Link>
-          <Link to="/" className="" title="Festum Evento">
+          <a href="https://www.festumevento.com" target="_blank" className="" title="Festum Evento">
             <span>
               <i className="w-6 block text-center text-lg icon-f-evanto"></i>
             </span>
             <span>Festum Evento</span>
-          </Link>
-          <Link to="/" className="" title="Booking">
+          </a>
+          <Link to="booking" className="" title="Booking">
             <span>
               <i className="w-6 block text-center text-lg icon-booking"></i>
             </span>
             <span>Booking</span>
           </Link>
-          <Link to="/" className="" title="Invoice">
+          <Link to="invoice" className="" title="Invoice">
             <span>
               <i className="w-6 block text-center text-lg icon-invoice"></i>
             </span>
@@ -115,7 +123,7 @@ function SideBar({ children }) {
             </span>
             <span>Gift</span>
           </Link>
-          <Link to="/" className="" title="Help & FAQ">
+          <Link to="faq" className="" title="Help & FAQ">
             <span>
               <i className="w-6 block text-center text-lg icon-help"></i>
             </span>
@@ -163,20 +171,20 @@ function SideBar({ children }) {
               >
                 <span className="icon-language text-2xl block"></span>
               </a>
-              <a
-                href="#"
+              <Link
+                to="chatbot"
                 className="block hover:text-spiroDiscoBall anim"
                 title="Massage"
               >
                 <span className="icon-massage text-2xl block"></span>
-              </a>
-              <a
-                href="#"
+              </Link>
+              <Link
+                to="notification"
                 className="block hover:text-spiroDiscoBall anim"
                 title="Megaphone"
               >
                 <span className="icon-megaphone text-2xl block"></span>
-              </a>
+              </Link>
               <div className="block por">
                 <img
                   src={userImage}
@@ -223,6 +231,19 @@ function SideBar({ children }) {
               <Route path="discounts/:eventId/:userId" element={<EventDiscounts />} />
               <Route path="calender" element={<EventCalender />} />
             </Route>
+
+            {/* Side bar links */}
+            <Route path="refer-to-earn" element={<ReferToEarn />} />
+            <Route path="redeem" element={<RedeemCoin />} />
+            <Route path="gallery" element={<Gallery />} />
+            <Route path="booking" element={<Booking />} />
+            <Route path="invoice" element={<Invoice />} />
+            <Route path="faq" element={<FAQ />} />
+
+            {/* header link */}
+            <Route path="chatbot" element={<Chatbot />} />
+            <Route path="notification" element={<Notification />} />
+
           </Routes>
         </div>
       </div>
