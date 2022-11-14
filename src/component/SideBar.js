@@ -25,6 +25,7 @@ import Invoice from "./other/Invoice";
 import FAQ from "./other/FAQ";
 import Chatbot from "./other/Chatbot";
 import Notification from "./Notification/Notification";
+import Profile from "./other/Profile";
 
 function SideBar({ children }) {
 
@@ -48,7 +49,7 @@ function SideBar({ children }) {
       {/* <!-- Left Panel --> */}
       <div className="leftPanel max-w-[230px] w-full bg-white shadow-md relative z-30">
         <div className="logo text-center px-4 pt-5 pb-8">
-          <Link to="../dashboard" className="block">
+          <Link to="/" className="block">
             <img
               src={logoImage}
               alt="Evento Package Logo"
@@ -193,10 +194,10 @@ function SideBar({ children }) {
                 />
                 <div className="dropprofile">
                   <div className="profile-dropdown" style={{ border: "1px solid #EEEEEE", borderRadius: "5px" }}>
-                    <div className="text-xs flex view-profile vp cursor-pointer" style={{ marginBottom: "15px" }}>
+                    <Link to="profile" className="text-xs flex view-profile vp cursor-pointer" style={{ marginBottom: "15px" }}>
                       <i className="w-6 block text-center text-lg icon-user mr-4"></i>
                       <span className="font-bold font-primary leading-4">View Profile</span>
-                    </div>
+                    </Link>
                     <div className="text-xs flex view-profile cursor-pointer" style={{ color: "#FE4D5F" }} onClick={handleLogout}>
                       <i className="w-6 block text-center text-lg icon-logout mr-4"></i>
                       <span className="font-bold font-primary leading-4">Sign Out</span>
@@ -219,20 +220,21 @@ function SideBar({ children }) {
               <Route path="event-view/:eventId" element={<DashboardEventView /> } />
               <Route path=":eventType" >
                 <Route index element={<DashboardEvent />} />
+                <Route path="addplaces/:eventId" element={<EventAddPlaces />} />
+                <Route path="aboutplace/:eventId" element={<EventAboutPlace />} />
+                <Route path="personaldetails/:eventId/:userId" element={<EventPersonalDetails />} />
+                <Route path="photosandvideos/:eventId/:userId" element={<EventPhotosAndVideos />} />
+                <Route path="addservices/:eventId/:userId" element={<EventAddServices />} />
+                <Route path="capacity/:eventId/:userId" element={<EventCapacity />} />
+                <Route path="companydetails/:eventId/:userId" element={<EventCompanyDetails />} />
+                <Route path="termsandconditions/:eventId/:userId" element={<EventTermsAndConditions />} />
+                <Route path="discounts/:eventId/:userId" element={<EventDiscounts />} />
               </Route>
-              <Route path="addplaces/:eventId" element={<EventAddPlaces />} />
-              <Route path="aboutplace/:eventId" element={<EventAboutPlace />} />
-              <Route path="personaldetails/:eventId/:userId" element={<EventPersonalDetails />} />
-              <Route path="photosandvideos/:eventId/:userId" element={<EventPhotosAndVideos />} />
-              <Route path="addservices/:eventId/:userId" element={<EventAddServices />} />
-              <Route path="capacity/:eventId/:userId" element={<EventCapacity />} />
-              <Route path="companydetails/:eventId/:userId" element={<EventCompanyDetails />} />
-              <Route path="termsandconditions/:eventId/:userId" element={<EventTermsAndConditions />} />
-              <Route path="discounts/:eventId/:userId" element={<EventDiscounts />} />
               <Route path="calender" element={<EventCalender />} />
             </Route>
 
             {/* Side bar links */}
+            <Route path="profile" element={<Profile />} />
             <Route path="refer-to-earn" element={<ReferToEarn />} />
             <Route path="redeem" element={<RedeemCoin />} />
             <Route path="gallery" element={<Gallery />} />

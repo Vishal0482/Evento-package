@@ -19,6 +19,8 @@ function EventAddPlaces() {
 	const dispatch = useDispatch();
 	const params = useParams();
 	const eventId = params.eventId;
+	const eventType = params.eventType;
+	console.log(eventType);
 	const [newEvent, setNewEvent] = useState([]);
 	const [categoryName, setCategoryName] = useState("");
 	console.log("new event", newEvent);
@@ -46,7 +48,8 @@ function EventAddPlaces() {
 
 	const clickNextHandler = () => {
 		dispatch(increment());
-		navigate(`../aboutplace/${eventId}`);
+		if(eventType === "places" ) navigate(`../aboutplace/${eventId}`);
+		else navigate(`../personaldetails/${eventId}/${newEvent[0].user_id}`);
 	};
 
 	const clickBackHander = () => {
@@ -64,7 +67,7 @@ function EventAddPlaces() {
 			 <a href="#" className="flex items-center"><i className="icon-back-arrow mr-4 text-2xl"></i><h1>Create New</h1></a>
 		 </div>
 		 {/* <!-- step-progress-bar  --> */}
-		<StepProgressBar />
+		<StepProgressBar eventType={eventType} />
 		 {/* <!-- main-content  --> */}
 		 <div className=" space-y-3">
 		   <EventAddPlacesEventList displayName={newEvent[0]?.display_name} categoryName={categoryName} eventId={eventId} />

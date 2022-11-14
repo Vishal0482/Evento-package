@@ -15,6 +15,7 @@ function EventPersonalDetails() {
 	const params = useParams();
 	const [mobileNoHidden, setMobileNoHidden] = useState(false);
 	const [emailHidden, setEmailHidden] = useState(false);
+	const eventType = params.eventType;	
 	const eventId = params.eventId;	
 	const userId = params.userId;
 	console.log(eventId, userId);
@@ -101,7 +102,7 @@ function EventPersonalDetails() {
 		  <Link to="/" className="flex items-center"><i className="icon-back-arrow mr-4 text-2xl"></i><h1>Sweet Love Catering</h1></Link>
 		</div>
 		{/* {/ <!-- step-progress-bar  --> /} */}
-		<StepProgressBar />
+		<StepProgressBar eventType={eventType} />
 		{/* {/ <!-- main-content  --> /} */}
 		<div className="space-y-5 -mx-2">
 		  <div className="w-full flex items-end flex-wrap">
@@ -122,7 +123,7 @@ function EventPersonalDetails() {
 			<div className="w-full md:w-1/3 px-2 inputHolder">
 				<div className="input-label-holder">
 				  <label className="input-titel">Mobile Number <span>*</span></label>
-				  <div className="input-checkd"><input type="checkbox" className="mr-2" checked={mobileNoHidden} onClick={() => setMobileNoHidden(!mobileNoHidden)} />Hidden</div>
+				  <div className="input-checkd"><input type="checkbox" className="mr-2" defaultChecked={mobileNoHidden} onClick={() => setMobileNoHidden(!mobileNoHidden)} />Hidden</div>
 				</div>
 				<Field type="text" className="input" name="mobile_no" value={formik?.values.mobile_no} />
         <ErrorMessage name='mobile_no' component="span" className="field_error"/>
@@ -137,7 +138,7 @@ function EventPersonalDetails() {
 			<div className="w-full md:w-1/3 px-2 inputHolder">
 				<div className="input-label-holder">
 				  <label className="input-titel">Email Address <span>*</span></label>
-				  <div className="input-checkd"><input type="checkbox" className="mr-2" checked={emailHidden} onClick={() => setEmailHidden(!emailHidden)} />Hidden</div>
+				  <div className="input-checkd"><input type="checkbox" className="mr-2" defaultChecked={emailHidden} onClick={() => setEmailHidden(!emailHidden)} />Hidden</div>
 				</div>
 				<Field type="email" className="input" name="email" value={formik?.values.email}  />
         <ErrorMessage name='email' component="span" className="field_error"/>

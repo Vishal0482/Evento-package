@@ -1213,8 +1213,9 @@ function LandingPage() {
                     <img src={fcoin} className="img-fluid" alt="" />
                   </div>
                   <div className="product-titel-link">
-                    <p>Evento Package</p>
-                    <a href="javascript:void(0)">https://eventopackage.com/</a>
+                    <p>F-Coin</p>
+                    <a href="javascript:void(0)">Coming Soon..</a>
+                    {/* <a href="javascript:void(0)">https://eventopackage.com/</a> */}
                   </div>
                 </div>
                 <div className="other-product-card text-center item">
@@ -1222,7 +1223,7 @@ function LandingPage() {
                     <img src={sfe} className="img-fluid" alt="" />
                   </div>
                   <div className="product-titel-link">
-                    <p>Evento Package</p>
+                    <p>Festum Evento</p>
                     <a href="https://www.festumevento.com/">https://www.festumevento.com/</a>
                   </div>
                 </div>
@@ -1231,8 +1232,9 @@ function LandingPage() {
                     <img src={ad} className="img-fluid" alt="" />
                   </div>
                   <div className="product-titel-link">
-                    <p>Evento Package</p>
-                    <a href="javascript:void(0)">https://eventopackage.com/</a>
+                    <p>Ads Portal</p>
+                    {/* <a href="javascript:void(0)">https://eventopackage.com/</a> */}
+                    <a href="javascript:void(0)">Coming Soon..</a>
                   </div>
                 </div>
                 <div className="other-product-card text-center item">
@@ -1240,7 +1242,7 @@ function LandingPage() {
                     <img src={ff} className="img-fluid" alt="" />
                   </div>
                   <div className="product-titel-link">
-                    <p>Evento Package</p>
+                    <p>Friends Fields</p>
                     <a href="https://friendsfield.in/">https://friendsfield.in/</a>
                   </div>
                 </div>
@@ -1359,11 +1361,13 @@ function LandingPage() {
               <span>{t("Contact info")}</span>
               <div className="conte-pr-info">
                 <div className="conte-acm">
-                  <p>{t("593 South Marshall Drive Amarillo, TX 79106")}</p>
+                  <p>Surat, Gujarat</p>
+                  {/* <p>{t("593 South Marshall Drive Amarillo, TX 79106")}</p> */}
                 </div>
                 <div className="conte-acm">
-                  <p>{t("+91 123 456 8790")}</p>
-                  <p>{t("+91 525 856 2580")}</p>
+                  <p>{t("+91 97279 38000 ")}</p>
+                  {/* <p>{t("+91 123 456 8790")}</p>
+                  <p>{t("+91 525 856 2580")}</p> */}
                 </div>
                 <div className="conte-acm">
                   <p>{t("help@eventopackage.com")}</p>

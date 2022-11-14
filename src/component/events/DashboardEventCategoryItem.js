@@ -37,9 +37,9 @@ function DashboardEventCategoryItem({data}) {
 			  <i className="icon-right"></i>
 			  </label>
 			</div>
-			<div className="w-full p-4 pr-7 bg-white rounded">
+			<Link to={`../../event-view/${data?.eventId}`} className="w-full p-4 pr-7 bg-white rounded">
 			  <div className="flex space-x-5">
-				<img src={sweetLoveCatering} alt="" onClick={() => navigate(`../../event-view/${data?.eventId}`)}/>
+				<img src={sweetLoveCatering} />
 				<div className="w-full">
 				  <div className="flex justify-between border-b-2 pb-4">
 					<div className="">
@@ -68,10 +68,10 @@ function DashboardEventCategoryItem({data}) {
 					  <span className="text-quicksilver text-xs font-bold pl-2"> 19,981 ratings</span>
 					</div>
 					<div className="flex space-x-2">
-					  <Link to={`/dashboard/event/addplaces/${data.eventId}`} onClick={()=> dispatch(increment())} className="bg-brightGray px-2 py-1 text-center rounded"><i className="text-base edit text-black icon-edit" style={{color: "#000"}}></i></Link>
+					  <Link to={`addplaces/${data.eventId}`} onClick={()=> dispatch(increment())} className="bg-brightGray px-2 py-1 text-center rounded"><i className="text-base edit text-black icon-edit" style={{color: "#000"}}></i></Link>
 						<Link to="/" className="bg-brightGray px-2 py-1 text-center rounded"><i
 						className="icon-fill-megaphone text-base text-black"></i></Link>
-					  <Link to="/" className="bg-brightGray px-2 py-1 text-center rounded"><i
+					  <Link to={`/dashboard/event/calender`} className="bg-brightGray px-2 py-1 text-center rounded"><i
 						className="icon-calendar1 text-base text-black"></i></Link>
 					  <Link to="/" className="bg-brightGray px-2 py-1 text-center rounded"><i
 						className="icon-percentage text-base text-black"></i></Link>
@@ -81,7 +81,7 @@ function DashboardEventCategoryItem({data}) {
 				  </div>
 				</div>
 			  </div>
-			</div>
+			</Link>
 		  </div>
   )
 }

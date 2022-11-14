@@ -19,6 +19,7 @@ function EventAboutPlace() {
 	const [about, setAbout] = useState("");
 	const [edit, setEdit] = useState(false);
 	const eventId = params.eventId;	
+	const eventType = params.eventType;	
 
 	const token = localStorage.getItem("Token");
 	const header = {
@@ -53,7 +54,6 @@ function EventAboutPlace() {
 		formData.append("price_type",priceType);
 		formData.append("details",about);
 		formData.append("event",eventId);
-		
 		try {
 			if(edit == false) {
 				// Insert place
@@ -95,7 +95,7 @@ function EventAboutPlace() {
 		   </Link>
 		 </div>
 		 {/* <!-- step-progress-bar  --> */}
-		 <StepProgressBar />
+		 <StepProgressBar eventType={eventType} />
 		 {/* <!-- main-content  --> */}
 		 <div className="space-y-3">
 		 <div className="upload-holder">

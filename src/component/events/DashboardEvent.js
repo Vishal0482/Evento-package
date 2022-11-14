@@ -21,7 +21,7 @@ function DashboardEvent() {
 	const [pageNo, setPageNo] = useState(1);
 	const token = localStorage.getItem("Token");
 	const eventType = params.eventType;
-	const limit = 3;
+	const limit = 1;
 	const header = {
 		'Authorization': `Token ${token}`
 	}
@@ -85,7 +85,7 @@ function DashboardEvent() {
 					<DashboardEventCategoryItem key={ele.eventId}  data={ele} />
 				))}
 				
-				<Paggination allEvents={allEvents} limit={limit} setPageNo={setPageNo} pageNo={pageNo} />
+				{!loading && ((allEvents?.total > 0) ? <Paggination allEvents={allEvents} limit={limit} setPageNo={setPageNo} pageNo={pageNo} /> : <h1 style={{margin: "100px 0"}}>No Event Found</h1>)}
 
 				<Modal isOpen={isCreateNewPopUpOpen} >
 					<EventPopUpCreateNew handleClose={setIsCreateNewPopUpOpen} eventType={eventType} edit={false} />
