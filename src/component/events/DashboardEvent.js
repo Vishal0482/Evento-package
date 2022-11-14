@@ -21,7 +21,7 @@ function DashboardEvent() {
 	const [pageNo, setPageNo] = useState(1);
 	const token = localStorage.getItem("Token");
 	const eventType = params.eventType;
-	const limit = 1;
+	const limit = 3;
 	const header = {
 		'Authorization': `Token ${token}`
 	}
