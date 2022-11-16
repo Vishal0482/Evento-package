@@ -112,13 +112,13 @@ function SideBar({ children }) {
             </span>
             <span>Membership</span>
           </Link>
-          <Link to="/" className="" title="Help & FAQ">
+          <Link to="/" className="" title="Our Products">
             <span>
               <i className="w-6 block text-center text-lg icon-our-product"></i>
             </span>
             <span>Our Products</span>
           </Link>
-          <Link to="/" className="" title="Help & FAQ">
+          <Link to="/" className="" title="Gift">
             <span>
               <i className="w-6 block text-center text-lg icon-refer"></i>
             </span>
@@ -192,18 +192,18 @@ function SideBar({ children }) {
                   alt="user name"
                   className="w-12 h-12 object-cover rounded-2xl relative"
                 />
-                <div className="dropprofile">
-                  <div className="profile-dropdown" style={{ border: "1px solid #EEEEEE", borderRadius: "5px" }}>
-                    <Link to="profile" className="text-xs flex view-profile vp cursor-pointer" style={{ marginBottom: "15px" }}>
-                      <i className="w-6 block text-center text-lg icon-user mr-4"></i>
-                      <span className="font-bold font-primary leading-4">View Profile</span>
+                <div class="dropprofile absolute pt-2.5 right-12 translate-y-5 opacity-0 anim invisible ">
+                  <div class="profile-dropdown border-[#eee] border rounded bg-white relative px-2.5 py-[15px]">
+                    <Link to="profile" class="text-xs flex items-center hover:text-spiroDiscoBall cursor-pointer mb-4">
+                      <i class="w-6 block text-center text-lg icon-user mr-4"></i>
+                      <span class="font-bold font-primary leading-4">View Profile</span>
                     </Link>
-                    <div className="text-xs flex view-profile cursor-pointer" style={{ color: "#FE4D5F" }} onClick={handleLogout}>
-                      <i className="w-6 block text-center text-lg icon-logout mr-4"></i>
-                      <span className="font-bold font-primary leading-4">Sign Out</span>
+                    <div class="text-xs flex items-center cursor-pointer text-[#FE4D5F]" onClick={handleLogout}>
+                      <i class="w-6 block text-center text-lg icon-logout mr-4"></i>
+                      <span class="font-bold font-primary leading-4">Sign Out</span>
                     </div>
                   </div>
-                </div>
+                  </div>
               </div>
             </div>
           </div>

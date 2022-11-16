@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import "../../assest/css/style.css";
+// import "../../assest/css/style.css";
 // import "../../assest/css/bootstrap.min.css";
 // import "../../assest/icon/font/style.css";
 

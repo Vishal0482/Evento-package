@@ -1,6 +1,4 @@
-
-import React from 'react'
-import "./Modal.css"
+import React from 'react';
 import { createPortal } from 'react-dom';
 
 const Modal = ({  children, isOpen, handleClose }) => {
