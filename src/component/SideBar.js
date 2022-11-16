@@ -26,6 +26,7 @@ import FAQ from "./other/FAQ";
 import Chatbot from "./other/Chatbot";
 import Notification from "./Notification/Notification";
 import Profile from "./other/Profile";
+import MultiStepForm from "./events/MultiStepForm";
 
 function SideBar({ children }) {
 
@@ -220,7 +221,8 @@ function SideBar({ children }) {
               <Route path="event-view/:eventId" element={<DashboardEventView /> } />
               <Route path=":eventType" >
                 <Route index element={<DashboardEvent />} />
-                <Route path="addplaces/:eventId" element={<EventAddPlaces />} />
+                <Route path="form" element={<MultiStepForm />} />
+                {/* <Route path="addplaces/:eventId" element={<EventAddPlaces />} />
                 <Route path="aboutplace/:eventId" element={<EventAboutPlace />} />
                 <Route path="personaldetails/:eventId/:userId" element={<EventPersonalDetails />} />
                 <Route path="photosandvideos/:eventId/:userId" element={<EventPhotosAndVideos />} />
@@ -228,7 +230,7 @@ function SideBar({ children }) {
                 <Route path="capacity/:eventId/:userId" element={<EventCapacity />} />
                 <Route path="companydetails/:eventId/:userId" element={<EventCompanyDetails />} />
                 <Route path="termsandconditions/:eventId/:userId" element={<EventTermsAndConditions />} />
-                <Route path="discounts/:eventId/:userId" element={<EventDiscounts />} />
+                <Route path="discounts/:eventId/:userId" element={<EventDiscounts />} /> */}
               </Route>
               <Route path="calender" element={<EventCalender />} />
             </Route>
