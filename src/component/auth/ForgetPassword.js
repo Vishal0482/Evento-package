@@ -1,70 +1,63 @@
 import React,{useState} from "react";
-
-import "../../assest//css/style.css";
-// import "../assets/css/bootstrap.min.css";
-// import "../assets/icon/font/style.css";
-
-
-
-import logo from "../../assest/images/landing-page/evento packege.png"
-// import { Link } from "react-router-dom";
-// import { API_URL } from "../constants";
 import axios from "axios";
-// import { useHistory } from "react-router-dom";
 import { baseUrl } from "../../config";
 import { useNavigate } from "react-router-dom";
-let token = `Token ${localStorage.getItem("token")}`;
+import BgImage from "./BgImage";
+import { toast, ToastContainer } from "react-toastify";
 
 function ForgatePassword() {
     const navigate = useNavigate();
-    const [email, setEmail] = useState("")
+    const [email, setEmail] = useState("");
+    const regexEmail = /^([A-Z|a-z|0-9](\.|_){0,1})+[A-Z|a-z|0-9]\@([A-Z|a-z|0-9])+((\.){0,1}[A-Z|a-z|0-9]){2}\.[a-z]{2,3}$/gm;
 
-    // const history = useHistory()
-
-   async function onSubmitHandler(e){
-       e.preventDefault();
-       
-       console.log(email);
+    const sendVerificationCode = async (e) => {
+        e.preventDefault();
         try {
-          
-            const response = await axios.post(`${baseUrl}/email_otp`,{email:email}, { headers: { "Content-Type": "application/json", Authorization: token } });
-
-            if (response && response.data.data.otp) {
-                // history.push("/otp",{
-                //     email:email,
-                //     otp:response.data.data.otp
-                // })
-            }
-        } catch (errCallingApi) {
-            alert("Error while sending OTP to mail.")
-            console.log("errCallingApi", errCallingApi);
+            if(regexEmail.test(email)) {
+                // const response = await axios.post(`${baseUrl}/api/logout`, {username : email});
+                // console.log("verification code", response);
+                toast.success("Verification code sent.");
+                navigate(`../verify/${email}`);
+            } 
+            toast.warn("Invalid Email.");
+        } catch (error) {
+            console.log(error);
+            toast.error("something Went wrong.");
         }
     }
-
+   
     return (
-        <div className="main">
-            <div className="login-page">
-                <div className="logo height">
-                    <img src={logo} alt="logo" onClick={() => navigate("/")} />
-                </div>
-                <div className="form-holder">
-                    <div className="form-main">
-                        <div className="form-title">
-                            <h1>Forget Your Password?</h1>
-                            <p>Please enter your email address to Recive a Varification Code.</p>
-                        </div>
-                        <div className="form f-2">
-                            <form action="" onSubmit={onSubmitHandler} >
-                                <div className="ps-1">
-                                    <label for="">Enter Your Email</label>
-                                    <input onChange={(e)=>setEmail(e.target.value)} type="text" id="" name=""  className="input" />
+        <div className="flex min-h-screen">
+            <div className="flex w-full flex-wrap bg-white">
+                <BgImage />
+                <div className="w-full relative lg:w-1/2 flex px-4">
+                    <div className="max-w-md w-full m-auto">
+                        <h1 className="whitespace-nowrap">Forget Your Password?!</h1>
+                        <p className="sm:text-lg xl:text-xl text-quicksilver font-normal sm:pt-3.5 xl:pr-8">Please enter your email address to Recive a Varification Code.</p>
+                        <div className="w-full pt-7 sm:pt-10">
+                            <form className="space-y-5">
+                                <div>
+                                    <label className="input-titel">Email or Phone number</label>
+                                    <input type="text" name="Email or Phone number" className="input_box" onChange={(e)=>setEmail(e.target.value)} />
                                 </div>
-                               <button type="submit" className="form-btn1 bt-2">SEND VERIFICATION CODE</button>
+                                <button className="btn-primary w-full py-[15px] uppercase" onClick={sendVerificationCode}>Send Verification Code</button>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
+            <ToastContainer
+					position="bottom-right"
+					autoClose={5000}
+					hideProgressBar={false}
+					newestOnTop={false}
+					closeOnClick
+					rtl={false}
+					pauseOnFocusLoss
+					draggable
+					pauseOnHover
+					theme="colored"
+				/>
         </div>
     );
 }

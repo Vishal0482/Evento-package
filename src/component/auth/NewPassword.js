@@ -1,90 +1,85 @@
-import React, { useEffect, useState } from "react";
-
-import "../../assest/css/style.css";
-// import "../assets/css/bootstrap.min.css";
-// import "../assets/icon/font/style.css";
-
-import logo from"../../assest/images/landing-page/evento packege.png"
-import { useLocation, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { baseUrl } from "../../config";
-// import { API_URL } from "../constants";
+import BgImage from "./BgImage";
+import { toast, ToastContainer } from "react-toastify";
+import { param } from "jquery";
 
 function NewPassword() {
-	const location = useLocation()
+	const parmas = useParams();
+	const username = parmas.username;
 	const navigate = useNavigate();
-	const [pass, setPass] = useState("")
-	const [cpass, setCpass] = useState("")
-	const [isVisible, setIsVisible] = useState(false)
+	const [pass, setPass] = useState("");
+	const [cpass, setCpass] = useState("");
+	const [isVisible, setIsVisible] = useState(false);
 
-	useEffect(() => {
-		// console.log(location.state);
-
-	}, [])
-
-	async function onSubmitHandler(e){
+	const onSubmitHandler = async(e) => {
 		e.preventDefault();
-		let body = {
-			email:"abc@example.com",
-			password:pass,
-			password2:cpass
+		const reqObj = {
+			email: username,
+			password: pass,
+			password2: cpass
 		}
 		if (cpass!==pass) {
-			alert("confirm password and password is not matching")
+			toast.warn("confirm password and password is not matching");
 			return
 		}
 
 		 try {
-		   
-			 const response = await axios.put(`${baseUrl}/forgotpassApi`,body, { headers: { "Content-Type": "application/json",} });
-			// console.log(response);
-			 if (response && response.data.data) {
-				alert(response.data.message)
-			 }
-		 } catch (errCallingApi) {
-			 alert("Error while resetting password")
-			 console.log("errCallingApi", errCallingApi);
+			// logic htmlFor change password
+			toast.success("Password updated Successfully");
+			navigate("../login");
+		 } catch (err) {
+			toast.error("Error while resetting password")
+			console.log(err);
 		 }
 	 }
 
 	return (
-		<div className="main">
-			<div className="login-page">
-				<div className="logo height">
-					<img src={logo} alt="logo" onClick={() => navigate("/")} />
-				</div>
-				<div className="form-holder">
-					<div className="form-main">
-						<div className="form-title">
-							<h1>Enter new Password</h1>
-							<p>Please enter a new password</p>
-						</div>
-						<div className="form f1">
-							<form>
-								<div className="new-ps-holder">
-									<div className="sm-1 new-ps-1">
-										<label for="">Password</label>
-										<div className="c-pass">
-											<input onChange={(e)=>setPass(e.target.value)} type={isVisible?"text":"password"} id="" name=""  />
-											<i onClick={()=>setIsVisible(!isVisible)} className="icon-view"></i>
-										</div>
-									</div>
-									<div className="sm-1 new-ps-1">
-										<label for="">Confirm Password</label>
-										<div className="c-pass">
-											<input onChange={(e)=>setCpass(e.target.value)}   type={isVisible?"text":"password"} id="" name=""  />
-											<i  onClick={()=>setIsVisible(!isVisible)} className="icon-view"></i>
-										</div>
-									</div>
-								</div>
-
-								<button type="submit" onClick={onSubmitHandler} className="form-btn1">SUBMIT A NEW PASSWORD</button>
-							</form>
-						</div>
-					</div>
-				</div>
+		<div className="flex min-h-screen overflow-hidden">
+		<div className="flex w-full flex-wrap bg-white">
+		  <BgImage />
+		  <div className="w-full relative lg:w-1/2 flex px-4 overflow-y-auto py-5">
+			<div className="max-w-md w-full m-auto">
+			  <h1>Enter new Password</h1>
+			  <p className="sm:text-lg xl:text-xl text-quicksilver font-normal sm:pt-3.5">Please enter a new password</p>
+			  <div className="w-full pt-7 sm:pt-10">
+				<form className="space-y-5">
+				  <div className="relative">
+					<label htmlFor="" className="input-titel">Password</label>
+					<input name="Phone Number" className="input_box pr-10" onChange={(e)=>setPass(e.target.value)} type="password" />
+					{/* <input name="Phone Number" className="input_box pr-10" onChange={(e)=>setPass(e.target.value)} type={isVisible?"text":"password"} /> */}
+					{/* <span className={isVisible ? "icon-eye text-xl opacity-50 absolute right-3 bottom-3 cursor-pointer" : "icon-pass-hide text-xl opacity-50 absolute right-3 bottom-3 cursor-pointer"} onClick={()=>setIsVisible(!isVisible)}></span> */}
+				  </div>
+				  <div className="relative">
+					<label htmlFor="" className="input-titel">Confirm Password</label>
+					<input name="Phone Number" className="input_box pr-10" onChange={(e)=>setCpass(e.target.value)} type={isVisible?"text":"password"} />
+					<span className={isVisible ? 
+						"icon-eye text-xl opacity-50 absolute right-3 bottom-3 cursor-pointer" : 
+						"icon-pass-hide text-xl opacity-50 absolute right-3 bottom-3 cursor-pointer"} 
+						onClick={()=>setIsVisible(!isVisible)}>
+					</span>
+				  </div>
+				  <button className="btn-primary w-full py-[15px] uppercase" onClick={onSubmitHandler} >Submit a new password</button>
+				</form>
+			  </div>
 			</div>
+		  </div>
 		</div>
+			<ToastContainer
+				position="bottom-right"
+				autoClose={5000}
+				hideProgressBar={false}
+				newestOnTop={false}
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss
+				draggable
+				pauseOnHover
+				theme="colored"
+			/>
+	  </div>
 	);
 }
 

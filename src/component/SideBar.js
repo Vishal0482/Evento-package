@@ -27,22 +27,34 @@ import Chatbot from "./other/Chatbot";
 import Notification from "./Notification/Notification";
 import Profile from "./other/Profile";
 import MultiStepForm from "./events/MultiStepForm";
+import axios from "axios";
+import { baseUrl } from "../config";
+import { toast, ToastContainer } from "react-toastify";
 
-function SideBar({ children }) {
+function SideBar() {
 
   const [languagePopup, setLanguagePopup] = useState(false);
-  const [visibleProfilePopup, setVisibleProfilePopup] = useState(false);
   const navigate = useNavigate();
   const token = localStorage.getItem("Token") || null;
-  // console.log(token);
+	const header = {
+		'Authorization': `Token ${token}`
+	}
 
   useEffect(() => {
     if (token == null) return navigate("../auth/login")
   }, []);
 
-  const handleLogout = () => {
-    localStorage.clear();
-    navigate("/");
+  const handleLogout = async () => {
+    try {
+				const response = await axios.post(`${baseUrl}/api/logout`, {}, {headers: header});
+				console.log("Logout",response);
+      } catch (error) {
+        console.log(error);
+        toast.error("something Went wrong.");
+      }
+      toast.success("Logout successfully.")
+      navigate("../auth/login");
+      localStorage.clear();
   }
 
   return (
@@ -113,13 +125,13 @@ function SideBar({ children }) {
             </span>
             <span>Membership</span>
           </Link>
-          <Link to="/" className="" title="Help & FAQ">
+          <Link to="/" className="" title="Our Products">
             <span>
               <i className="w-6 block text-center text-lg icon-our-product"></i>
             </span>
             <span>Our Products</span>
           </Link>
-          <Link to="/" className="" title="Help & FAQ">
+          <Link to="/" className="" title="Gift">
             <span>
               <i className="w-6 block text-center text-lg icon-refer"></i>
             </span>
@@ -193,18 +205,18 @@ function SideBar({ children }) {
                   alt="user name"
                   className="w-12 h-12 object-cover rounded-2xl relative"
                 />
-                <div className="dropprofile">
-                  <div className="profile-dropdown" style={{ border: "1px solid #EEEEEE", borderRadius: "5px" }}>
-                    <Link to="profile" className="text-xs flex view-profile vp cursor-pointer" style={{ marginBottom: "15px" }}>
+                <div className="dropprofile absolute pt-2.5 right-12 translate-y-5 opacity-0 anim invisible ">
+                  <div className="profile-dropdown border-[#eee] border rounded bg-white relative px-2.5 py-[15px]">
+                    <Link to="profile" className="text-xs flex items-center hover:text-spiroDiscoBall cursor-pointer mb-4">
                       <i className="w-6 block text-center text-lg icon-user mr-4"></i>
                       <span className="font-bold font-primary leading-4">View Profile</span>
                     </Link>
-                    <div className="text-xs flex view-profile cursor-pointer" style={{ color: "#FE4D5F" }} onClick={handleLogout}>
+                    <div className="text-xs flex items-center cursor-pointer text-[#FE4D5F]" onClick={handleLogout}>
                       <i className="w-6 block text-center text-lg icon-logout mr-4"></i>
                       <span className="font-bold font-primary leading-4">Sign Out</span>
                     </div>
                   </div>
-                </div>
+                  </div>
               </div>
             </div>
           </div>
@@ -214,7 +226,6 @@ function SideBar({ children }) {
         </Modal>
         {/* <!-- Content In --> */}
         <div className="rightInContent">
-          {/* {children} */}
           <Routes>
             <Route index element={<SelectWhoYouAre />} />
             <Route path="event">
@@ -251,6 +262,18 @@ function SideBar({ children }) {
           </Routes>
         </div>
       </div>
+      <ToastContainer
+					position="bottom-right"
+					autoClose={5000}
+					hideProgressBar={false}
+					newestOnTop={false}
+					closeOnClick
+					rtl={false}
+					pauseOnFocusLoss
+					draggable
+					pauseOnHover
+					theme="colored"
+				/>
     </div>
   );
 }

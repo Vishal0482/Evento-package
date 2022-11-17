@@ -1,5 +1,4 @@
 import "./assest/css/fonts.css";
-// import "./assest/css/style.css";
 import "./assest/css/moon-icon.css";
 import './App.css';
 import {BrowserRouter, Routes, Route} from "react-router-dom";
@@ -65,9 +64,9 @@ function App() {
           <Route path="auth" >
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
-            <Route path="verify" element={<Otp />} />
+            <Route path="verify/:username" element={<Otp />} />
             <Route path="forgot-password" element={<ForgotPassword />} />
-            <Route path="new-password" element={<NewPassword />} />
+            <Route path="new-password/:username" element={<NewPassword />} />
           </Route>
           <Route path="dashboard/*" element={<SideBar/>} />
           <Route path="*" element={<h1 style={{color: "red", margin: "50px"}}>404 | PAGE NOT FOUND</h1>} />
