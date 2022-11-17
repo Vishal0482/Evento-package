@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import $ from "jquery";
-import OwlCarousel from "react-owl-carousel";
 import i18n from "../../assest/js/i18n";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -17,25 +16,9 @@ import sfe from "../../assest/images/landing-page/FE.png";
 import ad from "../../assest/images/landing-page/AD.png";
 import ff from "../../assest/images/landing-page/FF.png";
 
-import sep from "../../assest/images/landing-page/s-ep.png";
-import landingheaderlogo from "../../assest/images/landing-page/evento packege.png";
-import right from "../../assest/images/landing-page/right.png";
-import dj from "../../assest/images/landing-page/dj.png";
-import Speaker from "../../assest/images/landing-page/Speaker.png";
-import Wishlist from "../../assest/images/landing-page/Wishlist.png";
-import Share from "../../assest/images/landing-page/Share.png";
-import noiseporn from "../../assest/images/landing-page/noiseporn.jpg";
-import upcoming1 from "../../assest/images/landing-page/upcoming-1.png";
-import upcoming2 from "../../assest/images/landing-page/upcoming-2.png";
-import upcoming3 from "../../assest/images/landing-page/upcoming-3.png";
-// import Showcasebg from "../assets/img/Showcase-bg.png";
 import Showcasebg from "../../assest/images/landing-page/Showcase-bg.png";
 import ShowBACK from "../../assest/images/landing-page/BACK.jpg";
-import giftboxl from "../../assest/images/landing-page/gift-box-l.png";
-import giftboxl2 from "../../assest/images/landing-page/gift-box-l2.png";
-import giftboxl3 from "../../assest/images/landing-page/gift-box-l3.png";
 import aboutg from "../../assest/images/landing-page/about-g.png";
-
 import AnniversaryEvent from "../../assest/images/landing-page/video-1.png";
 import ChildrenPartyPlannersEvent from "../../assest/images/landing-page/video-2.png";
 import BirthdaypartyEvent from "../../assest/images/landing-page/video-3.png";
@@ -46,13 +29,8 @@ import video3 from "../../assest/images/landing-page/Birthday-party-Event.mp4";
 import video4 from "../../assest/images/landing-page/Summer-Garden-Party-Event.mp4";
 
 import ourcompany from "../../assest/images/landing-page/our-company.png";
-// import lbanner from "../assets/img/l-banner.png";
-// import logo from "../assets/img/evento packege.png";
-import footerlogo from "../../assest/images/landing-page/evento packege.png";
 import googleplay from "../../assest/images/landing-page/google-play.png";
 import appstore from "../../assest/images/landing-page/app-store.png";
-import owner from "../../assest/images/landing-page/owner.png";
-import user from "../../assest/images/landing-page/user.png";
 import whatsupfooter from "../../assest/images/landing-page/whatsup-footer.png";
 import facebookfooter from "../../assest/images/landing-page/facebook-footer.png";
 import telegramfooter from "../../assest/images/landing-page/telegram-footer.png";
@@ -66,9 +44,7 @@ import india from "../../assest/images/landing-page/india.png";
 import germany from "../../assest/images/landing-page/germany.png";
 import china from "../../assest/images/landing-page/china.png";
 import thailand from "../../assest/images/landing-page/thailand.png";
-import devices from "../../assest/images/landing-page/landing-home-bg.png";
 import iphone from "../../assest/images/landing-page/iphone.png";
-import eventAD from "../../assest/images/landing-page/evant-ad.png";
 import siderevento from "../../assest/images/landing-page/sider-evento.png";
 import giftfcoin from "../../assest/images/landing-page/surprise 1.png";
 import Advertisement from "../Advertisement";
@@ -78,7 +54,6 @@ import { Link } from "react-router-dom";
 import Event from "./Event";
 import Offer from "./Offer";
 import LiveStream from "./LiveStream";
-import { useRef } from "react";
 import Modal from "../modal/Modal";
 import VideoPlayer from "./popup/VideoPlayer";
 
@@ -379,10 +354,10 @@ function LandingPage() {
                     <nav className="w-full lg:w-auto py-4 lg:py-0 lg:order-2 text-center hidden xl:block">
                       <ul className="flex flex-wrap space-y-2 lg:space-y-0 lg:space-x-8">
                         <li className="w-full lg:w-auto"><a href="#" className="block">Home</a></li>
-                        <li className="w-full lg:w-auto"><a href="#" className="block">About</a></li>
-                        <li className="w-full lg:w-auto"><a href="#" className="block">Feature</a></li>
+                        <li className="w-full lg:w-auto"><a href="#about" className="block">About</a></li>
+                        <li className="w-full lg:w-auto"><a href="#feature" className="block">Feature</a></li>
                         <li className="w-full lg:w-auto"><a href="#" className="block">Upcoming</a></li>
-                        <li className="w-full lg:w-auto"><a href="#" className="block">Showcase</a></li>
+                        <li className="w-full lg:w-auto"><a href="#showcase" className="block">Showcase</a></li>
                         <li className="w-full lg:w-auto"><a href="#" className="block">Price</a></li>
                         <li className="w-full lg:w-auto"><a href="#" className="block">About Us</a></li>
                       </ul>
@@ -402,7 +377,7 @@ function LandingPage() {
       </div>
 
       {/* who are you */}
-      <div className="bg-white">
+      <div id="feature" className="bg-white">
         <div className="wrapper">
           <div className="title text-center py-5 md:py-8 lg:py-12">
             <h2>Who are you?</h2>
@@ -561,7 +536,7 @@ function LandingPage() {
       </section>
 
       {/* App Showcase */}
-      < section className="relative bg-white" >
+      < section id="showcase" className="relative bg-white" >
         <div className="px-3.5 relative pt-16 lg:pt-24">
           <div className="lg:pt-10">
             <h1 className="w-full text-center sm:w-auto text-4xl lg:text-[50px] text-white font-bold mb-3 lg:mb-6 relative z-10">App Showcase</h1>
@@ -625,7 +600,7 @@ function LandingPage() {
       </section >
 
       {/* Who we are? */}
-      <section className="bg-[#EEEEEE]">
+      <section id="about" className="bg-[#EEEEEE]">
         <div className="wrapper flex flex-wrap py-16 md:py-24 xl:py-40 relative">
           <img src={aboutg} alt="Our Company" className="w-full md:w-1/2 md:max-w-[650px] md:absolute right-0 top-1/2 md:-translate-y-1/2" />
           <div className="w-full md:w-1/2 max-w-xl md:pr-10 mt-6 md:mt-0">

@@ -26,22 +26,34 @@ import FAQ from "./other/FAQ";
 import Chatbot from "./other/Chatbot";
 import Notification from "./Notification/Notification";
 import Profile from "./other/Profile";
+import axios from "axios";
+import { baseUrl } from "../config";
+import { toast, ToastContainer } from "react-toastify";
 
-function SideBar({ children }) {
+function SideBar() {
 
   const [languagePopup, setLanguagePopup] = useState(false);
-  const [visibleProfilePopup, setVisibleProfilePopup] = useState(false);
   const navigate = useNavigate();
   const token = localStorage.getItem("Token") || null;
-  // console.log(token);
+	const header = {
+		'Authorization': `Token ${token}`
+	}
 
   useEffect(() => {
     if (token == null) return navigate("../auth/login")
   }, []);
 
-  const handleLogout = () => {
-    localStorage.clear();
-    navigate("/");
+  const handleLogout = async () => {
+    try {
+				const response = await axios.post(`${baseUrl}/api/logout`, {}, {headers: header});
+				console.log("Logout",response);
+      } catch (error) {
+        console.log(error);
+        toast.error("something Went wrong.");
+      }
+      toast.success("Logout successfully.")
+      navigate("../auth/login");
+      localStorage.clear();
   }
 
   return (
@@ -192,15 +204,15 @@ function SideBar({ children }) {
                   alt="user name"
                   className="w-12 h-12 object-cover rounded-2xl relative"
                 />
-                <div class="dropprofile absolute pt-2.5 right-12 translate-y-5 opacity-0 anim invisible ">
-                  <div class="profile-dropdown border-[#eee] border rounded bg-white relative px-2.5 py-[15px]">
-                    <Link to="profile" class="text-xs flex items-center hover:text-spiroDiscoBall cursor-pointer mb-4">
-                      <i class="w-6 block text-center text-lg icon-user mr-4"></i>
-                      <span class="font-bold font-primary leading-4">View Profile</span>
+                <div className="dropprofile absolute pt-2.5 right-12 translate-y-5 opacity-0 anim invisible ">
+                  <div className="profile-dropdown border-[#eee] border rounded bg-white relative px-2.5 py-[15px]">
+                    <Link to="profile" className="text-xs flex items-center hover:text-spiroDiscoBall cursor-pointer mb-4">
+                      <i className="w-6 block text-center text-lg icon-user mr-4"></i>
+                      <span className="font-bold font-primary leading-4">View Profile</span>
                     </Link>
-                    <div class="text-xs flex items-center cursor-pointer text-[#FE4D5F]" onClick={handleLogout}>
-                      <i class="w-6 block text-center text-lg icon-logout mr-4"></i>
-                      <span class="font-bold font-primary leading-4">Sign Out</span>
+                    <div className="text-xs flex items-center cursor-pointer text-[#FE4D5F]" onClick={handleLogout}>
+                      <i className="w-6 block text-center text-lg icon-logout mr-4"></i>
+                      <span className="font-bold font-primary leading-4">Sign Out</span>
                     </div>
                   </div>
                   </div>
@@ -213,7 +225,6 @@ function SideBar({ children }) {
         </Modal>
         {/* <!-- Content In --> */}
         <div className="rightInContent">
-          {/* {children} */}
           <Routes>
             <Route index element={<SelectWhoYouAre />} />
             <Route path="event">
@@ -249,6 +260,18 @@ function SideBar({ children }) {
           </Routes>
         </div>
       </div>
+      <ToastContainer
+					position="bottom-right"
+					autoClose={5000}
+					hideProgressBar={false}
+					newestOnTop={false}
+					closeOnClick
+					rtl={false}
+					pauseOnFocusLoss
+					draggable
+					pauseOnHover
+					theme="colored"
+				/>
     </div>
   );
 }

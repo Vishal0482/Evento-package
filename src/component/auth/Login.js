@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import logo from "../../assest/svg/logo.svg";
 import googlelogo from "../../assest/images/landing-page/google.png";
 import facebooklogo from "../../assest/images/landing-page/facebook.png";
-import bgImage from "../../assest/images/landing-page/bg-1.png";
 import { Link, useNavigate } from "react-router-dom";
 import { baseUrl } from '../../config';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import BgImage from './BgImage';
 
 function Login() {
 	const navigate = useNavigate();
@@ -16,7 +15,7 @@ function Login() {
 
 	useEffect(() => {
 		if (token != null) return navigate("../../dashboard")
-	}, [])
+	}, [token]);
 
 	const [userData, setUserData] = useState({ emailOrPhone: "", password: "" });
 	const [error, setError] = useState(false);
@@ -33,14 +32,16 @@ function Login() {
 		try {
 			const response = await axios.post(`${baseUrl}/api/login`, { username: userData.emailOrPhone, password: userData.password });
 			console.log('response', response);
-			if (response.data?.isSuccess == true) {
+			if (response.data?.isSuccess) {
 				toast.success("Login successfully.");
 				setError(false);
 				localStorage.clear();
 				localStorage.setItem("Token", response.data.data.token);
 				localStorage.setItem("UserId", response.data.data.userId);
 				console.log("Token", response.data.data.token);
-				navigate("/dashboard");
+				setTimeout(() => {
+					navigate("/dashboard")
+				}, 1000);
 			}
 		} catch (e) {
 			toast.error("Unable to Login");
@@ -52,12 +53,7 @@ function Login() {
 	return (
 		<div className="flex min-h-screen">
 			<div className="flex w-full flex-wrap bg-white">
-				<div className="w-full relative lg:w-1/2 hidden lg:block">
-					<img src={bgImage} alt="login-bg" className="absolute inset-0 w-full h-full object-cover" />
-					<div className="bg-white p-5 w-36 h-36 xl:w-48 xl:h-48 relative ml-36 flex">
-						<img src={logo} alt="evanto-logo" className="m-auto" onClick={() => navigate("/")} />
-					</div>
-				</div>
+				<BgImage />
 				<div className="w-full relative lg:w-1/2 flex px-4">
 					<div className="max-w-md w-full m-auto">
 						<h1>Welcome Back!</h1>
@@ -66,12 +62,12 @@ function Login() {
 							<form className="space-y-5">
 								{error && <span style={{ color: "red" }}>Username or Password incorrect</span>}
 								<div>
-									<label for="" className="input-titel">Email or Phone number</label>
-									<input type="text" name="username" className="input_box" value={userData.emailOrPhone} onChange={(e) => { setFormField('emailOrPhone', e.target.value) }} required />
+									<label htmlFor="" className="input-titel">Email or Phone number</label>
+									<input type="text" name="username" className="input_box" value={userData.emailOrPhone} onChange={(e) => { setFormField('emailOrPhone', e.target.value); setError(false) }} required />
 								</div>
 								<div>
-									<label for="" className="input-titel">Password</label>
-									<input type="Password" name="password" className="input_box" value={userData.password} onChange={(e) => { setFormField('password', e.target.value) }} required />
+									<label htmlFor="" className="input-titel">Password</label>
+									<input type="Password" name="password" className="input_box" value={userData.password} onChange={(e) => { setFormField('password', e.target.value); setError(false) }} required />
 									<Link to="../forgot-password" className="text-caribbeanGreen font-bold text-xs md:text-sm block text-right mt-2">Forget Password?</Link>
 								</div>
 								<button className="btn-primary w-full py-[15px] uppercase" onClick={handleSubmit}>Login Now</button>
