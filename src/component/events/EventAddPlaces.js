@@ -17,9 +17,9 @@ function EventAddPlaces() {
 
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-	const params = useParams();
-	const eventId = params.eventId;
-	const eventType = params.eventType;
+	// const params = useParams();
+	const eventId = 14;
+	const eventType = 1;
 	console.log(eventType);
 	const [newEvent, setNewEvent] = useState([]);
 	const [categoryName, setCategoryName] = useState("");
@@ -66,18 +66,11 @@ function EventAddPlaces() {
 		 <div className="flex justify-between items-center">
 			 <a href="#" className="flex items-center"><i className="icon-back-arrow mr-4 text-2xl"></i><h1>Create New</h1></a>
 		 </div>
-		 {/* <!-- step-progress-bar  --> */}
-		<StepProgressBar eventType={eventType} />
-		 {/* <!-- main-content  --> */}
 		 <div className=" space-y-3">
 		   <EventAddPlacesEventList displayName={newEvent[0]?.display_name} categoryName={categoryName} eventId={eventId} />
 		 </div>
 		 {/* <!-- advisement --> */}
 		 <Advertisement />
-	   </div>
-	   <div className="prw-next-btn mt-auto">
-		 <button type="button" className="flex items-center" onClick={clickBackHander}><i className="icon-back-arrow mr-3"></i><h3>Back</h3></button>
-		 <button type="button" className="flex items-center active" onClick={clickNextHandler}><h3>Next</h3><i className="icon-next-arrow ml-3"></i></button>
 	   </div>
 	 </div>
    </div>

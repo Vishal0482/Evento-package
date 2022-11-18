@@ -88,7 +88,6 @@ function EventPersonalDetails() {
 
   return (
 	// <!-- Content In -->
-	<div className="rightInContent">
 	<div className="wrapper min-h-full">
 	<Formik
       initialValues={initialState}
@@ -97,12 +96,6 @@ function EventPersonalDetails() {
 			 {({ errors, touched,formik }) => (
       <Form>	
 	  <div className="space-y-8 h-full">
-		 {/* {/ <!-- title-holder  --> /} */}
-		<div className="flex justify-between items-center">
-		  <Link to="/" className="flex items-center"><i className="icon-back-arrow mr-4 text-2xl"></i><h1>Sweet Love Catering</h1></Link>
-		</div>
-		{/* {/ <!-- step-progress-bar  --> /} */}
-		<StepProgressBar eventType={eventType} />
 		{/* {/ <!-- main-content  --> /} */}
 		<div className="space-y-5 -mx-2">
 		  <div className="w-full flex items-end flex-wrap">
@@ -200,7 +193,6 @@ function EventPersonalDetails() {
 		)}
     </Formik>
 	</div>
-  </div>
   )
 }
 

@@ -9,7 +9,7 @@ import { increment } from '../../redux/stepProgressCount';
 function DashboardEventCategoryItem({data}) {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-	// const [isLive, setIsLive] = useState(false);
+	const [isActive, setIsAcvive] = useState(false);
 	// const [category, setCategory] = useState({});
 	const token = localStorage.getItem("Token");
 	const header = {
@@ -37,7 +37,7 @@ function DashboardEventCategoryItem({data}) {
 			  <i className="icon-right"></i>
 			  </label>
 			</div>
-			<Link to={`../../event-view/${data?.eventId}`} className="w-full p-4 pr-7 bg-white rounded">
+			<Link to={`../../event-view/${data?.eventId}`} className="cursor-pointer w-full p-4 pr-7 bg-white rounded">
 			  <div className="flex space-x-5">
 				<img src={sweetLoveCatering} />
 				<div className="w-full">
@@ -50,7 +50,7 @@ function DashboardEventCategoryItem({data}) {
 					</div>
 					<div className="">
 					  <div className="flex items-center">
-						<input type="checkbox" className="switch mr-3" defaultChecked={data?.is_active} />
+						<input type="checkbox" className="switch mr-3" defaultChecked={data?.is_active} onClick={(e) => { e.stopPropagation(); setIsAcvive(!isActive)} } />
 						<label htmlFor="">
 						  <h3>Live</h3>
 						</label>
@@ -68,7 +68,7 @@ function DashboardEventCategoryItem({data}) {
 					  <span className="text-quicksilver text-xs font-bold pl-2"> 19,981 ratings</span>
 					</div>
 					<div className="flex space-x-2">
-					  <Link to={`addplaces/${data.eventId}`} onClick={()=> dispatch(increment())} className="bg-brightGray px-2 py-1 text-center rounded"><i className="text-base edit text-black icon-edit" style={{color: "#000"}}></i></Link>
+					  <Link to={`form`} onClick={()=> dispatch(increment())} className="bg-brightGray px-2 py-1 text-center rounded"><i className="text-base edit text-black icon-edit" style={{color: "#000"}}></i></Link>
 						<Link to="/" className="bg-brightGray px-2 py-1 text-center rounded"><i
 						className="icon-fill-megaphone text-base text-black"></i></Link>
 					  <Link to={`/dashboard/event/calender`} className="bg-brightGray px-2 py-1 text-center rounded"><i

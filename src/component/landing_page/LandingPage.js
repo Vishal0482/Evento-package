@@ -778,7 +778,7 @@ function LandingPage() {
                   slidesPerView: 4,
                   spaceBetween: 40,
                 },
-                1200: {
+                1536: {
                   slidesPerView: 5,
                   spaceBetween: 50,
                 },

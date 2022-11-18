@@ -12,14 +12,14 @@ function EventAboutPlace() {
 
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-	const params = useParams();
+	// const params = useParams();
 	const [banner, setBanner] = useState(null);
 	const [price, setPrice] = useState("");
 	const [priceType, setPriceType] = useState("per_hour");
 	const [about, setAbout] = useState("");
 	const [edit, setEdit] = useState(false);
-	const eventId = params.eventId;	
-	const eventType = params.eventType;	
+	const eventId = 1;	
+	// const eventType = params.eventType;	
 
 	const token = localStorage.getItem("Token");
 	const header = {
