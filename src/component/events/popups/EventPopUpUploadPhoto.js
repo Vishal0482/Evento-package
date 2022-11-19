@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
 import { baseUrl } from '../../../config';
 
 function EventPopUpUploadPhoto({handleClose, eventId}) {
@@ -52,9 +53,13 @@ function EventPopUpUploadPhoto({handleClose, eventId}) {
 			const response = await axios.post(`${baseUrl}/api/image_event`,formDataImage, {headers: header});
 			console.log(response);
 			if(response.data.status) {
+				toast.success("Image Uploaded successfully.");
 				handleClose(false);
+			} else {
+				toast.error("Image Uploaded Failed");
 			}
 		} catch (error) {
+			toast.success("Something Went Wrong");
 			console.log(error);
 		}
 	}
@@ -98,6 +103,18 @@ function EventPopUpUploadPhoto({handleClose, eventId}) {
 		 </div>
 	   </div>
 	 </div>
+		  <ToastContainer
+			  position="bottom-right"
+			  autoClose={5000}
+			  hideProgressBar={false}
+			  newestOnTop={false}
+			  closeOnClick
+			  rtl={false}
+			  pauseOnFocusLoss
+			  draggable
+			  pauseOnHover
+			  theme="colored"
+		  />
    </div>
   )
 }

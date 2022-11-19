@@ -231,8 +231,8 @@ function SideBar() {
               <Route path="event-view/:eventId" element={<DashboardEventView /> } />
               <Route path=":eventType" >
                 <Route index element={<DashboardEvent />} />
-                <Route path="addplaces/:eventId" element={<EventAddPlaces />} />
-                <Route path="aboutplace/:eventId" element={<EventAboutPlace />} />
+                <Route path="addplaces/:eventId/:placeId" element={<EventAddPlaces />} />
+                <Route path="aboutplace/:eventId/:placeId" element={<EventAboutPlace />} />
                 <Route path="personaldetails/:eventId/:userId" element={<EventPersonalDetails />} />
                 <Route path="photosandvideos/:eventId/:userId" element={<EventPhotosAndVideos />} />
                 <Route path="addservices/:eventId/:userId" element={<EventAddServices />} />

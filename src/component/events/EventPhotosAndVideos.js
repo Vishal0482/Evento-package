@@ -10,6 +10,7 @@ import { baseUrl } from "../../config";
 import { decrement, increment } from '../../redux/stepProgressCount';
 import { useDispatch } from 'react-redux';
 import videoThumb from '../../assest/images/video-thumbnail.jpg';
+import { toast, ToastContainer } from 'react-toastify';
 
 function EventPhotosAndVideos() {
 
@@ -22,6 +23,7 @@ const navigate = useNavigate();
 const dispatch = useDispatch();
 const params = useParams();
 const eventId = params.eventId;
+const eventType = params.eventType;
 const userId = params.userId;
 const token = localStorage.getItem("Token");
 	const header = {
@@ -77,6 +79,7 @@ const removeVideoClick = async(id) => {
 }
 
 const clickNextHandler = () => {
+	toast.success("Data saved successfully.");
 	dispatch(increment());
 	navigate(`../addservices/${eventId}/${userId}`);
 }
@@ -88,7 +91,7 @@ const clickBackHander = () => {
 
   return (
 	//  <!-- Content In -->
-	 <div className="rightInContent">
+	 <div>
 	 <div className="wrapper min-h-full">
 	   
 	   <div className="space-y-8 h-full">
@@ -97,7 +100,7 @@ const clickBackHander = () => {
 		   <Link to="/" className="flex items-center"><i className="icon-back-arrow mr-4 text-2xl"></i><h1>Sweet Love Catering</h1></Link>
 		 </div>
 		 {/* <!-- step-progress-bar  --> */}
-		 <StepProgressBar />
+		 <StepProgressBar eventType={eventType} />
 		 {/* <!-- main-content  --> */}
 		 <div className="space-y-5">
 		   <div className="upload-holder">
@@ -106,13 +109,13 @@ const clickBackHander = () => {
 				 <input  name="images" id="upload" className="appearance-none hidden"/>
 				 <span className="input-titel mt-1"><i className="icon-image mr-2"></i>Upload Images</span>
 			   </label>
-				 <span className="input-titel mt-1">{imageList.length} Images Uploaded</span>
+			   {imageList?.length !== 0  &&<span className="input-titel mt-1">{imageList.length} Images Uploaded</span>}
 		   </div>
 		   <div className="media-upload-holder">
-			   <span className="input-titel">Uploaded Photo</span>
+			  {imageList?.length !== 0  && <span className="input-titel">Uploaded Photo</span>}
 				<div className="flex flex-wrap herobox">
 					{imageList?.map((img, index) => (
-						<div key={index}>
+						<div key={index} className="mt-2 mr-2">
 							<div className="upload-box" >
 								<div className="rounded relative overflow-hidden flex justify-center items-center h-full">
 								<img src={baseUrl+"/api"+img.image} alt={"upload-"+index}/>
@@ -129,10 +132,10 @@ const clickBackHander = () => {
 				 <input  name="images" id="upload2" className="appearance-none hidden"/>
 				 <div className="mt-1 flex items-baseline justify-center"><i className="icon-video-play text-base mr-2"></i> <span className="input-titel pt-1">Upload videos</span></div>
 			   </label>
-			   <span className="input-titel mt-1">{videoList.length} Videos Uploaded</span>
+			   {videoList?.length !== 0 &&<span className="input-titel mt-1">{videoList.length} Videos Uploaded</span>}
 		   </div>
 		   <div className="media-upload-holder">
-			   <span className="input-titel">Uploaded videos</span>
+			  {videoList?.length !== 0 && <span className="input-titel">Uploaded videos</span>}
 			   <div className="flex space-x-2.5">
 					{videoList?.map((vid, index) => (
 						<div className="upload-box" key={index}>
@@ -165,7 +168,18 @@ const clickBackHander = () => {
 		<EventPopUpUploadVideo handleClose={setIsUploadVideoPopUpOpen} eventId={eventId} />
 	</Modal>}
 	 </div>
-
+		  <ToastContainer
+			  position="bottom-right"
+			  autoClose={5000}
+			  hideProgressBar={false}
+			  newestOnTop={false}
+			  closeOnClick
+			  rtl={false}
+			  pauseOnFocusLoss
+			  draggable
+			  pauseOnHover
+			  theme="colored"
+		  />
    </div>
   )
 }

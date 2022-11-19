@@ -11,6 +11,7 @@ import EventPopUpUploadVideo from "../../component/events/popups/EventPopUpUploa
 import videoThumb from '../../assest/images/video-thumbnail.jpg';
 import { Formik, Form, Field, ErrorMessage, withFormik } from 'formik';
 import * as Yup from 'yup';
+import { toast, ToastContainer } from 'react-toastify';
 
 function EventCompanyDetails() {
 	const [isUploadPhotoPopUpOpen, setIsUploadPhotoPopUpOpen] = useState(false);
@@ -23,6 +24,7 @@ function EventCompanyDetails() {
 	const params = useParams();
 	const userId = params.userId;
 	const eventId = params.eventId;
+	const eventType = params.eventType;
 	const [gstFile, setGstFile] = useState(null);
 	const [gstFileError, setGstFileError] = useState(null);
 	const token = localStorage.getItem("Token");
@@ -159,18 +161,20 @@ function EventCompanyDetails() {
 		}
 		formData.append("eventId",eventId);
 		formData.append("user_id",userId);
-		formData.append("gst",gstFile);
-
+		formData.append("gst",gstFile || null);
+		
 		// const requestObj = {...values,formData};
 		// console.log(requestObj);
 		try {
 			const response = await axios.post(`${baseUrl}/api/events/companydetail`, formData, {headers: header});
 			console.log("Company details > ", response);
 			if(response.data.isSuccess === true) {
+				toast.success("Company Details Saved Successfully.")
 				dispatch(increment());
-				navigate(`/dashboard/event/termsandconditions/${params.eventId}/${params.userId}`);
-			}	
+				navigate(`../termsandconditions/${params.eventId}/${params.userId}`);
+			}
 		} catch (error) {
+			toast.error("Something Went Wrong.")
 			console.log(error);
 		}
 	}
@@ -200,26 +204,27 @@ function EventCompanyDetails() {
 			<a href="#" className="flex items-center"><i className="icon-back-arrow mr-4 text-2xl"></i><h1>Sweet Love Catering</h1></a>
 		  </div>
 		  {/* <!-- step-progress-bar  --> */}
-		 <StepProgressBar />
+		 <StepProgressBar eventType={eventType}/>
 		  {/* <!-- main-content  --> */}
 		  <div className="space-y-5 -mx-2">
 			<div className="w-full flex items-end flex-wrap">
 			  <div  iv className="w-full md:w-1/2 px-2 inputHolder">
 				  <span className="input-titel">Company Name</span>
 				  <Field type="text" className="input" name="name" value={formik?.values.name} />
-					<ErrorMessage name='name'  component="span" className="field_error" />
+					<ErrorMessage name='name'  component="span" className="text-red-500 text-xs" />
 				<br/>
 			  </div>
 			  <div className="w-full md:w-1/2 px-2 inputHolder">
-				  <span className="input-titel">Company GST (Optional)</span>
+				  <span className="input-titel">Company GST</span>
+				  {/* <span className="input-titel">Company GST (Optional)</span> */}
 				  <label htmlFor="upload" className="upload upload-popup">
 					<input type="file" name="pdf" id="upload" className="appearance-none hidden" onChange={pdfUpload} />
 					{/* <Field type="file" className="appearance-none hidden" id="upload" name="gst" value={formik?.values.gst} /> */}
 					<span className="input-titel mt-1"><i className="icon-pdf mr-2"></i>Upload PDF</span>
 				  </label>
-				  {/* <ErrorMessage name='gst' component="span" className="field_error" /> */}
+				  {/* <ErrorMessage name='gst' component="span" className="text-red-500 text-xs" /> */}
 				  {/* <span className={gstFileError && "field_error"}>{gstFileError || gstFile?.name + "<span>remove</span>"}</span>  */}
-				  {gstFileError && <span className="field_error">{gstFileError}</span> }
+				  {gstFileError && <span className="text-red-500 text-xs">{gstFileError}</span> }
 				  {gstFile !== null && <><span>{gstFile?.name}</span> <span className="cursor-pointer" onClick={() => setGstFile(null)}> remove</span></>}
 				  <br/>
 			  </div>
@@ -228,13 +233,13 @@ function EventCompanyDetails() {
 			  <div className="w-full md:w-1/2 px-2 inputHolder">
 				  <span className="input-titel">Company Contact No</span>
 				  <Field type="text" className="input" name="contact_no"  value={formik?.values.contact_no} />
-					<ErrorMessage name='contact_no'  component="span" className="field_error"/>
+					<ErrorMessage name='contact_no'  component="span" className="text-red-500 text-xs"/>
 				<br/>
 			  </div>
 			  <div className="w-full md:w-1/2 px-2 inputHolder">
 				  <span className="input-titel">Company Email</span>
 				  <Field type="email" className="input" name="email"  value={formik?.values.email}/>
-					<ErrorMessage name='email'  component="span" className="field_error"/>
+					<ErrorMessage name='email'  component="span" className="text-red-500 text-xs"/>
 				<br/>
 			  </div>
 			</div> 
@@ -244,19 +249,19 @@ function EventCompanyDetails() {
 				  <div className="w-full md:w-1/3 px-2 inputHolder">
 					  <span className="input-titel">Flat No.</span>
 					  <Field type="text" className="input" name="flat_no"  value={formik?.values.flat_no} />
-						<ErrorMessage name='flat_no'  component="span" className="field_error"/>
+						<ErrorMessage name='flat_no'  component="span" className="text-red-500 text-xs"/>
 				<br/>
 				  </div>
 				  <div className="w-full md:w-1/3 px-2 inputHolder">
 					  <span className="input-titel">Street Name.</span>
 					  <Field type="text" className="input" name="street" value={formik?.values.street} />
-						<ErrorMessage name='street'  component="span" className="field_error" />
+						<ErrorMessage name='street'  component="span" className="text-red-500 text-xs" />
 				<br/>
 				  </div>
 				  <div className="w-full md:w-1/3 px-2 inputHolder">
 					  <span className="input-titel">Area Name.</span>
 					  <Field type="text" className="input" name="area" value={formik?.values.area} />
-						<ErrorMessage name='area' component="span" className="field_error"/>
+						<ErrorMessage name='area' component="span" className="text-red-500 text-xs"/>
 				<br/>
 				  </div>
 				</div>
@@ -264,19 +269,19 @@ function EventCompanyDetails() {
 				  <div className="w-full md:w-1/3 px-2 inputHolder">
 					  <label className="input-titel">City</label>
 					  <Field type="text" className="input" name="city" value={formik?.values.city} />
-						<ErrorMessage name='city' component="span" className="field_error"/>
+						<ErrorMessage name='city' component="span" className="text-red-500 text-xs"/>
 				<br/>
 				  </div>
 				  <div className="w-full md:w-1/3 px-2 inputHolder">
 					  <label className="input-titel">State</label>
 					  <Field type="text" className="input" name="state" value={formik?.values.state} />
-						<ErrorMessage name='state' component="span" className="field_error" />
+						<ErrorMessage name='state' component="span" className="text-red-500 text-xs" />
 				<br/>						
 				  </div>
 				  <div className="w-full md:w-1/3 px-2 inputHolder">
 					  <label className="input-titel">Pincode</label>
 					  <Field type="text" className="input" name="pincode" value={formik?.values.pincode}/>
-						<ErrorMessage name='pincode' component="span" className="field_error" />
+						<ErrorMessage name='pincode' component="span" className="text-red-500 text-xs" />
 				<br/>		
 				  </div>
 				</div>
@@ -344,6 +349,18 @@ function EventCompanyDetails() {
 			<EventPopUpUploadVideo handleClose={setIsUploadVideoPopUpOpen} eventId={eventId} />
 		</Modal>}
 	  </div>
+	  <ToastContainer
+			  position="bottom-right"
+			  autoClose={5000}
+			  hideProgressBar={false}
+			  newestOnTop={false}
+			  closeOnClick
+			  rtl={false}
+			  pauseOnFocusLoss
+			  draggable
+			  pauseOnHover
+			  theme="colored"
+		  />
 	</div>
   )
 }

@@ -7,6 +7,7 @@ import axios from 'axios';
 import { baseUrl } from '../../config';
 import StepProgressBar from './StepProgressBar';
 import { decrement, increment } from '../../redux/stepProgressCount';
+import { toast, ToastContainer } from 'react-toastify';
 
 function EventAboutPlace() {
 
@@ -20,21 +21,23 @@ function EventAboutPlace() {
 	const [edit, setEdit] = useState(false);
 	const eventId = params.eventId;	
 	const eventType = params.eventType;	
-
+	const placeId =params.placeId;
 	const token = localStorage.getItem("Token");
+	console.log(banner, price, priceType, about, eventId, eventType, token);
 	const header = {
 		'Authorization': `Token ${token}`,
-		'Content-Type': 'multipart/form-data',
+		'Content-Type': 'multipart/form-data'
 	}
 
 	const getAboutPlace = async() => {
 		try {
-			const response = await axios.get(`${baseUrl}/api/add_place_event/${eventId}`, {headers: header});
+			const response = await axios.get(`${baseUrl}/api/add_place_event/${placeId}`, {headers: header});
 			if(response.data.data.length !== 0) {
 				setBanner(response.data.data[0].place_banner);
 				setAbout(response.data.data[0].details);
 				setPrice(response.data.data[0].place_price);
 				setPriceType(response.data.data[0].price_type);
+				// setBanner(response.data.data[0].place_banner)
 				setEdit(true);
 			}
 			console.log(response);
@@ -54,26 +57,29 @@ function EventAboutPlace() {
 		formData.append("price_type",priceType);
 		formData.append("details",about);
 		formData.append("event",eventId);
+		formData.append("place_banner",banner);
 		try {
 			if(edit == false) {
 				// Insert place
-				formData.append("place_banner",banner);
 				const response = await axios.post(`${baseUrl}/api/add_place_event`, formData, {headers: header});
 				console.log("About place Inserted>> ",response.data);
 				if(response.data.isSuccess === true) {
+					toast.success("Place Details Saved successfully.");
 					dispatch(increment()) 
 					navigate(`../personaldetails/${eventId}/${response.data.data.user_id}`);
 				}
 			} else {
 				// Update Place
-				const response = await axios.put(`${baseUrl}/api/add_place_event/${eventId}`, formData, {headers: header});
+				const response = await axios.put(`${baseUrl}/api/add_place_event/${placeId}`, formData, {headers: header});
 				console.log("About place updated>> ",response.data);
 				if(response.data.isSuccess === true) {
+					toast.success("Place Details Updated successfully.");
 					dispatch(increment()) 
 					navigate(`../personaldetails/${eventId}/${response.data.data.user_id}`);
 				}
 			}
 		} catch (error) {
+			toast.error("Somethng Went Wrong.");
 			console.log(error);
 		}
 	}
@@ -152,7 +158,18 @@ function EventAboutPlace() {
 		 <button type="button" className="flex items-center active" onClick={clickNextHandler}><h3>Next</h3><i className="icon-next-arrow ml-3"></i></button>
 	   </div>
 	 </div>
-
+		  <ToastContainer
+			  position="bottom-right"
+			  autoClose={5000}
+			  hideProgressBar={false}
+			  newestOnTop={false}
+			  closeOnClick
+			  rtl={false}
+			  pauseOnFocusLoss
+			  draggable
+			  pauseOnHover
+			  theme="colored"
+		  />
    </div>
   )
 }

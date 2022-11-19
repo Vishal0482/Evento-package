@@ -5,17 +5,20 @@ import Advertisement from '../Advertisement';
 import StepProgressBar from './StepProgressBar';
 import { addCapacity } from '../../redux/createEvent';
 import { decrement, increment } from '../../redux/stepProgressCount';
+import { toast, ToastContainer } from 'react-toastify';
 
 function EventCapacity() {
   const navigate = useNavigate();
 	const dispatch = useDispatch();
   const params = useParams();
+  const eventType = params.eventType;
+  console.log(eventType)
 
   const [type, setType] = useState();
 	const initialState = {
 		personCapacity: "",
     parkingCapacity: "",
-    aboutPlace: "",
+    // aboutPlace: "",
 	}
 	const [values, setValues] = useState(initialState);
 	const handleInputChange = (e) => {
@@ -29,8 +32,10 @@ function EventCapacity() {
 
 	const clickNextHandler = () => {
 		dispatch(addCapacity({capacity: {...values,type: type}}));
+    localStorage.setItem("capacity",JSON.stringify(values));
+    toast.success("Data Saved Successfully.");  
     dispatch(increment());
-		navigate(`/dashboard/event/companydetails/${params.eventId}/${params.userId}`);
+		navigate(`../companydetails/${params.eventId}/${params.userId}`);
 	}
 
   const clickBackHander = () => {
@@ -49,7 +54,7 @@ function EventCapacity() {
                 <Link to="/" className="flex items-center"><i className="icon-back-arrow mr-4 text-2xl"></i><h1>Sweet Love Catering</h1></Link>
               </div>
               {/* <!-- step-progress-bar  --> */}
-              <StepProgressBar />
+              <StepProgressBar eventType={eventType}/>
               {/* <!-- main-content  --> */}
               <div className="space-y-5">
                 <div className="flex items-end -mx-3.5">
@@ -96,6 +101,18 @@ function EventCapacity() {
               <button type="button" className="flex items-center active" onClick={clickNextHandler}><h3>Next</h3><i className="icon-next-arrow ml-3"></i></button>
             </div>
           </div>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
         </div>
   )
 }

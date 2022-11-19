@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
 import { baseUrl } from '../../../config';
 
 function EventPopUpUploadVideo({handleClose, eventId}) {
@@ -52,9 +53,11 @@ function EventPopUpUploadVideo({handleClose, eventId}) {
       const response = await axios.post(`${baseUrl}/api/video_event`, formDataVideo, {headers: header});
       console.log(response);
       if(response.data.status) {
+        toast.success("Video Uploaded successfully.");
 				handleClose(false);
 			}
     } catch (error) {
+      toast.error("Something Went wrong.");
       console.log(error);
     }
   }
@@ -96,6 +99,18 @@ function EventPopUpUploadVideo({handleClose, eventId}) {
           </div>
         </div>
       </div>
+      <ToastContainer
+			  position="bottom-right"
+			  autoClose={5000}
+			  hideProgressBar={false}
+			  newestOnTop={false}
+			  closeOnClick
+			  rtl={false}
+			  pauseOnFocusLoss
+			  draggable
+			  pauseOnHover
+			  theme="colored"
+		  />
     </div>
   )
 }

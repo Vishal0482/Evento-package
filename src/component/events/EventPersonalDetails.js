@@ -8,6 +8,7 @@ import { baseUrl } from '../../config';
 import axios from 'axios';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import { toast, ToastContainer } from 'react-toastify';
 
 function EventPersonalDetails() {
 	const navigate = useNavigate();
@@ -72,10 +73,12 @@ function EventPersonalDetails() {
 			const response = await axios.post(`${baseUrl}/api/events/personaldetail`, requestObj, {headers: header});
 			console.log("Personal details > ", response);		
 			if(response.data.isSuccess === true) {
+				toast.success("Personal Details Saved Successfully.");
 				dispatch(increment());
 				navigate(`../photosandvideos/${eventId}/${userId}`);
 			}
 		} catch (error) {
+			toast.error("Something Went Wrong.")
 			console.log(error);
 		}
 
@@ -88,7 +91,7 @@ function EventPersonalDetails() {
 
   return (
 	// <!-- Content In -->
-	<div className="rightInContent">
+	<div>
 	<div className="wrapper min-h-full">
 	<Formik
       initialValues={initialState}
@@ -109,13 +112,13 @@ function EventPersonalDetails() {
 			<div className="w-full md:w-1/2 px-2 inputHolder">
 				<span className="input-titel">Professional Skill</span>
 				<Field type="text" className="input" name="professional_skill" value={formik?.values.professional_skill} />
-        <ErrorMessage name='professional_skill' component="span" className="field_error" />
+        <ErrorMessage name='professional_skill' component="span" className="text-red-500 text-xs" />
 				<br/>
 			</div>
 			<div className="w-full md:w-1/2 px-2 inputHolder">
 				<span className="input-titel">Full Name (Mr / Mrs / Ms) <span>*</span></span>
 				<Field type="text" className="input" name="full_name" value={formik?.values.full_name}  />		
-        <ErrorMessage name='full_name' component="span" className="field_error"/>
+        <ErrorMessage name='full_name' component="span" className="text-red-500 text-xs"/>
 				<br/>
 			</div>
 		  </div> 
@@ -126,13 +129,13 @@ function EventPersonalDetails() {
 				  <div className="input-checkd"><input type="checkbox" className="mr-2" defaultChecked={mobileNoHidden} onClick={() => setMobileNoHidden(!mobileNoHidden)} />Hidden</div>
 				</div>
 				<Field type="text" className="input" name="mobile_no" value={formik?.values.mobile_no} />
-        <ErrorMessage name='mobile_no' component="span" className="field_error"/>
+        <ErrorMessage name='mobile_no' component="span" className="text-red-500 text-xs"/>
 				<br/>
 			</div>
 			<div className="w-full md:w-1/3 px-2 inputHolder">
 				<label className="input-titel">Alternative Mobile Number <span></span></label>
 				<Field type="text" className="input" name="alt_mobile_no" value={formik?.values.mobile_no} />
-        <ErrorMessage name='alt_mobile_no' component="span" className="field_error"/>
+        <ErrorMessage name='alt_mobile_no' component="span" className="text-red-500 text-xs"/>
 				<br/>
 			</div>
 			<div className="w-full md:w-1/3 px-2 inputHolder">
@@ -141,7 +144,7 @@ function EventPersonalDetails() {
 				  <div className="input-checkd"><input type="checkbox" className="mr-2" defaultChecked={emailHidden} onClick={() => setEmailHidden(!emailHidden)} />Hidden</div>
 				</div>
 				<Field type="email" className="input" name="email" value={formik?.values.email}  />
-        <ErrorMessage name='email' component="span" className="field_error"/>
+        <ErrorMessage name='email' component="span" className="text-red-500 text-xs"/>
 				<br/>
 			</div>
 		  </div>
@@ -151,19 +154,19 @@ function EventPersonalDetails() {
 				<div className="w-full md:w-1/3 px-2 inputHolder">
 					<span className="input-titel">Flat No.</span>
 					<Field type="text" className="input" name="flat_no" value={formik?.values.flat_no}  />
-        <ErrorMessage name='flat_no' component="span" className="field_error"/>
+        <ErrorMessage name='flat_no' component="span" className="text-red-500 text-xs"/>
 				<br/>
 				</div>
 				<div className="w-full md:w-1/3 px-2 inputHolder">
 					<span className="input-titel">Street Name.</span>
 					<Field type="text" className="input" name="street" value={formik?.values.street} />
-        <ErrorMessage name='street' component="span" className="field_error"/>
+        <ErrorMessage name='street' component="span" className="text-red-500 text-xs"/>
 				<br/>
 				</div>
 				<div className="w-full md:w-1/3 px-2 inputHolder">
 					<span className="input-titel">Area Name.</span>
 					<Field type="text" className="input" name="area" value={formik?.values.area}  />
-        <ErrorMessage name='area' component="span" className="field_error"/>
+        <ErrorMessage name='area' component="span" className="text-red-500 text-xs"/>
 				<br/>
 				</div>
 			  </div>
@@ -171,19 +174,19 @@ function EventPersonalDetails() {
 				<div className="w-full md:w-1/3 px-2 inputHolder">
 					<label className="input-titel">City <span>*</span></label>
 					<Field type="text" className="input" name="city" value={formik?.values.city}   />			
-        <ErrorMessage name='city' component="span" className="field_error"/>
+        <ErrorMessage name='city' component="span" className="text-red-500 text-xs"/>
 				<br/>
 				</div>
 				<div className="w-full md:w-1/3 px-2 inputHolder">
 					<label className="input-titel">State <span>*</span></label>
 					<Field type="text" className="input" name="state" value={formik?.values.state}  />
-        <ErrorMessage name='state' component="span" className="field_error"/>
+        <ErrorMessage name='state' component="span" className="text-red-500 text-xs"/>
 				<br/>
 				</div>
 				<div className="w-full md:w-1/3 px-2 inputHolder">
 					<label className="input-titel">Pincode <span>*</span></label>
 					<Field type="text" className="input" name="pincode" value={formik?.values.pincode}   />
-        <ErrorMessage name='pincode' component="span" className="field_error"/>
+        <ErrorMessage name='pincode' component="span" className="text-red-500 text-xs"/>
 				<br/>
 				</div>
 			  </div>
@@ -200,6 +203,18 @@ function EventPersonalDetails() {
 		)}
     </Formik>
 	</div>
+		  <ToastContainer
+			  position="bottom-right"
+			  autoClose={5000}
+			  hideProgressBar={false}
+			  newestOnTop={false}
+			  closeOnClick
+			  rtl={false}
+			  pauseOnFocusLoss
+			  draggable
+			  pauseOnHover
+			  theme="colored"
+		  />
   </div>
   )
 }

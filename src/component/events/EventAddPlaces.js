@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-
 import EventAddPlacesEventList from './EventAddPlacesEventList';
 import EventPopUpAddPlaceWithDisplayName from "./popups/EventPopUpAddPlaceWithDisplayName";
 import { useSelector } from 'react-redux';
@@ -12,6 +11,7 @@ import axios from 'axios';
 import { baseUrl } from '../../config';
 import Modal from "../modal/Modal";
 import EventPopUpCreateNew from './popups/EventPopUpCreateNew';
+import { toast, ToastContainer } from 'react-toastify';
 
 function EventAddPlaces() {
 
@@ -20,6 +20,7 @@ function EventAddPlaces() {
 	const params = useParams();
 	const eventId = params.eventId;
 	const eventType = params.eventType;
+	const placeId = params.placeId;
 	console.log(eventType);
 	const [newEvent, setNewEvent] = useState([]);
 	const [categoryName, setCategoryName] = useState("");
@@ -47,8 +48,9 @@ function EventAddPlaces() {
 	},[]);
 
 	const clickNextHandler = () => {
+		toast.success("Data Saved Successfully.");
 		dispatch(increment());
-		if(eventType === "places" ) navigate(`../aboutplace/${eventId}`);
+		if(eventType === "places" ) navigate(`../aboutplace/${eventId}/${placeId}`);
 		else navigate(`../personaldetails/${eventId}/${newEvent[0].user_id}`);
 	};
 
@@ -80,6 +82,18 @@ function EventAddPlaces() {
 		 <button type="button" className="flex items-center active" onClick={clickNextHandler}><h3>Next</h3><i className="icon-next-arrow ml-3"></i></button>
 	   </div>
 	 </div>
+		  <ToastContainer
+			  position="bottom-right"
+			  autoClose={5000}
+			  hideProgressBar={false}
+			  newestOnTop={false}
+			  closeOnClick
+			  rtl={false}
+			  pauseOnFocusLoss
+			  draggable
+			  pauseOnHover
+			  theme="colored"
+		  />
    </div>
 
   )

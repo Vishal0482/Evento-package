@@ -37,8 +37,8 @@ function Paggination({ allEvents, limit, setPageNo, pageNo }) {
                     </button>
                 </li>
 
-                {paginationList.map((e) => (
-                    <li>
+                {paginationList.map((e,i) => (
+                    <li key={i}>
                         <button className={allEvents?.page === e ? "btns active" : "btns"} style={e != 0 ? {} : {cursor: "not-allowed"}} onClick={() => e != 0 && setPageNo(e)} disabled={e != 0 ? false : true} >
                             <span>{e != 0 ? e : "..."}</span>
                         </button>

@@ -56,7 +56,7 @@ function EventTermsAndConditions() {
 
   return (
 		// <!-- Content In -->
-        <div className="rightInContent">
+        <div>
           <div className="wrapper min-h-full">
             
             <div className="space-y-8 h-full">
