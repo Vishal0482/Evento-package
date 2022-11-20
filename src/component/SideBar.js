@@ -240,8 +240,8 @@ function SideBar() {
                 <Route path="companydetails/:eventId/:userId" element={<EventCompanyDetails />} />
                 <Route path="termsandconditions/:eventId/:userId" element={<EventTermsAndConditions />} />
                 <Route path="discounts/:eventId/:userId" element={<EventDiscounts />} />
+                <Route path="calender/:eventId/:userId" element={<EventCalender />} />
               </Route>
-              <Route path="calender" element={<EventCalender />} />
             </Route>
 
             {/* Side bar links */}

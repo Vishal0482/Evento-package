@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import Advertisement from '../Advertisement';
 import StepProgressBar from './StepProgressBar';
 import { decrement, reset } from '../../redux/stepProgressCount';
@@ -8,10 +8,12 @@ import { useDispatch } from 'react-redux';
 function EventCalender() {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+	const params = useParams();
+	const eventType = params.eventType;
 
 	const clickNextHandler = () => {
     	dispatch(reset());
-		navigate("../../");
+		navigate("../");
 	}
 
   const clickBackHander = () => {
@@ -29,7 +31,7 @@ function EventCalender() {
 			  <Link to="/" className="flex items-center"><i className="icon-back-arrow mr-4 text-2xl"></i><h1>Sweet Love Catering</h1></Link>
 			</div>
 			{/* <!-- step-progress-bar  --> */}
-			<StepProgressBar />
+			<StepProgressBar eventType={eventType} />
 			{/* <!-- main-content  --> */}
 			<div className="space-y-5">
 			  <div className="flex items-end -mx-3.5">

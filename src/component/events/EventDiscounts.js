@@ -7,7 +7,10 @@ import EventPopUpDiscountOnEquipmentOrItem from "./popups/EventPopUpDiscountOnEq
 import axios from 'axios';
 import { baseUrl } from '../../config';
 import StepProgressBar from './StepProgressBar';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { decrement, increment } from '../../redux/stepProgressCount';
+import { useDispatch } from 'react-redux';
+import { toast, ToastContainer } from 'react-toastify';
 
 function EventDiscounts() {
 
@@ -17,6 +20,9 @@ function EventDiscounts() {
 	const [allDiscount, setAllDiscount] = useState([]);
 	const params = useParams();
 	const eventId = params.eventId;
+	const userId = params.userId;
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
 	const [totalDiscountId, setTotalDiscountId] = useState("");
 	const [equipmentDiscountId, setEquipmentDiscountIdDiscountId] = useState("");
@@ -40,9 +46,19 @@ function EventDiscounts() {
 		getDiscount();
 	}, [isDiscountOnTotalBillPopUpOpen, isDiscountOnEquipmentOrItemPopUpOpen, isAdvanceAndDiscountConfirmationPopUpOpen]);
 
+	const clickNextHandler = () => {
+    	toast.success("Data saved Successfully.");
+		dispatch(increment());
+		navigate(`../calender/${eventId}/${userId}`);
+	}
+
+	const clickBackHandler = () => {
+		dispatch(decrement());
+		navigate(-1);
+	}
 	return (
 	//    <!-- Content In -->
-	   <div className="rightInContent">
+	   <div>
 	   <div className="wrapper min-h-full">
 		 <div className="space-y-8 h-full">
 		   {/* <!-- title-holder  --> */}
@@ -131,8 +147,8 @@ function EventDiscounts() {
 		   <Advertisement />
 		   {/* <!-- next preview button --> */}
 		   <div className="prw-next-btn">               
-			 <button type="button" className="flex items-center"><i className="icon-back-arrow mr-3"></i><h3>Back</h3></button>
-			 <button type="button" className="flex items-center active"><h3>Next</h3><i className="icon-next-arrow ml-3"></i></button>
+			 <button type="button" className="flex items-center" onClick={clickBackHandler}><i className="icon-back-arrow mr-3"></i><h3>Back</h3></button>
+			 <button type="button" className="flex items-center active" onClick={clickNextHandler}><h3>Next</h3><i className="icon-next-arrow ml-3"></i></button>
 		   </div>
 		 </div>
 	   </div>
@@ -146,7 +162,6 @@ function EventDiscounts() {
 	 <Modal isOpen={isAdvanceAndDiscountConfirmationPopUpOpen}>
 		<EventPopUpDiscountOnTotalBill handleClose={setIsAdvanceAndDiscountConfirmationPopUpOpen} eventId={eventId} advanceDiscountId={advanceDiscountId} />
 	 </Modal>
-
 	 </div>
   )
 }

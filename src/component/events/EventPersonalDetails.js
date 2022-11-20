@@ -75,7 +75,8 @@ function EventPersonalDetails() {
 			if(response.data.isSuccess === true) {
 				toast.success("Personal Details Saved Successfully.");
 				dispatch(increment());
-				navigate(`../photosandvideos/${eventId}/${userId}`);
+				if(eventType === "places") navigate(`../photosandvideos/${eventId}/${userId}`);
+				else navigate(`../photosandvideos/${eventId}/${userId}`)
 			}
 		} catch (error) {
 			toast.error("Something Went Wrong.")

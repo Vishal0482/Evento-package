@@ -23,10 +23,10 @@ import AnniversaryEvent from "../../assest/images/landing-page/video-1.png";
 import ChildrenPartyPlannersEvent from "../../assest/images/landing-page/video-2.png";
 import BirthdaypartyEvent from "../../assest/images/landing-page/video-3.png";
 import SummerGardenPartyEvent from "../../assest/images/landing-page/video-4.png";
-import video1 from "../../assest/images/landing-page/Anniversary-Event.mp4";
-import video2 from "../../assest/images/landing-page/Children's-Party-Planners-Event.mp4";
-import video3 from "../../assest/images/landing-page/Birthday-party-Event.mp4";
-import video4 from "../../assest/images/landing-page/Summer-Garden-Party-Event.mp4";
+// import video1 from "../../assest/images/landing-page/Anniversary-Event.mp4";
+// import video2 from "../../assest/images/landing-page/Children's-Party-Planners-Event.mp4";
+// import video3 from "../../assest/images/landing-page/Birthday-party-Event.mp4";
+// import video4 from "../../assest/images/landing-page/Summer-Garden-Party-Event.mp4";
 
 import ourcompany from "../../assest/images/landing-page/our-company.png";
 import googleplay from "../../assest/images/landing-page/google-play.png";
@@ -622,7 +622,7 @@ function LandingPage() {
                   <img className="object-cover w-full h-56" src={AnniversaryEvent} alt="Mobile_Store_Offer.png" />
                   <button onClick={()=> {
                     setIsVideoPlayerPopUpOpen(true)
-                    setVideoUrl(video1)
+                    // setVideoUrl(video1)
                   }} className="w-12 h-12 flex justify-center items-center bg-spiroDiscoBall anim absolute bottom-0 right-0 hover:opacity-75">
                     <svg width="17" height="20" viewBox="0 0 17 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M0 0L17 10L0 20V0Z" fill="white" />
@@ -641,7 +641,7 @@ function LandingPage() {
                   <img className="object-cover w-full h-56" src={ChildrenPartyPlannersEvent} alt="Mobile_Store_Offer.png" />
                   <button onClick={()=> {
                     setIsVideoPlayerPopUpOpen(true)
-                    setVideoUrl(video2);
+                    // setVideoUrl(video2);
                   }}  className="w-12 h-12 flex justify-center items-center bg-spiroDiscoBall anim absolute bottom-0 right-0 hover:opacity-75">
                     <svg width="17" height="20" viewBox="0 0 17 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M0 0L17 10L0 20V0Z" fill="white" />
@@ -660,7 +660,7 @@ function LandingPage() {
                   <img className="object-cover w-full h-56" src={BirthdaypartyEvent} alt="Fruit_Market_Offers.png" />
                   <button onClick={()=> {
                     setIsVideoPlayerPopUpOpen(true)
-                    setVideoUrl(video3);
+                    // setVideoUrl(video3);
                   }}  className="w-12 h-12 flex justify-center items-center bg-spiroDiscoBall anim absolute bottom-0 right-0 hover:opacity-75">
                     <svg width="17" height="20" viewBox="0 0 17 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M0 0L17 10L0 20V0Z" fill="white" />
@@ -679,7 +679,7 @@ function LandingPage() {
                   <img className="object-cover w-full h-56" src={SummerGardenPartyEvent} alt="Fashion_Store_Offers.png" />
                   <button onClick={()=> {
                     setIsVideoPlayerPopUpOpen(true)
-                    setVideoUrl(video4);
+                    // setVideoUrl(video4);
                   }}  className="w-12 h-12 flex justify-center items-center bg-spiroDiscoBall anim absolute bottom-0 right-0 hover:opacity-75">
                     <svg width="17" height="20" viewBox="0 0 17 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M0 0L17 10L0 20V0Z" fill="white" />

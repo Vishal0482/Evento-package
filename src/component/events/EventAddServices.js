@@ -32,6 +32,7 @@ function EventAddServices() {
 			setServiceList(response.data.data);
 			console.log("services >> ",response);
 		} catch (error) {
+			toast.error("Something Went wrong.");
 			console.log(error);
 		}
 	}
@@ -47,14 +48,13 @@ function EventAddServices() {
 	};
 
 	const clickBackHander = () => {
-		toast.error("Something Went wrong.");
 		dispatch(decrement());
 		navigate(-1);
 	}
 
   return (
 	//  <!-- Content In -->
-	 <div className="rightInContent">
+	 <div>
 	 <div className="wrapper min-h-full">
 	   <div className="space-y-8">
 		 <div className="flex justify-between items-center">

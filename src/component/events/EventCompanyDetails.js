@@ -181,7 +181,7 @@ function EventCompanyDetails() {
 
   return (
 	//   <!-- Content In -->
-	  <div className="rightInContent">
+	  <div>
 	  <div className="wrapper min-h-full">
 		<Formik
       initialValues={{
@@ -289,12 +289,12 @@ function EventCompanyDetails() {
 			<div className="upload-holder px-2">
 			  <span className="input-titel">Company Photos Max 5 images (up to 5MB/image)</span>
 			  <label onClick={()=>setIsUploadPhotoPopUpOpen(true)} htmlFor="upload" className="upload">
-				<input  name="images" id="upload" className="appearance-none hidden" />
-				<span className="input-titel mt-1"><i className="icon-image mr-2"></i>Upload Images</span>
-			  </label>
-				<span className="input-titel mt-1">{imageList.length} Images Uploaded</span>
+				 <input  name="images" id="upload" className="appearance-none hidden"/>
+				 <span className="input-titel mt-1"><i className="icon-image mr-2"></i>Upload Images</span>
+			   </label>
+			   {imageList?.length !== 0  &&<span className="input-titel mt-1">{imageList.length} Images Uploaded</span>}
 			</div>
-			<div className="media-upload-holder">
+			{imageList?.length !== 0  &&<div className="media-upload-holder">
 			   <span className="input-titel ml-2">Uploaded Photo</span>
 				<div className="flex space-x-2.5">
 					{imageList?.map((img, index) => (
@@ -306,7 +306,7 @@ function EventCompanyDetails() {
 					</div>
 					))}
 				</div>
-			</div>
+			</div>}
 
 
 			<div className="upload-holder px-2">
@@ -315,7 +315,7 @@ function EventCompanyDetails() {
 				  <input  name="images" id="upload2" className="appearance-none hidden" />
 				  <div className="mt-1 flex items-baseline justify-center"><i className="icon-video-play text-base mr-2"></i> <span className="input-titel pt-1">Upload videos</span></div>
 				</label>
-				<span className="input-titel mt-1">{videoList.length} Videos Uploaded</span>
+				{videoList?.length !== 0 && <span className="input-titel mt-1">{videoList.length} Videos Uploaded</span>}
 			</div>
 		  </div>
 			{videoList.length != 0 && <div className="media-upload-holder">

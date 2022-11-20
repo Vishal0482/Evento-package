@@ -5,6 +5,8 @@ import EventPopUpTermsAndCondition from "./popups/EventPopUpTermsAndConditions";
 import { useDispatch } from 'react-redux';
 import { addTermsAndCondition } from '../../redux/createEvent';
 import StepProgressBar from './StepProgressBar';
+import { toast, ToastContainer } from 'react-toastify';
+import { decrement, increment } from '../../redux/stepProgressCount';
 
 function EventTermsAndConditions() {
 
@@ -13,6 +15,7 @@ function EventTermsAndConditions() {
   const dispatch = useDispatch();
   const params = useParams();
   const eventId = params.eventId;
+  const userId = params.userId;
   
 	const initialState = {
 		termAndCondition: "",
@@ -51,7 +54,15 @@ function EventTermsAndConditions() {
 
   const clickNextHandler = () => {
 		dispatch(addTermsAndCondition({termsAndCondition : values}));
-		navigate(`/dashboard/event/discounts/${eventId}`);
+    dispatch(increment());
+    localStorage.setItem("termsandcondition", JSON.stringify(values));
+    toast.success("Data saved Successfully.");
+		navigate(`../discounts/${eventId}/${userId}`);
+	}
+
+  const clickBackHandler = () => {
+		dispatch(decrement());
+		navigate(-1);
 	}
 
   return (
@@ -197,19 +208,19 @@ function EventTermsAndConditions() {
                         <input type="checkbox" onChange={(e) => setAcceptTerm(!acceptTerm)} />
                         <i className="icon-right"></i>                  
                     </label>
-                    <span className="input-titel text-base ml-4">Accept Your <button onClick={()=>setIsTermsAndConditionPopUpOpen(true)}>Terms and Conditions</button></span>
+                    <span className="input-titel text-base ml-4">Accept Your <button >Terms and Conditions</button></span>
                 </div>
-                <button className="btn-primary w-full">SAVE</button>
+                <button className="btn-primary w-full" onClick={()=>setIsTermsAndConditionPopUpOpen(true)}>SAVE</button>
               </div>
             </div>
             <div className="prw-next-btn">
-              <button type="button" className="flex items-center" onClick={(e) => navigate(-1)}><i className="icon-back-arrow mr-3"></i><h3>Back</h3></button>
+              <button type="button" className="flex items-center" onClick={clickBackHandler}><i className="icon-back-arrow mr-3"></i><h3>Back</h3></button>
               <button type="button" className="flex items-center active" onClick={clickNextHandler}><h3>Next</h3><i className="icon-next-arrow ml-3"></i></button>
             </div>
-          </div>
           <Modal isOpen={isTermsAndConditionPopUpOpen}>
             <EventPopUpTermsAndCondition handleClose={setIsTermsAndConditionPopUpOpen} /> 
           </Modal>
+          </div>
         </div>
   )
 }
