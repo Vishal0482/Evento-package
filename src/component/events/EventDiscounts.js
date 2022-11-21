@@ -13,7 +13,7 @@ import { useDispatch } from 'react-redux';
 import { toast, ToastContainer } from 'react-toastify';
 
 function EventDiscounts() {
-
+	const displayName = localStorage.getItem("displayName");
 	const [isDiscountOnTotalBillPopUpOpen, setIsDiscountOnTotalBillPopUpOpen] = useState(false);
 	const [isDiscountOnEquipmentOrItemPopUpOpen, setIsDiscountOnEquipmentOrItemPopUpOpen] = useState(false);
 	const [isAdvanceAndDiscountConfirmationPopUpOpen, setIsAdvanceAndDiscountConfirmationPopUpOpen] = useState(false);
@@ -88,10 +88,10 @@ function EventDiscounts() {
 		 <div className="space-y-8 h-full">
 		   {/* <!-- title-holder  --> */}
 		   <div className="flex justify-between items-center">
-			 <a href="#" className="flex items-center">
+			 <div className="flex items-center">
 			   <i className="icon-back-arrow mr-4 text-2xl"></i>
-			   <h1>Sweet Love Catering</h1>
-			 </a>
+			   <h1>{displayName}</h1>
+			 </div>
 		   </div>
 		   {/* <!-- step-progress-bar  --> */}
 		   <div className="w-full overflow-hidden">

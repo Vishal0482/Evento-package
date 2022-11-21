@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import googlelogo from "../../assest/images/landing-page/google.png";
 import facebooklogo from "../../assest/images/landing-page/facebook.png";
 import { Link, useNavigate } from 'react-router-dom';
-import { baseUrl } from '../../config';
+import { baseUrl, localUrl } from '../../config';
 import BgImage from './BgImage';
 import * as Yup from 'yup';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
@@ -38,17 +38,24 @@ function Register() {
         return
       } 
       try {
-
-        // login for registration
-        localStorage.setItem("register", JSON.stringify(values));
-        const response = await axios.post(`${baseUrl}/api/sendotp`, {phone: "+91"+values.phone_no});
-        console.log(response);
-        if(response.data.isSuccess) {
-          setTimeout(() => {
-            toast.success("Registered successfully.")
-            navigate("../verify/0")
-          }, 200);
-        }
+        const response = await axios.post(`${baseUrl}/api/register/organizer`,values);
+          console.log(response);
+          if(response.data.isSuccess) {
+            toast.success("Registration successfully.");
+            navigate(`../login`);
+          } else {
+            toast.warn("User with this email already exists.");
+          }
+        // // login for registration
+        // localStorage.setItem("register", JSON.stringify(values));
+        // const response = await axios.post(`${baseUrl}/api/sendotp`, {phone: "+91"+values.phone_no});
+        // console.log(response);
+        // if(response.data.isSuccess) {
+        //   setTimeout(() => {
+        //     toast.success("Registered successfully.");
+        //     navigate(`../verify/${values.phone_no}`);
+        //   }, 200);
+        // }
       } catch (error) {
         toast.error("Something Went Wrong.");
         console.log(error);

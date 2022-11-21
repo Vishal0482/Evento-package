@@ -8,6 +8,7 @@ import { decrement, increment } from '../../redux/stepProgressCount';
 import { toast, ToastContainer } from 'react-toastify';
 
 function EventCapacity() {
+  const displayName = localStorage.getItem("displayName");
   const navigate = useNavigate();
 	const dispatch = useDispatch();
   const params = useParams();
@@ -51,7 +52,7 @@ function EventCapacity() {
             <div className="space-y-8 h-full">
               {/* <!-- title-holder  --> */}
               <div className="flex justify-between items-center">
-                <Link to="/" className="flex items-center"><i className="icon-back-arrow mr-4 text-2xl"></i><h1>Sweet Love Catering</h1></Link>
+                <div className="flex items-center"><i className="icon-back-arrow mr-4 text-2xl"></i><h1>{displayName}</h1></div>
               </div>
               {/* <!-- step-progress-bar  --> */}
               <StepProgressBar eventType={eventType}/>

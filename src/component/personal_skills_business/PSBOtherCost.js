@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { decrement, increment } from "../../redux/stepProgressCount";
 
 function PSBOtherCost() {
+  const displayName = localStorage.getItem("displayName");
   const navigate = useNavigate();
 	const params = useParams();
 	const eventType = params.eventType;
@@ -29,10 +30,10 @@ function PSBOtherCost() {
         <div className="space-y-8 h-full">
           {/* <!-- title-holder  --> */}
           <div className="flex justify-between items-center">
-            <Link to="/" className="flex items-center">
+            <div className="flex items-center">
               <i className="icon-back-arrow mr-4 text-2xl"></i>
-              <h1>Personal Skill Business</h1>
-            </Link>
+              <h1>{displayName}</h1>
+            </div>
           </div>
           {/* <!-- step-progress-bar  --> */}
          <StepProgressBar eventType={eventType} />

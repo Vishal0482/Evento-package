@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import BgImage from "./BgImage";
 import { toast, ToastContainer } from "react-toastify";
-import { baseUrl } from "../../config";
+import { baseUrl, localUrl } from "../../config";
 import axios from "axios";
 
 function Otp() {
@@ -35,7 +35,17 @@ function Otp() {
 
   const reSendOtp = async() => {
     // logic htmlFor sending otp
-    toast.success("Otp sent successfully.");
+    try {
+      const response = await axios.post(`${baseUrl}/api/sendotp`, {phone: "+91"+username});
+      console.log(response);
+      if(response.data.isSuccess) {
+        toast.success("Otp sent successfully.");
+      }
+      
+    } catch (error) {
+      console.log(error);
+      toast.error("Something Went wrong.");
+    }
   }
 
   const verifiyCode = async(e) => {
@@ -44,14 +54,25 @@ function Otp() {
     // login verify otp
     try {
       if (fullOtp != "0000") {
-        const response = await axios.post(`${baseUrl}/api/register/organizer`,JSON.parse("register"));
-        if(response.data.isSuccess) {
+        const responseOtp = await axios.post(`${baseUrl}/api/verifyotp`,{otp: fullOtp});
+        if(responseOtp.status){
           toast.success("Otp Verified successfully.");
-          navigate(`../login`);
+          const response = await axios.post(`${baseUrl}/api/register/organizer`,JSON.parse(localStorage.getItem("register")));
+          console.log(response);
+          if(response.data.isSuccess) {
+            toast.success("Registration successfully.");
+            navigate(`../login`);
+          } else {
+            toast.warn("User with this email already exists.");
+            localStorage.removeItem("register");
+            setTimeout(() => {
+              navigate(`../login`);
+            }, 2000);
+          }
         }
       }
     } catch (error) {
-      toast.warn("Please Enter Valid Otp.");
+      toast.error("Something Went wrong.");
       console.log(error);
     }
   }
@@ -65,10 +86,10 @@ function Otp() {
         <div className="max-w-md w-full m-auto">
           <h1 className="whitespace-nowrap">Enter OTP</h1>
           <p className="sm:text-lg xl:text-xl text-quicksilver font-normal sm:pt-3.5 xl:pr-8">Please enter the 4 Digit code sent to</p>
-          <div className="flex justify-between sm:mt-1">
+         {username !=0 && <div className="flex justify-between sm:mt-1">
             <div className="block font-bold text-japaneseIndigo text-base sm:text-lg xl:text-xl">{username}</div>
             <div onClick={() => navigate(-1)} className="cursor-pointer" ><span className="text-caribbeanGreen font-semibold text-base sm:text-lg xl:text-xl">Change?</span></div>
-          </div>
+          </div>}
           <div className="w-full pt-7 sm:pt-10">
             <form className="space-y-5 relative" id="codeverifyForm">    
               <span className="absolute -top-5 left-0 text-sm text-quicksilver block">Enter OTP</span>

@@ -129,37 +129,32 @@ function DashboardEventViewOverview({data}) {
                         {/* <!-- Photo-holder --> */}
                         <div className="media-upload-holder">
                             {/* <!-- media titel  --> */}
-                            <div className="flex justify-between items-center">
+                           {data?.company_details?.image?.length > 0 && <div className="flex justify-between items-center">
                                 <h3 className="text-lg">Photo</h3>
                                 <a href="#" className="text-spiroDiscoBall text-sm font-bold">View All</a>
-                            </div>
+                            </div>}
                             {/* <!-- photo-holder --> */}
                             <div className="w-full">
                                 <div className="flex flex-wrap -mx-2">
-                                    <DashboardEventViewOverviewPhoto imageUrl={bigDishImage} />
-                                    <DashboardEventViewOverviewPhoto imageUrl={cuttingBoardImage} />
-                                    <DashboardEventViewOverviewPhoto imageUrl={dish1Image} />
-                                    <DashboardEventViewOverviewPhoto imageUrl={dish2Image} />
-                                    <DashboardEventViewOverviewPhoto imageUrl={dish3Image} />
-                                    <DashboardEventViewOverviewPhoto imageUrl={dish4Image} /> 
+                                {data?.company_details?.image?.map(e =>
+                                    <DashboardEventViewOverviewPhoto imageUrl={baseUrl+"/api"+e?.image} />
+                                )}
                                 </div>
                             </div>
                         </div>
                         {/* <!-- videos-holder --> */}
                         <div className="media-upload-holder">
                             {/* <!-- media titel  --> */}
-                            <div className="flex justify-between items-center">
+                            {data?.company_details?.video?.length > 0 &&<div className="flex justify-between items-center">
                                 <h3 className="text-lg">Videos</h3>
                                 <a href="#" className="text-spiroDiscoBall text-sm font-bold">View All</a>
-                            </div>
+                            </div>}
                             {/* <!-- media-holder --> */}
                             <div className="w-full">
                                 <div className="flex flex-wrap -mx-2">
-                                    <DashboardEventViewOverviewVideo videoUrl={dish1Video} />
+                                {data?.company_details?.video?.map(e => 
                                     <DashboardEventViewOverviewVideo videoUrl={dish2Video} />
-                                    <DashboardEventViewOverviewVideo videoUrl={dish3Video} />
-                                    <DashboardEventViewOverviewVideo videoUrl={dish4Video} />
-                                    <DashboardEventViewOverviewVideo videoUrl={dish5Video} />
+                                )}
                                 </div>
                             </div>
                         </div>

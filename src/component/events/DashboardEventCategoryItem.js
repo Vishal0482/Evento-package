@@ -5,6 +5,7 @@ import sweetLoveCatering from "../../assest/images/sweet-love-catering.png";
 import { baseUrl } from '../../config';
 import { useDispatch } from 'react-redux';
 import { increment } from '../../redux/stepProgressCount';
+import bannerPreview from "../../assest/images/banner-preview.png"
 
 function DashboardEventCategoryItem({data}) {
 	const navigate = useNavigate();
@@ -39,7 +40,10 @@ function DashboardEventCategoryItem({data}) {
 			</div>
 			<Link to={`../../event-view/${data?.eventId}`} className="w-full p-4 pr-7 bg-white rounded">
 			  <div className="flex space-x-5">
-				<img src={sweetLoveCatering} />
+			  <div class="max-w-xs w-full">
+				{data?.place_event[0]?.place_banner && <img class="object-cover w-full h-full" src={baseUrl+"/api"+data?.place_event[0]?.place_banner || bannerPreview} />}
+				{!data?.place_event[0]?.place_banner && <img src={bannerPreview} />}
+				</div>
 				<div className="w-full">
 				  <div className="flex justify-between border-b-2 pb-4">
 					<div className="">

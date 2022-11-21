@@ -7,6 +7,7 @@ import { baseUrl } from '../../config';
 import DashboardEventAttendee from './DashboardEventAttendee';
 import DashboardEventReview from './DashboardEventReview';
 import DashboardEventViewOverview from './DashboardEventViewOverview';
+import bannerPreview from "../../assest/images/banner-preview.png";
 
 function DashboardEventView() {
   const [tab,setTab] = useState(1);
@@ -35,7 +36,11 @@ function DashboardEventView() {
   return (
     <>
       <div className="-mt-12 relative -z-10">
-              <img src={dashboardBgImage} alt="dashboard-bg" className="w-full object-cover"/>
+      <div class="-mt-12 relative -z-10 h-[300px] xl:h-[400px]">
+            {event?.place_event?.length > 0 ?
+            <img src={baseUrl+"/api"+event?.place_event[0].place_banner} alt="dashboard-bg" class="w-full h-full object-cover"/> :
+            <img src={bannerPreview} alt="dashboard-bg" className="w-full object-cover"/>}
+          </div>
           </div>
           <div className="wrapper min-h-full -mt-14 z-10">
             

@@ -13,7 +13,7 @@ import videoThumb from '../../assest/images/video-preview.png';
 import { toast, ToastContainer } from 'react-toastify';
 
 function EventPhotosAndVideos() {
-
+	const displayName = localStorage.getItem("displayName");
 const [isUploadPhotoPopUpOpen, setIsUploadPhotoPopUpOpen] = useState(false);
 const [isUploadVideoPopUpOpen, setIsUploadVideoPopUpOpen] = useState(false);
 const [imageList, setImageList] = useState([]);
@@ -98,7 +98,7 @@ const clickBackHander = () => {
 	   <div className="space-y-8 h-full">
 		 {/* <!-- title-holder  --> */}
 		 <div className="flex justify-between items-center">
-		   <Link to="/" className="flex items-center"><i className="icon-back-arrow mr-4 text-2xl"></i><h1>Sweet Love Catering</h1></Link>
+		   <div className="flex items-center"><i className="icon-back-arrow mr-4 text-2xl"></i><h1>{displayName}</h1></div>
 		 </div>
 		 {/* <!-- step-progress-bar  --> */}
 		 <StepProgressBar eventType={eventType} />

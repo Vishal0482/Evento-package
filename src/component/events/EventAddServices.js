@@ -12,7 +12,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import { MoonLoader } from 'react-spinners';
 
 function EventAddServices() {
-
+	const displayName = localStorage.getItem("displayName");
 	const navigate = useNavigate();
 	const params = useParams();
 	const eventType = params.eventType;
@@ -59,10 +59,10 @@ function EventAddServices() {
 	 <div className="wrapper min-h-full">
 	   <div className="space-y-8">
 		 <div className="flex justify-between items-center">
-		   <Link to="/" className="flex items-center">
+		   <div className="flex items-center">
 			 <i className="icon-back-arrow mr-4 text-2xl"></i>
-			 <h1>Sweet Love Catering</h1>
-		   </Link>
+			 <h1>{displayName}</h1>
+		   </div>
 		   <button onClick={()=>setIsAddServicesPopUpOpen(true)} className="btn-primary flex items-center"><i className="icon-plus mr-3"></i><span>{eventType === "places" ? "Add Service" : "Add Equipment"}</span></button>
 		 </div>
 		  {/* <!-- step-progress-bar  --> */}

@@ -1,12 +1,8 @@
 {
   "files": {
-    "main.css": "/static/css/main.4f8bef7f.css",
-    "main.js": "/static/js/main.7719ccde.js",
+    "main.css": "/static/css/main.a36c4fc0.css",
+    "main.js": "/static/js/main.bae0be1e.js",
     "static/js/787.4b12308f.chunk.js": "/static/js/787.4b12308f.chunk.js",
-    "static/media/Summer-Garden-Party-Event.mp4": "/static/media/Summer-Garden-Party-Event.62d86106de7f7500b191.mp4",
-    "static/media/Birthday-party-Event.mp4": "/static/media/Birthday-party-Event.45672fd82969d3447206.mp4",
-    "static/media/Children's-Party-Planners-Event.mp4": "/static/media/Children's-Party-Planners-Event.5d0e2fe372c6c7d2df86.mp4",
-    "static/media/Anniversary-Event.mp4": "/static/media/Anniversary-Event.dcd7e21d77213e4c9dc5.mp4",
     "static/media/bg-1.png": "/static/media/bg-1.79b3f602328642d5578d.png",
     "static/media/landing-home-bg.png": "/static/media/landing-home-bg.d49ea0015d7a1747ecbf.png",
     "static/media/our-company.png": "/static/media/our-company.45ef6fee72911b257f4e.png",
@@ -20,7 +16,6 @@
     "static/media/Speaker.png": "/static/media/Speaker.f6d2bd158e746e3848c2.png",
     "static/media/big-dish.png": "/static/media/big-dish.25ade3736cfce0fb5308.png",
     "static/media/Helvetica-Bold.woff": "/static/media/Helvetica-Bold.1b24861bea3acb70d55b.woff",
-    "static/media/all-user.svg": "/static/media/all-user.085231c4314673df35efc8f0421e3296.svg",
     "static/media/Helvetica.woff": "/static/media/Helvetica.e19b9cec3d0215e4c8de.woff",
     "static/media/video-2.png": "/static/media/video-2.37ca51faa49d3b778670.png",
     "static/media/noiseporn.jpg": "/static/media/noiseporn.fa72377aa311900f464d.jpg",
@@ -30,14 +25,12 @@
     "static/media/Helvetica.woff2": "/static/media/Helvetica.d45c96d324c9c1867988.woff2",
     "static/media/video-3.png": "/static/media/video-3.e8d386b54351b672d3a2.png",
     "static/media/have-you-places.svg": "/static/media/have-you-places.662693e433b345c9dcb2b8ca66f9c82b.svg",
-    "static/media/existing-user.svg": "/static/media/existing-user.7068fdf93347065f9892402c79e7745e.svg",
     "static/media/logo.svg": "/static/media/logo.153d336d07667288bb10925a32cb9d4a.svg",
     "static/media/sweet-love-catring-2.png": "/static/media/sweet-love-catring-2.367b096757f7fef31555.png",
     "static/media/icomoon.svg?ezuok4": "/static/media/icomoon.78e36e059e2bf7d78b82.svg",
     "static/media/group-skils-business.svg": "/static/media/group-skils-business.c900a2694ff96abb0e77b71eb71bde3e.svg",
     "static/media/gallery-5.png": "/static/media/gallery-5.ddab5b239854624c9081.png",
     "static/media/personal-skills-business.svg": "/static/media/personal-skills-business.172da7df69784ee67dff96587c9a8b6b.svg",
-    "static/media/video-thumbnail.jpg": "/static/media/video-thumbnail.7c77e3a1253cc222e735.jpg",
     "static/media/ring-ad.png": "/static/media/ring-ad.16f9cab513d50fa4fd47.png",
     "static/media/gallery-6.png": "/static/media/gallery-6.f9ac90b1675798c94b04.png",
     "static/media/gallery-1.png": "/static/media/gallery-1.e2b995fa81c5728b2ec2.png",
@@ -57,18 +50,19 @@
     "static/media/dish-video-2.png": "/static/media/dish-video-2.f24d62b6750d01020efb.png",
     "static/media/dish-video-4.png": "/static/media/dish-video-4.6e21ed4a6b554bdf28c4.png",
     "static/media/dish-video-3.png": "/static/media/dish-video-3.1edaf1f263fedf2cfff3.png",
+    "static/media/evento packege.png": "/static/media/evento packege.6907514a9707233cc330.png",
     "static/media/dish-2.png": "/static/media/dish-2.b7441945f3fd7e1f4d6d.png",
     "static/media/dish-3.png": "/static/media/dish-3.67c3c7804ebede8925ef.png",
     "static/media/dish-4.png": "/static/media/dish-4.004481abd36c42e7bba1.png",
     "static/media/celebration.svg": "/static/media/celebration.e4a0eda9150d80d76796037da41d17e4.svg",
     "index.html": "/index.html",
     "static/media/arrow.svg": "/static/media/arrow.61b9984bc1e1daf590d2.svg",
-    "main.4f8bef7f.css.map": "/static/css/main.4f8bef7f.css.map",
-    "main.7719ccde.js.map": "/static/js/main.7719ccde.js.map",
+    "main.a36c4fc0.css.map": "/static/css/main.a36c4fc0.css.map",
+    "main.bae0be1e.js.map": "/static/js/main.bae0be1e.js.map",
     "787.4b12308f.chunk.js.map": "/static/js/787.4b12308f.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.4f8bef7f.css",
-    "static/js/main.7719ccde.js"
+    "static/css/main.a36c4fc0.css",
+    "static/js/main.bae0be1e.js"
   ]
 }

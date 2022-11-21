@@ -18,7 +18,7 @@ function EventAddPlacesEventList({ displayName, categoryName, eventId }) {
 			const response = await axios.delete(`${baseUrl}/api/event/type?id=${eventId}`,{headers: header});
 			console.log("deleted event >> ",response.data);
             if(response.data.isSuccess === true) {
-                navigate(-1);
+                navigate("../");
             }
 		} catch (error) {
 			console.log(error);
