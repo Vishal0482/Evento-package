@@ -1,10 +1,30 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Advertisement from "../Advertisement";
+import { useDispatch } from 'react-redux';
+import StepProgressBar from "../events/StepProgressBar";
+import { toast } from "react-toastify";
+import { decrement, increment } from "../../redux/stepProgressCount";
 
 function PSBOtherCost() {
+  const navigate = useNavigate();
+	const params = useParams();
+	const eventType = params.eventType;
+	const dispatch = useDispatch(); 
+
+  const clickNextHandler = () => {
+		toast.success("Services saved Successfully.");
+		dispatch(increment());
+		navigate(`../companydetails/${params.eventId}/${params.userId}`);
+	};
+
+	const clickBackHander = () => {
+		dispatch(decrement());
+		navigate(-1);
+	}
+
   return (
-    <div className="rightInContent">
+    <div>
       <div className="wrapper min-h-full flex flex-col">
         <div className="space-y-8 h-full">
           {/* <!-- title-holder  --> */}
@@ -15,64 +35,7 @@ function PSBOtherCost() {
             </Link>
           </div>
           {/* <!-- step-progress-bar  --> */}
-          <div className="w-full overflow-hidden">
-            <ul className="flex justify-between step-progress-holder">
-              <li>
-                <div>
-                  <span>01</span>
-                </div>
-                <h3>Select Skill</h3>
-              </li>
-              <li>
-                <div>
-                  <span>02</span>
-                </div>
-                <h3>Personal Details</h3>
-              </li>
-              <li>
-                <div>
-                  <span>03</span>
-                </div>
-                <h3>Photos & Videos</h3>
-              </li>
-              <li>
-                <div>
-                  <span>04</span>
-                </div>
-                <h3>Equipment</h3>
-              </li>
-              <li>
-                <div>
-                  <span>05</span>
-                </div>
-                <h3>Other Cost</h3>
-              </li>
-              <li>
-                <div>
-                  <span>06</span>
-                </div>
-                <h3>Company Details</h3>
-              </li>
-              <li>
-                <div>
-                  <span>07</span>
-                </div>
-                <h3>Terms and Conditions</h3>
-              </li>
-              <li>
-                <div>
-                  <span>08</span>
-                </div>
-                <h3>Discount</h3>
-              </li>
-              <li>
-                <div>
-                  <span>09</span>
-                </div>
-                <h3>Calendar</h3>
-              </li>
-            </ul>
-          </div>
+         <StepProgressBar eventType={eventType} />
           {/* <!-- main-content  --> */}
           <div className="space-y-5 pt-5">
             <div className="flex justify-between items-center space-x-5">
@@ -163,11 +126,11 @@ function PSBOtherCost() {
           <Advertisement />
         </div>
         <div className="prw-next-btn mt-auto">
-          <button type="button" className="flex items-center">
+          <button type="button" className="flex items-center" onClick={clickBackHander}>
             <i className="icon-back-arrow mr-3"></i>
             <h3>Back</h3>
           </button>
-          <button type="button" className="flex items-center active">
+          <button type="button" className="flex items-center active" onClick={clickNextHandler}>
             <h3>Next</h3>
             <i className="icon-next-arrow ml-3"></i>
           </button>

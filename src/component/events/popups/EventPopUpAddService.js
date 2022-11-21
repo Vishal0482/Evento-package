@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import { baseUrl } from '../../../config';
 
 function EventPopUpAddService({handleClose, data, edit, setReload}) {
@@ -53,16 +54,26 @@ function EventPopUpAddService({handleClose, data, edit, setReload}) {
         console.log(edit)
         console.log(data.Id);
         const response = await axios.put(`${baseUrl}/api/add_service_event/${data.Id}`, requestObj, { headers: header });
+        toast.success("Service updated successfully.");
         console.log(response);
         setReload(true);
         handleClose(false);
       } else {
         // Create new Service
+        let formData = new FormData();
         const response = await axios.post(`${baseUrl}/api/add_service_event`, requestObj, { headers: header });
+        if(response.data.isSuccess) {
+          formData.append("service", response.data.data.Id);
+          formData.append("image", image);
+          const responseImage = await axios.post(`${baseUrl}/api/add_service_event/image`, formData, { headers: header });
+          toast.success("Service Added Successfully.");
+          console.log(responseImage);
+        }
         console.log(response);
         handleClose(false);
       }
     } catch (error) {
+      toast.error("Something went wrong.")
       console.log(error);
     }
   }
@@ -119,7 +130,8 @@ function EventPopUpAddService({handleClose, data, edit, setReload}) {
                 <input className="input option" type="text" value={quantity} onChange={(e) => setQuantity(e.target.value) } />
               </div>
               <div className="upload-holder">
-                <h6 className="text-sm font-bold text-quicksilver">Select Photo <span className="text-10">2 images (up to 3MB/Image)</span></h6>
+                {/* <h6 className="text-sm font-bold text-quicksilver">Select Photo <span className="text-10">2 images (up to 3MB/Image)</span></h6> */}
+                <h6 className="text-sm font-bold text-quicksilver">Select Photo <span className="text-10">(up to 3MB)</span></h6>
                 <label htmlFor="upload" className="upload upload-popup">
                   <input type="file" name="images" id="upload" className="appearance-none hidden" onChange={(e) => setImage(e.target.files[0])} />
                   <span className="input-titel mt-1"><i className="icon-image mr-2"></i>Choose Images</span>

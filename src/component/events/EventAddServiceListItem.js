@@ -1,6 +1,5 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import cuttingBoard from "../../assest/images/cutting-board.png";
 import { baseUrl } from '../../config';
 import Modal from '../modal/Modal';
 import EventPopUpAddService from './popups/EventPopUpAddService';
@@ -27,7 +26,7 @@ function EventAddServiceListItem({data, edit, setReload}) {
 			 <div className="flex justify-between">
 			   <div className="">
 				 <div className="w-28 h-28 border-2 border-brightGray rounded-md">
-				   <img src={data.image[0] || cuttingBoard} alt="" className="w-full h-full object-cover"/>
+				   <img src={baseUrl+"/api"+data.image[0]?.image} alt="" className="w-full h-full object-cover"/>
 				 </div>
 			   </div>
 			   <div className="w-full pl-5">

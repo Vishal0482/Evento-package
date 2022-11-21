@@ -16,6 +16,7 @@ function EventTermsAndConditions() {
   const params = useParams();
   const eventId = params.eventId;
   const userId = params.userId;
+  const eventType = params.eventType;
   
 	const initialState = {
 		termAndCondition: "",
@@ -76,7 +77,7 @@ function EventTermsAndConditions() {
                 <Link to="/" className="flex items-center"><i className="icon-back-arrow mr-4 text-2xl"></i><h1>Sweet Love Catering</h1></Link>
               </div>
               {/* <!-- step-progress-bar  --> */}
-              <StepProgressBar />
+              <StepProgressBar eventType={eventType} />
               {/* <!-- main-content  --> */}
               <div className="space-y-5">
                 <div className="w-full space-y-2.5">
@@ -218,7 +219,7 @@ function EventTermsAndConditions() {
               <button type="button" className="flex items-center active" onClick={clickNextHandler}><h3>Next</h3><i className="icon-next-arrow ml-3"></i></button>
             </div>
           <Modal isOpen={isTermsAndConditionPopUpOpen}>
-            <EventPopUpTermsAndCondition handleClose={setIsTermsAndConditionPopUpOpen} /> 
+            <EventPopUpTermsAndCondition handleClose={setIsTermsAndConditionPopUpOpen} terms={values.termAndCondition}/> 
           </Modal>
           </div>
         </div>

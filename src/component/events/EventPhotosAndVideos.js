@@ -9,7 +9,7 @@ import axios from 'axios';
 import { baseUrl } from "../../config";
 import { decrement, increment } from '../../redux/stepProgressCount';
 import { useDispatch } from 'react-redux';
-import videoThumb from '../../assest/images/video-thumbnail.jpg';
+import videoThumb from '../../assest/images/video-preview.png';
 import { toast, ToastContainer } from 'react-toastify';
 
 function EventPhotosAndVideos() {
@@ -81,7 +81,8 @@ const removeVideoClick = async(id) => {
 const clickNextHandler = () => {
 	toast.success("Data saved successfully.");
 	dispatch(increment());
-	navigate(`../addservices/${eventId}/${userId}`);
+	if(eventType === "group_skills") navigate(`../additem/${eventId}/${userId}`);
+	else navigate(`../addservices/${eventId}/${userId}`);
 }
 
 const clickBackHander = () => {

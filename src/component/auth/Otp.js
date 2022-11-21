@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import BgImage from "./BgImage";
 import { toast, ToastContainer } from "react-toastify";
+import { baseUrl } from "../../config";
+import axios from "axios";
 
 function Otp() {
   const params = useParams();
@@ -40,11 +42,18 @@ function Otp() {
     e.preventDefault();
     let fullOtp = otpValue[0] + otpValue[1] + otpValue[2] + otpValue[3];
     // login verify otp
-    if (fullOtp != "0000") {
-      toast.success("Otp Verified successfully.");
-      navigate(`../new-password/${username}`);
+    try {
+      if (fullOtp != "0000") {
+        const response = await axios.post(`${baseUrl}/api/register/organizer`,JSON.parse("register"));
+        if(response.data.isSuccess) {
+          toast.success("Otp Verified successfully.");
+          navigate(`../login`);
+        }
+      }
+    } catch (error) {
+      toast.warn("Please Enter Valid Otp.");
+      console.log(error);
     }
-    toast.warn("Please Enter Valid Otp.");
   }
   
 

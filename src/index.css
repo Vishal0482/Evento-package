@@ -13,6 +13,7 @@ body{@apply font-primary text-japaneseIndigo bg-brightGray;}
 h1,.h1 {@apply font-bold text-2xl xl:text-3xl;}
 h2,.h2 {@apply font-bold text-2xl;}
 h3,.h3 {@apply font-bold text-xl;}
+h5,.h5{@apply font-bold text-lg xl:text-xl;}
 
 /* Paragraphs */
 p {@apply font-semibold md:font-bold text-xs md:text-base lg:text-lg;}

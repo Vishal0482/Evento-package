@@ -8,7 +8,7 @@ import { increment, setNumber } from '../../redux/stepProgressCount';
 import Modal from "../modal/Modal";
 import EventPopUpUploadPhoto from '../../component/events/popups/EventPopUpUploadPhoto';
 import EventPopUpUploadVideo from "../../component/events/popups/EventPopUpUploadVideo";
-import videoThumb from '../../assest/images/video-thumbnail.jpg';
+import videoThumb from '../../assest/images/video-preview.png';
 import { Formik, Form, Field, ErrorMessage, withFormik } from 'formik';
 import * as Yup from 'yup';
 import { toast, ToastContainer } from 'react-toastify';
@@ -65,13 +65,13 @@ function EventCompanyDetails() {
 		}
 	}
 
-	// useEffect(()=>{
-	// 	getImage();
-	// },[isUploadPhotoPopUpOpen]);
+	useEffect(()=>{
+		getImage();
+	},[isUploadPhotoPopUpOpen]);
 
-	// useEffect(()=>{
-	// 	getVideo();
-	// },[isUploadVideoPopUpOpen]);
+	useEffect(()=>{
+		getVideo();
+	},[isUploadVideoPopUpOpen]);
 
 	const removeImageClick = async(id) => {
 		try {
@@ -98,20 +98,9 @@ function EventCompanyDetails() {
 	const getCompanyDetail = async() => {
 		try {
 			const response = await axios.get(`${baseUrl}/api/events/companydetail?eventId=${eventId}`, {headers: header});
-			console.log("Company details > ", response.data);	
-			if(response.data.data.length !== 0) {
-				// initialState.name = response.data.data[0].name;
-				// initialState.contact_no = response.data.data[0].contact_no;
-				// initialState.email = response.data.data[0].email;
-				// initialState.flat_no = response.data.data[0].flat_no;
-				// initialState.street = response.data.data[0].street;
-				// initialState.area = response.data.data[0].area;
-				// initialState.city = response.data.data[0].city;
-				// initialState.state = response.data.data[0].state;
-				// initialState.pincode = response.data.data[0].pincode;
-			  }
+			console.log("Company details > ", response.data);
 		  } catch (error) {
-			  console.log(error);
+			console.log(error);
 		  }
 	  }
 	
@@ -119,38 +108,35 @@ function EventCompanyDetails() {
 		getCompanyDetail();
 	},[]);
 
-	const pdfUpload = (e) => {
-		console.log(e.target.files[0])
-		if(e.target.files.length == 0) {
+	const pdfUpload = (e) => {	
+
+		if(e.target.files.length > 0) {
+			if(e.target.files[0]?.type === 'application/pdf') {
+				if(e.target.files[0].size > 1*1024*1024) {
+					setGstFileError("File size should be less than 1MB.")
+				} else {
+					setGstFile(e.target.files[0]);
+					setGstFileError(null);
+				}
+			} else {
+				setGstFileError("Please select Pdf File.");
+			}
+		} else {
 			setGstFileError(null);
 		}
-		if(e.target.files[0].type !== 'application/pdf') {
-			// console.log("Please select valid Pdf file..");
-			setGstFileError("Please select Pdf File.");
-		}
-		if(e.target.files[0].size > 1*1024*1024) {
-			setGstFileError("File size should be less than 1MB.")
-		} 
-		else {
-			setGstFile(e.target.files[0]);
-			setGstFileError(null);
-		}
+
 	}
 
 	const validationSchema = Yup.object().shape({
-		name: Yup.string(),
-		// gst : Yup.mixed().test("fileType", "Please Select PDF file", (files, e) => {
-		// 	console.log(files, e);
-		// 	return types.includes(files)
-		// }),
-		contact_no: Yup.number().typeError('The value must be a digit').integer().positive("contact number must be positive"),
-		email: Yup.string().email('Invalid Email format'),
-		flat_no: Yup.string(),
-		street: Yup.string(),
-		area: Yup.string(),
-		city: Yup.string(),
-		state: Yup.string(),
-		pincode: Yup.number().typeError('The value must be a digit').min(6,"Pincode should be six digit long."),
+		name: Yup.string().required('Company name is required'),
+		contact_no: Yup.number().typeError('The value must be a digit').integer().positive("contact number must be positive").required('Contact No is required'),
+		email: Yup.string().email('Invalid Email format').required('Email is required'),
+		flat_no: Yup.string().required('Flat No is required'),
+		street: Yup.string().required('Street is required'),
+		area: Yup.string().required('Area is required'),
+		city: Yup.string().required('City is required'),
+		state: Yup.string().required('State is required'),
+		pincode: Yup.number().typeError('The value must be a digit').min(6,"Pincode should be six digit long.").required('pincode is required'),
 	})
 
 	const clickNextHandler = async(values) => {
@@ -162,9 +148,7 @@ function EventCompanyDetails() {
 		formData.append("eventId",eventId);
 		formData.append("user_id",userId);
 		formData.append("gst",gstFile || null);
-		
-		// const requestObj = {...values,formData};
-		// console.log(requestObj);
+
 		try {
 			const response = await axios.post(`${baseUrl}/api/events/companydetail`, formData, {headers: header});
 			console.log("Company details > ", response);
@@ -184,16 +168,7 @@ function EventCompanyDetails() {
 	  <div>
 	  <div className="wrapper min-h-full">
 		<Formik
-      initialValues={{
-		name: "Skills",
-		contact_no: "1234567890",
-		email: "",
-		flat_no: "",
-		street: "",
-		area: "",
-		city: "",
-		state: "",
-		pincode: ""}}
+      initialValues={initialState}
       validationSchema={validationSchema}
       onSubmit={clickNextHandler}>
 			 {({ errors, touched, formik }) => (
@@ -209,13 +184,13 @@ function EventCompanyDetails() {
 		  <div className="space-y-5 -mx-2">
 			<div className="w-full flex items-end flex-wrap">
 			  <div  iv className="w-full md:w-1/2 px-2 inputHolder">
-				  <span className="input-titel">Company Name</span>
+				  <span className="input-titel">Company Name <span>*</span></span>
 				  <Field type="text" className="input" name="name" value={formik?.values.name} />
 					<ErrorMessage name='name'  component="span" className="text-red-500 text-xs" />
 				<br/>
 			  </div>
 			  <div className="w-full md:w-1/2 px-2 inputHolder">
-				  <span className="input-titel">Company GST</span>
+				  <span className="input-titel">Company GST <span>*</span></span>
 				  {/* <span className="input-titel">Company GST (Optional)</span> */}
 				  <label htmlFor="upload" className="upload upload-popup">
 					<input type="file" name="pdf" id="upload" className="appearance-none hidden" onChange={pdfUpload} />
@@ -231,13 +206,13 @@ function EventCompanyDetails() {
 			</div>
 			<div className="w-full flex items-end flex-wrap">
 			  <div className="w-full md:w-1/2 px-2 inputHolder">
-				  <span className="input-titel">Company Contact No</span>
+				  <span className="input-titel">Company Contact No <span>*</span></span>
 				  <Field type="text" className="input" name="contact_no"  value={formik?.values.contact_no} />
 					<ErrorMessage name='contact_no'  component="span" className="text-red-500 text-xs"/>
 				<br/>
 			  </div>
 			  <div className="w-full md:w-1/2 px-2 inputHolder">
-				  <span className="input-titel">Company Email</span>
+				  <span className="input-titel">Company Email <span>*</span></span>
 				  <Field type="email" className="input" name="email"  value={formik?.values.email}/>
 					<ErrorMessage name='email'  component="span" className="text-red-500 text-xs"/>
 				<br/>
@@ -247,19 +222,19 @@ function EventCompanyDetails() {
 				<h3 className="px-2">Address</h3>
 				<div className="w-full flex flex-wrap">
 				  <div className="w-full md:w-1/3 px-2 inputHolder">
-					  <span className="input-titel">Flat No.</span>
+					  <span className="input-titel">Flat No. <span>*</span></span>
 					  <Field type="text" className="input" name="flat_no"  value={formik?.values.flat_no} />
 						<ErrorMessage name='flat_no'  component="span" className="text-red-500 text-xs"/>
 				<br/>
 				  </div>
 				  <div className="w-full md:w-1/3 px-2 inputHolder">
-					  <span className="input-titel">Street Name.</span>
+					  <span className="input-titel">Street Name. <span>*</span></span>
 					  <Field type="text" className="input" name="street" value={formik?.values.street} />
 						<ErrorMessage name='street'  component="span" className="text-red-500 text-xs" />
 				<br/>
 				  </div>
 				  <div className="w-full md:w-1/3 px-2 inputHolder">
-					  <span className="input-titel">Area Name.</span>
+					  <span className="input-titel">Area Name. <span>*</span></span>
 					  <Field type="text" className="input" name="area" value={formik?.values.area} />
 						<ErrorMessage name='area' component="span" className="text-red-500 text-xs"/>
 				<br/>
@@ -267,19 +242,19 @@ function EventCompanyDetails() {
 				</div>
 				<div className="w-full flex flex-wrap">
 				  <div className="w-full md:w-1/3 px-2 inputHolder">
-					  <label className="input-titel">City</label>
+					  <label className="input-titel">City <span>*</span></label>
 					  <Field type="text" className="input" name="city" value={formik?.values.city} />
 						<ErrorMessage name='city' component="span" className="text-red-500 text-xs"/>
 				<br/>
 				  </div>
 				  <div className="w-full md:w-1/3 px-2 inputHolder">
-					  <label className="input-titel">State</label>
+					  <label className="input-titel">State <span>*</span></label>
 					  <Field type="text" className="input" name="state" value={formik?.values.state} />
 						<ErrorMessage name='state' component="span" className="text-red-500 text-xs" />
 				<br/>						
 				  </div>
 				  <div className="w-full md:w-1/3 px-2 inputHolder">
-					  <label className="input-titel">Pincode</label>
+					  <label className="input-titel">Pincode <span>*</span></label>
 					  <Field type="text" className="input" name="pincode" value={formik?.values.pincode}/>
 						<ErrorMessage name='pincode' component="span" className="text-red-500 text-xs" />
 				<br/>		
@@ -288,7 +263,7 @@ function EventCompanyDetails() {
 			</div>
 			<div className="upload-holder px-2">
 			  <span className="input-titel">Company Photos Max 5 images (up to 5MB/image)</span>
-			  <label onClick={()=>setIsUploadPhotoPopUpOpen(true)} htmlFor="upload" className="upload">
+			  <label onClick={()=>setIsUploadPhotoPopUpOpen(true)} htmlfor="upload" className="upload">
 				 <input  name="images" id="upload" className="appearance-none hidden"/>
 				 <span className="input-titel mt-1"><i className="icon-image mr-2"></i>Upload Images</span>
 			   </label>

@@ -21,6 +21,7 @@ function EventDiscounts() {
 	const params = useParams();
 	const eventId = params.eventId;
 	const userId = params.userId;
+	const eventType = params.eventType;
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
@@ -46,7 +47,31 @@ function EventDiscounts() {
 		getDiscount();
 	}, [isDiscountOnTotalBillPopUpOpen, isDiscountOnEquipmentOrItemPopUpOpen, isAdvanceAndDiscountConfirmationPopUpOpen]);
 
-	const clickNextHandler = () => {
+	const clickNextHandler = async() => {
+		// const temp = JSON.parse(localStorage.getItem("capacity"));
+		// const temp1 = JSON.parse(localStorage.getItem("termsandcondition"));
+		// const reqObj = {
+		// 	person_capacity: temp?.parkingCapacity,
+		// 	parking_capacity: temp?.personCapacity,
+		// 	address: temp?.aboutPlace,
+		// 	t_and_c: temp1?.termAndCondition,
+		// 	facebook: temp1?.socialMedia.facebook,
+		// 	youtube: temp1?.socialMedia.youtube,
+		// 	twitter: temp1?.socialMedia.twitter,
+		// 	pinterest: temp1?.socialMedia.pinterest,
+		// 	instagram: temp1?.socialMedia.instagram,
+		// 	linkedin: temp1?.socialMedia.linkedin,
+		// 	event_id: eventId,
+		// 	discountId: [allDiscount[0].id, allDiscount[1].id, allDiscount[2].id]
+		// }
+		// console.log(reqObj)
+		// try {
+		// 	const response = await axios.post(`${baseUrl}/api/events`, reqObj, {headers: header});
+		// 	console.log(response);
+		// } catch (error) {
+		// 	console.log(error);
+		// }
+
     	toast.success("Data saved Successfully.");
 		dispatch(increment());
 		navigate(`../calender/${eventId}/${userId}`);
@@ -70,7 +95,7 @@ function EventDiscounts() {
 		   </div>
 		   {/* <!-- step-progress-bar  --> */}
 		   <div className="w-full overflow-hidden">
-				<StepProgressBar />
+				<StepProgressBar eventType={eventType} />
 		   </div>
 		   {/* <!-- main-content  --> */}
 		   <div className="space-y-5">

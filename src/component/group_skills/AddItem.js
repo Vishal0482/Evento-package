@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import Modal from "../modal/Modal";
-import EventPopUpAddService from './popups/EventPopUpAddService';
-import EventAddServicesListItem from './EventAddServiceListItem';
-import StepProgressBar from './StepProgressBar';
+import EventPopUpAddService from '../events/popups/EventPopUpAddService';
+import EventAddServicesListItem from '../events/EventAddServiceListItem';
+import StepProgressBar from '../events/StepProgressBar';
 import axios from 'axios';
 import { baseUrl } from '../../config';
 import { useDispatch } from 'react-redux';
@@ -11,11 +11,12 @@ import { decrement, increment } from '../../redux/stepProgressCount';
 import { toast, ToastContainer } from 'react-toastify';
 import { MoonLoader } from 'react-spinners';
 
-function EventAddServices() {
-
-	const navigate = useNavigate();
+function AddItem() {
+    const navigate = useNavigate();
 	const params = useParams();
 	const eventType = params.eventType;
+	const eventId = params.eventId;
+	const userId = params.userId;
 	const dispatch = useDispatch();
 	const [isAddServicesPopUpOpen, setIsAddServicesPopUpOpen] = useState(false);
 	const [serviceList, setServiceList] = useState([]);
@@ -42,10 +43,9 @@ function EventAddServices() {
 	},[isAddServicesPopUpOpen, reload]);
 
 	const clickNextHandler = () => {
-		toast.success("Services saved Successfully.");
+		toast.success("Items saved Successfully.");
 		dispatch(increment());
-		if(eventType === "places") navigate(`../capacity/${params.eventId}/${params.userId}`);
-		else navigate(`../othercost/${params.eventId}/${params.userId}`);
+		navigate(`../addservices/${eventId}/${userId}`);
 	};
 
 	const clickBackHander = () => {
@@ -63,7 +63,7 @@ function EventAddServices() {
 			 <i className="icon-back-arrow mr-4 text-2xl"></i>
 			 <h1>Sweet Love Catering</h1>
 		   </Link>
-		   <button onClick={()=>setIsAddServicesPopUpOpen(true)} className="btn-primary flex items-center"><i className="icon-plus mr-3"></i><span>{eventType === "places" ? "Add Service" : "Add Equipment"}</span></button>
+		   <button onClick={()=>setIsAddServicesPopUpOpen(true)} className="btn-primary flex items-center"><i className="icon-plus mr-3"></i><span>Add Items</span></button>
 		 </div>
 		  {/* <!-- step-progress-bar  --> */}
 		 <StepProgressBar eventType={eventType}/>
@@ -105,4 +105,4 @@ function EventAddServices() {
   )
 }
 
-export default EventAddServices
+export default AddItem;

@@ -8,6 +8,7 @@ import { baseUrl } from '../../config';
 import StepProgressBar from './StepProgressBar';
 import { decrement, increment } from '../../redux/stepProgressCount';
 import { toast, ToastContainer } from 'react-toastify';
+import { error } from 'jquery';
 
 function EventAboutPlace() {
 
@@ -21,7 +22,7 @@ function EventAboutPlace() {
 	const [edit, setEdit] = useState(false);
 	const eventId = params.eventId;	
 	const eventType = params.eventType;	
-	const placeId =params.placeId;
+	const placeId = params.placeId;
 	const token = localStorage.getItem("Token");
 	console.log(banner, price, priceType, about, eventId, eventType, token);
 	const header = {
@@ -33,11 +34,10 @@ function EventAboutPlace() {
 		try {
 			const response = await axios.get(`${baseUrl}/api/add_place_event/${placeId}`, {headers: header});
 			if(response.data.data.length !== 0) {
-				setBanner(response.data.data[0].place_banner);
+				setBanner(null);
 				setAbout(response.data.data[0].details);
 				setPrice(response.data.data[0].place_price);
 				setPriceType(response.data.data[0].price_type);
-				// setBanner(response.data.data[0].place_banner)
 				setEdit(true);
 			}
 			console.log(response);
@@ -70,12 +70,16 @@ function EventAboutPlace() {
 				}
 			} else {
 				// Update Place
-				const response = await axios.put(`${baseUrl}/api/add_place_event/${placeId}`, formData, {headers: header});
-				console.log("About place updated>> ",response.data);
-				if(response.data.isSuccess === true) {
-					toast.success("Place Details Updated successfully.");
-					dispatch(increment()) 
-					navigate(`../personaldetails/${eventId}/${response.data.data.user_id}`);
+				if(banner !== null) {
+					const response = await axios.put(`${baseUrl}/api/add_place_event/${placeId}`, formData, {headers: header});
+					console.log("About place updated>> ",response.data);
+					if(response.data.isSuccess === true) {
+						toast.success("Place Details Updated successfully.");
+						dispatch(increment()) 
+						navigate(`../personaldetails/${eventId}/${response.data.data.user_id}`);
+					}
+				} else {
+					toast.warn("Please Select New Banner");
 				}
 			}
 		} catch (error) {

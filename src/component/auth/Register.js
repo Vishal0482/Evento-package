@@ -15,33 +15,44 @@ function Register() {
     const [isVisible, setIsVisible] = useState(false);
 
     const initialState = {
-		name: "",
+		    name: "",
         email: "",
-		phone_no: "",
+		    phone_no: "",
         password: "",
         password2: "",
         refer_code: ""
 	}
 
     const ValidationSchema = Yup.object().shape({
-        name: Yup.string().min(2, 'Too Short!').max(40, 'Too Long!').required('Full name is required*'),
-        email: Yup.string().email('Invalid email format').required('Email address is required*'),
-		phone_no:Yup.number().typeError('Phone no must be in digit').integer().positive("Phone no must be positive").required("Phone no is required"),
-		password: Yup.string().min(6, 'Too Short!').required('Password is required*'),
-		password2: Yup.string().min(6, 'Too Short!').required('Password is required*'),
+      name: Yup.string().min(2, 'Too Short!').max(40, 'Too Long!').required('Full name is required*'),
+      email: Yup.string().email('Invalid email format').required('Email address is required*'),
+		  phone_no:Yup.number().typeError('Phone no must be in digit').integer().positive("Phone no must be positive").required("Phone no is required"),
+		  password: Yup.string().min(6, 'Too Short!').required('Password is required*'),
+		  password2: Yup.string().min(6, 'Too Short!').required('Password is required*'),
 	});
 
     const clickSubmitHandler = async(values) => {
         // console.log(values);
-        if (values.password!==values.password2) {
-			toast.warn("confirm password and password is not matching");
-			return
-		}
+      if (values.password !== values.password2) {
+        toast.warn("confirm password and password is not matching");
+        return
+      } 
+      try {
+
         // login for registration
-        setTimeout(() => {
+        localStorage.setItem("register", JSON.stringify(values));
+        const response = await axios.post(`${baseUrl}/api/sendotp`, {phone: "+91"+values.phone_no});
+        console.log(response);
+        if(response.data.isSuccess) {
+          setTimeout(() => {
             toast.success("Registered successfully.")
-            navigate("../login")
-        }, 500);
+            navigate("../verify/0")
+          }, 200);
+        }
+      } catch (error) {
+        toast.error("Something Went Wrong.");
+        console.log(error);
+      }
     }
    
     return (
@@ -72,7 +83,7 @@ function Register() {
                 <div className="relative">
                   <label htmlFor="" className="input-titel">Phone Number</label>
                   <Field  type="text" name="phone_no" className="input_box" value={formik?.values.phone_no} />
-                  <span className="cursor-pointer text-[#E58F0D] text-sm font-semibold absolute right-4 top-10" >Verify</span>
+                  {/* <span className="cursor-pointer text-[#E58F0D] text-sm font-semibold absolute right-4 top-10" >Verify</span> */}
                   {/* <span className="cursor-pointer text-caribbeanGreen text-sm font-semibold absolute right-4 bottom-4" >Verify</span> */}
                   <ErrorMessage name='phone_no' component="span" className="text-red-500 text-xs" />
                 </div>

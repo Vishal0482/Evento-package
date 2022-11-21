@@ -43,7 +43,7 @@ function DashboardEventView() {
                 <h2>{event?.display_name}</h2>
                 <div className="space-y-4">
                   <div className="flex space-x-6 items-center justify-end">
-                    <button type="button" className="py-1 px-2 bg-spiroDiscoBall text-sm font-bold text-white">Pramotion</button>
+                    <button type="button" className="py-1 px-2 bg-spiroDiscoBall text-sm font-bold text-white">promotion</button>
                     <button type="button" className="w-8 h-8 bg-brightGray rounded-full flex items-center justify-center"><i className="icon-share text-sm"></i></button>
                   </div>
                   <div className="flex items-center text-base font-semibold text-ufoGreen space-x-1">

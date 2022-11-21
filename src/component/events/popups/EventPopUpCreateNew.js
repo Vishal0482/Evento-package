@@ -54,7 +54,7 @@ function EventPopUpCreateNew({ handleClose, selectedCategory, displayName, event
 				if(response.data.data.category_id) {
 					handleClose(false);
 					dispatch(increment());
-					navigate(`addplaces/${response.data.data.eventId}`);
+					navigate(`addplaces/${response.data.data.eventId}/0 `);
 				}
 			} else {
 				// update

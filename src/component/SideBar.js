@@ -17,6 +17,8 @@ import EventCompanyDetails from "./events/EventCompanyDetails";
 import EventTermsAndConditions from "./events/EventTermsAndConditions";
 import EventDiscounts from "./events/EventDiscounts";
 import DashboardEventView from "./event-view/DashboardEventView";
+import PSBOtherCost from "./personal_skills_business/PSBOtherCost";
+
 import Gallery from "./other/Gallery";
 import ReferToEarn from "./other/ReferToEarn";
 import RedeemCoin from "./other/RedeemCoin";
@@ -29,6 +31,8 @@ import Profile from "./other/Profile";
 import axios from "axios";
 import { baseUrl } from "../config";
 import { toast, ToastContainer } from "react-toastify";
+import OurProducts from "./other/OurProducts";
+import AddItem from "./group_skills/AddItem";
 
 function SideBar() {
 
@@ -124,7 +128,7 @@ function SideBar() {
             </span>
             <span>Membership</span>
           </Link>
-          <Link to="/" className="" title="Our Products">
+          <Link to="our-products" className="" title="Our Products">
             <span>
               <i className="w-6 block text-center text-lg icon-our-product"></i>
             </span>
@@ -241,6 +245,9 @@ function SideBar() {
                 <Route path="termsandconditions/:eventId/:userId" element={<EventTermsAndConditions />} />
                 <Route path="discounts/:eventId/:userId" element={<EventDiscounts />} />
                 <Route path="calender/:eventId/:userId" element={<EventCalender />} />
+                
+                <Route path="othercost/:eventId/:userId" element={<PSBOtherCost />} />
+                <Route path="additem/:eventId/:userId" element={<AddItem />} />
               </Route>
             </Route>
 
@@ -252,6 +259,7 @@ function SideBar() {
             <Route path="booking" element={<Booking />} />
             <Route path="invoice" element={<Invoice />} />
             <Route path="faq" element={<FAQ />} />
+            <Route path="our-products" element={<OurProducts />} />
 
             {/* header link */}
             <Route path="chatbot" element={<Chatbot />} />
