@@ -10,9 +10,10 @@ function VideoPlayer({handleClose, videoUrl, active}) {
             </svg>
         </div>
         <div className="w-full h-full">
-            <video className="w-full h-full" controls autoPlay>
+            {/* <video className="w-full h-full" controls autoPlay>
                 <source src={videoUrl} type="video/mp4"/>
-            </video>
+            </video> */}
+            <iframe width="100%" height="100%" src={videoUrl} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
     </div>
 </div>

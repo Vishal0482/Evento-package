@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Advertisement from "../Advertisement";
 import DashboardEventViewOverviewPhoto from './DashboardEventViewOverviewPhoto';
 import DashboardEventViewOverviewVideo from './DashboardEventViewOverviewVideo';
@@ -22,7 +22,7 @@ import dish5Video from "../../assest/images/dish-video-5.png";
 import { baseUrl } from '../../config';
 
 
-function DashboardEventViewOverview({data}) {
+function DashboardEventViewOverview({data, capacity, socials, company}) {
     const [preview, setPreview] = useState(false);
     return (
         <div className="pt-7 lg:pt-10">
@@ -98,13 +98,13 @@ function DashboardEventViewOverview({data}) {
                                 <div className="w-full lg:w-1/2 px-2.5">
                                     <div className="flex items-center justify-between bg-white p-4 rounded-md">
                                         <h3 className="text-quicksilver">No of person</h3>
-                                        <h2>500</h2>
+                                        <h2>{capacity?.person_capacity}</h2>
                                     </div>
                                 </div>
                                 <div className="w-full lg:w-1/2 px-2.5">
                                     <div className="flex items-center justify-between bg-white p-4 rounded-md">
                                         <h3 className="text-quicksilver">Parking Capacity</h3>
-                                        <h2>250</h2>
+                                        <h2>{capacity?.parking_capacity}</h2>
                                     </div>
                                 </div>
                             </div>
@@ -113,7 +113,8 @@ function DashboardEventViewOverview({data}) {
                         <div className="space-y-1.5">
                             <h3 className="text-lg">Address</h3>
                             <div className="bg-white p-4 rounded-md">
-                                <h3>Akshya Nagar 1st Block 1st Cross, Rammurthy nagar, Bangalore-560016</h3>
+                                <h3>{capacity?.address}</h3>
+                                {/* <h3>Akshya Nagar 1st Block 1st Cross, Rammurthy nagar, Bangalore-560016</h3> */}
                             </div>
                         </div>
                         {/* <!-- calendar end --> */}
@@ -122,21 +123,23 @@ function DashboardEventViewOverview({data}) {
                         <div className="space-y-1.5">
                             <h3 className="text-lg">Company Details</h3>
                             <div className="p-7 bg-white rounded-md space-y-1">
-                                <h3>Company Name</h3>
-                                <p className="text-quicksilver text-sm font-normal">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                                <h3>{company?.name}</h3>
+                                <p className="text-quicksilver text-sm font-normal">{company?.about} </p>
+                                {/* <h3>Company Name</h3> */}
+                                {/* <p className="text-quicksilver text-sm font-normal">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p> */}
                             </div>
                         </div>
                         {/* <!-- Photo-holder --> */}
                         <div className="media-upload-holder">
                             {/* <!-- media titel  --> */}
-                           {data?.company_details?.image?.length > 0 && <div className="flex justify-between items-center">
+                           {company?.image?.length > 0 && <div className="flex justify-between items-center">
                                 <h3 className="text-lg">Photo</h3>
                                 <a href="#" className="text-spiroDiscoBall text-sm font-bold">View All</a>
                             </div>}
                             {/* <!-- photo-holder --> */}
                             <div className="w-full">
                                 <div className="flex flex-wrap -mx-2">
-                                {data?.company_details?.image?.map(e =>
+                                {company?.image?.map(e =>
                                     <DashboardEventViewOverviewPhoto imageUrl={baseUrl+"/api"+e?.image} />
                                 )}
                                 </div>
@@ -145,14 +148,14 @@ function DashboardEventViewOverview({data}) {
                         {/* <!-- videos-holder --> */}
                         <div className="media-upload-holder">
                             {/* <!-- media titel  --> */}
-                            {data?.company_details?.video?.length > 0 &&<div className="flex justify-between items-center">
+                            {company?.video?.length > 0 &&<div className="flex justify-between items-center">
                                 <h3 className="text-lg">Videos</h3>
                                 <a href="#" className="text-spiroDiscoBall text-sm font-bold">View All</a>
                             </div>}
                             {/* <!-- media-holder --> */}
                             <div className="w-full">
                                 <div className="flex flex-wrap -mx-2">
-                                {data?.company_details?.video?.map(e => 
+                                {company?.video?.map(e => 
                                     <DashboardEventViewOverviewVideo videoUrl={dish2Video} />
                                 )}
                                 </div>
@@ -164,9 +167,9 @@ function DashboardEventViewOverview({data}) {
                             <div className="p-3.5 xl:p-5 bg-white rounded-md">
                                 <div className="flex items-start text-quicksilver font-normal">
                                     <div className="pt-0.5">*</div>
-                                    <p className="text-sm font-normal pl-3">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been  the industry's</p>
+                                    <p className="text-sm font-normal pl-3">{socials?.t_and_c}</p>
                                 </div>
-                                <div className="flex items-start text-quicksilver font-normal">
+                                {/* <div className="flex items-start text-quicksilver font-normal">
                                     <div className="pt-0.5">*</div>
                                     <p className="text-sm font-normal pl-3">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,</p>
                                 </div>
@@ -185,7 +188,7 @@ function DashboardEventViewOverview({data}) {
                                 <div className="flex items-start text-quicksilver font-normal">
                                     <div className="pt-0.5">*</div>
                                     <p className="text-sm font-normal pl-3">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,</p>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                         {/* <!-- Social-Media --> */}
@@ -202,7 +205,8 @@ function DashboardEventViewOverview({data}) {
                                                     </svg>
                                                 </div>
                                             </div>
-                                            <input type="text" className="w-full outline-none text-japaneseIndigo font-semibold" defaultValue="https://www.facebook.com" placeholder="Enter URL" />
+                                            <div className="w-full outline-none text-japaneseIndigo font-semibold">{socials?.facebook} </div>
+                                            {/* <input type="text" className="w-full outline-none text-japaneseIndigo font-semibold" defaultValue="https://www.facebook.com" placeholder="Enter URL" /> */}
                                         </div>
                                     </div>
                                     <div className="w-full md:w-1/2 p-2">
@@ -222,7 +226,8 @@ function DashboardEventViewOverview({data}) {
                                                     </svg>
                                                 </div>
                                             </div>
-                                            <input type="text" className="w-full outline-none text-japaneseIndigo font-semibold" defaultValue="https://youtube.com" placeholder="Enter URL" />
+                                            <div className="w-full outline-none text-japaneseIndigo font-semibold">{socials?.youtube} </div>
+                                            {/* <input type="text" className="w-full outline-none text-japaneseIndigo font-semibold" defaultValue="https://youtube.com" placeholder="Enter URL" /> */}
                                         </div>
                                     </div>
                                     <div className="w-full md:w-1/2 p-2">
@@ -234,7 +239,8 @@ function DashboardEventViewOverview({data}) {
                                                     </svg>
                                                 </div>
                                             </div>
-                                            <input type="text" className="w-full outline-none text-japaneseIndigo font-semibold" defaultValue="https://twitter.com" placeholder="Enter URL" />
+                                            <div className="w-full outline-none text-japaneseIndigo font-semibold">{socials?.twitter} </div>
+                                            {/* <input type="text" className="w-full outline-none text-japaneseIndigo font-semibold" defaultValue="https://twitter.com" placeholder="Enter URL" /> */}
                                         </div>
                                     </div>
                                     <div className="w-full md:w-1/2 p-2">
@@ -246,7 +252,8 @@ function DashboardEventViewOverview({data}) {
                                                     </svg>
                                                 </div>
                                             </div>
-                                            <input type="text" className="w-full outline-none text-japaneseIndigo font-semibold" defaultValue="https://pinterest.com" placeholder="Enter URL" />
+                                            <div className="w-full outline-none text-japaneseIndigo font-semibold">{socials?.pinterest} </div>
+                                            {/* <input type="text" className="w-full outline-none text-japaneseIndigo font-semibold" defaultValue="https://pinterest.com" placeholder="Enter URL" /> */}
                                         </div>
                                     </div>
                                     <div className="w-full md:w-1/2 p-2">
@@ -271,7 +278,8 @@ function DashboardEventViewOverview({data}) {
                                                     </svg>
                                                 </div>
                                             </div>
-                                            <input type="text" className="w-full outline-none text-japaneseIndigo font-semibold" defaultValue="https://instagram.com" placeholder="Enter URL" />
+                                            <div className="w-full outline-none text-japaneseIndigo font-semibold">{socials?.instagram} </div>
+                                            {/* <input type="text" className="w-full outline-none text-japaneseIndigo font-semibold" defaultValue="https://instagram.com" placeholder="Enter URL" /> */}
                                         </div>
                                     </div>
                                     <div className="w-full md:w-1/2 p-2">
@@ -283,7 +291,8 @@ function DashboardEventViewOverview({data}) {
                                                     </svg>
                                                 </div>
                                             </div>
-                                            <input type="text" className="w-full outline-none text-japaneseIndigo font-semibold" defaultValue="https://linkedin.com" placeholder="Enter URL" />
+                                            <div className="w-full outline-none text-japaneseIndigo font-semibold">{socials?.linkedin} </div>
+                                            {/* <input type="text" className="w-full outline-none text-japaneseIndigo font-semibold" defaultValue="https://linkedin.com" placeholder="Enter URL" /> */}
                                         </div>
                                     </div>
                                 </div>

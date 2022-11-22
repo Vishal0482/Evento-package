@@ -48,9 +48,9 @@ function EventCompanyDetails() {
 
 	const getImage = async() => {
 		try {
-			const response = await axios.get(`${baseUrl}/api/image_event?eventId=${eventId}`, {headers: header});
-			setImageList(response.data.data);
-			console.log("Image response >> ",response);
+			// const response = await axios.get(`${baseUrl}/api/image_event?eventId=${eventId}`, {headers: header});
+			// setImageList(response.data.data);
+			// console.log("Image response >> ",response);
 		} catch (error) {
 			console.log(error);
 		}
@@ -58,9 +58,9 @@ function EventCompanyDetails() {
 	
 	const getVideo = async() => {
 		try {
-			const response = await axios.get(`${baseUrl}/api/video_event?eventId=${eventId}`, {headers: header});
-			setVideoList(response.data.data);
-			console.log("Video response >> ",response);
+			// const response = await axios.get(`${baseUrl}/api/video_event?eventId=${eventId}`, {headers: header});
+			// setVideoList(response.data.data);
+			// console.log("Video response >> ",response);
 		} catch (error) {
 			console.log(error);
 		}
@@ -266,7 +266,7 @@ function EventCompanyDetails() {
 			  <span className="input-titel">Company Photos Max 5 images (up to 5MB/image)</span>
 			  <label onClick={()=>setIsUploadPhotoPopUpOpen(true)} htmlfor="upload" className="upload">
 				 <input  name="images" id="upload" className="appearance-none hidden"/>
-				 <span className="input-titel mt-1"><i className="icon-image mr-2"></i>Upload Images</span>
+				 <span className="input-titel mt-1"><i className="icon-image mr-2"></i>Upload Images</span>	
 			   </label>
 			   {imageList?.length !== 0  &&<span className="input-titel mt-1">{imageList.length} Images Uploaded</span>}
 			</div>
@@ -319,10 +319,10 @@ function EventCompanyDetails() {
 		)}
     </Formik>  
 		{imageList.length < 15 && <Modal isOpen={isUploadPhotoPopUpOpen}>
-			<EventPopUpUploadPhoto handleClose={setIsUploadPhotoPopUpOpen} eventId={eventId} />
+			<EventPopUpUploadPhoto handleClose={setIsUploadPhotoPopUpOpen} eventId={eventId} compDetail={true} />
 		</Modal>}
 		{videoList.length < 2 && <Modal isOpen={isUploadVideoPopUpOpen}>
-			<EventPopUpUploadVideo handleClose={setIsUploadVideoPopUpOpen} eventId={eventId} />
+			<EventPopUpUploadVideo handleClose={setIsUploadVideoPopUpOpen} eventId={eventId} compDetail={true} />
 		</Modal>}
 	  </div>
 	  <ToastContainer

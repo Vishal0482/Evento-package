@@ -622,7 +622,7 @@ function LandingPage() {
                   <img className="object-cover w-full h-56" src={AnniversaryEvent} alt="Mobile_Store_Offer.png" />
                   <button onClick={()=> {
                     setIsVideoPlayerPopUpOpen(true)
-                    // setVideoUrl(video1)
+                    setVideoUrl("https://www.youtube.com/embed/9-x-dqX4yxo");
                   }} className="w-12 h-12 flex justify-center items-center bg-spiroDiscoBall anim absolute bottom-0 right-0 hover:opacity-75">
                     <svg width="17" height="20" viewBox="0 0 17 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M0 0L17 10L0 20V0Z" fill="white" />
@@ -641,7 +641,7 @@ function LandingPage() {
                   <img className="object-cover w-full h-56" src={ChildrenPartyPlannersEvent} alt="Mobile_Store_Offer.png" />
                   <button onClick={()=> {
                     setIsVideoPlayerPopUpOpen(true)
-                    // setVideoUrl(video2);
+                    setVideoUrl("https://www.youtube.com/embed/IC8rX1VcANI");
                   }}  className="w-12 h-12 flex justify-center items-center bg-spiroDiscoBall anim absolute bottom-0 right-0 hover:opacity-75">
                     <svg width="17" height="20" viewBox="0 0 17 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M0 0L17 10L0 20V0Z" fill="white" />
@@ -660,7 +660,7 @@ function LandingPage() {
                   <img className="object-cover w-full h-56" src={BirthdaypartyEvent} alt="Fruit_Market_Offers.png" />
                   <button onClick={()=> {
                     setIsVideoPlayerPopUpOpen(true)
-                    // setVideoUrl(video3);
+                    setVideoUrl("https://www.youtube.com/embed/h-ve-ArQFck");
                   }}  className="w-12 h-12 flex justify-center items-center bg-spiroDiscoBall anim absolute bottom-0 right-0 hover:opacity-75">
                     <svg width="17" height="20" viewBox="0 0 17 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M0 0L17 10L0 20V0Z" fill="white" />
@@ -679,7 +679,7 @@ function LandingPage() {
                   <img className="object-cover w-full h-56" src={SummerGardenPartyEvent} alt="Fashion_Store_Offers.png" />
                   <button onClick={()=> {
                     setIsVideoPlayerPopUpOpen(true)
-                    // setVideoUrl(video4);
+                    setVideoUrl("https://www.youtube.com/embed/yiD2r64xMFc");
                   }}  className="w-12 h-12 flex justify-center items-center bg-spiroDiscoBall anim absolute bottom-0 right-0 hover:opacity-75">
                     <svg width="17" height="20" viewBox="0 0 17 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M0 0L17 10L0 20V0Z" fill="white" />

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import { baseUrl } from '../../../config';
 
-function EventPopUpUploadPhoto({handleClose, eventId}) {
+function EventPopUpUploadPhoto({handleClose, eventId, compDetail, compId}) {
 	const [image, setImage] = useState("");
 	const [imagePreview, setImagePreview] = useState("");
 	const [details, setDetails] = useState("");
@@ -50,7 +50,9 @@ function EventPopUpUploadPhoto({handleClose, eventId}) {
 			formDataImage.append("image_details", details);
 			formDataImage.append("event", eventId);
 			formDataImage.append("image", image);
-			const response = await axios.post(`${baseUrl}/api/image_event`,formDataImage, {headers: header});
+			const url = compDetail ? `${baseUrl}/api/events/companydetail/image` : `${baseUrl}/api/image_event`;
+			if(compDetail) formDataImage.append("company_id",compId);
+			const response = await axios.post(url,formDataImage, {headers: header});
 			console.log(response);
 			if(response.data.status) {
 				toast.success("Image Uploaded successfully.");
@@ -99,7 +101,7 @@ function EventPopUpUploadPhoto({handleClose, eventId}) {
 			 </div>
 		   </form>
 		   {/* <Link to="/" className="btn-primary w-full uppercase">Submit</Link> */}
-		   <div className="btn-primary w-full uppercase" onClick={submitHandler}>Submit</div>
+		   <div className="btn-primary w-full uppercase cursor-pointer" onClick={submitHandler}>Submit</div>
 		 </div>
 	   </div>
 	 </div>

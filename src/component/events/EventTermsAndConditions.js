@@ -7,6 +7,8 @@ import { addTermsAndCondition } from '../../redux/createEvent';
 import StepProgressBar from './StepProgressBar';
 import { toast, ToastContainer } from 'react-toastify';
 import { decrement, increment } from '../../redux/stepProgressCount';
+import { baseUrl } from '../../config';
+import axios from 'axios';
 
 function EventTermsAndConditions() {
   const displayName = localStorage.getItem("displayName");
@@ -17,46 +19,72 @@ function EventTermsAndConditions() {
   const eventId = params.eventId;
   const userId = params.userId;
   const eventType = params.eventType;
-  
+
+  const token = localStorage.getItem("Token");
+	const header = {
+		'Authorization': `Token ${token}`
+	}
+
 	const initialState = {
-		termAndCondition: "",
-    socialMedia: {
-      facebook: "",
-      youtube: "",
-      twitter: "",
-      pintrest: "",
-      instagram: "",
-      linkedin: "",
-    }
+    event_id: eventId,
+		t_and_c: "",
+    facebook: "",
+    youtube: "",
+    twitter: "",
+    pinterest: "",
+    instagram: "",
+    linkedin: "",
+    calender: "2022-03-31"
 	}
   const [acceptTerm, setAcceptTerm] = useState(false);
 	const [values, setValues] = useState(initialState);
+  // const handleInputChange = (e) => {
+  //   const { name, value } = e.target;
+  //   console.log(e.target);
+  //   const temp = name.split(".");
+  //   if (temp.length !== 2) {
+  //     setValues({
+  //       ...values,
+  //       [name]: value,
+  //     });
+  //   } else {
+  //     setValues({
+  //       ...values,
+  //       socialMedia: {
+  //         ...values.socialMedia,
+  //         [temp[1]]: value,
+  //       }
+  //     });
+  //   }
+  // };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     console.log(e.target);
-    const temp = name.split(".");
-    if (temp.length !== 2) {
       setValues({
         ...values,
         [name]: value,
       });
-    } else {
-      setValues({
-        ...values,
-        socialMedia: {
-          ...values.socialMedia,
-          [temp[1]]: value,
-        }
-      });
-    }
   };
 	console.log(values);
   console.log(acceptTerm);
 
+  const saveData = async() => {
+    try {
+      if(acceptTerm) {
+        const response = await axios.post(`${baseUrl}/api/events`, values, {headers: header});
+        console.log(response);
+        if(response.data.isSuccess) {
+          toast.success("Data Saved Successfully.")
+        }
+      }
+    } catch (error) {
+      toast.error("Something Went Wrong.")
+      console.log(error);
+    }
+  }
+
   const clickNextHandler = () => {
-		dispatch(addTermsAndCondition({termsAndCondition : values}));
     dispatch(increment());
-    localStorage.setItem("termsandcondition", JSON.stringify(values));
     toast.success("Data saved Successfully.");
 		navigate(`../discounts/${eventId}/${userId}`);
 	}
@@ -101,7 +129,7 @@ function EventTermsAndConditions() {
                         <button type="button"><i className="icon-list-num text-xl"></i></button>
                       </div>
                     </div>
-                    <textarea cols="30" rows="10" className="w-full outline-none p-7 py-5" name="termAndCondition" value={values?.termAndCondition} onChange={handleInputChange}></textarea>
+                    <textarea cols="30" rows="10" className="w-full outline-none p-7 py-5" name="t_and_c" value={values?.t_and_c} onChange={handleInputChange}></textarea>
                   </div>
                 </div>
                 <div className="w-full">
@@ -117,7 +145,7 @@ function EventTermsAndConditions() {
                               </svg>
                             </div>
                           </div>
-                          <input type="text" className="w-full outline-none" placeholder="Enter URL" name="socialMedia.facebook" value={values?.socialMedia.facebook} onChange={handleInputChange}/>
+                          <input type="text" className="w-full outline-none" placeholder="Enter URL" name="facebook" value={values?.facebook} onChange={handleInputChange}/>
                         </div>
                       </div>
                       <div className="w-full md:w-1/2 p-2">
@@ -137,7 +165,7 @@ function EventTermsAndConditions() {
                               </svg>
                             </div>
                           </div>
-                          <input type="text" className="w-full outline-none" placeholder="Enter URL" name="socialMedia.youtube" value={values?.socialMedia.youtube} onChange={handleInputChange}/>
+                          <input type="text" className="w-full outline-none" placeholder="Enter URL" name="youtube" value={values?.youtube} onChange={handleInputChange}/>
                         </div>
                       </div>
                       <div className="w-full md:w-1/2 p-2">
@@ -149,7 +177,7 @@ function EventTermsAndConditions() {
                               </svg>
                             </div>
                           </div>
-                          <input type="text" className="w-full outline-none" placeholder="Enter URL" name="socialMedia.twitter" value={values?.socialMedia.twitter} onChange={handleInputChange}/>
+                          <input type="text" className="w-full outline-none" placeholder="Enter URL" name="twitter" value={values?.twitter} onChange={handleInputChange}/>
                         </div>
                       </div>
                       <div className="w-full md:w-1/2 p-2">
@@ -161,7 +189,7 @@ function EventTermsAndConditions() {
                               </svg>
                             </div>
                           </div>
-                          <input type="text" className="w-full outline-none" placeholder="Enter URL" name="socialMedia.pintrest" value={values?.socialMedia.pintrest} onChange={handleInputChange}/>
+                          <input type="text" className="w-full outline-none" placeholder="Enter URL" name="pinterest" value={values?.pinterest} onChange={handleInputChange}/>
                         </div>
                       </div>
                       <div className="w-full md:w-1/2 p-2">
@@ -186,7 +214,7 @@ function EventTermsAndConditions() {
                               </svg>
                             </div>
                           </div>
-                          <input type="text" className="w-full outline-none" placeholder="Enter URL" name="socialMedia.instagram" value={values?.socialMedia.instagram} onChange={handleInputChange}/>
+                          <input type="text" className="w-full outline-none" placeholder="Enter URL" name="instagram" value={values?.instagram} onChange={handleInputChange}/>
                         </div>
                       </div>
                       <div className="w-full md:w-1/2 p-2">
@@ -198,7 +226,7 @@ function EventTermsAndConditions() {
                               </svg>
                             </div>
                           </div>
-                          <input type="text" className="w-full outline-none" placeholder="Enter URL" name="socialMedia.linkedin" value={values?.socialMedia.linkedin} onChange={handleInputChange}/>
+                          <input type="text" className="w-full outline-none" placeholder="Enter URL" name="linkedin" value={values?.linkedin} onChange={handleInputChange}/>
                         </div>
                       </div>
                     </div>
@@ -206,20 +234,20 @@ function EventTermsAndConditions() {
                 </div>
                 <div className="flex items-end">
                     <label className="checkbox rounded bg-white">
-                        <input type="checkbox" onChange={(e) => setAcceptTerm(!acceptTerm)} />
+                        <input type="checkbox" onClick={()=>{setIsTermsAndConditionPopUpOpen(!isTermsAndConditionPopUpOpen); setAcceptTerm(!acceptTerm)}} />
                         <i className="icon-right"></i>                  
                     </label>
-                    <span className="input-titel text-base ml-4">Accept Your <button >Terms and Conditions</button></span>
+                    <span className="input-titel text-base ml-4" >Accept Your <button >Terms and Conditions</button></span>
                 </div>
-                <button className="btn-primary w-full" onClick={()=>setIsTermsAndConditionPopUpOpen(true)}>SAVE</button>
+                <button className="btn-primary w-full" onClick={saveData}>SAVE</button>
               </div>
             </div>
             <div className="prw-next-btn">
               <button type="button" className="flex items-center" onClick={clickBackHandler}><i className="icon-back-arrow mr-3"></i><h3>Back</h3></button>
-              <button type="button" className="flex items-center active" onClick={clickNextHandler}><h3>Next</h3><i className="icon-next-arrow ml-3"></i></button>
+              <button type="button" className="flex items-center btn-primary" onClick={clickNextHandler}>Go To Discount</button>
             </div>
           <Modal isOpen={isTermsAndConditionPopUpOpen}>
-            <EventPopUpTermsAndCondition handleClose={setIsTermsAndConditionPopUpOpen} terms={values.termAndCondition}/> 
+            <EventPopUpTermsAndCondition handleClose={setIsTermsAndConditionPopUpOpen} terms={values.t_and_c}/> 
           </Modal>
           </div>
         </div>

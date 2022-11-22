@@ -95,7 +95,7 @@ function EventAboutPlace() {
   
   return (
 	//  <!-- Content In -->
-	 <div className="rightInContent">
+	 <div>
 	 <div className="wrapper min-h-full flex flex-col">
 	   <div className="space-y-8 h-full">
 		 {/* <!-- title-holder  -->/ */}

@@ -62,7 +62,7 @@ function EventAddPlaces() {
 
   return (
 	//  <!-- Content In -->
-	 <div className="rightInContent">
+	 <>
 	 <div className="wrapper min-h-full flex flex-col">
 	   <div className="space-y-8 h-full">
 		 {/* <!-- title-holder  --> */}
@@ -95,7 +95,7 @@ function EventAddPlaces() {
 			  pauseOnHover
 			  theme="colored"
 		  />
-   </div>
+   </>
 
   )
 }

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import { baseUrl } from '../../../config';
 
-function EventPopUpUploadVideo({handleClose, eventId}) {
+function EventPopUpUploadVideo({handleClose, eventId, compDetail, compId}) {
   const [video, setVideo] = useState("");
   const [videoPreview, setVideoPreview] = useState("");
   const [details, setDetails] = useState("");
@@ -50,12 +50,14 @@ function EventPopUpUploadVideo({handleClose, eventId}) {
       formDataVideo.append("image_details",details);
       formDataVideo.append("event", eventId);
       formDataVideo.append("video", video);
-      const response = await axios.post(`${baseUrl}/api/video_event`, formDataVideo, {headers: header});
+      const url = compDetail ? `${baseUrl}/api/events/companydetail/video` : `${baseUrl}/api/video_event`;
+      if(compDetail) formDataVideo.append("company_id",compId);
+      const response = await axios.post(url, formDataVideo, {headers: header});
       console.log(response);
-      if(response.data.status) {
+      // if(response.data.status) {
         toast.success("Video Uploaded successfully.");
 				handleClose(false);
-			}
+			// }
     } catch (error) {
       toast.error("Something Went wrong.");
       console.log(error);
@@ -95,7 +97,7 @@ function EventPopUpUploadVideo({handleClose, eventId}) {
                 <textarea name="" id="" cols="30" rows="5" className="outline-none flex items-center w-full bg-white p-2 px-3.5 rounded-md" onChange={(e) => setDetails(e.target.value)}></textarea>
               </div>
             </form>
-            <div className="btn-primary w-full uppercase" onClick={submitHandler}>Submit</div>
+            <div className="btn-primary w-full uppercase cursor-pointer" onClick={submitHandler}>Submit</div>
           </div>
         </div>
       </div>

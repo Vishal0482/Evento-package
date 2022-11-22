@@ -92,7 +92,7 @@ function EventPersonalDetails() {
 
   return (
 	// <!-- Content In -->
-	<div>
+	<>
 	<div className="wrapper min-h-full">
 	<Formik
       initialValues={initialState}
@@ -216,7 +216,7 @@ function EventPersonalDetails() {
 			  pauseOnHover
 			  theme="colored"
 		  />
-  </div>
+  </>
   )
 }
 
