@@ -22,7 +22,7 @@ function EventPopUpCreateNew({ handleClose, selectedCategory, displayName, event
 	}
 	const getCategory = async() => {
 		try {
-			const response = await axios.get(`${baseUrl}/api/event_category_list`,{headers: header});
+			const response = await axios.get(`${baseUrl}/api/event_category`,{headers: header});
 			console.log("Categorys >> ",response);
 			setCategory(response.data.data);
 			setNewCategoryId(response.data.data[0].categoryId);
