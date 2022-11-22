@@ -1,13 +1,15 @@
+import { current } from '@reduxjs/toolkit';
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { baseUrl } from '../../config';
 import Modal from '../modal/Modal';
 import EventPopUpAddService from './popups/EventPopUpAddService';
 
-function EventAddServiceListItem({data, edit, setReload}) {
+function EventAddServiceListItem({data, edit, setReload, setActiveList, activeList}) {
 	
 	const [isAddServicesPopUpOpen, setIsAddServicesPopUpOpen] = useState(false);
-	const token = localStorage.getItem("Token");;
+	const [isLive, setIsLive] = useState(false);
+	const token = localStorage.getItem("Token");
 	const header = {
 		'Authorization': `Token ${token}`
 	}
@@ -20,6 +22,19 @@ function EventAddServiceListItem({data, edit, setReload}) {
 			console.log("Delete API Not working");
 		}
 	}
+
+	const addService = () => {
+		if(isLive && !activeList.includes(data.Id)) {
+			setActiveList(current => [...current, data.Id]);
+		}
+		if(activeList.includes(data.Id)) {
+			setActiveList(current => current.filter(e => e !== data.Id))
+		}
+	}
+
+	useEffect(() => {
+		addService();
+	},[isLive]);
 
   return (
     <div className="bg-white rounderd px-7 py-4">
@@ -34,7 +49,7 @@ function EventAddServiceListItem({data, edit, setReload}) {
 				   <h2>{data.service_name}</h2>
 				   <div className="flex items-center space-x-5">
 					 <div className="flex items-center">
-					   <input type="checkbox" id="on" className="switch mx-3 order-2" />
+					   <input type="checkbox" id="on" className="switch mx-3 order-2" onChange={() => setIsLive(!isLive)} />
 					   <span className="off text-base font-bold anim order-1 text-caribbeanGreen">Off</span>
 					   <span className="on text-base font-bold anim order-3">On</span>
 					 </div>

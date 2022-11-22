@@ -19,6 +19,8 @@ function EventAddServices() {
 	const dispatch = useDispatch();
 	const [isAddServicesPopUpOpen, setIsAddServicesPopUpOpen] = useState(false);
 	const [serviceList, setServiceList] = useState([]);
+	const [activeList, setActiveList] = useState([]);
+	console.log(activeList);
 	const [reload, setReload] = useState(false);
 	const [loading, setLoading] = useState(true);
 	const token = localStorage.getItem("Token");
@@ -44,6 +46,7 @@ function EventAddServices() {
 	const clickNextHandler = () => {
 		toast.success("Services saved Successfully.");
 		dispatch(increment());
+		localStorage.setItem("service",JSON.stringify(activeList));
 		if(eventType === "places") navigate(`../capacity/${params.eventId}/${params.userId}`);
 		else navigate(`../othercost/${params.eventId}/${params.userId}`);
 	};
@@ -76,7 +79,7 @@ function EventAddServices() {
 			data-testid="loader"
 		/>
 		 <div className="pt-5 space-y-3">
-		   { serviceList?.map(element => <EventAddServicesListItem data = {element} key={element.Id} edit={true} setReload={setReload} /> )}
+		   { serviceList?.map(element => <EventAddServicesListItem data = {element} key={element.Id} edit={true} setReload={setReload} activeList={activeList} setActiveList={setActiveList} /> )}
 		   
 		 </div>
 	   </div>

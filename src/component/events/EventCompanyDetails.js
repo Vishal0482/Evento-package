@@ -12,6 +12,8 @@ import videoThumb from '../../assest/images/video-preview.png';
 import { Formik, Form, Field, ErrorMessage, withFormik } from 'formik';
 import * as Yup from 'yup';
 import { toast, ToastContainer } from 'react-toastify';
+import CompanyPopUpUploadPhotos from '../../component/events/popups/CompanyPopUpUploadPhotos';
+import CompanyPopUpUploadVideo from './popups/CompanyPopUpUploadVideo';
 
 function EventCompanyDetails() {
 	const displayName = localStorage.getItem("displayName");
@@ -21,6 +23,9 @@ function EventCompanyDetails() {
 	const [videoList, setVideoList] = useState([]);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+
+	const [about, setabout] = useState("");
+
 	// dispatch(setNumber(7));
 	const params = useParams();
 	const userId = params.userId;
@@ -33,7 +38,7 @@ function EventCompanyDetails() {
 		'Authorization': `Token ${token}`,
 		'Content-Type': 'multipart/form-data'
 	}
-	
+	console.log("imageList >> ", imageList);
 	const initialState = {
 		name: "",
 		contact_no: "",
@@ -46,55 +51,55 @@ function EventCompanyDetails() {
 		pincode: "",
 	}
 
-	const getImage = async() => {
-		try {
+	// const getImage = async() => {
+		// try {
 			// const response = await axios.get(`${baseUrl}/api/image_event?eventId=${eventId}`, {headers: header});
 			// setImageList(response.data.data);
 			// console.log("Image response >> ",response);
-		} catch (error) {
-			console.log(error);
-		}
-	}
+		// } catch (error) {
+			// console.log(error);
+		// }
+	// }
 	
-	const getVideo = async() => {
-		try {
+	// const getVideo = async() => {
+		// try {
 			// const response = await axios.get(`${baseUrl}/api/video_event?eventId=${eventId}`, {headers: header});
 			// setVideoList(response.data.data);
 			// console.log("Video response >> ",response);
-		} catch (error) {
-			console.log(error);
-		}
-	}
+		// } catch (error) {
+			// console.log(error);
+		// }
+	// }
 
-	useEffect(()=>{
-		getImage();
-	},[isUploadPhotoPopUpOpen]);
+	// useEffect(()=>{
+	// 	getImage();
+	// },[isUploadPhotoPopUpOpen]);
 
-	useEffect(()=>{
-		getVideo();
-	},[isUploadVideoPopUpOpen]);
+	// useEffect(()=>{
+	// 	getVideo();
+	// },[isUploadVideoPopUpOpen]);
 
-	const removeImageClick = async(id) => {
-		try {
-			const response = await axios.delete(`${baseUrl}/api/event/image/?id=${id}`, {headers: header});
-			if(response.data.isSuccess === true) {
-				getImage();
-			}
-		} catch (error) {
-			console.log(error);
-		}
-	}
+	// const removeImageClick = async(id) => {
+	// 	try {
+	// 		const response = await axios.delete(`${baseUrl}/api/event/image/?id=${id}`, {headers: header});
+	// 		if(response.data.isSuccess === true) {
+	// 			getImage();
+	// 		}
+	// 	} catch (error) {
+	// 		console.log(error);
+	// 	}
+	// }
 	
-	const removeVideoClick = async(id) => {
-		try {
-			const response = await axios.delete(`${baseUrl}/api/event/video/?id=${id}`, {headers: header});
-			if(response.data.isSuccess === true) {
-				getVideo();
-			}
-		} catch (error) {
-			console.log(error);
-		}
-	}
+	// const removeVideoClick = async(id) => {
+	// 	try {
+	// 		const response = await axios.delete(`${baseUrl}/api/event/video/?id=${id}`, {headers: header});
+	// 		if(response.data.isSuccess === true) {
+	// 			getVideo();
+	// 		}
+	// 	} catch (error) {
+	// 		console.log(error);
+	// 	}
+	// }
 
 	const getCompanyDetail = async() => {
 		try {
@@ -148,12 +153,16 @@ function EventCompanyDetails() {
 		}
 		formData.append("eventId",eventId);
 		formData.append("user_id",userId);
+		formData.append("about", about);
 		formData.append("gst",gstFile || null);
 
 		try {
 			const response = await axios.post(`${baseUrl}/api/events/companydetail`, formData, {headers: header});
 			console.log("Company details > ", response);
 			if(response.data.isSuccess === true) {
+
+				imageList.map(e => uploadImage(e, response.data?.detail?.id));
+				videoList.map(e => videoUpload(e, response.data?.detail?.id));
 				toast.success("Company Details Saved Successfully.")
 				dispatch(increment());
 				navigate(`../termsandconditions/${params.eventId}/${params.userId}`);
@@ -163,6 +172,43 @@ function EventCompanyDetails() {
 			console.log(error);
 		}
 	}
+
+	const uploadImage = async(e, compId) => {
+		try {
+			let formDataImage = new FormData();
+			formDataImage.append("company_id",compId);
+			formDataImage.append("image", e);
+			const response = await axios.post(`${baseUrl}/api/events/companydetail/image`,formDataImage, {headers: header});
+			console.log(response);
+			if(response.data.isSuccess) {
+				toast.success("Image Uploaded successfully.");
+				
+			} else {
+				toast.error("Image Uploaded Failed");
+			}
+		} catch (error) {
+			toast.success("Something Went Wrong");
+			console.log(error);
+		}
+	}
+
+	const videoUpload = async(e, compId) =>{
+		try {
+		  let formDataVideo = new FormData();
+		  formDataVideo.append("company_id",compId);
+		  formDataVideo.append("video", e);
+		  const response = await axios.post(`${baseUrl}/api/events/companydetail/video`, formDataVideo, {headers: header});
+		  console.log(response);
+		  if(response.data.isSuccess) {
+			toast.success("Video Uploaded successfully.");
+			} else {
+			toast.error("Video Uploaded Failed");
+		}
+		} catch (error) {
+		  toast.error("Something Went wrong.");
+		  console.log(error);
+		}
+	  }
 
   return (
 	//   <!-- Content In -->
@@ -218,6 +264,17 @@ function EventCompanyDetails() {
 					<ErrorMessage name='email'  component="span" className="text-red-500 text-xs"/>
 				<br/>
 			  </div>
+			  <div className="w-full px-2">
+                <span className="input-titel">Company About</span>
+                <textarea
+				onChange={(e) => setabout(e.target.value)}
+                  name=""
+                  id=""
+                  cols="30"
+                  rows="3"
+                  className="outline-none flex items-center w-full bg-white p-2 px-3.5 rounded-md"
+                ></textarea>
+              </div>
 			</div> 
 			<div className="space-y-5">
 				<h3 className="px-2">Address</h3>
@@ -276,8 +333,9 @@ function EventCompanyDetails() {
 					{imageList?.map((img, index) => (
 						<div className="upload-box" key={index}>
 							<div className="rounded relative overflow-hidden h-full">
-							<img src={baseUrl+"/api"+img.image} alt={"upload-"+index}/>
-							<button onClick={() =>removeImageClick(img.id)}>Remove</button>
+							<img src={URL.createObjectURL(img)} alt={"upload-"+index}/>
+							<button>Remove</button>
+							{/* <button onClick={() =>removeImageClick(img.id)}>Remove</button> */}
 						</div>
 					</div>
 					))}
@@ -301,7 +359,8 @@ function EventCompanyDetails() {
 						<div className="upload-box" key={index}>
 							<div className="rounded relative overflow-hidden h-full">
 								<img src={vid.thumbnail ? vid.thumbnail : videoThumb} alt={"upload-"+index}/>
-							<button onClick={()=> removeVideoClick(vid.id)}>Remove</button>
+							<button>Remove</button>
+							{/* <button onClick={()=> removeVideoClick(vid.id)}>Remove</button> */}
 							</div>
 						</div>
 					))}
@@ -319,10 +378,10 @@ function EventCompanyDetails() {
 		)}
     </Formik>  
 		{imageList.length < 15 && <Modal isOpen={isUploadPhotoPopUpOpen}>
-			<EventPopUpUploadPhoto handleClose={setIsUploadPhotoPopUpOpen} eventId={eventId} compDetail={true} />
+			<CompanyPopUpUploadPhotos handleClose={setIsUploadPhotoPopUpOpen} setImageList={setImageList} />
 		</Modal>}
 		{videoList.length < 2 && <Modal isOpen={isUploadVideoPopUpOpen}>
-			<EventPopUpUploadVideo handleClose={setIsUploadVideoPopUpOpen} eventId={eventId} compDetail={true} />
+			<CompanyPopUpUploadVideo handleClose={setIsUploadVideoPopUpOpen} setVideoList={setVideoList} />
 		</Modal>}
 	  </div>
 	  <ToastContainer

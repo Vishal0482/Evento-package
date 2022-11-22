@@ -15,6 +15,7 @@ function DashboardEventView() {
   const [capacity, setCapacity] = useState({});
   const [socials, setsocials] = useState({});
   const [company, setCompany] = useState({});
+  const [service, setService] = useState([]);
   const navigate = useNavigate();
 	const params = useParams();
 	const token = localStorage.getItem("Token");
@@ -30,6 +31,7 @@ function DashboardEventView() {
 			setCapacity(response.data.data[0].capacity[0]);
 			setsocials(response.data.data[0].social[0]);
 			setCompany(response.data.data[0].company_details[0]);
+      setService(response.data.data[0].selected_service);
 		} catch (error) {
 			console.log(error);
 		}
@@ -72,7 +74,7 @@ function DashboardEventView() {
                 <button type="button" data-tab="reviews" className={tab===3 ? "active" : undefined} onClick={()=> setTab(3)}>Reviews</button>
             </div>   
             {/* <!-- tab-contents-holder --> */}
-            {tab===1 && <DashboardEventViewOverview data={event} capacity={capacity} socials={socials} company={company} />}
+            {tab===1 && <DashboardEventViewOverview data={event} capacity={capacity} socials={socials} company={company} service={service} />}
             {tab===2 && <DashboardEventAttendee />}
             {tab===3 && <DashboardEventReview />}
           </div>

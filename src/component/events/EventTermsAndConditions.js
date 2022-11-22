@@ -34,7 +34,9 @@ function EventTermsAndConditions() {
     pinterest: "",
     instagram: "",
     linkedin: "",
-    calender: "2022-03-31"
+    calender: "2022-03-31",
+    serivceId: JSON.parse(localStorage.getItem("service")),
+    discountId: []
 	}
   const [acceptTerm, setAcceptTerm] = useState(false);
 	const [values, setValues] = useState(initialState);
@@ -75,6 +77,7 @@ function EventTermsAndConditions() {
         console.log(response);
         if(response.data.isSuccess) {
           toast.success("Data Saved Successfully.")
+          localStorage.removeItem("service")
         }
       }
     } catch (error) {
