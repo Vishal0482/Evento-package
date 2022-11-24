@@ -11,10 +11,10 @@ import BgImage from './BgImage';
 function Login() {
 	const navigate = useNavigate();
 	const token = localStorage.getItem("Token") || null;
-	console.log(token);
+	// console.log(token);
 
 	useEffect(() => {
-		if (token != null) return navigate("../../dashboard")
+		if (token != null) return navigate("../../dashboard");
 	}, [token]);
 
 	const [userData, setUserData] = useState({ emailOrPhone: "", password: "" });
@@ -24,24 +24,22 @@ function Login() {
 		setUserData({ ...userData, [field]: value })
 	}
 
-
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-		console.log('userData', userData);
+		// console.log('userData', userData);
 
 		try {
-			const response = await axios.post(`${baseUrl}/api/login`, { username: userData.emailOrPhone, password: userData.password });
+			const response = await axios.post(`${baseUrl}/organizer/login`, { mobile: userData.emailOrPhone, password: userData.password });
 			console.log('response', response);
-			if (response.data?.isSuccess) {
-				toast.success("Login successfully.");
+			if (response.data?.IsSuccess) {
+				toast.success(response.data?.Message);
 				setError(false);
 				localStorage.clear();
-				localStorage.setItem("Token", response.data.data.token);
-				localStorage.setItem("UserId", response.data.data.userId);
-				console.log("Token", response.data.data.token);
+				localStorage.setItem("Token", response.data?.Data.token);
+				// console.log("Token", response.data.data.token);
 				setTimeout(() => {
 					navigate("/dashboard")
-				}, 1000);
+				}, 1500);
 			}
 		} catch (e) {
 			toast.error("Unable to Login");
@@ -62,7 +60,8 @@ function Login() {
 							<form className="space-y-5">
 								{error && <span style={{ color: "red" }}>Username or Password incorrect</span>}
 								<div>
-									<label htmlFor="" className="input-titel">Email or Phone number</label>
+									{/* <label htmlFor="" className="input-titel">Email or Phone number</label> */}
+									<label htmlFor="" className="input-titel">Phone number</label>
 									<input type="text" name="username" className="input_box" value={userData.emailOrPhone} onChange={(e) => { setFormField('emailOrPhone', e.target.value); setError(false) }} required />
 								</div>
 								<div>

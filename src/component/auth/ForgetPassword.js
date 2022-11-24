@@ -7,23 +7,28 @@ import { toast, ToastContainer } from "react-toastify";
 
 function ForgatePassword() {
     const navigate = useNavigate();
-    const [phoneNo, setEmail] = useState("");
-
+    const [phoneNo, setPhoneNo] = useState("");
+    console.log(phoneNo)
     const sendVerificationCode = async (e) => {
         e.preventDefault();
+        console.log("hello");
         try {
-            if(phoneNo.length > 0 && phoneNo.length < 10) {
-                const response = await axios.post(`${baseUrl}/api/sendotp`, {phone: "+91"+phoneNo});
+            if(phoneNo.length > 0 && phoneNo.length < 11) {
+                const response = await axios.post(`${baseUrl}/organizer/register/forgotpassword`, {mobile: phoneNo});
                 console.log(response);
-                if(response.data.isSuccess) {
-                    toast.success("Verification code sent.");
-                    navigate(`../verify/${phoneNo}`);
+                if(response.data?.IsSuccess) {
+                    toast.success(response.data?.Message);
+                    localStorage.setItem("key", response.data?.Data.key)
+                    // false for navigating to new password page
+                    navigate(`../verify/${phoneNo}/false`);
+                }
+                else {
+                    toast.warn(response.data?.Message);
                 }
             } 
-            toast.warn("Invalid Email.");
         } catch (error) {
-            console.log(error);
             toast.error("something Went wrong.");
+            console.log(error);
         }
     }
    
@@ -39,7 +44,7 @@ function ForgatePassword() {
                             <form className="space-y-5">
                                 <div>
                                     <label className="input-titel">Phone number</label>
-                                    <input type="text" name="Email or Phone number" className="input_box" onChange={(e)=>setEmail(e.target.value)} />
+                                    <input type="text" name="Email or Phone number" className="input_box" onChange={(e)=>setPhoneNo(e.target.value)} />
                                 </div>
                                 <button className="btn-primary w-full py-[15px] uppercase" onClick={sendVerificationCode}>Send Verification Code</button>
                             </form>
@@ -47,18 +52,6 @@ function ForgatePassword() {
                     </div>
                 </div>
             </div>
-            <ToastContainer
-					position="bottom-right"
-					autoClose={5000}
-					hideProgressBar={false}
-					newestOnTop={false}
-					closeOnClick
-					rtl={false}
-					pauseOnFocusLoss
-					draggable
-					pauseOnHover
-					theme="colored"
-				/>
         </div>
     );
 }

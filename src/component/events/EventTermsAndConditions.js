@@ -1,18 +1,25 @@
 import React ,{useState}from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Modal from "../modal/Modal";
 import EventPopUpTermsAndCondition from "./popups/EventPopUpTermsAndConditions";
 import { useDispatch } from 'react-redux';
-import { addTermsAndCondition } from '../../redux/createEvent';
 import StepProgressBar from './StepProgressBar';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast} from 'react-toastify';
 import { decrement, increment } from '../../redux/stepProgressCount';
 import { baseUrl } from '../../config';
 import axios from 'axios';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 function EventTermsAndConditions() {
+  const editorConfig  = {
+    toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 
+    '|', 'outdent', 'indent', 
+    '|', 'blockQuote', 'insertTable', 'mediaEmbed', 'undo', 'redo']}
   const displayName = localStorage.getItem("displayName");
-  const [isTermsAndConditionPopUpOpen, setIsTermsAndConditionPopUpOpen] = useState(false)
+  const [isTermsAndConditionPopUpOpen, setIsTermsAndConditionPopUpOpen] = useState(false);
+  const [terms, setTerms] = useState("");
+  // console.log(terms);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const params = useParams();
@@ -27,7 +34,7 @@ function EventTermsAndConditions() {
 
 	const initialState = {
     event_id: eventId,
-		t_and_c: "",
+		// t_and_c: "",
     facebook: "",
     youtube: "",
     twitter: "",
@@ -40,25 +47,7 @@ function EventTermsAndConditions() {
 	}
   const [acceptTerm, setAcceptTerm] = useState(false);
 	const [values, setValues] = useState(initialState);
-  // const handleInputChange = (e) => {
-  //   const { name, value } = e.target;
-  //   console.log(e.target);
-  //   const temp = name.split(".");
-  //   if (temp.length !== 2) {
-  //     setValues({
-  //       ...values,
-  //       [name]: value,
-  //     });
-  //   } else {
-  //     setValues({
-  //       ...values,
-  //       socialMedia: {
-  //         ...values.socialMedia,
-  //         [temp[1]]: value,
-  //       }
-  //     });
-  //   }
-  // };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     console.log(e.target);
@@ -67,13 +56,13 @@ function EventTermsAndConditions() {
         [name]: value,
       });
   };
-	console.log(values);
-  console.log(acceptTerm);
+	// console.log(values);
+  // console.log(acceptTerm);
 
   const saveData = async() => {
     try {
       if(acceptTerm) {
-        const response = await axios.post(`${baseUrl}/api/events`, values, {headers: header});
+        const response = await axios.post(`${baseUrl}/api/events`,{...values,t_and_c: terms}, {headers: header});
         console.log(response);
         if(response.data.isSuccess) {
           toast.success("Data Saved Successfully.")
@@ -113,27 +102,28 @@ function EventTermsAndConditions() {
               <div className="space-y-5">
                 <div className="w-full space-y-2.5">
                   <h3>Terms and Conditions</h3>
-                  <div className="w-full bg-white rounded">
-                    <div className="p-8 w-full border-b-2 border-brightGray flex items-center space-x-6">
-                      <div className="flex space-x-2.5">
-                          <button type="button"><i className="icon-bold"></i></button>
-                          <button type="button"><i className="icon-capitals"></i></button>
-                          <button type="button"><i className="icon-underline"></i></button>
-                          <button type="button"><i className="icon-italic"></i></button>
-                      </div>
-                      <div className="flex space-x-2.5">
-                        <button type="button"><i className="icon-left-alignment"></i></button>
-                        <button type="button"><i className="icon-center-alignment"></i></button>
-                        <button type="button"><i className="icon-left-alignment-"></i></button>
-                      </div>
-                      <div className="flex space-x-2.5">
-                        <button type="button"><i className="icon-list-alpha text-xl"></i></button>
-                        <button type="button"><i className="icon-list text-xl"></i></button>
-                        <button type="button"><i className="icon-list-num text-xl"></i></button>
-                      </div>
-                    </div>
-                    <textarea cols="30" rows="10" className="w-full outline-none p-7 py-5" name="t_and_c" value={values?.t_and_c} onChange={handleInputChange}></textarea>
-                  </div>
+            
+                 <CKEditor
+                    config={editorConfig}
+                    editor={ ClassicEditor }
+                    data=""
+                    onReady={ editor => {
+                      // You can store the "editor" and use when it is needed.
+                        // console.log( 'Editor is ready to use!', editor );
+                    } }
+                    onChange={ ( event, editor ) => {
+                        const data = editor.getData();
+                        setTerms(editor.getData());
+                        // console.log( { event, editor, data } );
+                    } }
+                    onBlur={ ( event, editor ) => {
+                        // console.log( 'Blur.', editor );
+                    } }
+                    onFocus={ ( event, editor ) => {
+                        // console.log( 'Focus.', editor );
+                    } }
+                />
+
                 </div>
                 <div className="w-full">
                   <h3>Social Media</h3>
@@ -250,7 +240,7 @@ function EventTermsAndConditions() {
               <button type="button" className="flex items-center btn-primary" onClick={clickNextHandler}>Go To Discount</button>
             </div>
           <Modal isOpen={isTermsAndConditionPopUpOpen}>
-            <EventPopUpTermsAndCondition handleClose={setIsTermsAndConditionPopUpOpen} terms={values.t_and_c}/> 
+            <EventPopUpTermsAndCondition handleClose={setIsTermsAndConditionPopUpOpen} terms={terms}/> 
           </Modal>
           </div>
         </div>

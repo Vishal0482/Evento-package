@@ -17,21 +17,24 @@ function NewPassword() {
 	const onSubmitHandler = async(e) => {
 		e.preventDefault();
 		const reqObj = {
-			email: username,
+			mobile: username,
 			password: pass,
-			password2: cpass
 		}
 		if (cpass!==pass) {
 			toast.warn("confirm password and password is not matching");
 			return
 		}
-
+		console.log(reqObj)
 		 try {
-			// logic htmlFor change password
-			toast.success("Password updated Successfully");
-			navigate("../login");
+			const response = await axios.post(`${baseUrl}/organizer/register/changepassword`, reqObj);
+			if (response.data?.IsSuccess) {
+				toast.success(response.data?.Message);
+				navigate("../login");
+			} else {
+				toast.error(response.data?.Message);
+			}
 		 } catch (err) {
-			toast.error("Error while resetting password")
+			toast.error("Error while resetting password");
 			console.log(err);
 		 }
 	 }

@@ -48,13 +48,13 @@ function SideBar() {
   }, []);
 
   const handleLogout = async () => {
-    try {
-				const response = await axios.post(`${baseUrl}/api/logout`, {}, {headers: header});
-				console.log("Logout",response);
-      } catch (error) {
-        console.log(error);
-        toast.error("something Went wrong.");
-      }
+    // try {
+				// const response = await axios.post(`${baseUrl}/api/logout`, {}, {headers: header});
+				// console.log("Logout",response);
+      // } catch (error) {
+        // console.log(error);
+        // toast.error("something Went wrong.");
+      // }
       toast.success("Logout successfully.")
       navigate("../auth/login");
       localStorage.clear();
@@ -235,7 +235,22 @@ function SideBar() {
               <Route path="event-view/:eventId" element={<DashboardEventView /> } />
               <Route path=":eventType" >
                 <Route index element={<DashboardEvent />} />
-                <Route path="addplaces/:eventId/:placeId" element={<EventAddPlaces />} />
+                  <Route path=":eventId">
+                    <Route path="addplaces" element={<EventAddPlaces />} />
+                    <Route path="aboutplace" element={<EventAboutPlace />} />
+                    <Route path="personaldetails" element={<EventPersonalDetails />} />
+                    <Route path="photosandvideos" element={<EventPhotosAndVideos />} />
+                    <Route path="addservices" element={<EventAddServices />} />
+                    <Route path="capacity" element={<EventCapacity />} />
+                    <Route path="companydetails" element={<EventCompanyDetails />} />
+                    <Route path="termsandconditions" element={<EventTermsAndConditions />} />
+                    <Route path="discounts" element={<EventDiscounts />} />
+                    <Route path="calender" element={<EventCalender />} />
+                    <Route path="othercost" element={<PSBOtherCost />} />
+                    <Route path="additem" element={<AddItem />} />
+                  </Route>
+
+                {/* <Route path="addplaces/:eventId/:placeId" element={<EventAddPlaces />} />
                 <Route path="aboutplace/:eventId/:placeId" element={<EventAboutPlace />} />
                 <Route path="personaldetails/:eventId/:userId" element={<EventPersonalDetails />} />
                 <Route path="photosandvideos/:eventId/:userId" element={<EventPhotosAndVideos />} />
@@ -247,7 +262,7 @@ function SideBar() {
                 <Route path="calender/:eventId/:userId" element={<EventCalender />} />
                 
                 <Route path="othercost/:eventId/:userId" element={<PSBOtherCost />} />
-                <Route path="additem/:eventId/:userId" element={<AddItem />} />
+                <Route path="additem/:eventId/:userId" element={<AddItem />} /> */}
               </Route>
             </Route>
 

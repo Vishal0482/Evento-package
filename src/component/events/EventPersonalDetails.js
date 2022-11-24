@@ -1,5 +1,5 @@
 import React, {  useEffect, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Advertisement from '../Advertisement';
 import StepProgressBar from './StepProgressBar';
 import { useDispatch} from 'react-redux';
@@ -8,7 +8,7 @@ import { baseUrl } from '../../config';
 import axios from 'axios';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 function EventPersonalDetails() {
 	const displayName = localStorage.getItem("displayName");
@@ -20,7 +20,7 @@ function EventPersonalDetails() {
 	const eventType = params.eventType;	
 	const eventId = params.eventId;	
 	const userId = params.userId;
-	console.log(eventId, userId);
+	// console.log(eventId, userId);
 	const token = localStorage.getItem("Token");
 	const header = {
 		'Authorization': `Token ${token}`
@@ -204,18 +204,6 @@ function EventPersonalDetails() {
 		)}
     </Formik>
 	</div>
-		  <ToastContainer
-			  position="bottom-right"
-			  autoClose={5000}
-			  hideProgressBar={false}
-			  newestOnTop={false}
-			  closeOnClick
-			  rtl={false}
-			  pauseOnFocusLoss
-			  draggable
-			  pauseOnHover
-			  theme="colored"
-		  />
   </>
   )
 }

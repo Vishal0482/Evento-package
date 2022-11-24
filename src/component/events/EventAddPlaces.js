@@ -1,7 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import EventAddPlacesEventList from './EventAddPlacesEventList';
-import EventPopUpAddPlaceWithDisplayName from "./popups/EventPopUpAddPlaceWithDisplayName";
-import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import Advertisement from '../Advertisement';
 import StepProgressBar from './StepProgressBar';
@@ -9,8 +7,6 @@ import { useDispatch } from 'react-redux';
 import { decrement, increment } from '../../redux/stepProgressCount';
 import axios from 'axios';
 import { baseUrl } from '../../config';
-import Modal from "../modal/Modal";
-import EventPopUpCreateNew from './popups/EventPopUpCreateNew';
 import { toast, ToastContainer } from 'react-toastify';
 
 function EventAddPlaces() {
@@ -20,7 +16,7 @@ function EventAddPlaces() {
 	const params = useParams();
 	const eventId = params.eventId;
 	const eventType = params.eventType;
-	const placeId = params.placeId;
+	// const placeId = params.placeId;
 	console.log(eventType);
 	const [newEvent, setNewEvent] = useState([]);
 	const [categoryName, setCategoryName] = useState("");
@@ -51,8 +47,8 @@ function EventAddPlaces() {
 	const clickNextHandler = () => {
 		toast.success("Data Saved Successfully.");
 		dispatch(increment());
-		if(eventType === "places" ) navigate(`../aboutplace/${eventId}/${placeId}`);
-		else navigate(`../personaldetails/${eventId}/${newEvent[0].user_id}`);
+		// if(eventType === "places" ) navigate(`../aboutplace/${eventId}/${placeId}`);
+		// else navigate(`../personaldetails/${eventId}/${newEvent[0].user_id}`);
 	};
 
 	const clickBackHander = () => {
@@ -100,4 +96,4 @@ function EventAddPlaces() {
   )
 }
 
-export default EventAddPlaces
+export default EventAddPlaces;

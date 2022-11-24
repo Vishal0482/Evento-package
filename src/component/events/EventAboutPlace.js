@@ -1,14 +1,12 @@
 import React, {useEffect, useState} from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Advertisement from "../Advertisement";
-import { useDispatch, useSelector } from 'react-redux';
-import { addAboutPlace } from '../../redux/createEvent';
+import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { baseUrl } from '../../config';
 import StepProgressBar from './StepProgressBar';
 import { decrement, increment } from '../../redux/stepProgressCount';
-import { toast, ToastContainer } from 'react-toastify';
-import { error } from 'jquery';
+import { toast } from 'react-toastify';
 
 function EventAboutPlace() {
 	const displayName = localStorage.getItem("displayName");
@@ -162,18 +160,6 @@ function EventAboutPlace() {
 		 <button type="button" className="flex items-center active" onClick={clickNextHandler}><h3>Next</h3><i className="icon-next-arrow ml-3"></i></button>
 	   </div>
 	 </div>
-		  <ToastContainer
-			  position="bottom-right"
-			  autoClose={5000}
-			  hideProgressBar={false}
-			  newestOnTop={false}
-			  closeOnClick
-			  rtl={false}
-			  pauseOnFocusLoss
-			  draggable
-			  pauseOnHover
-			  theme="colored"
-		  />
    </div>
   )
 }

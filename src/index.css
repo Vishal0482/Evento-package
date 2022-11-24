@@ -623,4 +623,53 @@ header.nav-up {
 .swiper-main .swiper {
   padding: 0 20px;
 }	
+
+/* ckEditor terms and condition page */
+.ck-editor {
+  border: none !important;
+}
+.ck-editor__editable_inline {
+  padding: 0 30px !important;
+}
+.ck-content  {
+  height: 200px
+}
+.ck-content  ul{
+  list-style: disc;
+}
+.ck-content  ol{
+  list-style: decimal;
+}
+.ck-content p {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 18px;
+}
+.ck-content h2 {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 24px;
+}
+.ck-content h3 {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+}
+.ck-content h4 {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 24px;
+}
+.ck-content h5 {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+}
+.ck-content h6 {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+}
+
+
 @tailwind utilities;

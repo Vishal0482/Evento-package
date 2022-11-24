@@ -357,10 +357,12 @@ function EventCompanyDetails() {
 			   <div className="flex space-x-2.5">
 					{videoList?.map((vid, index) => (
 						<div className="upload-box" key={index}>
-							<div className="rounded relative overflow-hidden h-full">
-								<img src={vid.thumbnail ? vid.thumbnail : videoThumb} alt={"upload-"+index}/>
-							<button>Remove</button>
+							<div className="rounded relative overflow-hidden h-full object-cover">
+							<video className="rounded relative overflow-hidden h-full" height="100%" width="100%" autoPlay muted loop>
+								<source type="video/mp4" src={URL.createObjectURL(vid)} alt={"upload-"+index}/>
 							{/* <button onClick={()=> removeVideoClick(vid.id)}>Remove</button> */}
+							</video>
+							<button>Remove</button>
 							</div>
 						</div>
 					))}

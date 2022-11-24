@@ -20,7 +20,7 @@ function App() {
           <Route path="auth" >
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
-            <Route path="verify/:username" element={<Otp />} />
+            <Route path="verify/:username/:flag" element={<Otp />} />
             <Route path="forgot-password" element={<ForgotPassword />} />
             <Route path="new-password/:username" element={<NewPassword />} />
           </Route>

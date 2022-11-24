@@ -11,22 +11,21 @@ import { toast, ToastContainer } from 'react-toastify';
 const axios = require('axios');
 function Register() {
     const navigate = useNavigate();
-    const [formData, setFormData] = useState({ name: "", email: "", phone_no: "", password: "", password2: "", refer_code: "", user_type: 2 });
     const [isVisible, setIsVisible] = useState(false);
 
     const initialState = {
 		    name: "",
         email: "",
-		    phone_no: "",
+		    mobile: "",
         password: "",
-        password2: "",
+        country_code : "+91",
         refer_code: ""
 	}
 
     const ValidationSchema = Yup.object().shape({
       name: Yup.string().min(2, 'Too Short!').max(40, 'Too Long!').required('Full name is required*'),
       email: Yup.string().email('Invalid email format').required('Email address is required*'),
-		  phone_no:Yup.number().typeError('Phone no must be in digit').integer().positive("Phone no must be positive").required("Phone no is required"),
+		  mobile:Yup.number().typeError('Phone no must be in digit').integer().positive("Phone no must be positive").required("Phone no is required"),
 		  password: Yup.string().min(6, 'Too Short!').required('Password is required*'),
 		  password2: Yup.string().min(6, 'Too Short!').required('Password is required*'),
 	});
@@ -38,24 +37,16 @@ function Register() {
         return
       } 
       try {
-        const response = await axios.post(`${baseUrl}/api/register/organizer`,values);
-          console.log(response);
-          if(response.data.isSuccess) {
-            toast.success("Registration successfully.");
-            navigate(`../login`);
-          } else {
-            toast.warn("User with this email already exists.");
-          }
-        // // login for registration
-        // localStorage.setItem("register", JSON.stringify(values));
-        // const response = await axios.post(`${baseUrl}/api/sendotp`, {phone: "+91"+values.phone_no});
-        // console.log(response);
-        // if(response.data.isSuccess) {
-        //   setTimeout(() => {
-        //     toast.success("Registered successfully.");
-        //     navigate(`../verify/${values.phone_no}`);
-        //   }, 200);
-        // }
+        const response = await axios.post(`${baseUrl}/organizer/register`, values);
+        console.log(response);
+        if (response.data?.IsSuccess) {
+          localStorage.setItem("key", response.data?.Data.key)
+          toast.success(response.data.IsSuccess?.Message);
+          // true for navigating to login page
+          navigate(`../verify/${values.phone_no}/${true}`);
+        } else {
+          toast.warn(response.data?.IsSuccess.Message);
+        }
       } catch (error) {
         toast.error("Something Went Wrong.");
         console.log(error);

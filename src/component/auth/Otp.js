@@ -8,8 +8,11 @@ import axios from "axios";
 function Otp() {
   const params = useParams();
   const username = params.username;
+  const flag = params.flag;
+  console.log(typeof flag);
   const navigate = useNavigate();
-  const [otpValue, setOtpValue] = useState(["0", "0", "0", "0"]);
+  const [otpValue, setOtpValue] = useState(["0", "0", "0", "0", "0" ,"0" ]);
+  const otpLength = otpValue.length;
 
   function keyPressHandler(e) {
 
@@ -29,12 +32,11 @@ function Otp() {
     let temp = otpValue;
     temp[currentElementId - 1] = e.target.value;
     setOtpValue(temp);
-    if(currentElementId==4) return;
+    if(currentElementId==otpLength) return;
     document.getElementById(`digit-${currentElementId + 1}`).focus();
   }
 
   const reSendOtp = async() => {
-    // logic htmlFor sending otp
     try {
       const response = await axios.post(`${baseUrl}/api/sendotp`, {phone: "+91"+username});
       console.log(response);
@@ -50,25 +52,32 @@ function Otp() {
 
   const verifiyCode = async(e) => {
     e.preventDefault();
-    let fullOtp = otpValue[0] + otpValue[1] + otpValue[2] + otpValue[3];
-    // login verify otp
+    let fullOtp = otpValue[0] + otpValue[1] + otpValue[2] + otpValue[3] + otpValue[4] + otpValue[5];
+    console.log(fullOtp);
+
+    const reqobj = {
+      mobile : username,
+      key : localStorage.getItem("key"),
+      otp : fullOtp
+    }
+    console.log(reqobj);
     try {
-      if (fullOtp != "0000") {
-        const responseOtp = await axios.post(`${baseUrl}/api/verifyotp`,{otp: fullOtp});
-        if(responseOtp.status){
-          toast.success("Otp Verified successfully.");
-          const response = await axios.post(`${baseUrl}/api/register/organizer`,JSON.parse(localStorage.getItem("register")));
-          console.log(response);
-          if(response.data.isSuccess) {
-            toast.success("Registration successfully.");
-            navigate(`../login`);
+      if (fullOtp != "000000") {
+        const response = await axios.post(`${baseUrl}/organizer/register/verifyotp`, reqobj);
+        if (response.data?.IsSuccess) {
+          toast.success(response.data?.Message);
+          localStorage.removeItem("key");
+          if(flag === "true") {
+            navigate(`../login`)
           } else {
-            toast.warn("User with this email already exists.");
-            localStorage.removeItem("register");
-            setTimeout(() => {
-              navigate(`../login`);
-            }, 2000);
+            navigate(`../new-password/${username}`);
           }
+        } else {
+          toast.warn(response.data?.Message);
+          localStorage.removeItem("key");
+          setTimeout(() => {
+            navigate(`../login`);
+          }, 2000);
         }
       }
     } catch (error) {
@@ -83,7 +92,7 @@ function Otp() {
     <div className="flex w-full flex-wrap bg-white">
       <BgImage />
       <div className="w-full relative lg:w-1/2 flex px-4">
-        <div className="max-w-md w-full m-auto">
+        <div className="max-w-max w-full m-auto">
           <h1 className="whitespace-nowrap">Enter OTP</h1>
           <p className="sm:text-lg xl:text-xl text-quicksilver font-normal sm:pt-3.5 xl:pr-8">Please enter the 4 Digit code sent to</p>
          {username !=0 && <div className="flex justify-between sm:mt-1">
@@ -100,31 +109,46 @@ function Otp() {
                       value=""
                       type="text"
                       placeholder={otpValue[0]} 
-                      className="caret-transparent w-[60px] h-[60px] sm:w-[90px] sm:h-[90px] bg-brightGray text-4xl sm:text-6xl font-bold text-chatlook-dark text-center rounded-[5px] placeholder:text-4xl placeholder:sm:text-6xl placeholder:leading-5 placeholder:font-bold otp" maxlength="1"/>
+                      className="caret-transparent w-[40px] h-[40px] sm:w-[70px] sm:h-[70px] bg-brightGray text-4xl sm:text-6xl font-bold text-chatlook-dark text-center rounded-[5px] placeholder:text-4xl placeholder:sm:text-6xl placeholder:leading-5 placeholder:font-bold otp" maxLength="1"/>
                 <input id="digit-2"
                       onChange={onOtpInputHandler}
                       onKeyDown={keyPressHandler}
                       value=""
                       type="text"
                       placeholder={otpValue[1]} 
-                      className="caret-transparent w-[60px] h-[60px] sm:w-[90px] sm:h-[90px] bg-brightGray text-4xl sm:text-6xl font-bold text-chatlook-dark text-center rounded-[5px] placeholder:text-4xl placeholder:sm:text-6xl placeholder:leading-5 placeholder:font-bold otp" maxlength="1"  /> 
+                      className="caret-transparent w-[40px] h-[40px] sm:w-[70px] sm:h-[70px] bg-brightGray text-4xl sm:text-6xl font-bold text-chatlook-dark text-center rounded-[5px] placeholder:text-4xl placeholder:sm:text-6xl placeholder:leading-5 placeholder:font-bold otp" maxLength="1"  /> 
                 <input id="digit-3"
                       onChange={onOtpInputHandler}
                       onKeyDown={keyPressHandler}
                       value=""
                       type="text"
                       placeholder={otpValue[2]}
-                      className="caret-transparent w-[60px] h-[60px] sm:w-[90px] sm:h-[90px] bg-brightGray text-4xl sm:text-6xl font-bold text-chatlook-dark text-center rounded-[5px] placeholder:text-4xl placeholder:sm:text-6xl placeholder:leading-5 placeholder:font-bold otp" maxlength="1" />
+                      className="caret-transparent w-[40px] h-[40px] sm:w-[70px] sm:h-[70px] bg-brightGray text-4xl sm:text-6xl font-bold text-chatlook-dark text-center rounded-[5px] placeholder:text-4xl placeholder:sm:text-6xl placeholder:leading-5 placeholder:font-bold otp" maxLength="1" />
                 <input id="digit-4"
                       onChange={onOtpInputHandler}
                       onKeyDown={keyPressHandler}
                       value=""
                       type="text"
                       placeholder={otpValue[3]} 
-                      className="caret-transparent w-[60px] h-[60px] sm:w-[90px] sm:h-[90px] bg-brightGray text-4xl sm:text-6xl font-bold text-chatlook-dark text-center rounded-[5px] placeholder:text-4xl placeholder:sm:text-6xl placeholder:leading-5 placeholder:font-bold otp" maxlength="1" />
+                      className="caret-transparent w-[40px] h-[40px] sm:w-[70px] sm:h-[70px] bg-brightGray text-4xl sm:text-6xl font-bold text-chatlook-dark text-center rounded-[5px] placeholder:text-4xl placeholder:sm:text-6xl placeholder:leading-5 placeholder:font-bold otp" maxLength="1" />
+                <input id="digit-5"
+                      onChange={onOtpInputHandler}
+                      onKeyDown={keyPressHandler}
+                      value=""
+                      type="text"
+                      placeholder={otpValue[4]} 
+                      className="caret-transparent w-[40px] h-[40px] sm:w-[70px] sm:h-[70px] bg-brightGray text-4xl sm:text-6xl font-bold text-chatlook-dark text-center rounded-[5px] placeholder:text-4xl placeholder:sm:text-6xl placeholder:leading-5 placeholder:font-bold otp" maxLength="1" />
+                <input id="digit-6"
+                      onChange={onOtpInputHandler}
+                      onKeyDown={keyPressHandler}
+                      value=""
+                      type="text"
+                      placeholder={otpValue[5]} 
+                      className="caret-transparent w-[40px] h-[40px] sm:w-[70px] sm:h-[70px] bg-brightGray text-4xl sm:text-6xl font-bold text-chatlook-dark text-center rounded-[5px] placeholder:text-4xl placeholder:sm:text-6xl placeholder:leading-5 placeholder:font-bold otp" maxLength="1" />
               </div>            
               <button onClick={verifiyCode} className="btn-primary w-full py-[15px] uppercase">Verified code</button>
-              <div onClick={reSendOtp} className="cursor-pointer block font-bold text-japaneseIndigo text-xs xl:text-sm text-center">Not Get? Re-send</div>
+              {/* <div onClick={reSendOtp} className="cursor-pointer block font-bold text-japaneseIndigo text-xs xl:text-sm text-center">Not Get? Re-send</div> */}
+              <div className="cursor-pointer block font-bold text-japaneseIndigo text-xs xl:text-sm text-center">Not Get? Re-send</div>
             </form>
           </div>
         </div>
