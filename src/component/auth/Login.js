@@ -29,8 +29,8 @@ function Login() {
 		// console.log('userData', userData);
 
 		try {
-			const response = await axios.post(`${baseUrl}/organizer/login`, { mobile: userData.emailOrPhone, password: userData.password });
-			console.log('response', response);
+			const response = await axios.post(`${baseUrl}/organizer/login`, { phone_no: userData.emailOrPhone, password: userData.password });
+			// console.log('response', response);
 			if (response.data?.IsSuccess) {
 				toast.success(response.data?.Message);
 				setError(false);
@@ -39,7 +39,9 @@ function Login() {
 				// console.log("Token", response.data.data.token);
 				setTimeout(() => {
 					navigate("/dashboard")
-				}, 1500);
+				}, 500);
+			} else {
+				toast.error(response.data?.Message);
 			}
 		} catch (e) {
 			toast.error("Unable to Login");

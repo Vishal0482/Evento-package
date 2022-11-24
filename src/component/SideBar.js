@@ -56,7 +56,9 @@ function SideBar() {
         // toast.error("something Went wrong.");
       // }
       toast.success("Logout successfully.")
+    setTimeout(() => {
       navigate("../auth/login");
+    }, 500);
       localStorage.clear();
   }
 

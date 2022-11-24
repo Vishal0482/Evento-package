@@ -9,7 +9,6 @@ function Otp() {
   const params = useParams();
   const username = params.username;
   const flag = params.flag;
-  console.log(typeof flag);
   const navigate = useNavigate();
   const [otpValue, setOtpValue] = useState(["0", "0", "0", "0", "0" ,"0" ]);
   const otpLength = otpValue.length;
@@ -38,10 +37,12 @@ function Otp() {
 
   const reSendOtp = async() => {
     try {
-      const response = await axios.post(`${baseUrl}/api/sendotp`, {phone: "+91"+username});
+      const response = await axios.post(`${baseUrl}/api/sendotp`, {phone_no: "+91"+username});
       console.log(response);
       if(response.data.isSuccess) {
-        toast.success("Otp sent successfully.");
+        toast.success(response.data.Message);
+      } else {
+        toast.error(response.data.Message);
       }
       
     } catch (error) {
@@ -56,7 +57,7 @@ function Otp() {
     console.log(fullOtp);
 
     const reqobj = {
-      mobile : username,
+      phone_no : username,
       key : localStorage.getItem("key"),
       otp : fullOtp
     }
@@ -67,11 +68,13 @@ function Otp() {
         if (response.data?.IsSuccess) {
           toast.success(response.data?.Message);
           localStorage.removeItem("key");
-          if(flag === "true") {
-            navigate(`../login`)
-          } else {
-            navigate(`../new-password/${username}`);
-          }
+          setTimeout(() => {
+            if (flag === "true") {
+              navigate(`../login`)
+            } else {
+              navigate(`../new-password/${username}`);
+            }
+          }, 500);
         } else {
           toast.warn(response.data?.Message);
           localStorage.removeItem("key");

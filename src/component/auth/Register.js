@@ -16,7 +16,7 @@ function Register() {
     const initialState = {
 		    name: "",
         email: "",
-		    mobile: "",
+		    phone_no: "",
         password: "",
         country_code : "+91",
         refer_code: ""
@@ -25,7 +25,7 @@ function Register() {
     const ValidationSchema = Yup.object().shape({
       name: Yup.string().min(2, 'Too Short!').max(40, 'Too Long!').required('Full name is required*'),
       email: Yup.string().email('Invalid email format').required('Email address is required*'),
-		  mobile:Yup.number().typeError('Phone no must be in digit').integer().positive("Phone no must be positive").required("Phone no is required"),
+		  phone_no:Yup.number().typeError('Phone no must be in digit').integer().positive("Phone no must be positive").required("Phone no is required"),
 		  password: Yup.string().min(6, 'Too Short!').required('Password is required*'),
 		  password2: Yup.string().min(6, 'Too Short!').required('Password is required*'),
 	});

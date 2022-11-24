@@ -17,7 +17,7 @@ function NewPassword() {
 	const onSubmitHandler = async(e) => {
 		e.preventDefault();
 		const reqObj = {
-			mobile: username,
+			phone_no: username,
 			password: pass,
 		}
 		if (cpass!==pass) {
@@ -29,7 +29,9 @@ function NewPassword() {
 			const response = await axios.post(`${baseUrl}/organizer/register/changepassword`, reqObj);
 			if (response.data?.IsSuccess) {
 				toast.success(response.data?.Message);
-				navigate("../login");
+				setTimeout(() => {
+					navigate("../login");
+				}, 500);
 			} else {
 				toast.error(response.data?.Message);
 			}
