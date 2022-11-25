@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 import { baseUrl } from '../../../config';
 
 function EventPopUpCategory({handleClose}) {
@@ -12,10 +13,16 @@ function EventPopUpCategory({handleClose}) {
 	}
 	const addCategory = async() => {
 		try {
-			const response = await axios.post(`${baseUrl}/api/event_category`,{"category_name": catagoryInputName},{headers: header});
+			const response = await axios.post(`${baseUrl}/organizer/events/addcategory`,{"category_name": catagoryInputName},{headers: header});
 			console.log(response);
-			handleClose(false)
+			if(response.data.IsSuccess) {
+				toast.success(response.data.Message);
+			} else {
+				toast.error(response.data.Message);
+			}
+			handleClose(false);
 		} catch (error) {
+			toast.error("Something Went Wrong.");
 			console.log(error);
 		}
 	}

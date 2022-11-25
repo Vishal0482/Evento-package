@@ -3,11 +3,12 @@ import Modal from "../../modal/Modal.js"
 import EventPopUpCategory from './EventPopUpCategory.js'
 import axios from "axios";
 import { baseUrl } from '../../../config.js';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { increment } from '../../../redux/stepProgressCount.js';
+import { toast } from 'react-toastify';
 
-function EventPopUpCreateNew({ handleClose, selectedCategory, displayName, eventType, edit, event_id }) {
+function EventPopUpCreateNew({ handleClose, selectedCategory, displayName, edit, eventId }) {
 
 	const [isCategoryPopUpOpen, setIsCategoryPopUpOpen] = useState(false);
 	const [category, setCategory] = useState([]);
@@ -15,6 +16,8 @@ function EventPopUpCreateNew({ handleClose, selectedCategory, displayName, event
 	const [newCategoryDisplayName, setNewCategoryDisplayName] = useState("");
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+	const params = useParams();
+	const eventType = params.eventType;
 
 	const token = localStorage.getItem("Token");;
 	const header = {
@@ -22,10 +25,10 @@ function EventPopUpCreateNew({ handleClose, selectedCategory, displayName, event
 	}
 	const getCategory = async() => {
 		try {
-			const response = await axios.get(`${baseUrl}/api/event_category`,{headers: header});
-			console.log("Categorys >> ",response);
-			setCategory(response.data.data);
-			setNewCategoryId(response.data.data[0].categoryId);
+			const response = await axios.get(`${baseUrl}/organizer/events/listcategory`,{headers: header});
+			// console.log("Categorys >> ",response);
+			setCategory(response.data.Data);
+			setNewCategoryId(response.data.Data[0]?._id);
 		} catch (error) {
 			console.log(error);
 		}
@@ -42,31 +45,32 @@ function EventPopUpCreateNew({ handleClose, selectedCategory, displayName, event
 		const requestObj = {
 			event_type: eventType,
     		display_name: newCategoryDisplayName,
-    		category_id: newCategoryId
+    		event_category: newCategoryId
 		}
-
+		if(edit) {
+			requestObj.eventid = eventId
+		}
+		console.log(requestObj)
+		if(newCategoryDisplayName === "" || newCategoryDisplayName === null) {
+			toast.warn("Display name can not be empty.")
+			return
+		}
 		try {
-			if(!edit) {
-				// insert
-				const response = await axios.post(`${baseUrl}/api/event/type`, requestObj , {headers: header});
-				console.log("created event >> ",response);
-
-				if(response.data.data.category_id) {
-					handleClose(false);
+			const response = await axios.post(`${baseUrl}/organizer/events/save`, requestObj, { headers: header });
+			// console.log("created event >> ", response);
+			if (response.data.IsSuccess) {
+				toast.success(response.data.Message);
+				handleClose(false);
+				if(!edit) {
 					dispatch(increment());
-					navigate(`addplaces/${response.data.data.eventId}/0`);
+					navigate(`${response.data.Data._id}/addplaces`);
 				}
 			} else {
-				// update
-				const response = await axios.put(`${baseUrl}/api/event/type?id=${event_id}`, requestObj , {headers: header});
-				console.log("updated event >> ",response);
-				if(response.statusText === "OK") {
-					handleClose(false);
-					// Temparory fix, need to find alternative solution
-					window.location.reload();
-				}
+				toast.error(response.data.Message);
+				handleClose(false);
 			}
 		} catch (error) {
+			toast.error("Something went Wrong.");
 			console.log(error);
 		}
 	}
@@ -82,7 +86,6 @@ function EventPopUpCreateNew({ handleClose, selectedCategory, displayName, event
 							<div className="flex items-center space-x-6">
 								<button onClick={() => {
 									setIsCategoryPopUpOpen(true)
-									// handleClose(false)
 								}} href="#" className="text-base font-bold text-spiroDiscoBall"><i className="icon-plus font-bold text-xs"></i> <span>Add Category</span></button>
 								<button onClick={() => handleClose(false)} href="#" className="text-xl"><i className="icon-close"></i></button>
 							</div>
@@ -90,11 +93,11 @@ function EventPopUpCreateNew({ handleClose, selectedCategory, displayName, event
 						<form className="space-y-5 pt-7">
 							<div className="w-full inputHolder">
 								<label className="input-titel">Select Category</label>
-								<select className="w-full arrow option" onChange={(e) => {
+								<select defaultValue={selectedCategory} className="w-full arrow option" onChange={(e) => {
 									setNewCategoryId(e.target[e.target.selectedIndex].getAttribute('data-id'));
 								}} >
 									{category && category.map((element) =>
-										<option key={element.categoryId} value={element.category_name} defaultValue={(element.category_name === selectedCategory) && true } data-id={element.categoryId}>{element.category_name}</option>
+										<option key={element._id} value={element.category_name} selected={element.category_name === selectedCategory} data-id={element._id}>{element.category_name}</option>
 									)}
 								</select>
 							</div>

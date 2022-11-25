@@ -27,9 +27,9 @@ function DashboardEvent() {
 	}
 	const getAllEvents = async () => {
 		try {
-			const response = await axios.get(`${baseUrl}/api/events?limit=${limit}&page=${pageNo}&event_type=${eventType}`, { headers: header });
-			console.log("events >> ", response.data);
-			setAllEvents(response.data);
+			// const response = await axios.get(`${baseUrl}/api/events?limit=${limit}&page=${pageNo}&event_type=${eventType}`, { headers: header });
+			// console.log("events >> ", response.data);
+			// setAllEvents(response.data);
 			setLoading(false);
 		} catch (error) {
 			console.log(error);
@@ -38,9 +38,9 @@ function DashboardEvent() {
 
 	const getCategory = async () => {
 		try {
-			const response = await axios.get(`${baseUrl}/api/event_category_list`, { headers: header });
+			const response = await axios.get(`${baseUrl}/organizer/events/listcategory`, { headers: header });
 			// console.log("Categorys >> ",response.data);
-			setCategory(response.data.data);
+			setCategory(response.data.Data);
 		} catch (error) {
 			console.log(error);
 		}
@@ -53,7 +53,7 @@ function DashboardEvent() {
 	useEffect(() => {
 		getCategory();
 		dispatch(reset());
-	}, []);
+	}, [isCreateNewPopUpOpen]);
 
 
 	return (
@@ -65,7 +65,7 @@ function DashboardEvent() {
 						className="arrow bg-white pl-5 pr-11 py-3 text-japaneseIndigo font-bold rounded-md tracking-wider appearance-none focus-visible:outline-none">
 						<option value="all-category" >All Category</option>
 						{category?.map(ele => (
-							<option value={ele.category_name} key={ele.categoryId} >{ele.category_name}</option>
+							<option value={ele.category_name} key={ele._id} >{ele.category_name}</option>
 						))}
 					</select>
 					<button className="bg-white px-5 py-3 text-japaneseIndigo font-bold rounded-md tracking-wider">MultipleLive</button>

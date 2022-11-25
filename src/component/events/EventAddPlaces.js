@@ -17,24 +17,21 @@ function EventAddPlaces() {
 	const eventId = params.eventId;
 	const eventType = params.eventType;
 	// const placeId = params.placeId;
-	console.log(eventType);
+	// console.log(eventType);
 	const [newEvent, setNewEvent] = useState([]);
 	const [categoryName, setCategoryName] = useState("");
-	console.log("new event", newEvent);
+	// console.log("new event", newEvent);
 	const token = localStorage.getItem("Token");
 	const header = {
 		'Authorization': `Token ${token}`
 	}
 	const getAddedEvent = async() => {
 		try {
-			const response = await axios.get(`${baseUrl}/api/event/type?id=${eventId}`,{headers: header});
-			console.log("New created event >> ", response.data.data);
-			localStorage.setItem("displayName", response.data.data[0]?.display_name);
-			setNewEvent(response.data.data);
-
-			const responseCategoryName = await axios.get(`${baseUrl}/api/event_category/${response.data.data[0].category_id}`,{headers: header});
-			console.log("get category by id >> ",responseCategoryName.data);
-			setCategoryName(responseCategoryName.data.data[0].category_name);
+			const response = await axios.get(`${baseUrl}/organizer/events?eventid=${eventId}`,{headers: header});
+			// console.log("New created event >> ", response.data.data);
+			localStorage.setItem("displayName", response.data.Data?.display_name);
+			setNewEvent(response.data.Data);
+			setCategoryName(response.data.Data.event_category.category_name);
 		} catch (error) {
 			console.log(error);
 		}
@@ -47,8 +44,8 @@ function EventAddPlaces() {
 	const clickNextHandler = () => {
 		toast.success("Data Saved Successfully.");
 		dispatch(increment());
-		// if(eventType === "places" ) navigate(`../aboutplace/${eventId}/${placeId}`);
-		// else navigate(`../personaldetails/${eventId}/${newEvent[0].user_id}`);
+		if(eventType === "places" ) navigate(`../aboutplace`);
+		else navigate(`..${eventId}/personaldetails/`);
 	};
 
 	const clickBackHander = () => {
@@ -69,7 +66,7 @@ function EventAddPlaces() {
 		<StepProgressBar eventType={eventType} />
 		 {/* <!-- main-content  --> */}
 		 <div className=" space-y-3">
-		   <EventAddPlacesEventList displayName={newEvent[0]?.display_name} categoryName={categoryName} eventId={eventId} />
+		   <EventAddPlacesEventList displayName={newEvent?.display_name} categoryName={categoryName} eventId={newEvent?._id} />
 		 </div>
 		 {/* <!-- advisement --> */}
 		 <Advertisement />

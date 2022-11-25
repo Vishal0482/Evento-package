@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { baseUrl } from '../../config';
 import Modal from "../modal/Modal";
 import EventPopUpCreateNew from './popups/EventPopUpCreateNew';
@@ -8,7 +9,6 @@ import EventPopUpCreateNew from './popups/EventPopUpCreateNew';
 function EventAddPlacesEventList({ displayName, categoryName, eventId }) {
     const [isCreateNewPopUpOpen, setIsCreateNewPopUpOpen] = useState(false);
     const navigate = useNavigate();
-    console.log("reload");
     const token = localStorage.getItem("Token");;
     const header = {
         'Authorization': `Token ${token}`
@@ -16,7 +16,7 @@ function EventAddPlacesEventList({ displayName, categoryName, eventId }) {
     const deleteClickHandler = async() => {
         try {
 			const response = await axios.delete(`${baseUrl}/api/event/type?id=${eventId}`,{headers: header});
-			console.log("deleted event >> ",response.data);
+			// console.log("deleted event >> ",response.data);
             if(response.data.isSuccess === true) {
                 navigate("../");
             }
@@ -45,10 +45,11 @@ function EventAddPlacesEventList({ displayName, categoryName, eventId }) {
                     </div>
                 </div>
                 <Modal isOpen={isCreateNewPopUpOpen} >
-		            <EventPopUpCreateNew handleClose={setIsCreateNewPopUpOpen} selectedCategory={categoryName} displayName={displayName} edit={true} event_id={eventId} />
+		            <EventPopUpCreateNew handleClose={setIsCreateNewPopUpOpen} selectedCategory={categoryName} displayName={displayName} edit={true} eventId={eventId} />
 	            </Modal>
             </div>
         );
+    else if(displayName === "" && categoryName === "") return toast.error("Enable to show Event");
     else
         return "";
 }
