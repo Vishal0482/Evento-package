@@ -29,6 +29,9 @@ function EventAddPlaces() {
 		try {
 			const response = await axios.get(`${baseUrl}/organizer/events?eventid=${eventId}`,{headers: header});
 			// console.log("New created event >> ", response.data.data);
+			if(!response.data.IsSuccess) {
+				toast.error("Error occured while fetching data.")
+			}
 			localStorage.setItem("displayName", response.data.Data?.display_name);
 			setNewEvent(response.data.Data);
 			setCategoryName(response.data.Data.event_category.category_name);

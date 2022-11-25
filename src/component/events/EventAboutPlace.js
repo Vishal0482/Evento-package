@@ -17,26 +17,28 @@ function EventAboutPlace() {
 	const [price, setPrice] = useState("");
 	const [priceType, setPriceType] = useState("per_hour");
 	const [about, setAbout] = useState("");
-	const [edit, setEdit] = useState(false);
 	const eventId = params.eventId;	
 	const eventType = params.eventType;	
-	const placeId = params.placeId;
 	const token = localStorage.getItem("Token");
-	console.log(banner, price, priceType, about, eventId, eventType, token);
 	const header = {
+		'Authorization': `Token ${token}`
+	}
+	const imageHeader = {
 		'Authorization': `Token ${token}`,
 		'Content-Type': 'multipart/form-data'
 	}
 
 	const getAboutPlace = async() => {
 		try {
-			const response = await axios.get(`${baseUrl}/api/add_place_event/${placeId}`, {headers: header});
-			if(response.data.data.length !== 0) {
-				setBanner(null);
-				setAbout(response.data.data[0].details);
-				setPrice(response.data.data[0].place_price);
-				setPriceType(response.data.data[0].price_type);
-				setEdit(true);
+			const response = await axios.get(`${baseUrl}/organizer/events/aboutplace?eventid=${eventId}`, {headers: header});
+			if(response.data.Data.aboutplace){
+				setAbout(response.data.Data.aboutplace.details);
+				setPrice(response.data.Data.aboutplace.place_price);
+				setPriceType(response.data.Data.aboutplace.price_type);
+				setBanner(response.data.Data.aboutplace.banner);
+			}
+			if(!response.data.IsSuccess) {
+				toast.error("Error occured while fetching data.")
 			}
 			console.log(response);
 		} catch (error) {
@@ -49,42 +51,67 @@ function EventAboutPlace() {
 
 	
 	const clickNextHandler = async() => {
+		const requestObj = {
+			eventid: eventId,
+			place_price: price,
+			price_type: priceType,
+			details: about,
+			banner: banner
+		}
+        try {
+            const response = await axios.post(`${baseUrl}/organizer/events/aboutplace`, requestObj, {headers: header});
+            if(response.data.IsSuccess) {
+                toast.success(response.data.Message);
+				dispatch(increment());
+				navigate("../personaldetails");
+            } else {
+                toast.error(response.data.Message);
+            }
+        } catch (error) {
+            console.log(error);
+            toast.error("Something Went Wrong.");
+        }
+    }
 
-		const formData = new FormData();
-		formData.append("place_price",price);
-		formData.append("price_type",priceType);
-		formData.append("details",about);
-		formData.append("event",eventId);
-		formData.append("place_banner",banner);
+    const addBanner = async(selected) => {
+        const formData = new FormData();
+        formData.append("file",selected);
+        try {
+            const response = await axios.post(`${baseUrl}/organizer/events/banner`, formData, {headers: imageHeader});
+            if(response.data.IsSuccess) {
+				setBanner(response.data.Data.url);
+                console.log(response)
+                toast.success(response.data.Message);
+            } else {
+                toast.error(response.data.Message);
+            }
+        } catch (error) {
+            console.log(error);
+            toast.error("Something Went Wrong.");
+        }
+    }
+
+    const photoChangeHandler = (event) => {
+		const types = ['image/png', 'image/jpeg', 'image/jpg'];
+		let selected = event.target.files[0];
+		console.log("selected" , selected);
 		try {
-			if(edit == false) {
-				// Insert place
-				const response = await axios.post(`${baseUrl}/api/add_place_event`, formData, {headers: header});
-				console.log("About place Inserted>> ",response.data);
-				if(response.data.isSuccess === true) {
-					toast.success("Place Details Saved successfully.");
-					dispatch(increment()) 
-					navigate(`../personaldetails/${eventId}/${response.data.data.user_id}`);
+			if(selected && types.includes(selected.type)) {
+				if(selected.size < (3*1024*1024)) {
+                    setBanner(selected);
+					addBanner(selected);
+				}
+				else {
+					toast.warn("file size is greater than 3MB");
 				}
 			} else {
-				// Update Place
-				if(banner !== null) {
-					const response = await axios.put(`${baseUrl}/api/add_place_event/${placeId}`, formData, {headers: header});
-					console.log("About place updated>> ",response.data);
-					if(response.data.isSuccess === true) {
-						toast.success("Place Details Updated successfully.");
-						dispatch(increment()) 
-						navigate(`../personaldetails/${eventId}/${response.data.data.user_id}`);
-					}
-				} else {
-					toast.warn("Please Select New Banner");
-				}
+				toast.warn("please select image file with jpeg/png.");
 			}
 		} catch (error) {
-			toast.error("Somethng Went Wrong.");
 			console.log(error);
+            toast.error("Error while Selecting Image.");
 		}
-	}
+	}  
 
 	const clickBackHander = () => {
 		dispatch(decrement());
@@ -109,7 +136,7 @@ function EventAboutPlace() {
 		 <div className="upload-holder">
 			  	<span className="input-titel ml-2">Place Banner</span>
 			   <label htmlFor="upload" className="upload">
-				 <input type="file" name="images" id="upload" className="appearance-none hidden" onChange={(e) => setBanner(e.target.files[0])}/>
+				 <input type="file" name="images" id="upload" className="appearance-none hidden" onChange={photoChangeHandler}/>
 				 <span className="input-titel mt-1"><i className="icon-image mr-2"></i>Upload Images</span>
 			   </label>
 				<span className="input-titel ml-2">{banner ? (banner.name || banner) : "Please select Images"}</span>

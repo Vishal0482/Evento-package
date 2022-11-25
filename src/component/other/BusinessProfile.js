@@ -9,7 +9,7 @@ function BusinessProfile({type, token, details, s3Url}) {
     const header = {
 		'Authorization': `Token ${token}`,
 	}
-    const imageHader = {
+    const imageHeader = {
 		'Authorization': `Token ${token}`,
         'Content-Type': 'multipart/form-data'
 	}
@@ -82,7 +82,7 @@ function BusinessProfile({type, token, details, s3Url}) {
         const formData = new FormData();
         formData.append("file",selected);
         try {
-            const response = await axios.post(`${baseUrl}/organizer/profile/businessprofilepic`, formData, {headers: imageHader});
+            const response = await axios.post(`${baseUrl}/organizer/profile/businessprofilepic`, formData, {headers: imageHeader});
             if(response.data.IsSuccess) {
                 console.log(response)
                 setProfileImage(null);

@@ -9,7 +9,7 @@ function PersonalProfile({type, token, details}) {
     const header = {
 		'Authorization': `Token ${token}`,
 	}
-    const imageHader = {
+    const imageHeader = {
 		'Authorization': `Token ${token}`,
         'Content-Type': 'multipart/form-data'
 	}
@@ -78,7 +78,7 @@ function PersonalProfile({type, token, details}) {
         const formData = new FormData();
         formData.append("file",selected);
         try {
-            const response = await axios.post(`${baseUrl}/organizer/profile/profilepic`, formData, {headers: imageHader});
+            const response = await axios.post(`${baseUrl}/organizer/profile/profilepic`, formData, {headers: imageHeader});
             if(response.data.IsSuccess) {
                 console.log(response)
                 toast.success(response.data.Message);
