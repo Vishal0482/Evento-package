@@ -2,10 +2,11 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import { baseUrl } from '../../../config';
+import { videoType } from '../../../shared/constants';
 
-function EventPopUpUploadVideo({handleClose, eventId, compDetail, compId}) {
+function EventPopUpUploadVideo({handleClose, eventId, videoList}) {
   const [video, setVideo] = useState("");
-  const [videoPreview, setVideoPreview] = useState("");
+  const [currentVideoList, setCurrentVideoList] = useState(videoList);
   const [details, setDetails] = useState("");
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -13,29 +14,30 @@ function EventPopUpUploadVideo({handleClose, eventId, compDetail, compId}) {
   const token = localStorage.getItem("Token");
 	const header = {
 		'Authorization': `Token ${token}`,
+	}
+  const videoHeader = {
+		'Authorization': `Token ${token}`,
 		'Content-Type': 'multipart/form-data'
 	}
   
 	const videoChangeHandler = (event) => {
-		const types = ['video/mp4'];
 		let selected = event.target.files[0];
-		
+		const size = 512;
 		try {
-			if(selected && types.includes(selected.type)) {
-				if(selected.size < (512*1024*1024)){
-          setVideoPreview(URL.createObjectURL(selected));
+			if(selected && videoType.includes(selected.type)) {
+				if(selected.size < (size*1024*1024)) {
 					setVideo(selected);
           setErrorMessage(null);
 					setError(false);
 				}
 				else {
-					console.log("file size is greater than 512MB. File size is ", selected.size);
-					setErrorMessage("file size is greater than 512MB.");
+					// console.log("file size is greater than 512MB. File size is ", selected.size);
+					setErrorMessage("file size is greater than "+size+" Mb.");
 					setError(true);
 				}
 			} else {
-				console.log("please select video file with mp4 extension.",selected.type);
-				setErrorMessage("please select video file with mp4 extension.");
+				// console.log("please select video file with mp4 extension.",selected.type);
+				setErrorMessage("please select valid video file.");
 				setError(true);
 			}
 		} catch (error) {
@@ -47,17 +49,26 @@ function EventPopUpUploadVideo({handleClose, eventId, compDetail, compId}) {
   const videoUpload = async() =>{
     try {
       let formDataVideo = new FormData();
-      formDataVideo.append("image_details",details);
-      formDataVideo.append("event", eventId);
-      formDataVideo.append("video", video);
-      const url = compDetail ? `${baseUrl}/api/events/companydetail/video` : `${baseUrl}/api/video_event`;
-      if(compDetail) formDataVideo.append("company_id",compId);
-      const response = await axios.post(url, formDataVideo, {headers: header});
+      formDataVideo.append("file", video);
+      const response = await axios.post(`${baseUrl}/organizer/events/video`, formDataVideo, {headers: videoHeader});
       console.log(response);
-      // if(response.data.status) {
-        toast.success("Video Uploaded successfully.");
-				handleClose(false);
-			// }
+      if (response.data.IsSuccess) {
+        const reqObj = {
+          eventid: eventId,
+          videos: [...videoList,
+          {
+            url: response.data.Data.url,
+            description: details
+          }
+          ]
+        }
+        const res = await axios.post(`${baseUrl}/organizer/events/media`, reqObj, { headers: header });
+        console.log(res);
+        toast.success(res.data.Message);
+        handleClose(false);
+      } else {
+        toast.error(response.data.Message);
+      }
     } catch (error) {
       toast.error("Something Went wrong.");
       console.log(error);

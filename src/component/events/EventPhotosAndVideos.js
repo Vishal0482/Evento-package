@@ -6,7 +6,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import Advertisement from '../Advertisement';
 import StepProgressBar from './StepProgressBar';
 import axios from 'axios';
-import { baseUrl } from "../../config";
+import { baseUrl, s3Url } from "../../config";
 import { decrement, increment } from '../../redux/stepProgressCount';
 import { useDispatch } from 'react-redux';
 import videoThumb from '../../assest/images/video-preview.png';
@@ -31,37 +31,27 @@ const token = localStorage.getItem("Token");
 		'Content-Type': 'multipart/form-data'
 	}
 
-	const getImage = async() => {
+	const getMedia = async() => {
 		try {
-			const response = await axios.get(`${baseUrl}/api/image_event?eventId=${eventId}`, {headers: header});
-			setImageList(response.data.data);
-			// console.log("Image response >> ",response);
+			const response = await axios.get(`${baseUrl}/organizer/events/media?eventid=${eventId}`, {headers: header});
+			if(response.data.Data.photos) setImageList(response.data?.Data?.photos);
+			if(response.data.Data.videos) setVideoList(response.data?.Data?.videos);
+			console.log("Media response >> ",response);
 		} catch (error) {
 			console.log(error);
 		}
 	}
 	
-	const getVideo = async() => {
-		try {
-			const response = await axios.get(`${baseUrl}/api/video_event?eventId=${eventId}`, {headers: header});
-			setVideoList(response.data.data);
-			// console.log("Video response >> ",response);
-		} catch (error) {
-			console.log(error);
-		}
-	}
-
 	useEffect(()=>{
-		getImage();
-		getVideo();
+		getMedia();
 	},[isUploadPhotoPopUpOpen, isUploadVideoPopUpOpen]);
 
 const removeImageClick = async(id) => {
 	try {
-		const response = await axios.delete(`${baseUrl}/api/event/image/?id=${id}`, {headers: header});
-		if(response.data.isSuccess === true) {
-			getImage();
-		}
+		// const response = await axios.delete(`${baseUrl}/api/event/image/?id=${id}`, {headers: header});
+		// if(response.data.isSuccess === true) {
+		// 	getMedia();
+		// }
 	} catch (error) {
 		console.log(error);
 	}
@@ -69,10 +59,10 @@ const removeImageClick = async(id) => {
 
 const removeVideoClick = async(id) => {
 	try {
-		const response = await axios.delete(`${baseUrl}/api/event/video/?id=${id}`, {headers: header});
-		if(response.data.isSuccess === true) {
-			getImage();
-		}
+		// const response = await axios.delete(`${baseUrl}/api/event/video/?id=${id}`, {headers: header});
+		// if(response.data.isSuccess === true) {
+		// 	getMedia();
+		// }
 	} catch (error) {
 		console.log(error);
 	}
@@ -81,8 +71,8 @@ const removeVideoClick = async(id) => {
 const clickNextHandler = () => {
 	toast.success("Data saved successfully.");
 	dispatch(increment());
-	if(eventType === "group_skills") navigate(`../additem/${eventId}/${userId}`);
-	else navigate(`../addservices/${eventId}/${userId}`);
+	if(eventType === "group_skills") navigate(`../additem`);
+	else navigate(`../addservices`);
 }
 
 const clickBackHander = () => {
@@ -110,7 +100,7 @@ const clickBackHander = () => {
 				 <input  name="images" id="upload" className="appearance-none hidden"/>
 				 <span className="input-titel mt-1"><i className="icon-image mr-2"></i>Upload Images</span>
 			   </label>
-			   {imageList?.length !== 0  &&<span className="input-titel mt-1">{imageList.length} Images Uploaded</span>}
+			   {imageList?.length !== 0  &&<span className="input-titel mt-1">{imageList?.length} Images Uploaded</span>}
 		   </div>
 		   <div className="media-upload-holder">
 			  {imageList?.length !== 0  && <span className="input-titel">Uploaded Photo</span>}
@@ -119,7 +109,7 @@ const clickBackHander = () => {
 						<div key={index} className="mt-2 mr-2">
 							<div className="upload-box" >
 								<div className="rounded relative overflow-hidden flex justify-center items-center h-full">
-								<img src={baseUrl+"/api"+img.image} alt={"upload-"+index}/>
+								<img src={s3Url+"/"+img.url} alt={"upload-"+index}/>
 								<button onClick={() =>removeImageClick(img.id)}>Remove</button>
 							</div>
 						</div>
@@ -133,16 +123,18 @@ const clickBackHander = () => {
 				 <input  name="images" id="upload2" className="appearance-none hidden"/>
 				 <div className="mt-1 flex items-baseline justify-center"><i className="icon-video-play text-base mr-2"></i> <span className="input-titel pt-1">Upload videos</span></div>
 			   </label>
-			   {videoList?.length !== 0 &&<span className="input-titel mt-1">{videoList.length} Videos Uploaded</span>}
+			   {videoList?.length !== 0 &&<span className="input-titel mt-1">{videoList?.length} Videos Uploaded</span>}
 		   </div>
 		   <div className="media-upload-holder">
 			  {videoList?.length !== 0 && <span className="input-titel">Uploaded videos</span>}
 			   <div className="flex space-x-2.5">
 					{videoList?.map((vid, index) => (
 						<div className="upload-box" key={index}>
-							<div className="rounded relative overflow-hidden h-full">
-								<img src={vid.thumbnail ? vid.thumbnail : videoThumb} alt={"upload-"+index}/>
-							<button onClick={()=> removeVideoClick(vid.id)}>Remove</button>
+							<div className="rounded relative overflow-hidden h-full" >
+								<video className='h-full' muted autoPlay loop >
+									<source src={s3Url + "/" + vid.url} alt={"upload-" + index} />
+								</video>
+								<button onClick={() => removeVideoClick(vid.id)}>Remove</button>
 							</div>
 						</div>
 					))}
@@ -162,25 +154,13 @@ const clickBackHander = () => {
 	   </div>
 	 </div>
 	 <div>
-	{imageList.length < 15 && <Modal isOpen={isUploadPhotoPopUpOpen}>
-		<EventPopUpUploadPhoto handleClose={setIsUploadPhotoPopUpOpen} eventId={eventId} />
+	{imageList?.length < 15 && <Modal isOpen={isUploadPhotoPopUpOpen}>
+		<EventPopUpUploadPhoto handleClose={setIsUploadPhotoPopUpOpen} eventId={eventId} imageList={imageList} />
 	 </Modal>}
-	 {videoList.length < 2 && <Modal isOpen={isUploadVideoPopUpOpen}>
-		<EventPopUpUploadVideo handleClose={setIsUploadVideoPopUpOpen} eventId={eventId} />
+	 {videoList?.length < 2 && <Modal isOpen={isUploadVideoPopUpOpen}>
+		<EventPopUpUploadVideo handleClose={setIsUploadVideoPopUpOpen} eventId={eventId} videoList={videoList} />
 	</Modal>}
 	 </div>
-		  <ToastContainer
-			  position="bottom-right"
-			  autoClose={5000}
-			  hideProgressBar={false}
-			  newestOnTop={false}
-			  closeOnClick
-			  rtl={false}
-			  pauseOnFocusLoss
-			  draggable
-			  pauseOnHover
-			  theme="colored"
-		  />
    </div>
   )
 }

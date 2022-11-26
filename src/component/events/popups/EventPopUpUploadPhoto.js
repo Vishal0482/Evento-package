@@ -2,40 +2,42 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import { baseUrl } from '../../../config';
+import { imageType } from '../../../shared/constants';
 
-function EventPopUpUploadPhoto({handleClose, eventId, compDetail, compId}) {
+function EventPopUpUploadPhoto({handleClose, eventId, imageList}) {
 	const [image, setImage] = useState("");
-	const [imagePreview, setImagePreview] = useState("");
+	const [currentImageList, setCurrentImageList] = useState(imageList);
 	const [details, setDetails] = useState("");
 	const [error, setError] = useState(false);
 	const [errorMessage, setErrorMessage] = useState("");
 
 	const token = localStorage.getItem("Token");
 	const header = {
+		'Authorization': `Token ${token}`
+	}
+	const imageHeader = {
 		'Authorization': `Token ${token}`,
 		'Content-Type': 'multipart/form-data'
 	}
 
 	const photoChangeHandler = (event) => {
-		const types = ['image/png', 'image/jpeg'];
+		const size = 1;
 		let selected = event.target.files[0];
 		
 		try {
-			if(selected && types.includes(selected.type)) {
-				if(selected.size < (3*1024*1024)){
-					setImagePreview(URL.createObjectURL(selected));
+			if(selected && imageType.includes(selected.type)) {
+				if(selected.size < (size*1024*1024)){
 					setImage(selected);
 					setErrorMessage(null);
 					setError(false);
 				}
 				else {
-					console.log("file size is greater than 3MB. File size is ", selected.size);
-					setErrorMessage("file size is greater than 3MB.");
+					// console.log("file size is greater than 3MB. File size is ", selected.size);
 					setError(true);
 				}
 			} else {
-				console.log("please select image file with jpeg/png. File type is ", selected.type);
-				setErrorMessage("please select image file with jpeg/png.");
+				// console.log("please select valid image file. File type is ", selected.type);
+				setErrorMessage("please select valid image file.");
 				setError(true);
 			}
 		} catch (error) {
@@ -47,18 +49,23 @@ function EventPopUpUploadPhoto({handleClose, eventId, compDetail, compId}) {
 	const uploadImage = async() => {
 		try {
 			let formDataImage = new FormData();
-			formDataImage.append("image_details", details);
-			formDataImage.append("event", eventId);
-			formDataImage.append("image", image);
-			const url = compDetail ? `${baseUrl}/api/events/companydetail/image` : `${baseUrl}/api/image_event`;
-			if(compDetail) formDataImage.append("company_id",compId);
-			const response = await axios.post(url,formDataImage, {headers: header});
+			formDataImage.append("file", image);
+			const response = await axios.post(`${baseUrl}/organizer/events/image`, formDataImage, {headers: imageHeader});
 			console.log(response);
-			if(response.data.status) {
-				toast.success("Image Uploaded successfully.");
+			if(response.data.IsSuccess) {
+				const reqObj = {
+					eventid: eventId,
+					photos: [...imageList,
+						{url: response.data.Data.url,
+						description: details}
+					]
+				}
+				const res = await axios.post(`${baseUrl}/organizer/events/media`, reqObj, {headers: header});
+				console.log(res);
+				toast.success(res.data.Message);
 				handleClose(false);
 			} else {
-				toast.error("Image Uploaded Failed");
+				toast.error(response.data.Message);
 			}
 		} catch (error) {
 			toast.success("Something Went Wrong");
