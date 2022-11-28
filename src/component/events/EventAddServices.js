@@ -60,7 +60,6 @@ function EventAddServices() {
 	const clickNextHandler = () => {
 		toast.success("Services saved Successfully.");
 		dispatch(increment());
-		localStorage.setItem("service",JSON.stringify(activeList));
 		if(eventType === "places") navigate(`../capacity`);
 		else navigate(`../othercost`);
 	};
