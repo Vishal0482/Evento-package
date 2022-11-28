@@ -1,76 +1,117 @@
 import axios from 'axios';
+import { event } from 'jquery';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { baseUrl } from '../../../config';
+import { baseUrl, s3Url } from '../../../config';
+import { imageType, onlyDigits } from '../../../shared/constants';
 
-function EventPopUpAddService({handleClose, data, edit, setReload}) {
+function EventPopUpAddService({handleClose, data, setReload, edit}) {
 
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [quantity, setQuantity] = useState("");
-  const [priceType, setPriceType] = useState("");
+  const [priceType, setPriceType] = useState("per_day");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
+  const [error, setError] = useState(false);
+	const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(()=> {
-    if(data) {
-      setName(data.service_name);
-      setPrice(data.service_price);
-      setDescription(data.service_desc);
-      setPriceType(data.service_price_type);
-      setQuantity(data.service_quantity);
+    if(data && edit) {
+      setName(data.name);
+      setPrice(data.price);
+      setDescription(data.description);
+      setPriceType(data.price_type);
+      setQuantity(data.quantity);
+      setImage(data.photos[0].url)
     }
-  },[handleClose, data]);
+  },[handleClose, data, edit]);
 
   const token = localStorage.getItem("Token");
   const header = {
     'Authorization': `Token ${token}`,
-    // 'Content-Type': 'multipart/form-data'
+  }
+  const imageHeader = {
+    'Authorization': `Token ${token}`,
+    'Content-Type': 'multipart/form-data'
   }
 
+  const photoChangeHandler = (event) => {
+		const size = 3;
+		let selected = event.target.files[0];
+		
+		try {
+			if(selected && imageType.includes(selected.type)) {
+				if(selected.size < (size*1024*1024)){
+					setImage(selected);
+					setErrorMessage(null);
+					setError(false);
+				}
+				else {
+          setErrorMessage("file size is greater than "+size+" MB");
+					setError(true);
+				}
+			} else {
+				setErrorMessage("please select valid image file.");
+				setError(true);
+			}
+		} catch (error) {
+			console.log(error);
+			setError(true);
+		}
+	}  
+
   const addServices = async() => {
+
+    if(name.trim() === "" || price.trim() === "" || quantity.trim() === ""){
+      toast.warn("Please fill all the reqired fields.");
+      return
+    }
+    if(!(onlyDigits.test(price.trim()))) {
+      toast.warn("Please enter valid Price.");
+      return
+    }
+    if(!(onlyDigits.test(quantity.trim()))) {
+      toast.warn("Please enter valid Qunatity.");
+      return
+    }
     
     const requestObj = {
-        service_name: name,
-        service_price: price,
-        service_price_type: priceType,
-        service_desc: description,
-        service_quantity: quantity,
-        // service_image: image
+        name: name,
+        price: price,
+        price_type: priceType,
+        description: description,
+        quantity: quantity,
+        photos: []
     }
+    if(edit) requestObj.serviceid = data._id;
 
-    // let formData = new FormData();
-    // formData.append("service_name", name);
-    // formData.append("service_price", price);
-    // formData.append("service_quantity", quantity);
-    // formData.append("service_price_type", priceType);
-    // formData.append("service_desc", description);
-    // formData.append("service_image", image);
-    console.log(requestObj);
-    console.log(edit);
+    const formData = new FormData();
+    formData.append("file", image);
+    let url;
     try {
-      if (edit) {
-        // Upadte service
-        console.log(edit)
-        console.log(data.Id);
-        const response = await axios.put(`${baseUrl}/api/add_service_event/${data.Id}`, requestObj, { headers: header });
-        toast.success("Service updated successfully.");
+      if(typeof image === "object") {
+        const response = await axios.post(`${baseUrl}/organizer/events/image`, formData, { headers: imageHeader });
         console.log(response);
-        setReload(true);
+        if(response.data.IsSuccess) {
+          url = response.data.Data.url;
+        }
+      }
+      requestObj.photos.push({url: url || image});
+      // Object.keys(requestObj).forEach(key => {
+      //   if (requestObj[key] === null) {
+      //     delete requestObj[key];
+      //   }
+      // });
+      console.log(requestObj);
+      const res = await axios.post(`${baseUrl}/organizer/events/addservice`, requestObj, { headers: header });
+      console.log(res);
+      setReload(current => !current);
+      if(res.data.IsSuccess) {
+        toast.success(res.data.Message);
         handleClose(false);
       } else {
-        // Create new Service
-        let formData = new FormData();
-        const response = await axios.post(`${baseUrl}/api/add_service_event`, requestObj, { headers: header });
-        if(response.data.isSuccess) {
-          formData.append("service", response.data.data.Id);
-          formData.append("image", image);
-          const responseImage = await axios.post(`${baseUrl}/api/add_service_event/image`, formData, { headers: header });
-          toast.success("Service Added Successfully.");
-          console.log(responseImage);
-        }
-        console.log(response);
-        handleClose(false);
+        toast.error(res.data.Message);
       }
     } catch (error) {
       toast.error("Something went wrong.")
@@ -93,12 +134,12 @@ function EventPopUpAddService({handleClose, data, edit, setReload}) {
             </div>
             <form className="space-y-5 py-8">
               <div className="w-full inputHolder">
-                <label className="input-titel">Name</label>
+                <label className="input-titel">Name <span>*</span></label>
                 <input className="input option" type="text" value={name} onChange={(e) => setName(e.target.value) } />
                 {/* <input className="input option" type="text" value="Catering" onChange={(e) => setName(e.target.value) }/> */}
               </div>
               <div className="w-full">
-                <span className="input-titel">Price</span>
+                <span className="input-titel">Price <span>*</span></span>
                 <label htmlFor="" className="flex items-center w-full bg-white p-2 px-3.5 rounded-md">
                   <div className="w-full px-3.5">
                     <input type="text" className="w-full outline-none text-spiroDiscoBall font-bold text-base" value={price} onChange={(e) => setPrice(e.target.value) } />
@@ -126,16 +167,17 @@ function EventPopUpAddService({handleClose, data, edit, setReload}) {
                 </label>
               </div>
               <div className="w-full inputHolder">
-                <label className="input-titel">Add Quantity</label>
+                <label className="input-titel">Add Quantity <span>*</span></label>
                 <input className="input option" type="text" value={quantity} onChange={(e) => setQuantity(e.target.value) } />
               </div>
               <div className="upload-holder">
                 {/* <h6 className="text-sm font-bold text-quicksilver">Select Photo <span className="text-10">2 images (up to 3MB/Image)</span></h6> */}
                 <h6 className="text-sm font-bold text-quicksilver">Select Photo <span className="text-10">(up to 3MB)</span></h6>
                 <label htmlFor="upload" className="upload upload-popup">
-                  <input type="file" name="images" id="upload" className="appearance-none hidden" onChange={(e) => setImage(e.target.files[0])} />
+                  <input type="file" name="images" id="upload" className="appearance-none hidden" onChange={photoChangeHandler} />
                   <span className="input-titel mt-1"><i className="icon-image mr-2"></i>Choose Images</span>
                 </label>
+                {error ? <span className="mt-1" style={{color: "red", fontSize: "14px"}}>{errorMessage} </span> : <span className="mt-1" style={{fontSize: "14px"}}>{image?.name || (image && <a target="blank" href={s3Url+"/"+image}>image link</a>)}</span>}
               </div>
               <div className="w-full">
                 <span className="input-titel">Description</span>

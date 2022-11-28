@@ -16,6 +16,7 @@ function EventAddServices() {
 	const navigate = useNavigate();
 	const params = useParams();
 	const eventType = params.eventType;
+	const eventId = params.eventId;
 	const dispatch = useDispatch();
 	const [isAddServicesPopUpOpen, setIsAddServicesPopUpOpen] = useState(false);
 	const [serviceList, setServiceList] = useState([]);
@@ -29,10 +30,23 @@ function EventAddServices() {
 	}
 	const getServiceList = async() => {
 		try {
-			const response = await axios.get(`${baseUrl}/api/service_list`, {headers: header});
-			setLoading(false);
-			setServiceList(response.data.data);
+			const response = await axios.get(`${baseUrl}/organizer/events/listservice`, {headers: header});
 			console.log("services >> ",response);
+			if(response.data.Data) {
+				const responseActive = await axios.get(`${baseUrl}/organizer/events/getselectservice?eventid=${eventId}`, {headers: header});
+				if(responseActive.data.Data.services) {
+					console.log("Active" ,responseActive)
+					setActiveList(responseActive.data.Data.services.filter(e => {
+						return e._id
+					}))
+					console.log(activeList)
+				}
+				setServiceList(response.data.Data);
+				setLoading(false);
+			}
+			if(!response.data.IsSuccess) {
+				toast.error("Enable To Fetch Data.");
+			}
 		} catch (error) {
 			toast.error("Something Went wrong.");
 			console.log(error);
@@ -47,8 +61,8 @@ function EventAddServices() {
 		toast.success("Services saved Successfully.");
 		dispatch(increment());
 		localStorage.setItem("service",JSON.stringify(activeList));
-		if(eventType === "places") navigate(`../capacity/${params.eventId}/${params.userId}`);
-		else navigate(`../othercost/${params.eventId}/${params.userId}`);
+		if(eventType === "places") navigate(`../capacity`);
+		else navigate(`../othercost`);
 	};
 
 	const clickBackHander = () => {
@@ -79,7 +93,7 @@ function EventAddServices() {
 			data-testid="loader"
 		/>
 		 <div className="pt-5 space-y-3">
-		   { serviceList?.map(element => <EventAddServicesListItem data = {element} key={element.Id} edit={true} setReload={setReload} activeList={activeList} setActiveList={setActiveList} /> )}
+		   { serviceList?.map(element => <EventAddServicesListItem data={element} key={element._id} eventId={eventId} edit={true} setReload={setReload} activeList={activeList} setActiveList={setActiveList} /> )}
 		   
 		 </div>
 	   </div>
@@ -90,7 +104,7 @@ function EventAddServices() {
 	   </div>
 	 </div>
 	 <Modal isOpen={isAddServicesPopUpOpen}>
-		<EventPopUpAddService handleClose={setIsAddServicesPopUpOpen} edit={false}/>
+		<EventPopUpAddService handleClose={setIsAddServicesPopUpOpen} setReload={setReload} edit={false} />
 	 </Modal>
 	 <ToastContainer
 			  position="bottom-right"

@@ -21,7 +21,7 @@ function EventPopUpUploadPhoto({handleClose, eventId, imageList}) {
 	}
 
 	const photoChangeHandler = (event) => {
-		const size = 1;
+		const size = 3;
 		let selected = event.target.files[0];
 		
 		try {
@@ -33,6 +33,7 @@ function EventPopUpUploadPhoto({handleClose, eventId, imageList}) {
 				}
 				else {
 					// console.log("file size is greater than 3MB. File size is ", selected.size);
+					setErrorMessage("file size is greater than "+size+" MB");
 					setError(true);
 				}
 			} else {
