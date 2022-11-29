@@ -155,7 +155,7 @@ function SideBar() {
         {/* <!-- Top Header --> */}
         <div className="w-full bg-white py-3.5 px-6 xl:px-12 flex flex-wrap items-center shadow-sm">
           {/* <!-- Search Box --> */}
-          <form className="w-72 relative bg-brightGray rounded-md flex items-center">
+          <div className="w-72 relative bg-brightGray rounded-md flex items-center">
             <input
               type="text"
               name=""
@@ -177,7 +177,7 @@ function SideBar() {
                 />
               </svg>
             </button>
-          </form>
+          </div>
 
           {/* <!-- Right Bar --> */}
           <div className="ml-auto">
