@@ -26,10 +26,15 @@ function DashboardEvent() {
 		'Authorization': `Token ${token}`
 	}
 	const getAllEvents = async () => {
+		const requestObj = {
+			page: pageNo,
+			limit: limit,
+			search: eventType
+		}
 		try {
-			// const response = await axios.get(`${baseUrl}/api/events?limit=${limit}&page=${pageNo}&event_type=${eventType}`, { headers: header });
-			// console.log("events >> ", response.data);
-			// setAllEvents(response.data);
+			const response = await axios.post(`${baseUrl}/organizer/events/list`,requestObj, { headers: header });
+			console.log("events >> ", response.data);
+			setAllEvents(response.data.Data);
 			setLoading(false);
 		} catch (error) {
 			console.log(error);
@@ -55,6 +60,7 @@ function DashboardEvent() {
 		dispatch(reset());
 	}, [isCreateNewPopUpOpen]);
 
+	console.log(allEvents?.totalDocs)
 
 	return (
 		<div className="wrapper">
@@ -81,11 +87,11 @@ function DashboardEvent() {
 					aria-label="Loading Spinner"
 					data-testid="loader"
 				/>
-				{allEvents.data?.map(ele => (
-					<DashboardEventCategoryItem key={ele.eventId}  data={ele} />
+				{allEvents.docs?.map(ele => (
+					<DashboardEventCategoryItem key={ele._id}  data={ele} />
 				))}
 				
-				{!loading && ((allEvents?.total > 0) ? <Paggination allEvents={allEvents} limit={limit} setPageNo={setPageNo} pageNo={pageNo} /> : <h1 style={{margin: "100px 0"}}>No Event Found</h1>)}
+				{!loading && ((allEvents?.totalPages > 0) ? <Paggination allEvents={allEvents} limit={limit} setPageNo={setPageNo} pageNo={pageNo} /> : <h1 style={{margin: "100px 0"}}>No Event Found</h1>)}
 
 				<Modal isOpen={isCreateNewPopUpOpen} >
 					<EventPopUpCreateNew handleClose={setIsCreateNewPopUpOpen} eventType={eventType} edit={false} />

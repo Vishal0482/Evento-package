@@ -22,7 +22,7 @@ function Paggination({ allEvents, limit, setPageNo, pageNo }) {
         return range(1, sideWidth).concat(0, range(page - leftWidth, page + rightWidth), 0, range(totalPages - sideWidth + 1, totalPages));
     };
 
-    const paginationList = paginator(Math.ceil(allEvents.total/limit), allEvents?.page, 7);
+    const paginationList = paginator(Math.ceil(allEvents.totalPages), allEvents?.page, 7);
     // console.log(paginationList);
 
     return (

@@ -24,7 +24,7 @@ function EventCalender() {
 
 	const clickNextHandler = () => {
     	dispatch(reset());
-		navigate("../");
+		navigate("../../");
 	}
 
   const clickBackHander = () => {

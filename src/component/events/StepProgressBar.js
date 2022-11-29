@@ -15,7 +15,7 @@ function StepProgressBar({eventType}) {
     return (
         <div className="w-full overflow-hidden">
             <ul className="flex justify-between step-progress-holder">
-                {eventType === "places" && placesProgressBarList.map((element, index) => (
+                {eventType === "have_you_places" && placesProgressBarList.map((element, index) => (
                     <li className={count>=(index+1) ? "active" : ""} key={index}>
                         <div>
                             <span className={count>=(index+1) ? "active" : ""}>{index+1}</span>
