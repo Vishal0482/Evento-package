@@ -10,6 +10,7 @@ import { baseUrl } from '../../config';
 import axios from 'axios';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { useEffect } from 'react';
 
 function EventTermsAndConditions() {
   const editorConfig  = {
@@ -19,12 +20,10 @@ function EventTermsAndConditions() {
   const displayName = localStorage.getItem("displayName");
   const [isTermsAndConditionPopUpOpen, setIsTermsAndConditionPopUpOpen] = useState(false);
   const [terms, setTerms] = useState("");
-  // console.log(terms);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const params = useParams();
   const eventId = params.eventId;
-  const userId = params.userId;
   const eventType = params.eventType;
 
   const token = localStorage.getItem("Token");
@@ -33,17 +32,12 @@ function EventTermsAndConditions() {
 	}
 
 	const initialState = {
-    event_id: eventId,
-		// t_and_c: "",
     facebook: "",
     youtube: "",
     twitter: "",
     pinterest: "",
     instagram: "",
-    linkedin: "",
-    calender: "2022-03-31",
-    serivceId: JSON.parse(localStorage.getItem("service")),
-    discountId: []
+    linkedin: ""
 	}
   const [acceptTerm, setAcceptTerm] = useState(false);
 	const [values, setValues] = useState(initialState);
@@ -60,17 +54,22 @@ function EventTermsAndConditions() {
   // console.log(acceptTerm);
 
   const saveData = async() => {
+    if(!acceptTerm) {
+      toast.warn("Pleace Accept the Terms and Condition.");
+      return
+    }
     try {
-      if(acceptTerm) {
-        const response = await axios.post(`${baseUrl}/api/events`,{...values,t_and_c: terms}, {headers: header});
+      const requestObj = {...values, t_and_c: terms, status: acceptTerm, eventid: eventId};
+      console.log(requestObj);
+        const response = await axios.post(`${baseUrl}/organizer/events/tandc`, requestObj, {headers: header});
         console.log(response);
-        if(response.data.isSuccess) {
-          toast.success("Data Saved Successfully.")
-          localStorage.removeItem("service")
+        if(response.data.IsSuccess) {
+          toast.success(response.data.Message);
+        } else {
+          toast.error(response.data.Message);
         }
-      }
     } catch (error) {
-      toast.error("Something Went Wrong.")
+      toast.error("Something Went Wrong.");
       console.log(error);
     }
   }
@@ -78,13 +77,32 @@ function EventTermsAndConditions() {
   const clickNextHandler = () => {
     dispatch(increment());
     toast.success("Data saved Successfully.");
-		navigate(`../discounts/${eventId}/${userId}`);
+		navigate(`../discounts`);
 	}
 
   const clickBackHandler = () => {
 		dispatch(decrement());
 		navigate(-1);
 	}
+
+  const getTandC = async() => {
+    try {
+      const response = await axios.get(`${baseUrl}/organizer/events/tandc?eventid=${eventId}`, {headers: header});
+      console.log(response);
+      if(response.data.IsSuccess) {
+        setValues(response.data.Data.tandc);
+        setAcceptTerm(response.data.Data.tandc.status);
+        setTerms(response.data.Data.tandc.t_and_c);
+      }
+    } catch (error) {
+      toast.error("Error Occured While Fetching Data.")
+      console.log(error);
+    }
+  }
+
+  useEffect(()=> {
+    getTandC();
+  },[]);
 
   return (
 		// <!-- Content In -->
@@ -106,7 +124,7 @@ function EventTermsAndConditions() {
                  <CKEditor
                     config={editorConfig}
                     editor={ ClassicEditor }
-                    data=""
+                    data={terms}
                     onReady={ editor => {
                       // You can store the "editor" and use when it is needed.
                         // console.log( 'Editor is ready to use!', editor );
@@ -227,12 +245,12 @@ function EventTermsAndConditions() {
                 </div>
                 <div className="flex items-end">
                     <label className="checkbox rounded bg-white">
-                        <input type="checkbox" onClick={()=>{setIsTermsAndConditionPopUpOpen(!isTermsAndConditionPopUpOpen); setAcceptTerm(!acceptTerm)}} />
+                        <input type="checkbox" checked={acceptTerm} onClick={() => setAcceptTerm(!acceptTerm)} />
                         <i className="icon-right"></i>                  
                     </label>
                     <span className="input-titel text-base ml-4" >Accept Your <button >Terms and Conditions</button></span>
                 </div>
-                <button className="btn-primary w-full" onClick={saveData}>SAVE</button>
+                <button className="btn-primary w-full" onClick={()=>setIsTermsAndConditionPopUpOpen(!isTermsAndConditionPopUpOpen)}>SAVE</button>
               </div>
             </div>
             <div className="prw-next-btn">
@@ -240,7 +258,7 @@ function EventTermsAndConditions() {
               <button type="button" className="flex items-center btn-primary" onClick={clickNextHandler}>Go To Discount</button>
             </div>
           <Modal isOpen={isTermsAndConditionPopUpOpen}>
-            <EventPopUpTermsAndCondition handleClose={setIsTermsAndConditionPopUpOpen} terms={terms}/> 
+            <EventPopUpTermsAndCondition handleClose={setIsTermsAndConditionPopUpOpen} terms={terms} saveData={saveData} /> 
           </Modal>
           </div>
         </div>

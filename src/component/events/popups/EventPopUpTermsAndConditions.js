@@ -1,11 +1,7 @@
 import React from 'react'
-import { createRef } from 'react'
 import { useEffect } from 'react'
-import { useRef } from 'react'
-import { createElement } from 'react'
-import { Link } from 'react-router-dom'
 
-function EventPopUpTermsAndConditions({handleClose, terms}) {
+function EventPopUpTermsAndConditions({handleClose, terms, saveData}) {
 
 	
 	useEffect(() => {
@@ -22,18 +18,10 @@ function EventPopUpTermsAndConditions({handleClose, terms}) {
 			   <h2 className="h1 w-full max-w-xs"> Terms and Conditions </h2>
 
 			   <div id="termsBox" ></div>
-			   {/* <ul className="space-y-2.5 list-disc list-inside text-xs font-medium"> */}
-				{/* {terms} */}
-				 {/* <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. LoremIpsum.</li>
-				 <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. LoremIpsum.</li>
-				 <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. LoremIpsum.</li>
-				 <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. LoremIpsum.</li>
-				 <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. LoremIpsum.</li>
-				 <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. LoremIpsum.</li> */}
-			   {/* </ul> */}
+			
 			   <div className="flex items-center space-x-5">
-				 <button onClick={()=>handleClose(false)} className="btn-primary btn-cancel w-full">CANCEL</button>
-				 <div className="btn-primary w-full" onClick={()=>handleClose(false)}>APPLY</div>
+				 <button onClick={()=>{handleClose(false)}} className="btn-primary btn-cancel w-full">CANCEL</button>
+				 <div className="btn-primary w-full"onClick={()=> {saveData(); handleClose(false)}} >APPLY</div>
 			   </div>
 			 </div>
 		   </div>
