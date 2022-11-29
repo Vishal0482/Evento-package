@@ -4,6 +4,9 @@ import Advertisement from '../Advertisement';
 import StepProgressBar from './StepProgressBar';
 import { decrement, reset } from '../../redux/stepProgressCount';
 import { useDispatch } from 'react-redux';
+import FullCalendar from '@fullcalendar/react'
+import dayGridPlugin from '@fullcalendar/daygrid'
+import { useState } from 'react';
 
 function EventCalender() {
 	const displayName = localStorage.getItem("displayName");
@@ -11,6 +14,13 @@ function EventCalender() {
 	const dispatch = useDispatch();
 	const params = useParams();
 	const eventType = params.eventType;
+	const [startDate, setStartDate] = useState(null);
+	console.log(startDate);
+
+	const setDate = (e) => {
+		const date = e.target.value.split("-");
+		console.log(new Date(date[0], date[1], date[2]));
+	}
 
 	const clickNextHandler = () => {
     	dispatch(reset());
@@ -21,6 +31,16 @@ function EventCalender() {
 		dispatch(decrement());
 		navigate(-1);
 	}
+
+	const generateRandomColor = () =>{
+		let maxVal = 0xFFFFFF; // 16777215
+		let randomNumber = Math.random() * maxVal; 
+		randomNumber = Math.floor(randomNumber);
+		randomNumber = randomNumber.toString(16);
+		let randColor = randomNumber.padStart(6, 0);   
+		return `#${randColor.toUpperCase()}`
+	}
+	
   return (
 	    // <!-- Content In -->
 		<div>
@@ -40,7 +60,7 @@ function EventCalender() {
 				  <h3 className="pb-2">Start Date &Time</h3>
 				  <label className="bg-white rounded-md flex space-x-3 relative">
 					<i className="icon-date-time flex items-center pl-5 absolute left-0 inset-y-0"></i>
-					<input type="date" className="w-full rounded-md outline-none appearance-none pl-10 py-4"/>
+					<input type="date" onChange={setDate} className="w-full rounded-md outline-none appearance-none pl-10 py-4"/>
 				  </label>
 				</div>
 				<div className="w-full lg:w-1/3 px-3.5">
@@ -68,7 +88,7 @@ function EventCalender() {
 				</div>
 			  </div>
 			  {/* <!-- calendar --> */}
-			  <div className="calendar inline-block justify-center items-center rounded-md drop-shadow-one bg-white w-full px-12 py-7">
+			  {/* <div className="calendar inline-block justify-center items-center rounded-md drop-shadow-one bg-white w-full px-12 py-7">
 				
 				<div className="days grid grid-cols-7 justify-center items-center text-center py-4 font-semibold">
 				  <span>Sunday</span><span>Monday</span><span>Tuesday</span><span>Wednesday</span><span>Thursday</span><span>Friday</span><span>Saturday</span>
@@ -129,7 +149,18 @@ function EventCalender() {
 				  <div className="calender_number" style={{color: "#B8B8B8"}}>8</div>
 				  <div className="calender_number" style={{color: "#B8B8B8"}}>9</div>
 				</div>
-			  </div>
+			  </div> */}
+				<div className="calendar inline-block justify-center items-center rounded-md drop-shadow-one bg-white w-full px-12 py-7">
+					<FullCalendar
+						plugins={[dayGridPlugin]}
+						initialView="dayGridMonth"
+						events={[
+							{ title: 'event 1',  start: new Date("November 13, 2022 3:20:00"), end: new Date("November 16, 2022 16:20:00"), color: generateRandomColor() },
+							{ title: 'event 2',  start: new Date("November 13, 2022 5:20:00"), end: new Date("November 16, 2022 16:20:00"), color: generateRandomColor() }
+						  ]}
+						
+					/>
+				</div>
 			  {/* <!-- calendar end --> */}
 			  <Advertisement />
 			  <div className="prw-next-btn">
