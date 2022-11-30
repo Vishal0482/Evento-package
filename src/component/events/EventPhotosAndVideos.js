@@ -2,15 +2,15 @@ import React, {useEffect, useState} from 'react';
 import Modal from "../modal/Modal";
 import EventPopUpUploadPhoto from './popups/EventPopUpUploadPhoto';
 import EventPopUpUploadVideo from "./popups/EventPopUpUploadVideo";
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Advertisement from '../Advertisement';
 import StepProgressBar from './StepProgressBar';
 import axios from 'axios';
 import { baseUrl, s3Url } from "../../config";
 import { decrement, increment } from '../../redux/stepProgressCount';
 import { useDispatch } from 'react-redux';
-import videoThumb from '../../assest/images/video-preview.png';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
+import { current } from '@reduxjs/toolkit';
 
 function EventPhotosAndVideos() {
 	const displayName = localStorage.getItem("displayName");
@@ -18,17 +18,14 @@ const [isUploadPhotoPopUpOpen, setIsUploadPhotoPopUpOpen] = useState(false);
 const [isUploadVideoPopUpOpen, setIsUploadVideoPopUpOpen] = useState(false);
 const [imageList, setImageList] = useState([]);
 const [videoList, setVideoList] = useState([]);
-const [loading, setloading] = useState(false);
 const navigate = useNavigate();
 const dispatch = useDispatch();
 const params = useParams();
 const eventId = params.eventId;
 const eventType = params.eventType;
-const userId = params.userId;
 const token = localStorage.getItem("Token");
 	const header = {
 		'Authorization': `Token ${token}`,
-		'Content-Type': 'multipart/form-data'
 	}
 
 	const getMedia = async() => {
@@ -36,7 +33,7 @@ const token = localStorage.getItem("Token");
 			const response = await axios.get(`${baseUrl}/organizer/events/media?eventid=${eventId}`, {headers: header});
 			if(response.data.Data.photos) setImageList(response.data?.Data?.photos);
 			if(response.data.Data.videos) setVideoList(response.data?.Data?.videos);
-			console.log("Media response >> ",response);
+			// console.log("Media response >> ",response);
 		} catch (error) {
 			console.log(error);
 		}
@@ -46,24 +43,52 @@ const token = localStorage.getItem("Token");
 		getMedia();
 	},[isUploadPhotoPopUpOpen, isUploadVideoPopUpOpen]);
 
-const removeImageClick = async(id) => {
-	try {
-		// const response = await axios.delete(`${baseUrl}/api/event/image/?id=${id}`, {headers: header});
-		// if(response.data.isSuccess === true) {
-		// 	getMedia();
-		// }
-	} catch (error) {
+const removeImageClick = async(index) => {
+	// console.log(index)
+	const tmpList = imageList;
+	if(index === 0) tmpList.shift();
+	else if(tmpList.length > 1) tmpList.splice(index, index);
+	else tmpList.splice(index);
+	// console.log(tmpList);
+	const reqObj = {
+		eventid: eventId,
+		photos: tmpList
+	}
+	try{
+		const res = await axios.post(`${baseUrl}/organizer/events/media`, reqObj, {headers: header});
+		// console.log(res);
+		if(res.data.IsSuccess) {
+			toast.success("Image removed Successfully.");
+			getMedia();
+		}
+	} catch(error) {
+		toast.error("Something went wrong");
 		console.log(error);
 	}
 }
 
-const removeVideoClick = async(id) => {
-	try {
-		// const response = await axios.delete(`${baseUrl}/api/event/video/?id=${id}`, {headers: header});
-		// if(response.data.isSuccess === true) {
-		// 	getMedia();
-		// }
-	} catch (error) {
+const removeVideoClick = async(index) => {
+	console.log(index);
+	const tmpList = videoList;
+	if(index === 0) tmpList.shift();
+	else if(tmpList.length > 1) tmpList.splice(index, index);
+	else tmpList.splice(index);
+	console.log(tmpList);
+	// without below line UI not Updating and display removed video insted of remaining one.
+	setVideoList([]);
+	const reqObj = {
+		eventid: eventId,
+		videos: tmpList
+	}
+	try{
+		const res = await axios.post(`${baseUrl}/organizer/events/media`, reqObj, {headers: header});
+		console.log(res);
+		if(res.data.IsSuccess) {
+			toast.success("Video removed Successfully.");
+			getMedia();
+		}
+	} catch(error) {
+		toast.error("Something went wrong");
 		console.log(error);
 	}
 }
@@ -110,7 +135,7 @@ const clickBackHander = () => {
 							<div className="upload-box" >
 								<div className="rounded relative overflow-hidden flex justify-center items-center h-full">
 								<img src={s3Url+"/"+img.url} alt={"upload-"+index}/>
-								<button onClick={() =>removeImageClick(img.id)}>Remove</button>
+								<button onClick={() =>removeImageClick(index)}>Remove</button>
 							</div>
 						</div>
 					</div>
@@ -131,10 +156,10 @@ const clickBackHander = () => {
 					{videoList?.map((vid, index) => (
 						<div className="upload-box" key={index}>
 							<div className="rounded relative overflow-hidden h-full" >
-								<video className='h-full' muted autoPlay loop >
+								<video className='h-full' >
 									<source src={s3Url + "/" + vid.url} alt={"upload-" + index} />
 								</video>
-								<button onClick={() => removeVideoClick(vid.id)}>Remove</button>
+								<button onClick={() => removeVideoClick(index)}>Remove</button>
 							</div>
 						</div>
 					))}
