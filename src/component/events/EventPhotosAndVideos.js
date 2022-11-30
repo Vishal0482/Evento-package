@@ -47,8 +47,7 @@ const removeImageClick = async(index) => {
 	// console.log(index)
 	const tmpList = imageList;
 	if(index === 0) tmpList.shift();
-	else if(tmpList.length > 1) tmpList.splice(index, index);
-	else tmpList.splice(index);
+	else if(tmpList.length > 1) tmpList.splice(index, 1);
 	// console.log(tmpList);
 	const reqObj = {
 		eventid: eventId,
@@ -71,8 +70,7 @@ const removeVideoClick = async(index) => {
 	console.log(index);
 	const tmpList = videoList;
 	if(index === 0) tmpList.shift();
-	else if(tmpList.length > 1) tmpList.splice(index, index);
-	else tmpList.splice(index);
+	else if(tmpList.length > 1) tmpList.splice(index, 1);
 	console.log(tmpList);
 	// without below line UI not Updating and display removed video insted of remaining one.
 	setVideoList([]);
