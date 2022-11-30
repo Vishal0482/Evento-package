@@ -1,28 +1,96 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Advertisement from "../Advertisement";
 import { useDispatch } from 'react-redux';
 import StepProgressBar from "../events/StepProgressBar";
 import { toast } from "react-toastify";
 import { decrement, increment } from "../../redux/stepProgressCount";
+import axios from "axios";
+import { baseUrl } from "../../config";
+import { useEffect } from "react";
 
 function PSBOtherCost() {
   const displayName = localStorage.getItem("displayName");
   const navigate = useNavigate();
 	const params = useParams();
 	const eventType = params.eventType;
+	const eventId = params.eventId;
 	const dispatch = useDispatch(); 
+  const token = localStorage.getItem("Token");
+	const header = {
+		'Authorization': `Token ${token}`
+	}
 
-  const clickNextHandler = () => {
-		toast.success("Services saved Successfully.");
-		dispatch(increment());
-		navigate(`../companydetails/${params.eventId}/${params.userId}`);
-	};
+  const [travelCost, setTravelCost] = useState("");
+  const [travelCostOn, setTravelCostOn] = useState(false);  
+  const [accommodation, setAccommodation] = useState("");
+  const [accommodationOn, setAccommodationOn] = useState(false);  
+  const [food, setFood] = useState("");
+  const [foodOn, setFoodOn] = useState(false);
+
+  const clickNextHandler = async () => {
+    const reqObj = {
+      eventid: eventId,
+      othercost: [
+        {
+          travel_cost: travelCostOn,
+          details: travelCost
+        },
+        {
+          accommodation: accommodationOn,
+          details: accommodation
+        },
+        {
+          food: foodOn,
+          details: food
+        }
+      ]
+    }
+    console.log(reqObj)
+    try {
+      const response = await axios.post(`${baseUrl}/organizer/events/othercost`, reqObj, { headers: header });
+      if (response.data.IsSuccess) {
+        toast.success(response.data.Message);
+        dispatch(increment());
+        navigate(`../companydetails`);
+      } else {
+        toast.error(response.data.Message);
+      }
+    } catch (error) {
+      toast.error("Something Went Wrong.")
+      console.log(error);
+    }
+  };
 
 	const clickBackHander = () => {
 		dispatch(decrement());
 		navigate(-1);
 	}
+
+
+  const getOtherCost = async() => {
+		try {
+			const response = await axios.get(`${baseUrl}/organizer/events/othercost?eventid=${eventId}`, {headers: header});
+			if(response.data.Data.othercost){
+        console.log(response.data);
+        setTravelCost(response.data.Data.othercost[0]?.details)
+        setTravelCostOn(response.data.Data.othercost[0]?.travel_cost);
+        setAccommodation(response.data.Data.othercost[1]?.details);
+        setAccommodationOn(response.data.Data.othercost[1]?.accommodation);
+        setFood(response.data.Data.othercost[2]?.details);
+        setFoodOn(response.data.Data.othercost[2]?.food);
+			}
+			if(!response.data.IsSuccess) {
+				toast.error("Error occured while fetching data.")
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	}
+
+  useEffect(()=> {
+    getOtherCost();
+  },[]);
 
   return (
     <div>
@@ -48,6 +116,8 @@ function PSBOtherCost() {
                       type="checkbox"
                       id="on"
                       className="switch mx-3 order-2"
+                      checked={travelCostOn}
+                      onChange={() => setTravelCostOn(!travelCostOn)}
                     />
                     <span className="off text-base font-bold anim order-1 text-caribbeanGreen">
                       Include
@@ -63,6 +133,8 @@ function PSBOtherCost() {
                       rows="4"
                       className="outline-none flex items-center w-full bg-white rounded-md resize-none"
                       placeholder="Enter Details..."
+                      value={travelCost}
+                      onChange={(e) => setTravelCost(e.target.value)}
                     ></textarea>
                   </div>
                 </div>
@@ -75,6 +147,8 @@ function PSBOtherCost() {
                       type="checkbox"
                       id="on"
                       className="switch mx-3 order-2"
+                      checked={accommodationOn}
+                      onChange={() => setAccommodationOn(!accommodationOn)}
                     />
                     <span className="off text-base font-bold anim order-1 text-caribbeanGreen">
                       Include
@@ -90,6 +164,8 @@ function PSBOtherCost() {
                       rows="4"
                       className="outline-none flex items-center w-full bg-white rounded-md resize-none"
                       placeholder="Enter Details..."
+                      value={accommodation}
+                      onChange={(e) => setAccommodation(e.target.value)}
                     ></textarea>
                   </div>
                 </div>
@@ -102,6 +178,8 @@ function PSBOtherCost() {
                       type="checkbox"
                       id="on"
                       className="switch mx-3 order-2"
+                      checked={foodOn}
+                      onChange={() => setFoodOn(!foodOn)}
                     />
                     <span className="off text-base font-bold anim order-1 text-caribbeanGreen">
                       Include
@@ -117,6 +195,8 @@ function PSBOtherCost() {
                       rows="4"
                       className="outline-none flex items-center w-full bg-white rounded-md resize-none"
                       placeholder="Enter Details..."
+                      value={food}
+                      onChange={(e) => setFood(e.target.value)}
                     ></textarea>
                   </div>
                 </div>
