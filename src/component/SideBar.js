@@ -28,11 +28,8 @@ import FAQ from "./other/FAQ";
 import Chatbot from "./other/Chatbot";
 import Notification from "./Notification/Notification";
 import Profile from "./other/Profile";
-import axios from "axios";
-import { baseUrl } from "../config";
 import { toast, ToastContainer } from "react-toastify";
 import OurProducts from "./other/OurProducts";
-import AddItem from "./group_skills/AddItem";
 
 function SideBar() {
 
@@ -249,7 +246,7 @@ function SideBar() {
                     <Route path="discounts" element={<EventDiscounts />} />
                     <Route path="calender" element={<EventCalender />} />
                     <Route path="othercost" element={<PSBOtherCost />} />
-                    <Route path="additem" element={<AddItem />} />
+                    <Route path="additem" element={<EventAddServices />} />
                   </Route>
 
                 {/* <Route path="addplaces/:eventId/:placeId" element={<EventAddPlaces />} />

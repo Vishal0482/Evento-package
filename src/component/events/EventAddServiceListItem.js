@@ -37,25 +37,24 @@ function EventAddServiceListItem({data, edit, eventId, setReload, setActiveList,
 	}
 
 	const toggleService = async(e) => {
-		const serviceList = [...activeList, data._id];
-		console.log(serviceList);
+		let serviceList = [];
 		try {
 			if(e.target.checked) {
-				const response = await axios.post(`${baseUrl}/organizer/events/selectservice`, {eventid: eventId, services: serviceList}, {headers: header});
-				console.log("services active>> ",response);
-				setReload(true);
+				serviceList = [...activeList, data._id];
+				// console.log("Checked");
 			} else {
-				console.log("Not Checked");
+				serviceList = [...activeList.filter(e => e !== data._id)];
+				// console.log("Not Checked");
 			}
+			console.log(serviceList);
+			const response = await axios.post(`${baseUrl}/organizer/events/selectservice`, {eventid: eventId, services: serviceList}, {headers: header});
+			setReload(current => !current);
+			console.log("services active>> ",response);
 		} catch (error) {
+			console.log("Something went Wrong.");
 			console.log(error);
-			console.log("Delete API Not working");
 		}
 	}
-
-	// useEffect(() => {
-	// 	addService();
-	// },[isLive]);
 
   return (
     <div className="bg-white rounderd px-7 py-4">
@@ -70,7 +69,7 @@ function EventAddServiceListItem({data, edit, eventId, setReload, setActiveList,
 				   <h2>{data.name}</h2>
 				   <div className="flex items-center space-x-5">
 					 <div className="flex items-center">
-					   <input type="checkbox" id="on" className="switch mx-3 order-2" onChange={toggleService} />
+					   <input type="checkbox" checked={activeList.includes(data?._id)} id="on" className="switch mx-3 order-2" onChange={toggleService} />
 					   <span className="off text-base font-bold anim order-1 text-caribbeanGreen">Off</span>
 					   <span className="on text-base font-bold anim order-3">On</span>
 					 </div>

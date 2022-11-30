@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { baseUrl, s3Url } from '../../../config';
 import { imageType, onlyDigits } from '../../../shared/constants';
 
-function EventPopUpAddService({handleClose, data, setReload, edit}) {
+function EventPopUpAddService({isItem, handleClose, data, setReload, edit}) {
 
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
@@ -126,7 +126,7 @@ function EventPopUpAddService({handleClose, data, setReload, edit}) {
         <div className="popin max-w-2xl w-full mx-auto max-h-[calc(100vh-55px)] overflow-y-auto lg:px-9">
           <div className="bg-brightGray p-12">
             <div className="flex justify-between items-center">
-              <h1 className="h1">Add Service</h1>
+              <h1 className="h1">Add {isItem ? "Item" : "Service"}</h1>
               <div className="flex items-center space-x-6">
                 {/* <Link to="/" className="text-base font-bold text-spiroDiscoBall"><i className="icon-plus font-bold text-xs"></i> <span>Add Service</span></Link> */}
                 <button onClick={()=>handleClose(false)} href="#" className="text-xl"><i className="icon-close"></i></button>

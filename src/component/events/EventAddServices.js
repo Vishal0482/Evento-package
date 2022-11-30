@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Modal from "../modal/Modal";
 import EventPopUpAddService from './popups/EventPopUpAddService';
 import EventAddServicesListItem from './EventAddServiceListItem';
@@ -33,16 +33,16 @@ function EventAddServices() {
 			const response = await axios.get(`${baseUrl}/organizer/events/listservice`, {headers: header});
 			console.log("services >> ",response);
 			if(response.data.Data) {
-				const responseActive = await axios.get(`${baseUrl}/organizer/events/getselectservice?eventid=${eventId}`, {headers: header});
-				if(responseActive.data.Data.services) {
-					console.log("Active" ,responseActive)
-					setActiveList(responseActive.data.Data.services.filter(e => {
-						return e._id
-					}))
-					console.log(activeList)
-				}
 				setServiceList(response.data.Data);
 				setLoading(false);
+				const responseActive = await axios.get(`${baseUrl}/organizer/events/getselectservice?eventid=${eventId}`, {headers: header});
+				console.log("Active services >> ",responseActive);
+				if(responseActive.data.Data.services) {
+					const temp = responseActive.data.Data.services.map(e => {
+						return e._id
+					})
+					setActiveList(temp);
+				}
 			}
 			if(!response.data.IsSuccess) {
 				toast.error("Enable To Fetch Data.");
@@ -52,6 +52,7 @@ function EventAddServices() {
 			console.log(error);
 		}
 	}
+	console.log(serviceList);
 
 	useEffect(() => {
 		getServiceList();
@@ -79,7 +80,7 @@ function EventAddServices() {
 			 <i className="icon-back-arrow mr-4 text-2xl"></i>
 			 <h1>{displayName}</h1>
 		   </div>
-		   <button onClick={()=>setIsAddServicesPopUpOpen(true)} className="btn-primary flex items-center"><i className="icon-plus mr-3"></i><span>{eventType === "places" ? "Add Service" : "Add Equipment"}</span></button>
+		   <button onClick={()=>setIsAddServicesPopUpOpen(true)} className="btn-primary flex items-center"><i className="icon-plus mr-3"></i><span>{eventType === "have_you_places" ? "Add Service" : "Add Item"}</span></button>
 		 </div>
 		  {/* <!-- step-progress-bar  --> */}
 		 <StepProgressBar eventType={eventType}/>
@@ -103,7 +104,7 @@ function EventAddServices() {
 	   </div>
 	 </div>
 	 <Modal isOpen={isAddServicesPopUpOpen}>
-		<EventPopUpAddService handleClose={setIsAddServicesPopUpOpen} setReload={setReload} edit={false} />
+		<EventPopUpAddService isItem={eventType === "have_you_places" ? false:true} handleClose={setIsAddServicesPopUpOpen} setReload={setReload} edit={false} />
 	 </Modal>
 	 <ToastContainer
 			  position="bottom-right"
