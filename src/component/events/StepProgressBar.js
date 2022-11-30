@@ -15,7 +15,7 @@ function StepProgressBar({eventType}) {
     return (
         <div className="w-full overflow-hidden">
             <ul className="flex justify-between step-progress-holder">
-                {eventType === "have_you_places" && placesProgressBarList.map((element, index) => (
+                {eventType === "hyp" && placesProgressBarList.map((element, index) => (
                     <li className={count>=(index+1) ? "active" : ""} key={index}>
                         <div>
                             <span className={count>=(index+1) ? "active" : ""}>{index+1}</span>
@@ -24,7 +24,7 @@ function StepProgressBar({eventType}) {
                     </li>
                 ))}
 
-                {eventType === "personal_skills" && personalSkillProgressVBarList.map((element, index) => (
+                {eventType === "psb" && personalSkillProgressVBarList.map((element, index) => (
                     <li className={count>=(index+1) ? "active" : ""} key={index}>
                         <div>
                             <span className={count>=(index+1) ? "active" : ""}>{index+1}</span>
@@ -33,7 +33,7 @@ function StepProgressBar({eventType}) {
                     </li>
                 ))}
                 
-                {eventType === "group_skills" && groupSkillProgressBarList.map((element, index) => (
+                {eventType === "gsb" && groupSkillProgressBarList.map((element, index) => (
                     <li className={count>=(index+1) ? "active" : ""} key={index}>
                         <div>
                             <span className={count>=(index+1) ? "active" : ""}>{index+1}</span>

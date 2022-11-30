@@ -10,6 +10,7 @@ import { useDispatch } from 'react-redux';
 import { reset } from '../../redux/stepProgressCount';
 import { MoonLoader } from 'react-spinners';
 import Paggination from '../Paggination';
+import { getEventType } from '../../shared/helper';
 
 function DashboardEvent() {
 	const params = useParams();
@@ -20,7 +21,7 @@ function DashboardEvent() {
 	const [category, setCategory] = useState([]);
 	const [pageNo, setPageNo] = useState(1);
 	const token = localStorage.getItem("Token");
-	const eventType = params.eventType;
+	const eventType = getEventType(params.eventType);
 	const limit = 3;
 	const header = {
 		'Authorization': `Token ${token}`

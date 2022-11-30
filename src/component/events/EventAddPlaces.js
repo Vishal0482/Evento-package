@@ -14,7 +14,7 @@ function EventAddPlaces() {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const params = useParams();
-	const eventId = params.eventId;
+	// const eventId = params.eventId;
 	const eventType = params.eventType;
 	// const placeId = params.placeId;
 	// console.log(eventType);
@@ -22,6 +22,7 @@ function EventAddPlaces() {
 	const [categoryName, setCategoryName] = useState("");
 	// console.log("new event", newEvent);
 	const token = localStorage.getItem("Token");
+	const eventId = localStorage.getItem("eventId");
 	const header = {
 		'Authorization': `Token ${token}`
 	}
@@ -47,8 +48,8 @@ function EventAddPlaces() {
 	const clickNextHandler = () => {
 		toast.success("Data Saved Successfully.");
 		dispatch(increment());
-		if(eventType === "places" ) navigate(`../aboutplace`);
-		else navigate(`..${eventId}/personaldetails/`);
+		if(eventType === "hyp" ) navigate(`../aboutplace`);
+		else navigate(`../personaldetails/`);
 	};
 
 	const clickBackHander = () => {

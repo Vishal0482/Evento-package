@@ -7,6 +7,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { increment } from '../../../redux/stepProgressCount.js';
 import { toast } from 'react-toastify';
+import { getEventType } from '../../../shared/helper.js';
+import { WindowScrollController } from '@fullcalendar/core/internal.js';
 
 function EventPopUpCreateNew({ handleClose, selectedCategory, displayName, edit, eventId }) {
 
@@ -17,7 +19,7 @@ function EventPopUpCreateNew({ handleClose, selectedCategory, displayName, edit,
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const params = useParams();
-	const eventType = params.eventType;
+	const eventType = getEventType(params.eventType);
 
 	const token = localStorage.getItem("Token");;
 	const header = {
@@ -65,6 +67,8 @@ function EventPopUpCreateNew({ handleClose, selectedCategory, displayName, edit,
 					dispatch(increment());
 					navigate(`${response.data.Data._id}/addplaces`);
 				}
+				// temporary fix for page reload
+				window.location.reload();
 			} else {
 				toast.error(response.data.Message);
 				handleClose(false);
