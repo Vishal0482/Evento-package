@@ -17,7 +17,7 @@ function EventAboutPlace() {
 	const [price, setPrice] = useState("");
 	const [priceType, setPriceType] = useState("per_hour");
 	const [about, setAbout] = useState("");
-	const eventId = params.eventId;	
+	const eventId = localStorage.getItem("eventId");	
 	const eventType = params.eventType;	
 	const token = localStorage.getItem("Token");
 	const header = {

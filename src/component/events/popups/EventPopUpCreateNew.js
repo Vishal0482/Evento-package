@@ -65,7 +65,7 @@ function EventPopUpCreateNew({ handleClose, selectedCategory, displayName, edit,
 				handleClose(false);
 				if(!edit) {
 					dispatch(increment());
-					navigate(`${response.data.Data._id}/addplaces`);
+					navigate(`../addplaces`);
 				}
 				// temporary fix for page reload
 				window.location.reload();

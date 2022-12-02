@@ -16,7 +16,7 @@ function EventPersonalDetails() {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const eventType = params.eventType;
-	const eventId = params.eventId;	
+	const eventId = localStorage.getItem("eventId");
 	const displayName = localStorage.getItem("displayName");
 	const token = localStorage.getItem("Token");
 	const header = {
@@ -177,7 +177,7 @@ function EventPersonalDetails() {
                       </div>
                       <div className="w-full md:w-1/3 px-2 inputHolder">
                           <span className="input-titel">Area Name.</span>
-                          <input type="text" className="input" name='area' value={formik.values?.area} onChange={(e) => setInputValue("area", e.target.value)} required/>
+                          <input type="text" className="input" name='area' value={formik.values?.area} onChange={(e) => setInputValue("area", e.target.value)}/>
 						  <small className="text-red-500 text-xs">{formik.errors.area}</small>
 						  <br/>
                       </div>

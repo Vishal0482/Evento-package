@@ -38,7 +38,7 @@ function DashboardEventCategoryItem({data}) {
 			  <i className="icon-right"></i>
 			  </label>
 			</div>
-			<Link to={`../../event-view/${data?._id}`} className="w-full p-4 pr-7 bg-white rounded">
+			<Link to={`../../event-view`} className="w-full p-4 pr-7 bg-white rounded">
 			  <div className="flex space-x-5">
 			  <div className="max-w-xs h-[200px] w-full">
 				{/* {data?.place_event[0]?.place_banner && <img className="object-cover w-full h-full" src={baseUrl+"/api"+data?.place_event[0]?.place_banner || bannerPreview} />} */}

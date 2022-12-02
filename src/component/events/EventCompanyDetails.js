@@ -16,7 +16,7 @@ function EventCompanyDetails() {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const eventType = params.eventType;
-	const eventId = params.eventId;	
+	const eventId = localStorage.getItem("eventId");	
 	const displayName = localStorage.getItem("displayName");
 	const token = localStorage.getItem("Token");
 	const [gstFile, setGstFile] = useState(null);

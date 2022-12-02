@@ -16,7 +16,7 @@ function EventCapacity() {
 	const dispatch = useDispatch();
   const params = useParams();
   const eventType = params.eventType;
-  const eventId = params.eventId;
+  const eventId = localStorage.getItem("eventId");
   const token = localStorage.getItem("Token");
 	const header = {
 		'Authorization': `Token ${token}`
