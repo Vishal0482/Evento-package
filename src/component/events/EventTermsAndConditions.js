@@ -23,7 +23,7 @@ function EventTermsAndConditions() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const params = useParams();
-  const eventId = params.eventId;
+  const eventId = localStorage.getItem("eventId");
   const eventType = params.eventType;
 
   const token = localStorage.getItem("Token");

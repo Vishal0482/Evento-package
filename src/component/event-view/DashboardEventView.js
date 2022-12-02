@@ -25,7 +25,7 @@ function DashboardEventView() {
 	}
 	const getEventById = async () => {
 		try {
-			const response = await axios.get(`${baseUrl}/api/events_get_list/${eventId}`, { headers: header });
+			const response = await axios.get(`${baseUrl}/api/events_get_list`, { headers: header });
 			console.log("get event by id >> ", response.data.data);
 			setEvent(response.data.data[0]);
 			setCapacity(response.data.data[0].capacity[0]);

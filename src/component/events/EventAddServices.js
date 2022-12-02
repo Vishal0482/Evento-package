@@ -10,13 +10,14 @@ import { useDispatch } from 'react-redux';
 import { decrement, increment } from '../../redux/stepProgressCount';
 import { toast, ToastContainer } from 'react-toastify';
 import { MoonLoader } from 'react-spinners';
+import { getEventType } from '../../shared/helper';
 
 function EventAddServices() {
 	const displayName = localStorage.getItem("displayName");
 	const navigate = useNavigate();
 	const params = useParams();
-	const eventType = params.eventType;
-	const eventId = params.eventId;
+	const eventType = getEventType(params.eventType)
+	const eventId = localStorage.getItem("eventId");
 	const dispatch = useDispatch();
 	const [isAddServicesPopUpOpen, setIsAddServicesPopUpOpen] = useState(false);
 	const [serviceList, setServiceList] = useState([]);
@@ -61,7 +62,7 @@ function EventAddServices() {
 	const clickNextHandler = () => {
 		toast.success("Services saved Successfully.");
 		dispatch(increment());
-		if(eventType === "places") navigate(`../capacity`);
+		if(eventType === "hyp") navigate(`../capacity`);
 		else navigate(`../othercost`);
 	};
 
@@ -80,7 +81,7 @@ function EventAddServices() {
 			 <i className="icon-back-arrow mr-4 text-2xl"></i>
 			 <h1>{displayName}</h1>
 		   </div>
-		   <button onClick={()=>setIsAddServicesPopUpOpen(true)} className="btn-primary flex items-center"><i className="icon-plus mr-3"></i><span>{eventType === "have_you_places" ? "Add Service" : "Add Item"}</span></button>
+		   <button onClick={()=>setIsAddServicesPopUpOpen(true)} className="btn-primary flex items-center"><i className="icon-plus mr-3"></i><span>{eventType === "hyp" ? "Add Service" : "Add Item"}</span></button>
 		 </div>
 		  {/* <!-- step-progress-bar  --> */}
 		 <StepProgressBar eventType={eventType}/>

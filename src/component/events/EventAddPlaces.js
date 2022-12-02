@@ -29,7 +29,7 @@ function EventAddPlaces() {
 	const getAddedEvent = async() => {
 		try {
 			const response = await axios.get(`${baseUrl}/organizer/events?eventid=${eventId}`,{headers: header});
-			// console.log("New created event >> ", response.data.data);
+			// console.log("New created event >> ", response.data.data._id);
 			if(!response.data.IsSuccess) {
 				toast.error("Error occured while fetching data.")
 			}
